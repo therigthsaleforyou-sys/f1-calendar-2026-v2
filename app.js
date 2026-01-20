@@ -5,7 +5,7 @@ const nextRaceEl = document.getElementById("next-race");
 const calendarEl = document.getElementById("calendar");
 
 /*************************
- * DADOS
+ * DADOS 2026
  *************************/
 const races2026 = [
   {
@@ -38,34 +38,61 @@ function formatDate(dateString) {
 }
 
 /*************************
- * PRÓXIMA CORRIDA
+ * PÁGINA PRINCIPAL
  *************************/
-const nextRace = races2026[0];
+if (nextRaceEl) {
+  const nextRace = races2026[0];
 
-nextRaceEl.innerHTML = `
-  <h3>${nextRace.name}</h3>
-  <p><strong>Circuit:</strong> ${nextRace.circuit}</p>
-  <p><strong>Data:</strong> ${formatDate(nextRace.date)}</p>
-`;
+  nextRaceEl.innerHTML = `
+    <h3>${nextRace.name}</h3>
+    <p><strong>Circuit:</strong> ${nextRace.circuit}</p>
+    <p><strong>Data:</strong> ${formatDate(nextRace.date)}</p>
+  `;
+}
+
+if (calendarEl) {
+  calendarEl.innerHTML = "<h2>Calendário 2026</h2>";
+
+  races2026.forEach(race => {
+    const link = document.createElement("a");
+    link.href = `race.html?race=${race.slug}`;
+    link.style.display = "block";
+    link.style.padding = "10px";
+    link.style.borderBottom = "1px solid #ccc";
+    link.style.textDecoration = "none";
+    link.style.color = "inherit";
+
+    link.innerHTML = `
+      <strong>${race.name}</strong><br/>
+      <small>${race.circuit} — ${formatDate(race.date)}</small>
+    `;
+
+    calendarEl.appendChild(link);
+  });
+}
 
 /*************************
- * CALENDÁRIO 2026
+ * PÁGINA race.html
  *************************/
-calendarEl.innerHTML = "<h2>Calendário 2026</h2>";
+const params = new URLSearchParams(window.location.search);
+const raceSlug = params.get("race");
 
-races2026.forEach(race => {
-  const link = document.createElement("a");
-  link.href = `race.html?race=${race.slug}`;
-  link.style.display = "block";
-  link.style.padding = "10px";
-  link.style.borderBottom = "1px solid #ccc";
-  link.style.textDecoration = "none";
-  link.style.color = "inherit";
+if (raceSlug) {
+  const race = races2026.find(r => r.slug === raceSlug);
 
-  link.innerHTML = `
-    <strong>${race.name}</strong><br/>
-    <small>${race.circuit} — ${formatDate(race.date)}</small>
-  `;
+  const titleEl = document.getElementById("race-title");
+  const contentEl = document.getElementById("race-content");
 
-  calendarEl.appendChild(link);
-});
+  if (race && titleEl && contentEl) {
+    titleEl.textContent = race.name;
+
+    contentEl.innerHTML = `
+      <p><strong>Circuit:</strong> ${race.circuit}</p>
+      <p><strong>Data:</strong> ${formatDate(race.date)}</p>
+
+      <p style="margin-top:20px;">
+        Mais detalhes da corrida serão adicionados aqui.
+      </p>
+    `;
+  }
+}
