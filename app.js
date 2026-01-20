@@ -55,6 +55,7 @@ races2026.forEach(race => {
   link.style.color = "inherit";
 
   listContainer.appendChild(link);
+  document.body.appendChild(listContainer);
 });
 
-document.body.appendChild(listContainer);
+
