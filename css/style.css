@@ -1,1 +1,64 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0b0b;
+  color: white;
+}
 
+header {
+  background: #e10600;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+header p {
+  margin: 5px 0 0;
+  color: #ffd700;
+}
+
+#countdown {
+  background: black;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #e10600;
+}
+
+#timer {
+  font-size: 22px;
+  margin-top: 10px;
+  color: #ffd700;
+}
+
+#races {
+  padding: 20px;
+}
+
+.race {
+  background: #151515;
+  border-left: 5px solid #e10600;
+  margin-bottom: 15px;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.race:hover {
+  background: #1f1f1f;
+}
+
+.race h3 {
+  margin: 0;
+  color: #ffd700;
+}
+
+footer {
+  background: black;
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  color: #aaa;
+}
