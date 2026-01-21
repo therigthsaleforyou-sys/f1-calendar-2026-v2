@@ -7,7 +7,7 @@ const races2026 = [
     name: "Grande Prémio da Austrália",
     circuit: "Albert Park",
     imageHero: "assets/australia.jpg",
-    imageMap: "", // ainda não existe mapa 2D
+    imageMap: "",
     track: {
       length: "5.278 km",
       laps: 58,
@@ -47,10 +47,10 @@ const races2026 = [
 ];
 
 // ===============================
-// FUNÇÕES
+// FUNÇÕES AUXILIARES
 // ===============================
-function countdown(target) {
-  const diff = target - new Date();
+function countdown(targetDate) {
+  const diff = targetDate - new Date();
   if (diff <= 0) return "A decorrer";
 
   const d = Math.floor(diff / 86400000);
@@ -61,7 +61,7 @@ function countdown(target) {
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
-function nextSessionFromRace(race) {
+function getNextSession(race) {
   const now = new Date();
   return Object.entries(race.sessions)
     .map(([type, date]) => ({ type, date: new Date(date) }))
@@ -78,17 +78,18 @@ function updateHome() {
   let next = null;
 
   races2026.forEach(race => {
-    const s = nextSessionFromRace(race);
-    if (s && (!next || s.date < next.date)) {
-      next = { ...s, race };
+    const session = getNextSession(race);
+    if (session && (!next || session.date < next.session.date)) {
+      next = { race, session };
     }
   });
 
   if (nextRaceEl && next) {
     nextRaceEl.innerHTML = `
-      <strong>${next.type.toUpperCase()}</strong><br>
+      <strong>Próxima Sessão</strong><br>
       ${next.race.name}<br>
-      <small>${countdown(next.date)}</small>
+      ${next.session.type.toUpperCase()}<br>
+      <small>${countdown(next.session.date)}</small>
     `;
   }
 }
@@ -104,7 +105,40 @@ const slug = params.get("race");
 
 if (slug) {
   const race = races2026.find(r => r.slug === slug);
-  const title = document.getElementById("race-title");
-  const content = document.getElementById("race-content");
+  const titleEl = document.getElementById("race-title");
+  const contentEl = document.getElementById("race-content");
 
-  if (race
+  if (race && titleEl && contentEl) {
+    const nextSession = getNextSession(race);
+
+    titleEl.textContent = race.name;
+
+    contentEl.innerHTML = `
+      <img src="${race.imageHero}" alt="${race.name}" class="race-hero">
+
+      <h2>Próxima Sessão</h2>
+      <p>${nextSession.type.toUpperCase()} – ${countdown(nextSession.date)}</p>
+
+      <h2>Ficha Técnica</h2>
+      <ul>
+        <li>Extensão: ${race.track.length}</li>
+        <li>Voltas: ${race.track.laps}</li>
+        <li>Distância: ${race.track.raceDistance}</li>
+        <li>Curvas: ${race.track.corners}</li>
+        <li>Zonas DRS: ${race.track.drsZones}</li>
+      </ul>
+
+      ${race.imageMap ? `
+        <h2>Mapa da Pista</h2>
+        <img src="${race.imageMap}" alt="Mapa da pista">
+      ` : ""}
+    `;
+
+    setInterval(() => {
+      const p = contentEl.querySelector("p");
+      if (p) {
+        p.innerHTML = `${nextSession.type.toUpperCase()} – ${countdown(nextSession.date)}`;
+      }
+    }, 1000);
+  }
+}
