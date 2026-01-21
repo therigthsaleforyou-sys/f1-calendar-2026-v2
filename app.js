@@ -1,5 +1,5 @@
 /* =========================
-   DADOS DAS CORRIDAS 2026
+   CORRIDAS 2026
 ========================= */
 
 const races2026 = [
@@ -22,37 +22,35 @@ const races2026 = [
       raceDistance: "306.124 km",
       corners: 14,
       drsZones: 4
-    },
-    stats2025: {
-      weather: "Ensolarado, 22°C",
-      poleTime: "1:15.915",
-      podium: [
-        "1º Max Verstappen",
-        "2º Charles Leclerc",
-        "3º Lando Norris"
-      ],
-      fastestLap: "1:19.813",
-      raceTime: "1h 24m 05s",
-      summary:
-        "Corrida marcada por estratégia agressiva e safety car tardio. Verstappen controlou desde a pole."
     }
+  }
+];
+
+/* =========================
+   EQUIPAS 2026
+========================= */
+
+const teams2026 = [
+  {
+    name: "Red Bull Racing",
+    logo: "assets/redbull.png",
+    drivers: ["Max Verstappen", "Sergio Pérez"]
+  },
+  {
+    name: "Ferrari",
+    logo: "assets/ferrari.png",
+    drivers: ["Charles Leclerc", "Carlos Sainz"]
+  },
+  {
+    name: "Mercedes",
+    logo: "assets/mercedes.png",
+    drivers: ["George Russell", "Lewis Hamilton"]
   }
 ];
 
 /* =========================
    FUNÇÕES
 ========================= */
-
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleString("pt-PT", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
 
 function getNextSession(race) {
   const now = new Date();
@@ -62,18 +60,18 @@ function getNextSession(race) {
     .sort((a, b) => a.date - b.date)[0];
 }
 
-function startCountdown(element, targetDate) {
+function startCountdown(el, targetDate) {
   function update() {
     const diff = targetDate - new Date();
     if (diff <= 0) {
-      element.textContent = "Sessão em andamento";
+      el.textContent = "Sessão em andamento";
       return;
     }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-    element.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
   update();
   setInterval(update, 1000);
@@ -92,8 +90,12 @@ if (nextRaceEl) {
   nextRaceEl.innerHTML = `
     <div class="card">
       <div class="card-title">${race.name}</div>
-      <div class="next-session">${nextSession.name.toUpperCase()}</div>
+      <div class="next-session">${nextSession.name}</div>
       <div id="home-countdown" class="countdown"></div>
+      <br>
+      <a href="race.html?race=${race.slug}">Ver detalhes</a>
+      <br><br>
+      <a href="teams.html">Ver Equipas</a>
     </div>
   `;
 
@@ -104,58 +106,27 @@ if (nextRaceEl) {
 }
 
 /* =========================
-   RACE PAGE
+   PÁGINA EQUIPAS
 ========================= */
 
-const params = new URLSearchParams(window.location.search);
-const raceSlug = params.get("race");
+const teamsEl = document.getElementById("teams-content");
 
-if (raceSlug) {
-  const race = races2026.find(r => r.slug === raceSlug);
-  const titleEl = document.getElementById("race-title");
-  const contentEl = document.getElementById("race-content");
+if (teamsEl) {
+  teamsEl.innerHTML = "";
 
-  if (race && titleEl && contentEl) {
-    const nextSession = getNextSession(race);
-    const s = race.stats2025;
+  teams2026.forEach(team => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-    titleEl.textContent = race.name;
-
-    contentEl.innerHTML = `
-      <img src="${race.image}" alt="${race.circuit}">
-
-      <div class="card">
-        <h2>Próxima Sessão</h2>
-        <p><strong>${nextSession.name}</strong></p>
-        <div id="race-countdown" class="countdown"></div>
-      </div>
-
-      <div class="card">
-        <h2>Ficha Técnica</h2>
-        <ul>
-          <li>Extensão: ${race.track.length}</li>
-          <li>Voltas: ${race.track.laps}</li>
-          <li>Distância: ${race.track.raceDistance}</li>
-          <li>Curvas: ${race.track.corners}</li>
-          <li>Zonas DRS: ${race.track.drsZones}</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Dados da Corrida 2025</h2>
-        <p><strong>Meteorologia:</strong> ${s.weather}</p>
-        <p><strong>Pole:</strong> ${s.poleTime}</p>
-        <p><strong>Melhor volta:</strong> ${s.fastestLap}</p>
-        <p><strong>Tempo de corrida:</strong> ${s.raceTime}</p>
-        <p><strong>Pódio:</strong></p>
-        <ul>${s.podium.map(p => `<li>${p}</li>`).join("")}</ul>
-        <p><strong>Resumo:</strong> ${s.summary}</p>
-      </div>
+    card.innerHTML = `
+      <img src="${team.logo}" alt="${team.name}" style="max-width:120px">
+      <h2>${team.name}</h2>
+      <p><strong>Pilotos:</strong></p>
+      <ul>
+        ${team.drivers.map(d => `<li>${d}</li>`).join("")}
+      </ul>
     `;
 
-    startCountdown(
-      document.getElementById("race-countdown"),
-      nextSession.date
-    );
-  }
+    teamsEl.appendChild(card);
+  });
 }
