@@ -24,6 +24,19 @@ const races2026 = [
       fp3: "2026-03-07T03:30:00Z",
       quali: "2026-03-07T07:00:00Z",
       race: "2026-03-08T05:00:00Z"
+    },
+    stats2025: {
+      weather: "Sol e 24°C",
+      poleTime: "1:15.915",
+      podium: [
+        "1.º Max Verstappen",
+        "2.º Lando Norris",
+        "3.º Charles Leclerc"
+      ],
+      fastestLap: "1:19.813",
+      raceTime: "1h 31m 12s",
+      highlights:
+        "Corrida marcada por Safety Car e estratégia agressiva nas boxes."
     }
   }
 ];
@@ -77,8 +90,8 @@ if (app) {
   app.innerHTML = `
     <section>
       <h2>Próxima Corrida</h2>
-      <p id="next-race">
-        <strong>${nextRace.name}</strong>
+      <p>
+        <strong>${nextRace.name}</strong><br>
         ${nextSession ? `
           ${nextSession.name}<br>
           <span id="countdown">${countdown(nextSession.time)}</span>
@@ -150,6 +163,23 @@ if (raceSlug) {
           <li>Curvas: ${race.track.corners}</li>
           <li>Zonas DRS: ${race.track.drsZones}</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Dados da Corrida 2025</h2>
+        <ul>
+          <li><strong>Meteorologia:</strong> ${race.stats2025.weather}</li>
+          <li><strong>Pole:</strong> ${race.stats2025.poleTime}</li>
+          <li><strong>Melhor volta:</strong> ${race.stats2025.fastestLap}</li>
+          <li><strong>Tempo da corrida:</strong> ${race.stats2025.raceTime}</li>
+        </ul>
+
+        <p><strong>Pódio:</strong></p>
+        <ol>
+          ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
+        </ol>
+
+        <p><strong>Destaques:</strong> ${race.stats2025.highlights}</p>
       </section>
 
       <section>
