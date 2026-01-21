@@ -1,13 +1,20 @@
 // ===============================
-// DADOS DA ÉPOCA 2026
+// DADOS F1 2026
 // ===============================
 const races2026 = [
   {
     slug: "australia",
     name: "Grande Prémio da Austrália",
     circuit: "Albert Park",
-    date: "2026-03-08T05:00:00",
-    image: "assets/australia.jpg",
+    imageHero: "assets/australia.jpg",
+    imageMap: "assets/australia-map.png",
+    track: {
+      length: "5.278 km",
+      laps: 58,
+      raceDistance: "306.124 km",
+      corners: 14,
+      drsZones: 4
+    },
     sessions: {
       fp1: "2026-03-06T01:30:00",
       fp2: "2026-03-06T05:00:00",
@@ -20,8 +27,15 @@ const races2026 = [
     slug: "bahrain",
     name: "Grande Prémio do Bahrain",
     circuit: "Sakhir",
-    date: "2026-03-15T15:00:00",
-    image: "assets/bahrain.jpg",
+    imageHero: "assets/bahrain.jpg",
+    imageMap: "assets/bahrain-map.png",
+    track: {
+      length: "5.412 km",
+      laps: 57,
+      raceDistance: "308.238 km",
+      corners: 15,
+      drsZones: 3
+    },
     sessions: {
       fp1: "2026-03-13T12:30:00",
       fp2: "2026-03-13T16:00:00",
@@ -33,10 +47,10 @@ const races2026 = [
 ];
 
 // ===============================
-// FUNÇÕES AUXILIARES
+// FUNÇÕES GERAIS
 // ===============================
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleString("pt-PT", {
+function formatDate(date) {
+  return new Date(date).toLocaleString("pt-PT", {
     weekday: "long",
     day: "2-digit",
     month: "long",
@@ -46,116 +60,121 @@ function formatDate(dateString) {
   });
 }
 
-function getCountdown(targetDate) {
-  const diff = new Date(targetDate) - new Date();
-  if (diff <= 0) return "A decorrer ou terminado";
+function getNextSessionFromRace(race) {
+  const now = new Date();
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-  return `${days}d ${hours}h ${minutes}m`;
+  return Object.entries(race.sessions)
+    .map(([type, date]) => ({ type, date: new Date(date) }))
+    .filter(s => s.date > now)
+    .sort((a, b) => a.date - b.date)[0];
 }
 
-// ===============================
-// PRÓXIMA SESSÃO GLOBAL
-// ===============================
-function getNextSession() {
-  const now = new Date();
-  let nextSession = null;
+function getNextGlobalSession() {
+  let next = null;
 
   races2026.forEach(race => {
-    Object.entries(race.sessions).forEach(([type, date]) => {
-      const sessionDate = new Date(date);
-      if (sessionDate > now) {
-        if (!nextSession || sessionDate < new Date(nextSession.date)) {
-          nextSession = {
-            race: race.name,
-            session: type.toUpperCase(),
-            date
-          };
-        }
-      }
-    });
+    const session = getNextSessionFromRace(race);
+    if (!session) return;
+
+    if (!next || session.date < next.date) {
+      next = { ...session, race };
+    }
   });
 
-  return nextSession;
+  return next;
+}
+
+function countdown(targetDate) {
+  const diff = targetDate - new Date();
+  if (diff <= 0) return "A decorrer";
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff / 3600000) % 24);
+  const m = Math.floor((diff / 60000) % 60);
+
+  return `${d}d ${h}h ${m}m`;
 }
 
 // ===============================
 // HOME PAGE
 // ===============================
 const nextRaceEl = document.getElementById("next-race");
-const appEl = document.getElementById("app");
 
-if (nextRaceEl) {
-  const next = getNextSession();
+function updateHomeCountdown() {
+  const next = getNextGlobalSession();
+  if (!next || !nextRaceEl) return;
 
-  if (next) {
-    nextRaceEl.innerHTML = `
-      <strong>${next.session}</strong><br>
-      ${next.race}<br>
-      <small>Começa em: ${getCountdown(next.date)}</small>
-    `;
-  } else {
-    nextRaceEl.textContent = "Época concluída";
-  }
+  nextRaceEl.innerHTML = `
+    <strong>${next.type.toUpperCase()}</strong><br>
+    ${next.race.name}<br>
+    <small>${countdown(next.date)}</small>
+  `;
 }
+
+updateHomeCountdown();
+setInterval(updateHomeCountdown, 60000);
 
 // ===============================
 // LISTA DE CORRIDAS
 // ===============================
+const appEl = document.getElementById("app");
+
 if (appEl) {
-  const listSection = document.createElement("section");
-  listSection.innerHTML = "<h2>Calendário 2026</h2>";
+  const section = document.createElement("section");
+  section.innerHTML = "<h2>Calendário 2026</h2>";
 
   races2026.forEach(race => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <h3>
-        <a href="race.html?race=${race.slug}">
-          ${race.name}
-        </a>
-      </h3>
-      <p>${race.circuit} — ${formatDate(race.date)}</p>
+    section.innerHTML += `
+      <div>
+        <h3><a href="race.html?race=${race.slug}">${race.name}</a></h3>
+        <p>${race.circuit}</p>
+      </div>
     `;
-    listSection.appendChild(div);
   });
 
-  appEl.appendChild(listSection);
+  appEl.appendChild(section);
 }
 
 // ===============================
 // PÁGINA DA CORRIDA
 // ===============================
 const params = new URLSearchParams(window.location.search);
-const raceSlug = params.get("race");
+const slug = params.get("race");
 
-if (raceSlug) {
-  const race = races2026.find(r => r.slug === raceSlug);
+if (slug) {
+  const race = races2026.find(r => r.slug === slug);
+  const title = document.getElementById("race-title");
+  const content = document.getElementById("race-content");
 
-  const titleEl = document.getElementById("race-title");
-  const contentEl = document.getElementById("race-content");
+  if (race && content && title) {
+    title.textContent = race.name;
 
-  if (race && titleEl && contentEl) {
-    titleEl.textContent = race.name;
+    const nextSession = getNextSessionFromRace(race);
 
-    contentEl.innerHTML = `
-      <img src="${race.image}" alt="${race.circuit}" style="width:100%;max-width:700px;margin:20px 0;">
-      <p><strong>Circuit:</strong> ${race.circuit}</p>
-      <p><strong>Data:</strong> ${formatDate(race.date)}</p>
+    function updateRaceCountdown() {
+      document.getElementById("race-countdown").textContent =
+        nextSession ? countdown(nextSession.date) : "Fim de semana concluído";
+    }
+
+    content.innerHTML = `
+      <img src="${race.imageHero}" style="width:100%;margin-bottom:20px">
 
       <h3>Próxima Sessão</h3>
-      <p>${getCountdown(race.sessions.race)}</p>
+      <p id="race-countdown"></p>
 
-      <h3>Sessões</h3>
+      <h3>Ficha Técnica</h3>
       <ul>
-        <li>FP1: ${formatDate(race.sessions.fp1)}</li>
-        <li>FP2: ${formatDate(race.sessions.fp2)}</li>
-        <li>FP3: ${formatDate(race.sessions.fp3)}</li>
-        <li>Qualificação: ${formatDate(race.sessions.qualifying)}</li>
-        <li>Corrida: ${formatDate(race.sessions.race)}</li>
+        <li>Extensão: ${race.track.length}</li>
+        <li>Voltas: ${race.track.laps}</li>
+        <li>Distância: ${race.track.raceDistance}</li>
+        <li>Curvas: ${race.track.corners}</li>
+        <li>Zonas DRS: ${race.track.drsZones}</li>
       </ul>
+
+      <img src="${race.imageMap}" style="width:100%;max-width:500px;margin-top:20px">
     `;
+
+    updateRaceCountdown();
+    setInterval(updateRaceCountdown, 60000);
   }
 }
