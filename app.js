@@ -1,5 +1,5 @@
 /* =========================
-   CORRIDAS 2026
+   DADOS 2026
 ========================= */
 
 const races2026 = [
@@ -27,29 +27,7 @@ const races2026 = [
 ];
 
 /* =========================
-   EQUIPAS 2026
-========================= */
-
-const teams2026 = [
-  {
-    name: "Red Bull Racing",
-    logo: "assets/redbull.png",
-    drivers: ["Max Verstappen", "Sergio Pérez"]
-  },
-  {
-    name: "Ferrari",
-    logo: "assets/ferrari.png",
-    drivers: ["Charles Leclerc", "Carlos Sainz"]
-  },
-  {
-    name: "Mercedes",
-    logo: "assets/mercedes.png",
-    drivers: ["George Russell", "Lewis Hamilton"]
-  }
-];
-
-/* =========================
-   FUNÇÕES GERAIS
+   FUNÇÕES
 ========================= */
 
 function getNextSession(race) {
@@ -64,7 +42,7 @@ function startCountdown(el, targetDate) {
   function update() {
     const diff = targetDate - new Date();
     if (diff <= 0) {
-      el.textContent = "Sessão em andamento";
+      el.textContent = "Sessão em andamento ou concluída";
       return;
     }
     const d = Math.floor(diff / 86400000);
@@ -94,8 +72,6 @@ if (nextRaceEl) {
       <div id="home-countdown" class="countdown"></div>
       <br>
       <a href="race.html?race=${race.slug}">Ver detalhes</a>
-      <br><br>
-      <a href="teams.html">Ver Equipas</a>
     </div>
   `;
 
@@ -114,12 +90,13 @@ const raceContent = document.getElementById("race-content");
 if (raceContent) {
   const params = new URLSearchParams(window.location.search);
   const raceSlug = params.get("race");
-
   const race = races2026.find(r => r.slug === raceSlug);
 
   if (!race) {
     raceContent.textContent = "Corrida não encontrada.";
   } else {
+    const now = new Date();
+    const raceDate = new Date(race.sessions.race);
     const nextSession = getNextSession(race);
 
     document.getElementById("race-title").textContent = race.name;
@@ -127,18 +104,30 @@ if (raceContent) {
     raceContent.innerHTML = `
       <img src="${race.image}" style="width:100%;border-radius:12px">
 
-      <h2>Próxima Sessão</h2>
-      <p><strong>${nextSession.name}</strong></p>
-      <div id="race-countdown" class="countdown"></div>
+      <section id="print-area">
+        <h2>${race.name}</h2>
 
-      <h2>Ficha Técnica</h2>
-      <ul>
-        <li><strong>Extensão:</strong> ${race.track.length}</li>
-        <li><strong>Voltas:</strong> ${race.track.laps}</li>
-        <li><strong>Distância:</strong> ${race.track.raceDistance}</li>
-        <li><strong>Curvas:</strong> ${race.track.corners}</li>
-        <li><strong>Zonas DRS:</strong> ${race.track.drsZones}</li>
-      </ul>
+        <h3>Próxima Sessão</h3>
+        <p><strong>${nextSession.name}</strong></p>
+        <div id="race-countdown" class="countdown"></div>
+
+        <h3>Ficha Técnica</h3>
+        <ul>
+          <li>Extensão: ${race.track.length}</li>
+          <li>Voltas: ${race.track.laps}</li>
+          <li>Distância: ${race.track.raceDistance}</li>
+          <li>Curvas: ${race.track.corners}</li>
+          <li>Zonas DRS: ${race.track.drsZones}</li>
+        </ul>
+      </section>
+
+      <div style="margin-top:20px">
+        ${
+          now > raceDate
+            ? `<button onclick="window.print()">🖨️ Imprimir dados da corrida</button>`
+            : `<p><em>Impressão disponível assim que possível</em></p>`
+        }
+      </div>
     `;
 
     startCountdown(
@@ -146,29 +135,4 @@ if (raceContent) {
       nextSession.date
     );
   }
-}
-
-/* =========================
-   PÁGINA EQUIPAS
-========================= */
-
-const teamsEl = document.getElementById("teams-content");
-
-if (teamsEl) {
-  teamsEl.innerHTML = "";
-
-  teams2026.forEach(team => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${team.logo}" alt="${team.name}" style="max-width:120px">
-      <h2>${team.name}</h2>
-      <ul>
-        ${team.drivers.map(d => `<li>${d}</li>`).join("")}
-      </ul>
-    `;
-
-    teamsEl.appendChild(card);
-  });
 }
