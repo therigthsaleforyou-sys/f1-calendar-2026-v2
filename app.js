@@ -1,36 +1,35 @@
-/***********************
- * DADOS BASE – 2026
- ***********************/
+/*************************
+ * DADOS DAS CORRIDAS
+ *************************/
 const races2026 = [
   {
     slug: "australia",
     name: "Grande Prémio da Austrália",
     circuit: "Albert Park",
-    date: "2026-03-08T05:00:00Z",
     image: "assets/australia.jpg",
-    trackMap: "assets/australia-2d.png",
+    trackMap: "assets/australia-2d.jpg",
+    sessions: {
+      fp1: "2026-03-06T02:30:00Z",
+      fp2: "2026-03-06T06:00:00Z",
+      fp3: "2026-03-07T02:30:00Z",
+      quali: "2026-03-07T06:00:00Z",
+      race: "2026-03-08T05:00:00Z"
+    },
     track: {
       length: "5.278 km",
       laps: 58,
-      raceDistance: "306.124 km",
+      distance: "306.124 km",
       corners: 14,
-      drsZones: 4
-    },
-    sessions: {
-      fp1: "2026-03-06T01:30:00Z",
-      fp2: "2026-03-06T05:00:00Z",
-      fp3: "2026-03-07T01:30:00Z",
-      quali: "2026-03-07T05:00:00Z",
-      race: "2026-03-08T05:00:00Z"
+      drs: 4
     }
   }
 ];
 
-/***********************
- * FUNÇÕES AUXILIARES
- ***********************/
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleString("pt-PT", {
+/*************************
+ * FUNÇÕES BASE
+ *************************/
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleString("pt-PT", {
     weekday: "long",
     day: "2-digit",
     month: "long",
@@ -42,19 +41,25 @@ function formatDate(dateString) {
 
 function getNextSession(race) {
   const now = new Date();
-  const entries = Object.entries(race.sessions)
-    .map(([key, value]) => ({ name: key.toUpperCase(), date: new Date(value) }))
-    .filter(s => s.date > now)
-    .sort((a, b) => a.date - b.date);
 
-  return entries[0] || null;
+  const sessions = [
+    { name: "FP1", date: new Date(race.sessions.fp1) },
+    { name: "FP2", date: new Date(race.sessions.fp2) },
+    { name: "FP3", date: new Date(race.sessions.fp3) },
+    { name: "Qualifying", date: new Date(race.sessions.quali) },
+    { name: "Race", date: new Date(race.sessions.race) }
+  ];
+
+  return sessions.find(s => s.date > now);
 }
 
-function startCountdown(targetDate, element) {
+function startCountdown(element, targetDate, label) {
   function update() {
-    const diff = targetDate - new Date();
+    const now = new Date();
+    const diff = targetDate - now;
+
     if (diff <= 0) {
-      element.textContent = "Sessão em curso ou terminada";
+      element.innerHTML = `<strong>${label}</strong><br>Sessão em curso`;
       return;
     }
 
@@ -63,17 +68,21 @@ function startCountdown(targetDate, element) {
     const m = Math.floor((diff / (1000 * 60)) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
-    element.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    element.innerHTML = `
+      <strong>${label}</strong>
+      <div class="countdown">${d}d ${h}h ${m}m ${s}s</div>
+    `;
   }
 
   update();
   setInterval(update, 1000);
 }
 
-/***********************
+/*************************
  * HOME PAGE
- ***********************/
+ *************************/
 const nextRaceEl = document.getElementById("next-race");
+const calendarListEl = document.getElementById("calendar-list");
 
 if (nextRaceEl) {
   const race = races2026[0];
@@ -81,55 +90,65 @@ if (nextRaceEl) {
 
   if (nextSession) {
     nextRaceEl.innerHTML = `
-      <strong>${race.name}</strong><br>
-      ${nextSession.name}<br>
-      <span id="home-countdown"></span>
+      <div class="card-title">${race.name}</div>
+      <div class="next-session">${nextSession.name}</div>
     `;
-    startCountdown(nextSession.date, document.getElementById("home-countdown"));
+
+    startCountdown(nextRaceEl, nextSession.date, nextSession.name);
   }
 }
 
-/***********************
- * PÁGINA DA CORRIDA
- ***********************/
+if (calendarListEl) {
+  races2026.forEach(race => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <a href="race.html?race=${race.slug}">
+        <div class="card-title">${race.name}</div>
+        <div class="next-session">${race.circuit}</div>
+        <div>${formatDate(race.sessions.race)}</div>
+      </a>
+    `;
+
+    calendarListEl.appendChild(div);
+  });
+}
+
+/*************************
+ * RACE PAGE
+ *************************/
 const params = new URLSearchParams(window.location.search);
 const raceSlug = params.get("race");
 
 if (raceSlug) {
   const race = races2026.find(r => r.slug === raceSlug);
-  const titleEl = document.getElementById("race-title");
-  const contentEl = document.getElementById("race-content");
 
-  if (race && titleEl && contentEl) {
-    titleEl.textContent = race.name;
+  const content = document.getElementById("race-content");
+  const title = document.getElementById("race-title");
+
+  if (race && content && title) {
+    title.textContent = race.name;
 
     const nextSession = getNextSession(race);
 
-    contentEl.innerHTML = `
-      <img src="${race.image}" style="width:100%;max-height:300px;object-fit:cover">
-
+    content.innerHTML = `
       <h2>Próxima Sessão</h2>
-      <p>${nextSession ? nextSession.name : "Todas concluídas"}</p>
-      <p id="race-countdown"></p>
+      <div id="race-countdown"></div>
 
       <h2>Ficha Técnica</h2>
       <ul>
         <li>Extensão: ${race.track.length}</li>
         <li>Voltas: ${race.track.laps}</li>
-        <li>Distância: ${race.track.raceDistance}</li>
+        <li>Distância: ${race.track.distance}</li>
         <li>Curvas: ${race.track.corners}</li>
-        <li>Zonas DRS: ${race.track.drsZones}</li>
+        <li>Zonas DRS: ${race.track.drs}</li>
       </ul>
-
-      <h2>Mapa da Pista</h2>
-      <img src="${race.trackMap}" style="width:100%;max-width:400px">
     `;
 
     if (nextSession) {
-      startCountdown(
-        nextSession.date,
-        document.getElementById("race-countdown")
-      );
+      const cd = document.getElementById("race-countdown");
+      startCountdown(cd, nextSession.date, nextSession.name);
     }
   }
 }
