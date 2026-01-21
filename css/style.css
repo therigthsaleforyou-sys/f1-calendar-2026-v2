@@ -1,6 +1,15 @@
-  /* =========================
-   RESET & BASE
-========================= */
+/* ==============================
+   F1 2026 – Visual Base
+   ============================== */
+
+:root {
+  --red: #e10600;
+  --black: #0b0b0b;
+  --dark: #151515;
+  --white: #ffffff;
+  --yellow: #ffd100;
+  --gray: #cfcfcf;
+}
 
 * {
   box-sizing: border-box;
@@ -9,165 +18,159 @@
 }
 
 body {
-  background: #0b0b0b;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.6;
 }
 
+/* ==============================
+   HEADER
+   ============================== */
+
+header {
+  background: linear-gradient(90deg, var(--red), #b30000);
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+header p {
+  color: var(--white);
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+/* ==============================
+   MAIN
+   ============================== */
+
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ==============================
+   SECTIONS / CARDS
+   ============================== */
+
+section {
+  background: var(--dark);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--red);
+}
+
+section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: var(--yellow);
+}
+
+/* ==============================
+   NEXT RACE
+   ============================== */
+
+#next-race {
+  font-size: 1.05rem;
+}
+
+#next-race strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#next-race span {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: bold;
+  background: var(--black);
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: var(--yellow);
+}
+
+/* ==============================
+   LISTAS
+   ============================== */
+
+ul {
+  list-style: none;
+  margin-top: 10px;
+}
+
+li {
+  padding: 6px 0;
+  border-bottom: 1px solid #222;
+  color: var(--gray);
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+/* ==============================
+   BOTÕES
+   ============================== */
+
+button {
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #aaa;
+  background: #050505;
+}
+
+/* ==============================
+   LINKS
+   ============================== */
+
 a {
-  color: #e10600;
+  color: var(--yellow);
   text-decoration: none;
-  font-weight: 600;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-/* =========================
-   HEADER & FOOTER
-========================= */
+/* ==============================
+   RESPONSIVO
+   ============================== */
 
-header {
-  padding: 16px;
-  border-bottom: 1px solid #222;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-header h1 {
-  font-size: 20px;
-}
-
-header button {
-  background: none;
-  border: none;
-  color: #e10600;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-footer {
-  padding: 16px;
-  text-align: center;
-  font-size: 13px;
-  color: #888;
-  border-top: 1px solid #222;
-  margin-top: 40px;
-}
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-main {
-  padding: 16px;
-}
-
-h2 {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-h3 {
-  font-size: 16px;
-  margin: 16px 0 8px;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.card {
-  background: #141414;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-}
-
-.card p {
-  margin: 6px 0;
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-.countdown {
-  font-size: 18px;
-  font-weight: 700;
-  margin-top: 6px;
-  color: #00ff9c;
-}
-
-/* =========================
-   BOTÕES
-========================= */
-
-button {
-  background: #e10600;
-  border: none;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 30px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* =========================
-   LISTAS (FICHA TÉCNICA)
-========================= */
-
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-ul li {
-  padding: 6px 0;
-  border-bottom: 1px solid #222;
-  font-size: 14px;
-}
-
-/* =========================
-   IMAGENS
-========================= */
-
-img {
-  max-width: 100%;
-  display: block;
-  margin-bottom: 16px;
-}
-
-/* =========================
-   IMPRESSÃO
-========================= */
-
-@media print {
-  body * {
-    display: none;
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.6rem;
   }
 
-  #print-area,
-  #print-area * {
-    display: block;
-    color: #000;
-  }
-
-  body {
-    background: #fff;
-  }
-
-  #print-area {
-    padding: 20px;
-    font-size: 14px;
+  section {
+    padding: 16px;
   }
 }
