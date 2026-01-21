@@ -62,6 +62,7 @@ function countdown(targetDate) {
 /* ---------- HOME ---------- */
 
 const app = document.getElementById("app");
+
 if (app) {
   const race = races2026[0];
   const next = getNextSession(race);
@@ -69,15 +70,28 @@ if (app) {
   app.innerHTML = `
     <section>
       <h2>Próxima Corrida</h2>
-      <strong>${race.name}</strong><br>
-      ${next ? `${next.name}<br><span id="cd">${countdown(next.time)}</span>` : ""}
+
+      <p>
+        <strong>${race.name}</strong>
+      </p>
+
+      ${next ? `
+        <p>
+          <strong>${next.name}</strong>
+        </p>
+        <p>
+          <span id="cd">${countdown(next.time)}</span>
+        </p>
+      ` : `<p>Sessões terminadas</p>`}
     </section>
   `;
 
-  setInterval(() => {
-    const el = document.getElementById("cd");
-    if (el) el.textContent = countdown(next.time);
-  }, 1000);
+  if (next) {
+    setInterval(() => {
+      const el = document.getElementById("cd");
+      if (el) el.textContent = countdown(next.time);
+    }, 1000);
+  }
 }
 
 /* ---------- PÁGINA DA CORRIDA ---------- */
@@ -96,48 +110,56 @@ if (slug) {
     title.textContent = race.name;
 
     content.innerHTML = `
-      <img src="${race.image}" style="width:100%;border-radius:12px">
+      <img src="${race.image}" style="width:100%;border-radius:12px;margin-bottom:20px">
 
-      <h3>Próxima Sessão</h3>
-      ${next ? `<strong>${next.name}</strong><br><span id="rcd">${countdown(next.time)}</span>` : ""}
+      <section>
+        <h2>Próxima Sessão</h2>
+        ${next ? `
+          <p><strong>${next.name}</strong></p>
+          <p><span id="rcd">${countdown(next.time)}</span></p>
+        ` : `<p>Sessões terminadas</p>`}
+      </section>
 
-      <h3>Ficha Técnica</h3>
-      <ul>
-        <li>Extensão: ${race.track.length}</li>
-        <li>Voltas: ${race.track.laps}</li>
-        <li>Distância: ${race.track.raceDistance}</li>
-        <li>Curvas: ${race.track.corners}</li>
-        <li>Zonas DRS: ${race.track.drsZones}</li>
-      </ul>
+      <section>
+        <h2>Ficha Técnica</h2>
+        <ul>
+          <li>Extensão: ${race.track.length}</li>
+          <li>Voltas: ${race.track.laps}</li>
+          <li>Distância: ${race.track.raceDistance}</li>
+          <li>Curvas: ${race.track.corners}</li>
+          <li>Zonas DRS: ${race.track.drsZones}</li>
+        </ul>
+      </section>
 
-      <h3>Dados da Corrida 2025</h3>
-      <ul>
-        <li>Meteorologia: ${race.stats2025.weather}</li>
-        <li>Pole: ${race.stats2025.poleTime}</li>
-        <li>Melhor volta: ${race.stats2025.fastestLap}</li>
-        <li>Tempo da corrida: ${race.stats2025.raceTime}</li>
-      </ul>
+      <section>
+        <h2>Dados da Corrida 2025</h2>
+        <ul>
+          <li>Meteorologia: ${race.stats2025.weather}</li>
+          <li>Pole: ${race.stats2025.poleTime}</li>
+          <li>Melhor volta: ${race.stats2025.fastestLap}</li>
+          <li>Tempo da corrida: ${race.stats2025.raceTime}</li>
+        </ul>
 
-      <p><strong>Pódio 2025:</strong></p>
-      <ol>
-        ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
-      </ol>
+        <p><strong>Pódio 2025:</strong></p>
+        <ol>
+          ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
+        </ol>
 
-      <p>${race.stats2025.highlights}</p>
+        <p>${race.stats2025.highlights}</p>
+      </section>
 
-      <button onclick="print2025()">🖨️ Imprimir ficha + dados 2025</button>
-      <button disabled style="opacity:.5">🖨️ Dados 2026 (disponível assim que possível)</button>
+      <section>
+        <h2>Impressão</h2>
+        <button onclick="window.print()">🖨️ Imprimir ficha + dados 2025</button>
+        <p><em>Dados 2026 disponíveis após a corrida</em></p>
+      </section>
     `;
 
-    setInterval(() => {
-      const el = document.getElementById("rcd");
-      if (el) el.textContent = countdown(next.time);
-    }, 1000);
+    if (next) {
+      setInterval(() => {
+        const el = document.getElementById("rcd");
+        if (el) el.textContent = countdown(next.time);
+      }, 1000);
+    }
   }
-}
-
-/* ---------- IMPRIMIR ---------- */
-
-function print2025() {
-  window.print();
 }
