@@ -40,7 +40,7 @@ const races2026 = [
 ];
 
 /* =========================
-   FUNÇÕES AUXILIARES
+   FUNÇÕES
 ========================= */
 
 function formatDate(dateString) {
@@ -56,38 +56,31 @@ function formatDate(dateString) {
 
 function getNextSession(race) {
   const now = new Date();
-  const entries = Object.entries(race.sessions)
+  return Object.entries(race.sessions)
     .map(([name, date]) => ({ name, date: new Date(date) }))
     .filter(s => s.date > now)
-    .sort((a, b) => a.date - b.date);
-
-  return entries[0] || null;
+    .sort((a, b) => a.date - b.date)[0];
 }
 
 function startCountdown(element, targetDate) {
   function update() {
-    const now = new Date();
-    const diff = targetDate - now;
-
+    const diff = targetDate - new Date();
     if (diff <= 0) {
       element.textContent = "Sessão em andamento";
       return;
     }
-
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
-
     element.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
-
   update();
   setInterval(update, 1000);
 }
 
 /* =========================
-   HOME PAGE
+   HOME
 ========================= */
 
 const nextRaceEl = document.getElementById("next-race");
@@ -124,6 +117,7 @@ if (raceSlug) {
 
   if (race && titleEl && contentEl) {
     const nextSession = getNextSession(race);
+    const s = race.stats2025;
 
     titleEl.textContent = race.name;
 
@@ -149,15 +143,13 @@ if (raceSlug) {
 
       <div class="card">
         <h2>Dados da Corrida 2025</h2>
-        <p><strong>Meteorologia:</strong> ${race.stats2025.weather}</p>
-        <p><strong>Pole:</strong> ${race.stats2025.poleTime}</p>
-        <p><strong>Melhor volta:</strong> ${race.stats2025.fastestLap}</p>
-        <p><strong>Tempo de corrida:</strong> ${race.stats2025.raceTime}</p>
+        <p><strong>Meteorologia:</strong> ${s.weather}</p>
+        <p><strong>Pole:</strong> ${s.poleTime}</p>
+        <p><strong>Melhor volta:</strong> ${s.fastestLap}</p>
+        <p><strong>Tempo de corrida:</strong> ${s.raceTime}</p>
         <p><strong>Pódio:</strong></p>
-        <ul>
-          ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
-        </ul>
-        <p><strong>Resumo:</strong> ${race.stats2025.summary}</p>
+        <ul>${s.podium.map(p => `<li>${p}</li>`).join("")}</ul>
+        <p><strong>Resumo:</strong> ${s.summary}</p>
       </div>
     `;
 
