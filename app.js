@@ -1,8 +1,6 @@
-/* ==============================
+      /* ==============================
    F1 2026 – App Base
    ============================== */
-
-/* ---------- DADOS ---------- */
 
 const races2026 = [
   {
@@ -29,9 +27,9 @@ const races2026 = [
       weather: "Sol e 24°C",
       poleTime: "1:15.915",
       podium: [
-        "1.º Max Verstappen",
-        "2.º Lando Norris",
-        "3.º Charles Leclerc"
+        "Max Verstappen",
+        "Lando Norris",
+        "Charles Leclerc"
       ],
       fastestLap: "1:19.813",
       raceTime: "1h 31m 12s",
@@ -43,156 +41,103 @@ const races2026 = [
 
 /* ---------- UTILITÁRIOS ---------- */
 
-function formatDate(dateString) {
-  return new Date(dateString).toLocaleString("pt-PT", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
-
 function getNextSession(race) {
   const now = new Date();
-  const sessions = Object.entries(race.sessions)
-    .map(([name, time]) => ({
-      name: name.toUpperCase(),
-      time: new Date(time)
-    }))
+  return Object.entries(race.sessions)
+    .map(([n, t]) => ({ name: n.toUpperCase(), time: new Date(t) }))
     .filter(s => s.time > now)
-    .sort((a, b) => a.time - b.time);
-
-  return sessions[0] || null;
+    .sort((a, b) => a.time - b.time)[0] || null;
 }
 
 function countdown(targetDate) {
   const diff = targetDate - new Date();
   if (diff <= 0) return "Em andamento";
-
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff / 3600000) % 24);
+  const m = Math.floor((diff / 60000) % 60);
   const s = Math.floor((diff / 1000) % 60);
-
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
 /* ---------- HOME ---------- */
 
 const app = document.getElementById("app");
-
 if (app) {
-  const nextRace = races2026[0];
-  const nextSession = getNextSession(nextRace);
+  const race = races2026[0];
+  const next = getNextSession(race);
 
   app.innerHTML = `
     <section>
       <h2>Próxima Corrida</h2>
-      <p>
-        <strong>${nextRace.name}</strong><br>
-        ${nextSession ? `
-          ${nextSession.name}<br>
-          <span id="countdown">${countdown(nextSession.time)}</span>
-        ` : "Sessões terminadas"}
-      </p>
-    </section>
-
-    <section>
-      <h2>Calendário 2026</h2>
-      ${races2026.map(race => `
-        <div style="
-          background:#111;
-          padding:16px;
-          border-radius:10px;
-          margin-bottom:15px;
-          border-left:4px solid #e10600">
-          
-          <strong>${race.name}</strong><br>
-          <small>${race.circuit} — ${formatDate(race.date)}</small><br><br>
-
-          <a href="race.html?race=${race.slug}">
-            <button>Ver detalhes</button>
-          </a>
-        </div>
-      `).join("")}
+      <strong>${race.name}</strong><br>
+      ${next ? `${next.name}<br><span id="cd">${countdown(next.time)}</span>` : ""}
     </section>
   `;
 
-  if (nextSession) {
-    setInterval(() => {
-      const el = document.getElementById("countdown");
-      if (el) el.textContent = countdown(nextSession.time);
-    }, 1000);
-  }
+  setInterval(() => {
+    const el = document.getElementById("cd");
+    if (el) el.textContent = countdown(next.time);
+  }, 1000);
 }
 
 /* ---------- PÁGINA DA CORRIDA ---------- */
 
-const params = new URLSearchParams(window.location.search);
-const raceSlug = params.get("race");
+const params = new URLSearchParams(location.search);
+const slug = params.get("race");
 
-if (raceSlug) {
-  const race = races2026.find(r => r.slug === raceSlug);
-  const titleEl = document.getElementById("race-title");
-  const contentEl = document.getElementById("race-content");
+if (slug) {
+  const race = races2026.find(r => r.slug === slug);
+  const title = document.getElementById("race-title");
+  const content = document.getElementById("race-content");
 
-  if (race && titleEl && contentEl) {
-    const nextSession = getNextSession(race);
+  if (race && title && content) {
+    const next = getNextSession(race);
 
-    titleEl.textContent = race.name;
+    title.textContent = race.name;
 
-    contentEl.innerHTML = `
-      <img src="${race.image}" style="width:100%;border-radius:12px;margin-bottom:20px">
+    content.innerHTML = `
+      <img src="${race.image}" style="width:100%;border-radius:12px">
 
-      <section>
-        <h2>Próxima Sessão</h2>
-        ${nextSession ? `
-          <strong>${nextSession.name}</strong><br>
-          <span id="race-countdown">${countdown(nextSession.time)}</span>
-        ` : "Sessões terminadas"}
-      </section>
+      <h3>Próxima Sessão</h3>
+      ${next ? `<strong>${next.name}</strong><br><span id="rcd">${countdown(next.time)}</span>` : ""}
 
-      <section>
-        <h2>Ficha Técnica</h2>
-        <ul>
-          <li>Extensão: ${race.track.length}</li>
-          <li>Voltas: ${race.track.laps}</li>
-          <li>Distância: ${race.track.raceDistance}</li>
-          <li>Curvas: ${race.track.corners}</li>
-          <li>Zonas DRS: ${race.track.drsZones}</li>
-        </ul>
-      </section>
+      <h3>Ficha Técnica</h3>
+      <ul>
+        <li>Extensão: ${race.track.length}</li>
+        <li>Voltas: ${race.track.laps}</li>
+        <li>Distância: ${race.track.raceDistance}</li>
+        <li>Curvas: ${race.track.corners}</li>
+        <li>Zonas DRS: ${race.track.drsZones}</li>
+      </ul>
 
-      <section>
-        <h2>Dados da Corrida 2025</h2>
-        <ul>
-          <li><strong>Meteorologia:</strong> ${race.stats2025.weather}</li>
-          <li><strong>Pole:</strong> ${race.stats2025.poleTime}</li>
-          <li><strong>Melhor volta:</strong> ${race.stats2025.fastestLap}</li>
-          <li><strong>Tempo da corrida:</strong> ${race.stats2025.raceTime}</li>
-        </ul>
+      <h3>Dados da Corrida 2025</h3>
+      <ul>
+        <li>Meteorologia: ${race.stats2025.weather}</li>
+        <li>Pole: ${race.stats2025.poleTime}</li>
+        <li>Melhor volta: ${race.stats2025.fastestLap}</li>
+        <li>Tempo da corrida: ${race.stats2025.raceTime}</li>
+      </ul>
 
-        <p><strong>Pódio:</strong></p>
-        <ol>
-          ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
-        </ol>
+      <p><strong>Pódio 2025:</strong></p>
+      <ol>
+        ${race.stats2025.podium.map(p => `<li>${p}</li>`).join("")}
+      </ol>
 
-        <p><strong>Destaques:</strong> ${race.stats2025.highlights}</p>
-      </section>
+      <p>${race.stats2025.highlights}</p>
 
-      <section>
-        <h2>Impressão</h2>
-        <p><em>Disponível assim que possível</em></p>
-      </section>
+      <button onclick="print2025()">🖨️ Imprimir ficha + dados 2025</button>
+      <button disabled style="opacity:.5">🖨️ Dados 2026 (disponível assim que possível)</button>
     `;
 
-    if (nextSession) {
-      setInterval(() => {
-        const el = document.getElementById("race-countdown");
-        if (el) el.textContent = countdown(nextSession.time);
-      }, 1000);
-    }
+    setInterval(() => {
+      const el = document.getElementById("rcd");
+      if (el) el.textContent = countdown(next.time);
+    }, 1000);
   }
+}
+
+/* ---------- IMPRIMIR ---------- */
+
+function print2025() {
+  window.print();
 }
