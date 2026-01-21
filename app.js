@@ -49,7 +49,7 @@ const teams2026 = [
 ];
 
 /* =========================
-   FUNÇÕES
+   FUNÇÕES GERAIS
 ========================= */
 
 function getNextSession(race) {
@@ -89,8 +89,8 @@ if (nextRaceEl) {
 
   nextRaceEl.innerHTML = `
     <div class="card">
-      <div class="card-title">${race.name}</div>
-      <div class="next-session">${nextSession.name}</div>
+      <h2>${race.name}</h2>
+      <p><strong>${nextSession.name}</strong></p>
       <div id="home-countdown" class="countdown"></div>
       <br>
       <a href="race.html?race=${race.slug}">Ver detalhes</a>
@@ -103,6 +103,49 @@ if (nextRaceEl) {
     document.getElementById("home-countdown"),
     nextSession.date
   );
+}
+
+/* =========================
+   PÁGINA CORRIDA
+========================= */
+
+const raceContent = document.getElementById("race-content");
+
+if (raceContent) {
+  const params = new URLSearchParams(window.location.search);
+  const raceSlug = params.get("race");
+
+  const race = races2026.find(r => r.slug === raceSlug);
+
+  if (!race) {
+    raceContent.textContent = "Corrida não encontrada.";
+  } else {
+    const nextSession = getNextSession(race);
+
+    document.getElementById("race-title").textContent = race.name;
+
+    raceContent.innerHTML = `
+      <img src="${race.image}" style="width:100%;border-radius:12px">
+
+      <h2>Próxima Sessão</h2>
+      <p><strong>${nextSession.name}</strong></p>
+      <div id="race-countdown" class="countdown"></div>
+
+      <h2>Ficha Técnica</h2>
+      <ul>
+        <li><strong>Extensão:</strong> ${race.track.length}</li>
+        <li><strong>Voltas:</strong> ${race.track.laps}</li>
+        <li><strong>Distância:</strong> ${race.track.raceDistance}</li>
+        <li><strong>Curvas:</strong> ${race.track.corners}</li>
+        <li><strong>Zonas DRS:</strong> ${race.track.drsZones}</li>
+      </ul>
+    `;
+
+    startCountdown(
+      document.getElementById("race-countdown"),
+      nextSession.date
+    );
+  }
 }
 
 /* =========================
@@ -121,7 +164,6 @@ if (teamsEl) {
     card.innerHTML = `
       <img src="${team.logo}" alt="${team.name}" style="max-width:120px">
       <h2>${team.name}</h2>
-      <p><strong>Pilotos:</strong></p>
       <ul>
         ${team.drivers.map(d => `<li>${d}</li>`).join("")}
       </ul>
