@@ -1,5 +1,5 @@
 // ===============================
-// DADOS BASE 2026
+// DADOS F1 2026
 // ===============================
 const races2026 = [
   {
@@ -7,7 +7,7 @@ const races2026 = [
     name: "Grande Prémio da Austrália",
     circuit: "Albert Park",
     imageHero: "assets/australia.jpg",
-    imageMap: "assets/australia-map.png",
+    imageMap: "", // ainda não existe mapa 2D
     track: {
       length: "5.278 km",
       laps: 58,
@@ -49,17 +49,6 @@ const races2026 = [
 // ===============================
 // FUNÇÕES
 // ===============================
-function formatDate(date) {
-  return new Date(date).toLocaleString("pt-PT", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
-
 function countdown(target) {
   const diff = target - new Date();
   if (diff <= 0) return "A decorrer";
@@ -80,53 +69,32 @@ function nextSessionFromRace(race) {
     .sort((a, b) => a.date - b.date)[0];
 }
 
-function nextGlobalSession() {
+// ===============================
+// HOME PAGE
+// ===============================
+const nextRaceEl = document.getElementById("next-race");
+
+function updateHome() {
   let next = null;
+
   races2026.forEach(race => {
     const s = nextSessionFromRace(race);
     if (s && (!next || s.date < next.date)) {
       next = { ...s, race };
     }
   });
-  return next;
-}
 
-// ===============================
-// HOME PAGE
-// ===============================
-const nextRaceEl = document.getElementById("next-race");
-const appEl = document.getElementById("app");
-
-function updateHome() {
-  const next = nextGlobalSession();
-  if (!next || !nextRaceEl) return;
-
-  nextRaceEl.innerHTML = `
-    <strong>${next.type.toUpperCase()}</strong><br>
-    ${next.race.name}<br>
-    <small>${countdown(next.date)}</small>
-  `;
+  if (nextRaceEl && next) {
+    nextRaceEl.innerHTML = `
+      <strong>${next.type.toUpperCase()}</strong><br>
+      ${next.race.name}<br>
+      <small>${countdown(next.date)}</small>
+    `;
+  }
 }
 
 updateHome();
 setInterval(updateHome, 1000);
-
-// Lista de corridas
-if (appEl) {
-  const list = document.createElement("section");
-  list.innerHTML = "<h2>Calendário 2026</h2>";
-
-  races2026.forEach(r => {
-    list.innerHTML += `
-      <div>
-        <h3><a href="race.html?race=${r.slug}">${r.name}</a></h3>
-        <p>${r.circuit}</p>
-      </div>
-    `;
-  });
-
-  appEl.appendChild(list);
-}
 
 // ===============================
 // PÁGINA DA CORRIDA
@@ -139,35 +107,4 @@ if (slug) {
   const title = document.getElementById("race-title");
   const content = document.getElementById("race-content");
 
-  if (race && title && content) {
-    title.textContent = race.name;
-
-    content.innerHTML = `
-      <img src="${race.imageHero}?v=${race.slug}" style="width:100%;margin-bottom:20px">
-
-      <h3>Próxima Sessão</h3>
-      <p id="race-countdown"></p>
-
-      <h3>Ficha Técnica</h3>
-      <ul>
-        <li>Extensão: ${race.track.length}</li>
-        <li>Voltas: ${race.track.laps}</li>
-        <li>Distância: ${race.track.raceDistance}</li>
-        <li>Curvas: ${race.track.corners}</li>
-        <li>Zonas DRS: ${race.track.drsZones}</li>
-      </ul>
-
-      <h3>Mapa da Pista</h3>
-      <img src="${race.imageMap}?v=${race.slug}" style="width:100%;max-width:500px">
-    `;
-
-    function updateRace() {
-      const next = nextSessionFromRace(race);
-      document.getElementById("race-countdown").textContent =
-        next ? countdown(next.date) : "Fim de semana concluído";
-    }
-
-    updateRace();
-    setInterval(updateRace, 1000);
-  }
-}
+  if (race
