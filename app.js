@@ -26,11 +26,7 @@ const races2026 = [
     stats2025: {
       weather: "Sol e 24°C",
       poleTime: "1:15.915",
-      podium: [
-        "Max Verstappen",
-        "Lando Norris",
-        "Charles Leclerc"
-      ],
+      podium: ["Max Verstappen", "Lando Norris", "Charles Leclerc"],
       fastestLap: "1:19.813",
       raceTime: "1h 31m 12s",
       highlights:
@@ -59,6 +55,26 @@ function countdown(targetDate) {
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
+/* ---------- MENU GLOBAL ---------- */
+
+function renderMenu() {
+  return `
+    <nav style="
+      background:#000;
+      padding:10px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      border-bottom:2px solid #e10600;
+    ">
+      <a href="index.html"><button>🏠 Home</button></a>
+      <button disabled>👥 Equipas</button>
+      <button disabled>🏆 Pilotos</button>
+      <button disabled>🏎️ Construtores</button>
+    </nav>
+  `;
+}
+
 /* ---------- HOME ---------- */
 
 const app = document.getElementById("app");
@@ -68,21 +84,38 @@ if (app) {
   const next = getNextSession(race);
 
   app.innerHTML = `
+    ${renderMenu()}
+
     <section>
       <h2>Próxima Corrida</h2>
 
-      <p>
-        <strong>${race.name}</strong>
-      </p>
+      <p><strong>${race.name}</strong></p>
 
       ${next ? `
-        <p>
-          <strong>${next.name}</strong>
-        </p>
-        <p>
-          <span id="cd">${countdown(next.time)}</span>
-        </p>
+        <p><strong>${next.name}</strong></p>
+        <p><span id="cd">${countdown(next.time)}</span></p>
       ` : `<p>Sessões terminadas</p>`}
+    </section>
+
+    <section>
+      <h2>Calendário 2026</h2>
+
+      ${races2026.map(r => `
+        <div style="
+          background:#111;
+          padding:15px;
+          border-radius:10px;
+          margin-bottom:15px;
+          border-left:4px solid #e10600">
+          
+          <strong>${r.name}</strong><br>
+          <small>${r.circuit}</small><br><br>
+
+          <a href="race.html?race=${r.slug}">
+            <button>Ver detalhes</button>
+          </a>
+        </div>
+      `).join("")}
     </section>
   `;
 
@@ -110,6 +143,8 @@ if (slug) {
     title.textContent = race.name;
 
     content.innerHTML = `
+      ${renderMenu()}
+
       <img src="${race.image}" style="width:100%;border-radius:12px;margin-bottom:20px">
 
       <section>
