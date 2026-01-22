@@ -85,34 +85,38 @@ function renderMenu() {
    HOME
    =========================== */
 
-function renderHome() {
-  const race = races[0];
-  const next = getNextSession(race);
+function renderHome(nextSession) {
+  document.getElementById("app").innerHTML = `
+    
+    <header>
+      <h1>F1 2026</h1>
+      <p>Calendário Oficial</p>
+    </header>
 
-  app.innerHTML = `
     ${renderMenu()}
 
-    <h1>F1 2026</h1>
-    <p>Calendário Oficial</p>
+    <section>
+      <div class="card">
+        <h2>Próxima Corrida</h2>
+        <h3>${nextSession.race}</h3>
 
-    <section class="card">
-      <h2>Próxima Corrida</h2>
-      <strong>${race.name}</strong>
-      <p>${next ? next.name : "Concluída"}</p>
-      <p id="countdown">${next ? formatCountdown(next.date) : "-"}</p>
-      <button onclick="renderRace('${race.id}')">Ver detalhes</button>
+        <p><strong>${nextSession.session}</strong></p>
+
+        <div class="countdown">
+          ${nextSession.countdown}
+        </div>
+
+        <button class="btn" onclick="goToRace('${nextSession.slug}')">
+          Ver detalhes
+        </button>
+      </div>
     </section>
 
-    <footer>F1 2026 – Projeto independente</footer>
+    <footer>
+      F1 2026 – Projeto independente
+    </footer>
   `;
-
-  if (next) {
-    setInterval(() => {
-      const el = document.getElementById("countdown");
-      if (el) el.textContent = formatCountdown(next.date);
-    }, 1000);
-  }
-}
+   }
 
 /* ===========================
    PÁGINA DA CORRIDA
