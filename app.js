@@ -1,153 +1,41 @@
 // ==============================
-// DADOS BASE (REFERÊNCIA ATUAL)
+// COUNTDOWN SIMPLES (HOME)
 // ==============================
 
-const constructors = [
-  "Red Bull Racing",
-  "Ferrari",
-  "Mercedes",
-  "McLaren",
-  "Aston Martin",
-  "Alpine",
-  "Williams",
-  "RB (Visa Cash App)",
-  "Kick Sauber",
-  "Haas"
-];
+function startCountdown(targetDate, elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
 
-// ==============================
-// MENU GLOBAL (USADO EM TODAS)
-// ==============================
+  function update() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
 
-function renderMenu() {
-  return `
-    <nav class="menu">
-      <button onclick="goHome()">🏠 Home</button>
-      <button onclick="goTeams()">👥 Equipas</button>
-      <button onclick="goDrivers()">🏆 Pilotos</button>
-      <button onclick="goConstructors()">🏎️ Construtores</button>
-    </nav>
-  `;
+    if (diff <= 0) {
+      el.innerText = "Sessão em curso";
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+
+    el.innerText = `${d}d ${h}h ${m}m`;
+  }
+
+  update();
+  setInterval(update, 60000);
 }
 
 // ==============================
-// HOME
-// ==============================
-
-function renderHome() {
-  document.getElementById("app").innerHTML = `
-    ${renderMenu()}
-
-    <section class="card">
-      <h2>Próxima Corrida</h2>
-      <p>Grande Prémio da Austrália</p>
-      <p><strong>FP1</strong></p>
-      <div class="countdown">42d 12h 18m</div>
-      <button class="btn" onclick="goRace()">Ver detalhes</button>
-    </section>
-
-    <footer>F1 2026 – Projeto independente</footer>
-  `;
-}
-
-// ==============================
-// CORRIDA
-// ==============================
-
-function renderRace() {
-  document.getElementById("app").innerHTML = `
-    ${renderMenu()}
-
-    <section class="card">
-      <h2>Grande Prémio da Austrália</h2>
-      <p>Dados da corrida (exemplo)</p>
-    </section>
-
-    <footer>F1 2026 – Projeto independente</footer>
-  `;
-}
-
-// ==============================
-// EQUIPAS
-// ==============================
-
-function renderTeams() {
-  document.getElementById("app").innerHTML = `
-    ${renderMenu()}
-
-    <section class="card">
-      <h2>Equipas</h2>
-      <p>Página de equipas</p>
-    </section>
-
-    <footer>F1 2026 – Projeto independente</footer>
-  `;
-}
-
-// ==============================
-// PILOTOS
-// ==============================
-
-function renderDrivers() {
-  document.getElementById("app").innerHTML = `
-    ${renderMenu()}
-
-    <section class="card">
-      <h2>Pilotos</h2>
-      <p>Página de pilotos</p>
-    </section>
-
-    <footer>F1 2026 – Projeto independente</footer>
-  `;
-}
-
-// ==============================
-// CONSTRUTORES (✅ PONTO 3)
-// ==============================
-
-function renderConstructors() {
-  document.getElementById("app").innerHTML = `
-    ${renderMenu()}
-
-    <section class="card">
-      <h2>Construtores</h2>
-      <ul class="list">
-        ${constructors.map(c => `<li>${c}</li>`).join("")}
-      </ul>
-    </section>
-
-    <footer>F1 2026 – Projeto independente</footer>
-  `;
-}
-
-// ==============================
-// NAVEGAÇÃO GLOBAL
-// ==============================
-
-function goHome() {
-  renderHome();
-}
-
-function goRace() {
-  renderRace();
-}
-
-function goTeams() {
-  renderTeams();
-}
-
-function goDrivers() {
-  renderDrivers();
-}
-
-function goConstructors() {
-  renderConstructors();
-}
-
-// ==============================
-// INIT
+// INIT POR PÁGINA
 // ==============================
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderHome();
+
+  // HOME
+  if (document.getElementById("countdown")) {
+    const australiaFP1 = new Date("2026-03-06T01:30:00Z").getTime();
+    startCountdown(australiaFP1, "countdown");
+  }
+
 });
