@@ -1,138 +1,155 @@
-/* RESET */
+/* ===============================
+   RESET BÁSICO
+================================ */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* BASE */
+/* ===============================
+   BASE
+================================ */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   background: #0b0b0b;
   color: #ffffff;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
-#app {
-  max-width: 480px;
-  margin: 0 auto;
-  padding-bottom: 80px;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-/* HEADER */
+/* ===============================
+   HEADER
+================================ */
 header {
-  padding: 20px 16px 12px;
+  background: linear-gradient(90deg, #000000, #1a1a1a);
+  padding: 20px;
+  text-align: center;
   border-bottom: 3px solid #e10600;
 }
 
 header h1 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
 }
 
 header p {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  color: #cccccc;
+  margin-top: 5px;
 }
 
-/* MENU */
-nav {
-  display: flex;
-  justify-content: space-around;
-  background: #000;
-  padding: 10px 0;
-  border-bottom: 1px solid #222;
-}
-
+/* ===============================
+   MENU
+================================ */
 nav button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 0.85rem;
-  opacity: 0.9;
+  background: transparent;
+  border: 2px solid #e10600;
+  color: #ffffff;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+nav button:hover:not(:disabled) {
+  background: #e10600;
 }
 
 nav button:disabled {
-  opacity: 0.3;
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-/* SECTIONS */
+/* ===============================
+   SEÇÕES
+================================ */
 section {
-  padding: 16px;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
 }
 
-/* CARDS */
+/* ===============================
+   CARD PRINCIPAL
+================================ */
 .card {
-  background: #141414;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-left: 5px solid #e10600;
+  background: #151515;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  text-align: center;
 }
 
 .card h2 {
-  font-size: 1.1rem;
-  margin-bottom: 8px;
+  color: #e10600;
+  margin-bottom: 10px;
 }
 
 .card h3 {
-  font-size: 0.9rem;
-  opacity: 0.7;
-  margin-bottom: 6px;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
 }
 
-/* COUNTDOWN */
+/* ===============================
+   COUNTDOWN
+================================ */
 .countdown {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-top: 8px;
-  color: #e10600;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #00ffcc;
 }
 
-/* BUTTONS */
-.btn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
+/* ===============================
+   BOTÕES
+================================ */
+button {
   background: #e10600;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.95rem;
+  border: none;
+  color: white;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.btn.secondary {
-  background: #222;
+button:hover {
+  background: #ff1e1e;
 }
 
-/* LISTS */
+/* ===============================
+   LISTAS / FICHA TÉCNICA
+================================ */
 ul {
   list-style: none;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 ul li {
   padding: 6px 0;
-  border-bottom: 1px solid #222;
-  font-size: 0.9rem;
+  border-bottom: 1px solid #333;
 }
 
-/* PODIUM */
-.podium li {
-  font-weight: 700;
+/* ===============================
+   TÍTULOS SECUNDÁRIOS
+================================ */
+h2 {
+  margin-top: 25px;
+  color: #e10600;
 }
 
-.podium li:nth-child(1) { color: gold; }
-.podium li:nth-child(2) { color: silver; }
-.podium li:nth-child(3) { color: #cd7f32; }
-
-/* FOOTER */
+/* ===============================
+   FOOTER
+================================ */
 footer {
   text-align: center;
-  padding: 20px 10px;
-  font-size: 0.75rem;
-  opacity: 0.5;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  border-top: 1px solid #333;
 }
