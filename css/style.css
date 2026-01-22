@@ -1,128 +1,166 @@
-body {
+/* RESET */
+* {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0b0b0b;
-  color: #fff;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header {
-  text-align: center;
-  padding: 20px;
+/* BASE */
+body {
+  background: #0b0b0b;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  background: #000;
   border-bottom: 3px solid #e10600;
 }
 
-.menu {
-  margin-top: 10px;
-}
-
-.menu a,
-.menu button {
-  margin: 5px;
-  padding: 8px 14px;
-  border: none;
-  background: #111;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
+.menu a {
   text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
 }
 
+.menu a:hover,
 .menu a.active {
   background: #e10600;
 }
 
-.menu button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px 16px;
 }
 
-main {
-  padding: 20px;
+/* HEADINGS */
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  letter-spacing: 1px;
 }
 
+h2 {
+  margin: 10px 0;
+}
+
+/* CARDS */
 .card {
-  background: #111;
-  border-left: 5px solid #e10600;
+  background: linear-gradient(180deg, #1a1a1a, #0e0e0e);
+  border-radius: 14px;
   padding: 20px;
-  border-radius: 6px;
-  max-width: 800px;
-  margin: 0 auto;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid #222;
 }
 
-.note {
-  font-size: 0.9em;
-  opacity: 0.7;
-}
-
+/* BOTÕES */
+button,
 .btn {
-  margin-top: 15px;
-  padding: 10px 20px;
   background: #e10600;
-  color: #fff;
   border: none;
-  border-radius: 4px;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
 }
 
+button:hover,
+.btn:hover {
+  background: #ff1e1e;
+}
+
+/* COUNTDOWN */
 .countdown {
-  font-size: 1.2em;
+  font-size: 1.3rem;
+  font-weight: 700;
   margin: 10px 0;
-  color: #f1c40f;
+  color: #ffd700;
 }
 
-/* =========================
-   TABELA DE PONTOS
-========================= */
-
-.points-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.points-table th,
-.points-table td {
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #333;
-}
-
-.points-table th {
-  background: #e10600;
-}
-
-.points-table tr:hover {
-  background: #1a1a1a;
-}
-
-/* =========================
-   EQUIPAS
-========================= */
-
+/* TEAMS GRID */
 .teams-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
 
+/* TEAM CARD */
 .team-card {
-  background: #111;
-  border-top: 4px solid #e10600;
-  padding: 15px;
-  border-radius: 6px;
+  background: linear-gradient(180deg, #151515, #090909);
+  border-radius: 18px;
+  padding: 20px;
   text-align: center;
+  border: 1px solid #222;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.team-card h2 {
-  margin-top: 0;
-  color: #f1c40f;
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.8);
 }
 
+/* LOGOS */
+.team-card img {
+  max-width: 160px;
+  margin-bottom: 12px;
+}
+
+/* TABELAS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #222;
+}
+
+th {
+  background: #e10600;
+  color: white;
+}
+
+/* FOOTER */
 footer {
+  margin-top: 40px;
+  padding: 20px;
   text-align: center;
-  padding: 15px;
-  border-top: 1px solid #333;
-  margin-top: 30px;
-  font-size: 0.9em;
-  opacity: 0.8;
+  font-size: 0.9rem;
+  color: #aaa;
+  border-top: 1px solid #222;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+  }
+
+  .team-card img {
+    max-width: 130px;
+  }
 }
