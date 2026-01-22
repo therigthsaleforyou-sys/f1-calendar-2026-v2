@@ -1,22 +1,16 @@
-/* ===========================
-   F1 2026 — app.js COMPLETO
-   =========================== */
+/* ===============================
+   DADOS BASE 2026
+================================ */
 
-const app = document.getElementById("app");
-
-/* ===========================
-   DADOS BASE
-   =========================== */
-
-const races = [
+const races2026 = [
   {
-    id: "australia",
+    slug: "australia",
     name: "Grande Prémio da Austrália",
     circuit: "Albert Park",
     sessions: [
-      { name: "FP1", date: "2026-03-06T02:30:00Z" },
+      { name: "FP1", date: "2026-03-06T02:00:00Z" },
       { name: "FP2", date: "2026-03-06T06:00:00Z" },
-      { name: "FP3", date: "2026-03-07T02:30:00Z" },
+      { name: "FP3", date: "2026-03-07T02:00:00Z" },
       { name: "Qualificação", date: "2026-03-07T06:00:00Z" },
       { name: "Corrida", date: "2026-03-08T05:00:00Z" }
     ],
@@ -27,29 +21,19 @@ const races = [
       corners: 14,
       drs: 4
     },
-    data2025: {
-      weather: "Sol e 24°C",
-      pole: "1:15.915",
-      bestLap: "1:19.813",
-      raceTime: "1h 31m 12s",
-      podium: ["Max Verstappen", "Lando Norris", "Charles Leclerc"],
-      highlights: "Corrida marcada por Safety Car e estratégia agressiva nas boxes."
-    }
+    image: "assets/australia.jpg"
   }
 ];
 
-/* ===========================
-   UTILITÁRIOS
-   =========================== */
+/* ===============================
+   FUNÇÕES UTILITÁRIAS
+================================ */
 
-function getNextSession(race) {
+function formatCountdown(targetDate) {
   const now = new Date();
-  return race.sessions.find(s => new Date(s.date) > now);
-}
+  const diff = new Date(targetDate) - now;
 
-function formatCountdown(date) {
-  const diff = new Date(date) - new Date();
-  if (diff <= 0) return "Sessão em curso";
+  if (diff <= 0) return "Em curso";
 
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -59,9 +43,28 @@ function formatCountdown(date) {
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
-/* ===========================
-   MENU
-   =========================== */
+function getNextSession() {
+  const now = new Date();
+
+  for (const race of races2026) {
+    for (const session of race.sessions) {
+      const date = new Date(session.date);
+      if (date > now) {
+        return {
+          race: race.name,
+          session: session.name,
+          countdown: formatCountdown(date),
+          slug: race.slug
+        };
+      }
+    }
+  }
+  return null;
+}
+
+/* ===============================
+   NAVEGAÇÃO
+================================ */
 
 function renderMenu() {
   return `
@@ -81,13 +84,23 @@ function renderMenu() {
   `;
 }
 
-/* ===========================
-   HOME
-   =========================== */
+function goToRace(slug) {
+  window.location.href = `race.html?race=${slug}`;
+}
 
-function renderHome(nextSession) {
+/* ===============================
+   HOME PAGE
+================================ */
+
+function renderHome() {
+  const nextSession = getNextSession();
+
+  if (!nextSession) {
+    document.getElementById("app").innerHTML = "Sem dados disponíveis";
+    return;
+  }
+
   document.getElementById("app").innerHTML = `
-    
     <header>
       <h1>F1 2026</h1>
       <p>Calendário Oficial</p>
@@ -95,94 +108,69 @@ function renderHome(nextSession) {
 
     ${renderMenu()}
 
-    <section>
+    <section style="padding:20px">
       <div class="card">
         <h2>Próxima Corrida</h2>
         <h3>${nextSession.race}</h3>
-
         <p><strong>${nextSession.session}</strong></p>
-
-        <div class="countdown">
-          ${nextSession.countdown}
-        </div>
-
-        <button class="btn" onclick="goToRace('${nextSession.slug}')">
-          Ver detalhes
-        </button>
+        <div class="countdown">${nextSession.countdown}</div>
+        <button onclick="goToRace('${nextSession.slug}')">Ver detalhes</button>
       </div>
-    </section>
-
-    <footer>
-      F1 2026 – Projeto independente
-    </footer>
-  `;
-   }
-
-/* ===========================
-   PÁGINA DA CORRIDA
-   =========================== */
-
-function renderRace(id) {
-  const race = races.find(r => r.id === id);
-  const next = getNextSession(race);
-
-  app.innerHTML = `
-    ${renderMenu()}
-
-    <button onclick="renderHome()">⬅ Voltar</button>
-
-    <h2>${race.name}</h2>
-
-    <section class="card">
-      <h3>Próxima Sessão</h3>
-      <strong>${next ? next.name : "Concluída"}</strong>
-      <p id="raceCountdown">${next ? formatCountdown(next.date) : "-"}</p>
-    </section>
-
-    <section class="card">
-      <h3>Ficha Técnica</h3>
-      <ul>
-        <li>Extensão: ${race.technical.length}</li>
-        <li>Voltas: ${race.technical.laps}</li>
-        <li>Distância: ${race.technical.distance}</li>
-        <li>Curvas: ${race.technical.corners}</li>
-        <li>Zonas DRS: ${race.technical.drs}</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h3>Dados da Corrida 2025</h3>
-      <p>Meteorologia: ${race.data2025.weather}</p>
-      <p>Pole: ${race.data2025.pole}</p>
-      <p>Melhor volta: ${race.data2025.bestLap}</p>
-      <p>Tempo da corrida: ${race.data2025.raceTime}</p>
-
-      <strong>Pódio 2025:</strong>
-      <ol>
-        ${race.data2025.podium.map(p => `<li>${p}</li>`).join("")}
-      </ol>
-
-      <p>${race.data2025.highlights}</p>
-    </section>
-
-    <section class="card">
-      <button onclick="window.print()">🖨️ Imprimir ficha + dados 2025</button>
-      <button disabled>🖨️ Dados 2026 (disponível assim que possível)</button>
     </section>
 
     <footer>F1 2026 – Projeto independente</footer>
   `;
-
-  if (next) {
-    setInterval(() => {
-      const el = document.getElementById("raceCountdown");
-      if (el) el.textContent = formatCountdown(next.date);
-    }, 1000);
-  }
 }
 
-/* ===========================
-   ARRANQUE
-   =========================== */
+/* ===============================
+   RACE PAGE
+================================ */
 
-renderHome();
+function renderRacePage() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("race");
+
+  const race = races2026.find(r => r.slug === slug);
+
+  if (!race) {
+    document.getElementById("app").innerHTML = "Corrida não encontrada";
+    return;
+  }
+
+  const nextSession = race.sessions.find(
+    s => new Date(s.date) > new Date()
+  );
+
+  document.getElementById("app").innerHTML = `
+    <a href="index.html">⬅ Voltar</a>
+
+    <h1>${race.name}</h1>
+
+    <h2>Próxima Sessão</h2>
+    <p>${nextSession.name}</p>
+    <p>${formatCountdown(nextSession.date)}</p>
+
+    <h2>Ficha Técnica</h2>
+    <ul>
+      <li>Extensão: ${race.technical.length}</li>
+      <li>Voltas: ${race.technical.laps}</li>
+      <li>Distância: ${race.technical.distance}</li>
+      <li>Curvas: ${race.technical.corners}</li>
+      <li>Zonas DRS: ${race.technical.drs}</li>
+    </ul>
+
+    <footer>F1 2026 – Projeto independente</footer>
+  `;
+}
+
+/* ===============================
+   ENTRY POINT
+================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.body.dataset.page === "race") {
+    renderRacePage();
+  } else {
+    renderHome();
+  }
+});
