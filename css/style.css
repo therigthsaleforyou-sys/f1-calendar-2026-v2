@@ -1,130 +1,138 @@
-/* =========================
-   RESET BÁSICO
-   ========================= */
+/* RESET */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* =========================
-   BASE
-   ========================= */
+/* BASE */
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   background: #0b0b0b;
   color: #ffffff;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
-/* =========================
-   HEADER
-   ========================= */
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* HEADER */
 header {
-  background: linear-gradient(90deg, #e10600, #9b0000);
-  padding: 20px;
-  text-align: center;
+  padding: 20px 16px 12px;
+  border-bottom: 3px solid #e10600;
 }
 
 header h1 {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 header p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* MENU */
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: #000;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 0.85rem;
   opacity: 0.9;
 }
 
-/* =========================
-   MAIN
-   ========================= */
-main {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+nav button:disabled {
+  opacity: 0.3;
 }
 
-/* =========================
-   SEÇÕES
-   ========================= */
+/* SECTIONS */
 section {
-  background: #111;
+  padding: 16px;
+}
+
+/* CARDS */
+.card {
+  background: #141414;
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-left: 4px solid #e10600;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 5px solid #e10600;
 }
 
-/* =========================
-   TÍTULOS
-   ========================= */
-h2 {
-  margin-bottom: 12px;
-  color: #e10600;
+.card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
 }
 
-h3 {
-  margin: 20px 0 10px;
-}
-
-/* =========================
-   COUNTDOWN
-   ========================= */
-#cd,
-#rcd {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #ffd700;
-}
-
-/* =========================
-   LISTAS
-   ========================= */
-ul {
-  padding-left: 20px;
-}
-
-li {
+.card h3 {
+  font-size: 0.9rem;
+  opacity: 0.7;
   margin-bottom: 6px;
 }
 
-/* =========================
-   BOTÕES
-   ========================= */
-button {
-  background: #e10600;
-  color: white;
-  border: none;
-  padding: 12px 16px;
+/* COUNTDOWN */
+.countdown {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 8px;
+  color: #e10600;
+}
+
+/* BUTTONS */
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
   border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
+  border: none;
+  background: #e10600;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.btn.secondary {
+  background: #222;
+}
+
+/* LISTS */
+ul {
+  list-style: none;
   margin-top: 10px;
 }
 
-button:hover {
-  background: #ff1e1e;
+ul li {
+  padding: 6px 0;
+  border-bottom: 1px solid #222;
+  font-size: 0.9rem;
 }
 
-button:disabled {
-  background: #555;
-  cursor: not-allowed;
+/* PODIUM */
+.podium li {
+  font-weight: 700;
 }
 
-/* =========================
-   IMAGENS
-   ========================= */
-img {
-  max-width: 100%;
-  border-radius: 12px;
-}
+.podium li:nth-child(1) { color: gold; }
+.podium li:nth-child(2) { color: silver; }
+.podium li:nth-child(3) { color: #cd7f32; }
 
-/* =========================
-   FOOTER
-   ========================= */
+/* FOOTER */
 footer {
   text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  opacity: 0.7;
+  padding: 20px 10px;
+  font-size: 0.75rem;
+  opacity: 0.5;
 }
