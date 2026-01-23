@@ -1,125 +1,125 @@
-/* =========================
-   DADOS DO EVENTO – 2026
-   ========================= */
+/*********************************
+ * F1 2026 — APP.JS GLOBAL
+ * Seguro para TODAS as páginas
+ *********************************/
 
+/* ==============================
+   UTILITÁRIOS
+================================ */
+function formatCountdown(ms) {
+  if (ms <= 0) return "Em andamento";
+
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+/* ==============================
+   DADOS — AUSTRÁLIA (EXEMPLO)
+================================ */
 const raceData = {
   name: "Grande Prémio da Austrália",
-  slug: "australia",
-  circuit: "Albert Park",
-  image: "assets/australia.jpg",
-
+  nextSession: {
+    name: "FP1",
+    date: "2026-03-06T02:30:00+00:00"
+  },
   sessions: [
-    { name: "FP1", date: "2026-03-06T02:30:00Z" },
-    { name: "FP2", date: "2026-03-06T06:00:00Z" },
-    { name: "FP3", date: "2026-03-07T02:30:00Z" },
-    { name: "Qualificação", date: "2026-03-07T06:00:00Z" },
-    { name: "Corrida", date: "2026-03-08T05:00:00Z" }
-  ],
-
-  race2025: {
-    weather: "Sol, 24°C",
-    pole: "1:15.915",
-    fastestLap: "1:19.813",
-    raceTime: "1h 31m 12s",
-    podium: [
-      "Max Verstappen",
-      "Lando Norris",
-      "Charles Leclerc"
-    ],
-    highlights: "Corrida marcada por Safety Car e estratégia agressiva nas boxes."
-  }
+    { name: "FP1", date: "2026-03-06T02:30:00+00:00", label: "sexta-feira, 06/03, 02:30" },
+    { name: "FP2", date: "2026-03-06T06:00:00+00:00", label: "sexta-feira, 06/03, 06:00" },
+    { name: "FP3", date: "2026-03-07T02:30:00+00:00", label: "sábado, 07/03, 02:30" },
+    { name: "Qualificação", date: "2026-03-07T06:00:00+00:00", label: "sábado, 07/03, 06:00" },
+    { name: "Corrida", date: "2026-03-08T05:00:00+00:00", label: "domingo, 08/03, 05:00" }
+  ]
 };
 
-/* =========================
-   UTILITÁRIOS
-   ========================= */
+/* ==============================
+   COUNTDOWN HOME
+================================ */
+(function homeCountdown() {
+  const countdownEl = document.getElementById("home-countdown");
+  const sessionNameEl = document.getElementById("home-session-name");
 
-function formatDateTime(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleString("pt-PT", {
-    weekday: "long",
-    day: "2-digit",
-    month: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit"
+  if (!countdownEl || !sessionNameEl) return;
+
+  sessionNameEl.innerText = raceData.nextSession.name;
+  const target = new Date(raceData.nextSession.date).getTime();
+
+  function update() {
+    const now = Date.now();
+    countdownEl.innerText = formatCountdown(target - now);
+  }
+
+  update();
+  setInterval(update, 1000);
+})();
+
+/* ==============================
+   COUNTDOWN PÁGINA CORRIDA
+================================ */
+(function raceCountdown() {
+  const mainCountdown = document.getElementById("race-countdown");
+  const nextSessionName = document.getElementById("next-session-name");
+  const nextSessionCountdown = document.getElementById("next-session-countdown");
+
+  if (!mainCountdown || !nextSessionName || !nextSessionCountdown) return;
+
+  nextSessionName.innerText = raceData.nextSession.name;
+  const target = new Date(raceData.nextSession.date).getTime();
+
+  function update() {
+    const now = Date.now();
+    const diff = target - now;
+    const formatted = formatCountdown(diff);
+
+    mainCountdown.innerText = formatted;
+    nextSessionCountdown.innerText = formatted;
+  }
+
+  update();
+  setInterval(update, 1000);
+})();
+
+/* ==============================
+   PROGRAMA DO EVENTO
+================================ */
+(function renderSchedule() {
+  const container = document.getElementById("event-schedule");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  raceData.sessions.forEach(s => {
+    const p = document.createElement("p");
+    p.innerText = `${s.name} — ${s.label}`;
+    container.appendChild(p);
   });
-}
+})();
 
-function formatCountdown(ms) {
-  const s = Math.floor(ms / 1000);
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-  return `${d}d ${h}h ${m}m ${sec}s`;
-}
+/* ==============================
+   BOTÃO IMPRIMIR (SÓ CORRIDA)
+================================ */
+(function printButton() {
+  const container = document.getElementById("print-container");
+  if (!container) return;
 
-function getNextSession() {
-  const now = new Date();
-  return raceData.sessions.find(s => new Date(s.date) > now);
-}
+  const btn = document.createElement("button");
+  btn.className = "btn";
+  btn.innerText = "🖨️ Imprimir";
+  btn.onclick = () => window.print();
 
-function startCountdown(id, target) {
-  const el = document.getElementById(id);
-  if (!el) return;
+  container.appendChild(btn);
+})();
 
-  function tick() {
-    const diff = new Date(target) - new Date();
-    el.textContent = diff <= 0 ? "Sessão em curso" : formatCountdown(diff);
-  }
+/* ==============================
+   BOTÃO VOLTAR AO TOPO
+================================ */
+(function backToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
 
-  tick();
-  setInterval(tick, 1000);
-}
-
-/* =========================
-   INIT
-   ========================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  const page = document.body.dataset.page;
-  const next = getNextSession();
-
-  if (!next) return;
-
-  /* HOME */
-  if (page === "home") {
-    document.getElementById("home-session-name").textContent = next.name;
-    startCountdown("home-countdown", next.date);
-  }
-
-  /* RACE */
-  if (page === "race") {
-    document.getElementById("race-title").textContent = raceData.name;
-
-    startCountdown("race-countdown", next.date);
-
-    document.getElementById("next-session-name").textContent = next.name;
-    startCountdown("next-session-countdown", next.date);
-
-    // Programa do evento
-    document.getElementById("session-list").innerHTML =
-      raceData.sessions.map(s => `
-        <div class="session-row">
-          <strong>${s.name}</strong>
-          <span>${formatDateTime(s.date)}</span>
-        </div>
-      `).join("");
-
-    // Dados 2025
-    const d = raceData.race2025;
-    document.getElementById("data-2025").innerHTML = `
-      <div><strong>Meteorologia:</strong> ${d.weather}</div>
-      <div><strong>Pole:</strong> ${d.pole}</div>
-      <div><strong>Melhor volta:</strong> ${d.fastestLap}</div>
-      <div><strong>Tempo da corrida:</strong> ${d.raceTime}</div>
-
-      <h3>Pódio 2025</h3>
-      <div>1.º ${d.podium[0]}</div>
-      <div>2.º ${d.podium[1]}</div>
-      <div>3.º ${d.podium[2]}</div>
-
-      <p>${d.highlights}</p>
-    `;
-  }
-});
+  btn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+})();
