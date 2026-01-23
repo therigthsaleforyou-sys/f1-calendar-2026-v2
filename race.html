@@ -4,30 +4,93 @@
   <meta charset="UTF-8" />
   <title>Corrida – F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<header>
-  <h1>F1 2026</h1>
-  <p>Detalhes da Corrida</p>
-
-  <nav class="menu">
-    <a href="index.html">🏠 Home</a>
-    <a href="teams.html">👥 Equipas</a>
-    <a href="pilots.html">🏆 Pilotos</a>
-    <button disabled>🏎️ Construtores</button>
-  </nav>
+<!-- HEADER FIXO GLOBAL -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="app-title">F1 2026</div>
+    <nav>
+      <a href="index.html">🏠 Home</a>
+      <a href="teams.html">👥 Equipas</a>
+      <a href="pilots.html">🏆 Pilotos</a>
+      <a href="constructors.html" class="active">🏎️ Construtores</a>
+    </nav>
+  </div>
 </header>
 
-<main id="app">
-  A carregar dados da corrida...
+<!-- CONTEÚDO -->
+<main class="container" id="race-content">
+
+  <!-- HERO DA CORRIDA -->
+  <section class="race-hero">
+    <img id="race-image" src="assets/australia.jpg" alt="Circuito" />
+    <div class="overlay">
+      <h1 id="race-title">Grande Prémio</h1>
+      <div class="countdown" id="race-countdown">A calcular...</div>
+    </div>
+  </section>
+
+  <!-- PRÓXIMA SESSÃO -->
+  <div class="card">
+    <h2>Próxima Sessão</h2>
+    <p id="next-session-name">—</p>
+    <div class="countdown" id="next-session-countdown">—</div>
+  </div>
+
+  <!-- FICHA TÉCNICA -->
+  <div class="card">
+    <h2>Ficha Técnica</h2>
+    <ul id="race-tech">
+      <li>Extensão: —</li>
+      <li>Voltas: —</li>
+      <li>Distância: —</li>
+      <li>Curvas: —</li>
+      <li>Zonas DRS: —</li>
+    </ul>
+  </div>
+
+  <!-- DADOS 2025 -->
+  <div class="card">
+    <h2>Dados da Corrida 2025</h2>
+    <div id="race-2025">
+      <p>Disponível para consulta.</p>
+    </div>
+  </div>
+
+  <!-- DADOS 2026 -->
+  <div class="card">
+    <h2>Dados da Corrida 2026</h2>
+    <p><em>Disponível assim que possível.</em></p>
+  </div>
+
+  <!-- BOTÕES IMPRIMIR -->
+  <div class="card">
+    <button class="btn">🖨️ Imprimir ficha + dados 2025</button>
+    <br><br>
+    <button class="btn" disabled>🖨️ Dados 2026 (indisponível)</button>
+  </div>
+
+  <!-- VOLTAR AO TOPO -->
+  <div class="to-top">
+    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+      ⬆ Voltar ao topo
+    </button>
+  </div>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
   F1 2026 – Projeto independente
 </footer>
 
+<!-- JS -->
 <script src="app.js"></script>
+
 </body>
 </html>
