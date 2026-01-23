@@ -265,3 +265,58 @@ li {
     font-size: 0.85rem;
   }
 }
+/* ===== HEADER GLOBAL ===== */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0b0b0b;
+  border-bottom: 3px solid #e10600;
+}
+
+.app-title {
+  text-align: center;
+  padding: 12px 10px 6px;
+}
+
+.app-title h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #fff;
+}
+
+.app-title p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* ===== NAV ===== */
+
+.app-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background: #000;
+}
+
+.nav-btn {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-btn:hover {
+  background: #e10600;
+  transform: translateY(-1px);
+}
+
+/* Página ativa (manual por página) */
+.nav-btn.active {
+  background: #e10600;
+}
