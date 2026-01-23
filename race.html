@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-<!-- HEADER FIXO -->
+<body data-page="race">
+
 <header class="app-header">
   <div class="header-inner">
     <div class="app-title">F1 2026</div>
@@ -23,9 +23,9 @@
 
 <main class="container">
 
-  <!-- HERO DA CORRIDA -->
+  <!-- HERO -->
   <section class="race-hero">
-    <img id="race-image" src="assets/australia.jpg" alt="Circuito">
+    <img src="assets/australia.jpg" alt="Grande Prémio da Austrália">
     <div class="hero-overlay">
       <h1 id="race-title">Grande Prémio da Austrália</h1>
       <div class="countdown" id="race-countdown">
@@ -35,67 +35,28 @@
   </section>
 
   <!-- PRÓXIMA SESSÃO -->
-  <div class="card">
+  <section class="card">
     <h2>Próxima Sessão</h2>
-    <p id="next-session-name"><strong>FP1</strong></p>
-    <div class="countdown" id="next-session-countdown">
-      43d 2h 10m 00s
-    </div>
-  </div>
 
-  <!-- FICHA TÉCNICA -->
-  <div class="card">
-    <h2>Ficha Técnica</h2>
-    <ul>
-      <li>Extensão: 5.278 km</li>
-      <li>Voltas: 58</li>
-      <li>Distância: 306.124 km</li>
-      <li>Curvas: 14</li>
-      <li>Zonas DRS: 4</li>
-    </ul>
-  </div>
-
-  <!-- DADOS 2025 -->
-  <div class="card">
-    <h2>Dados da Corrida 2025</h2>
-    <p><strong>Meteorologia:</strong> Sol e 24°C</p>
-    <p><strong>Pole:</strong> 1:15.915</p>
-    <p><strong>Melhor volta:</strong> 1:19.813</p>
-    <p><strong>Tempo da corrida:</strong> 1h 31m 12s</p>
-    <p><strong>Pódio:</strong></p>
-    <ul>
-      <li>Max Verstappen</li>
-      <li>Lando Norris</li>
-      <li>Charles Leclerc</li>
-    </ul>
-    <p>
-      Corrida marcada por Safety Car e estratégia agressiva nas boxes.
+    <p id="next-session-name">
+      A calcular…
     </p>
-  </div>
 
-  <!-- IMPRIMIR -->
-  <div class="card">
-    <button class="btn">🖨️ Imprimir ficha + dados 2025</button>
-    <br><br>
-    <button class="btn" disabled>
-      🖨️ Dados 2026 (disponível após a corrida)
-    </button>
-  </div>
-
-  <!-- VOLTAR AO TOPO -->
-  <div style="text-align:center; margin:40px 0">
-    <button class="btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-      ⬆ Voltar ao topo
-    </button>
-  </div>
+    <div class="countdown" id="next-session-countdown">
+      A calcular…
+    </div>
+  </section>
 
 </main>
+
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  ⬆ Voltar ao topo
+</button>
 
 <footer>
   F1 2026 – Projeto independente
 </footer>
 
 <script src="app.js"></script>
-
 </body>
 </html>
