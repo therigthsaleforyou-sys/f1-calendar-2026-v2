@@ -14,7 +14,20 @@ const raceData = {
     { name: "FP3", date: "2026-03-07T02:30:00Z" },
     { name: "Qualificação", date: "2026-03-07T06:00:00Z" },
     { name: "Corrida", date: "2026-03-08T05:00:00Z" }
-  ]
+  ],
+
+  race2025: {
+    weather: "Sol, 24°C",
+    pole: "1:15.915",
+    fastestLap: "1:19.813",
+    raceTime: "1h 31m 12s",
+    podium: [
+      "Max Verstappen",
+      "Lando Norris",
+      "Charles Leclerc"
+    ],
+    highlights: "Corrida marcada por Safety Car e estratégia agressiva nas boxes."
+  }
 };
 
 /* =========================
@@ -24,9 +37,9 @@ const raceData = {
 function formatDateTime(dateStr) {
   const d = new Date(dateStr);
   return d.toLocaleString("pt-PT", {
-    weekday: "short",
+    weekday: "long",
     day: "2-digit",
-    month: "short",
+    month: "2-digit",
     hour: "2-digit",
     minute: "2-digit"
   });
@@ -78,17 +91,35 @@ document.addEventListener("DOMContentLoaded", () => {
   /* RACE */
   if (page === "race") {
     document.getElementById("race-title").textContent = raceData.name;
+
     startCountdown("race-countdown", next.date);
 
     document.getElementById("next-session-name").textContent = next.name;
     startCountdown("next-session-countdown", next.date);
 
-    const list = document.getElementById("session-list");
-    list.innerHTML = raceData.sessions.map(s => `
-      <div class="session-row">
-        <strong>${s.name}</strong>
-        <span>${formatDateTime(s.date)}</span>
-      </div>
-    `).join("");
+    // Programa do evento
+    document.getElementById("session-list").innerHTML =
+      raceData.sessions.map(s => `
+        <div class="session-row">
+          <strong>${s.name}</strong>
+          <span>${formatDateTime(s.date)}</span>
+        </div>
+      `).join("");
+
+    // Dados 2025
+    const d = raceData.race2025;
+    document.getElementById("data-2025").innerHTML = `
+      <div><strong>Meteorologia:</strong> ${d.weather}</div>
+      <div><strong>Pole:</strong> ${d.pole}</div>
+      <div><strong>Melhor volta:</strong> ${d.fastestLap}</div>
+      <div><strong>Tempo da corrida:</strong> ${d.raceTime}</div>
+
+      <h3>Pódio 2025</h3>
+      <div>1.º ${d.podium[0]}</div>
+      <div>2.º ${d.podium[1]}</div>
+      <div>3.º ${d.podium[2]}</div>
+
+      <p>${d.highlights}</p>
+    `;
   }
 });
