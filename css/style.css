@@ -153,3 +153,45 @@ footer {
     width: 100px;
   }
 }
+/* HERO DA CORRIDA – RESPONSIVO */
+.race-hero {
+  position: relative;
+  width: 100%;
+  min-height: 260px;
+  max-height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.race-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.25)
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: #fff;
+}
+
+.hero-overlay h1 {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  margin-bottom: 10px;
+}
+
+.hero-overlay .countdown {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: bold;
+  color: #e10600;
+}
