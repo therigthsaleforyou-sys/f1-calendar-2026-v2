@@ -1,5 +1,5 @@
 /* =========================
-   DADOS BASE – GP AUSTRÁLIA
+   DADOS DO EVENTO – 2026
    ========================= */
 
 const raceData = {
@@ -9,26 +9,11 @@ const raceData = {
   image: "assets/australia.jpg",
 
   sessions: [
-    {
-      name: "FP1",
-      date: "2026-03-06T02:30:00Z"
-    },
-    {
-      name: "FP2",
-      date: "2026-03-06T06:00:00Z"
-    },
-    {
-      name: "FP3",
-      date: "2026-03-07T02:30:00Z"
-    },
-    {
-      name: "Qualificação",
-      date: "2026-03-07T06:00:00Z"
-    },
-    {
-      name: "Corrida",
-      date: "2026-03-08T05:00:00Z"
-    }
+    { name: "FP1", date: "2026-03-06T02:30:00Z" },
+    { name: "FP2", date: "2026-03-06T06:00:00Z" },
+    { name: "FP3", date: "2026-03-07T02:30:00Z" },
+    { name: "Qualificação", date: "2026-03-07T06:00:00Z" },
+    { name: "Corrida", date: "2026-03-08T05:00:00Z" }
   ]
 };
 
@@ -36,72 +21,74 @@ const raceData = {
    UTILITÁRIOS
    ========================= */
 
-function getNextSession() {
-  const now = new Date();
-
-  return raceData.sessions.find(
-    session => new Date(session.date) > now
-  );
+function formatDateTime(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleString("pt-PT", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
 function formatCountdown(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  const s = Math.floor(ms / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return `${d}d ${h}h ${m}m ${sec}s`;
 }
 
-function startCountdown(elementId, targetDate) {
-  const el = document.getElementById(elementId);
+function getNextSession() {
+  const now = new Date();
+  return raceData.sessions.find(s => new Date(s.date) > now);
+}
+
+function startCountdown(id, target) {
+  const el = document.getElementById(id);
   if (!el) return;
 
-  function update() {
-    const now = new Date();
-    const diff = new Date(targetDate) - now;
-
-    if (diff <= 0) {
-      el.textContent = "Sessão em curso";
-      return;
-    }
-
-    el.textContent = formatCountdown(diff);
+  function tick() {
+    const diff = new Date(target) - new Date();
+    el.textContent = diff <= 0 ? "Sessão em curso" : formatCountdown(diff);
   }
 
-  update();
-  setInterval(update, 1000);
+  tick();
+  setInterval(tick, 1000);
 }
 
 /* =========================
-   INIT POR PÁGINA
+   INIT
    ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const page = document.body.getAttribute("data-page");
-  const nextSession = getNextSession();
+  const page = document.body.dataset.page;
+  const next = getNextSession();
 
-  if (!nextSession) return;
+  if (!next) return;
 
   /* HOME */
   if (page === "home") {
-    const nameEl = document.getElementById("home-session-name");
-    const countdownEl = document.getElementById("home-countdown");
-
-    if (nameEl) nameEl.textContent = nextSession.name;
-    if (countdownEl) startCountdown("home-countdown", nextSession.date);
+    document.getElementById("home-session-name").textContent = next.name;
+    startCountdown("home-countdown", next.date);
   }
 
   /* RACE */
   if (page === "race") {
-    const titleEl = document.getElementById("race-title");
-    const sessionNameEl = document.getElementById("next-session-name");
+    document.getElementById("race-title").textContent = raceData.name;
+    startCountdown("race-countdown", next.date);
 
-    if (titleEl) titleEl.textContent = raceData.name;
-    if (sessionNameEl) sessionNameEl.textContent = nextSession.name;
+    document.getElementById("next-session-name").textContent = next.name;
+    startCountdown("next-session-countdown", next.date);
 
-    startCountdown("race-countdown", nextSession.date);
-    startCountdown("next-session-countdown", nextSession.date);
+    const list = document.getElementById("session-list");
+    list.innerHTML = raceData.sessions.map(s => `
+      <div class="session-row">
+        <strong>${s.name}</strong>
+        <span>${formatDateTime(s.date)}</span>
+      </div>
+    `).join("");
   }
 });
