@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-<header>
-  <h1>F1 2026</h1>
-  <p>Calendário Oficial</p>
+<body data-page="home">
 
-  <nav class="menu">
-    <a href="index.html" class="active">🏠 Home</a>
-    <a href="teams.html">👥 Equipas</a>
-    <a href="pilots.html">🏆 Pilotos</a>
-    <button disabled>🏎️ Construtores</button>
-  </nav>
+<!-- HEADER FIXO -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="app-title">F1 2026</div>
+    <nav>
+      <a href="index.html" class="active">🏠 Home</a>
+      <a href="teams.html">👥 Equipas</a>
+      <a href="pilots.html">🏆 Pilotos</a>
+      <a href="constructors.html">🏎️ Construtores</a>
+    </nav>
+  </div>
 </header>
 
-<main id="app">
-  <!-- Conteúdo gerado pelo app.js -->
+<main class="container" id="app">
+
+  <!-- CARD PRINCIPAL -->
+  <section class="card">
+    <h2>Próxima Corrida</h2>
+
+    <h3>Grande Prémio da Austrália</h3>
+
+    <p><strong>FP1</strong></p>
+
+    <div class="countdown">
+      42d 12h 18m
+    </div>
+
+    <a href="race.html" class="btn">
+      Ver detalhes
+    </a>
+  </section>
+
 </main>
 
 <footer>
@@ -29,5 +48,6 @@
 </footer>
 
 <script src="app.js"></script>
+
 </body>
 </html>
