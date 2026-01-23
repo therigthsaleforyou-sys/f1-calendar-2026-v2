@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Corrida – F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- HEADER FIXO GLOBAL -->
+<!-- HEADER FIXO -->
 <header class="app-header">
   <div class="header-inner">
     <div class="app-title">F1 2026</div>
@@ -18,78 +16,85 @@
       <a href="index.html">🏠 Home</a>
       <a href="teams.html">👥 Equipas</a>
       <a href="pilots.html">🏆 Pilotos</a>
-      <a href="constructors.html" class="active">🏎️ Construtores</a>
+      <a href="constructors.html">🏎️ Construtores</a>
     </nav>
   </div>
 </header>
 
-<!-- CONTEÚDO -->
-<main class="container" id="race-content">
+<main class="container">
 
   <!-- HERO DA CORRIDA -->
   <section class="race-hero">
-    <img id="race-image" src="assets/australia.jpg" alt="Circuito" />
-    <div class="overlay">
-      <h1 id="race-title">Grande Prémio</h1>
-      <div class="countdown" id="race-countdown">A calcular...</div>
+    <img id="race-image" src="assets/australia.jpg" alt="Circuito">
+    <div class="hero-overlay">
+      <h1 id="race-title">Grande Prémio da Austrália</h1>
+      <div class="countdown" id="race-countdown">
+        A calcular…
+      </div>
     </div>
   </section>
 
   <!-- PRÓXIMA SESSÃO -->
   <div class="card">
     <h2>Próxima Sessão</h2>
-    <p id="next-session-name">—</p>
-    <div class="countdown" id="next-session-countdown">—</div>
+    <p id="next-session-name"><strong>FP1</strong></p>
+    <div class="countdown" id="next-session-countdown">
+      43d 2h 10m 00s
+    </div>
   </div>
 
   <!-- FICHA TÉCNICA -->
   <div class="card">
     <h2>Ficha Técnica</h2>
-    <ul id="race-tech">
-      <li>Extensão: —</li>
-      <li>Voltas: —</li>
-      <li>Distância: —</li>
-      <li>Curvas: —</li>
-      <li>Zonas DRS: —</li>
+    <ul>
+      <li>Extensão: 5.278 km</li>
+      <li>Voltas: 58</li>
+      <li>Distância: 306.124 km</li>
+      <li>Curvas: 14</li>
+      <li>Zonas DRS: 4</li>
     </ul>
   </div>
 
   <!-- DADOS 2025 -->
   <div class="card">
     <h2>Dados da Corrida 2025</h2>
-    <div id="race-2025">
-      <p>Disponível para consulta.</p>
-    </div>
+    <p><strong>Meteorologia:</strong> Sol e 24°C</p>
+    <p><strong>Pole:</strong> 1:15.915</p>
+    <p><strong>Melhor volta:</strong> 1:19.813</p>
+    <p><strong>Tempo da corrida:</strong> 1h 31m 12s</p>
+    <p><strong>Pódio:</strong></p>
+    <ul>
+      <li>Max Verstappen</li>
+      <li>Lando Norris</li>
+      <li>Charles Leclerc</li>
+    </ul>
+    <p>
+      Corrida marcada por Safety Car e estratégia agressiva nas boxes.
+    </p>
   </div>
 
-  <!-- DADOS 2026 -->
-  <div class="card">
-    <h2>Dados da Corrida 2026</h2>
-    <p><em>Disponível assim que possível.</em></p>
-  </div>
-
-  <!-- BOTÕES IMPRIMIR -->
+  <!-- IMPRIMIR -->
   <div class="card">
     <button class="btn">🖨️ Imprimir ficha + dados 2025</button>
     <br><br>
-    <button class="btn" disabled>🖨️ Dados 2026 (indisponível)</button>
+    <button class="btn" disabled>
+      🖨️ Dados 2026 (disponível após a corrida)
+    </button>
   </div>
 
   <!-- VOLTAR AO TOPO -->
-  <div class="to-top">
-    <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+  <div style="text-align:center; margin:40px 0">
+    <button class="btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
       ⬆ Voltar ao topo
     </button>
   </div>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   F1 2026 – Projeto independente
 </footer>
 
-<!-- JS -->
 <script src="app.js"></script>
 
 </body>
