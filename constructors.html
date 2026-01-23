@@ -2,85 +2,66 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 2026 — Construtores</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0b0b0b;
-      color: #ffffff;
-    }
-
-    header {
-      text-align: center;
-      padding: 20px;
-      border-bottom: 2px solid #e10600;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px;
-      background: #000;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #e10600;
-    }
-
-    main {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #111;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid #333;
-    }
-
-    th {
-      background: #e10600;
-      color: white;
-    }
-
-    tr:nth-child(even) {
-      background: #1a1a1a;
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #aaa;
-    }
-  </style>
+  <title>F1 2026 – Classificação de Construtores</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <header>
   <h1>F1 2026</h1>
-  <p>Classificação de Construtores</
+  <p>Classificação de Construtores</p>
+</header>
+
+<nav>
+  <a href="index.html"><button>🏠 Home</button></a>
+  <a href="teams.html"><button>👥 Equipas</button></a>
+  <a href="pilots.html"><button>🏆 Pilotos</button></a>
+  <a href="constructors.html" class="active"><button>🏎️ Construtores</button></a>
+</nav>
+
+<main>
+
+  <div class="card">
+    <h2>Tabela de Pontos — Construtores 2026</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Construtor</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Red Bull Racing</td>
+          <td>43</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>McLaren</td>
+          <td>33</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Ferrari</td>
+          <td>27</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Mercedes</td>
+          <td>10</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  F1 2026 – Projeto independente
+</footer>
+
+</body>
+</html>
