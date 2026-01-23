@@ -9,7 +9,6 @@
 
 <body data-page="home">
 
-<!-- HEADER FIXO -->
 <header class="app-header">
   <div class="header-inner">
     <div class="app-title">F1 2026</div>
@@ -22,18 +21,19 @@
   </div>
 </header>
 
-<main class="container" id="app">
+<main class="container">
 
-  <!-- CARD PRINCIPAL -->
   <section class="card">
-    <h2>Próxima Corrida</h2>
+    <h2>Próxima Sessão</h2>
 
     <h3>Grande Prémio da Austrália</h3>
 
-    <p><strong>FP1</strong></p>
+    <p>
+      <strong id="home-session-name">A calcular…</strong>
+    </p>
 
-    <div class="countdown">
-      42d 12h 18m
+    <div class="countdown" id="home-countdown">
+      A calcular…
     </div>
 
     <a href="race.html" class="btn">
@@ -48,6 +48,5 @@
 </footer>
 
 <script src="app.js"></script>
-
 </body>
 </html>
