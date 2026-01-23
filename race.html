@@ -2,60 +2,75 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Corrida – F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <title>Grande Prémio da Austrália – F1 2026</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body data-page="race">
-
-<header class="app-header">
-  <div class="header-inner">
-    <div class="app-title">F1 2026</div>
-    <nav>
-      <a href="index.html">🏠 Home</a>
-      <a href="teams.html">👥 Equipas</a>
-      <a href="pilots.html">🏆 Pilotos</a>
-      <a href="constructors.html">🏎️ Construtores</a>
-    </nav>
-  </div>
+<header>
+  <h1>F1 2026</h1>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="teams.html">👥 Equipas</a>
+    <a href="pilots.html">🏆 Pilotos</a>
+    <a href="constructors.html">🏎️ Construtores</a>
+  </nav>
 </header>
 
-<main class="container">
+<div class="container">
 
   <!-- HERO -->
   <section class="race-hero">
-    <img src="assets/australia.jpg" alt="Grande Prémio da Austrália">
-    <div class="hero-overlay">
-      <h1 id="race-title">—</h1>
-      <div class="countdown" id="race-countdown">A calcular…</div>
-    </div>
+    <h2>Grande Prémio da Austrália</h2>
+    <div class="countdown" id="race-countdown">A calcular…</div>
   </section>
 
   <!-- PRÓXIMA SESSÃO -->
-  <section class="card">
-    <h2>Próxima Sessão</h2>
-    <p id="next-session-name">—</p>
+  <div class="card">
+    <h3>Próxima Sessão</h3>
+    <p id="next-session-name">FP1</p>
     <div class="countdown" id="next-session-countdown">A calcular…</div>
-  </section>
+  </div>
 
   <!-- PROGRAMA -->
-  <section class="card">
-    <h2>Programa do Evento</h2>
-    <div id="session-list"></div>
-  </section>
+  <div class="card">
+    <h3>Programa do Evento</h3>
+    <p>FP1 sexta-feira, 06/03, 02:30</p>
+    <p>FP2 sexta-feira, 06/03, 06:00</p>
+    <p>FP3 sábado, 07/03, 02:30</p>
+    <p>Qualificação sábado, 07/03, 06:00</p>
+    <p>Corrida domingo, 08/03, 05:00</p>
+  </div>
 
   <!-- DADOS 2025 -->
-  <section class="card">
-    <h2>Dados da Corrida 2025</h2>
-    <div id="data-2025"></div>
-  </section>
+  <div class="card">
+    <h3>Dados da Corrida 2025</h3>
+    <p>Meteorologia: Sol, 24°C</p>
+    <p>Pole: 1:15.915</p>
+    <p>Melhor volta: 1:19.813</p>
+    <p>Tempo da corrida: 1h 31m 12s</p>
+  </div>
 
-</main>
+  <!-- PODIO -->
+  <div class="card">
+    <h3>Pódio 2025</h3>
+    <p>1.º Max Verstappen</p>
+    <p>2.º Lando Norris</p>
+    <p>3.º Charles Leclerc</p>
+    <p>Corrida marcada por Safety Car e estratégia agressiva nas boxes.</p>
+  </div>
 
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  ⬆ Voltar ao topo
-</button>
+  <!-- BOTÃO IMPRIMIR -->
+  <button onclick="window.print()" class="print-btn">
+    🖨️ Imprimir corrida
+  </button>
+
+  <!-- VOLTAR AO TOPO -->
+  <div id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    ⬆ Voltar ao topo
+  </div>
+
+</div>
 
 <footer>
   F1 2026 – Projeto independente
