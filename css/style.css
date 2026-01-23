@@ -1,197 +1,187 @@
-/* RESET */
+/* =========================
+   RESET BÁSICO
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #0b0b0b;
-  color: #fff;
-  padding-top: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f0f0f;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
-/* HEADER FIXO */
-header.app-header {
+/* =========================
+   CABEÇALHO FIXO
+   ========================= */
+header {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  background: #000;
-  border-bottom: 3px solid #e10600;
+  background: #e10600;
   z-index: 1000;
 }
 
-.header-inner {
-  max-width: 1200px;
-  margin: auto;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+header h1 {
+  text-align: center;
+  padding: 10px 0;
+  font-size: 20px;
 }
 
-.app-title {
-  font-size: 1.2rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
-/* MENU */
 nav {
   display: flex;
-  gap: 12px;
+  justify-content: center;
+  gap: 16px;
+  padding-bottom: 8px;
 }
 
 nav a {
   text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: background 0.25s ease;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 4px 8px;
 }
 
-nav a.active,
-nav a:hover {
-  background: #e10600;
+nav a.active {
+  background: #ffffff;
+  color: #e10600;
+  border-radius: 4px;
 }
 
-/* CONTAINER */
+/* =========================
+   CONTAINER
+   ========================= */
 .container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px 16px;
+  max-width: 900px;
+  margin: 140px auto 40px;
+  padding: 0 16px;
 }
 
-/* CARDS */
-.card {
-  background: linear-gradient(180deg, #161616, #0d0d0d);
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #222;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-}
-
-.card h2 {
-  margin-bottom: 12px;
-  border-left: 4px solid #e10600;
-  padding-left: 10px;
-}
-
-/* ===== LOGOS DAS EQUIPAS ===== */
-
-.team-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.team-logo {
-  width: 120px;
-  max-width: 120px;
-  height: auto;
-  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.8));
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.team-logo:hover {
-  transform: scale(1.08);
-  filter: drop-shadow(0 10px 30px rgba(225,6,0,0.8));
-}
-
-.team-info h3 {
-  font-size: 1.2rem;
-  margin-bottom: 6px;
-}
-
-.team-info p {
-  color: #ccc;
-  font-size: 0.95rem;
-}
-
-/* BOTÕES */
-.btn {
-  display: inline-block;
-  background: #e10600;
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.25s ease, transform 0.2s ease;
-}
-
-.btn:hover {
-  background: #ff1e1e;
-  transform: translateY(-1px);
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  color: #aaa;
-  border-top: 1px solid #222;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .team-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .team-logo {
-    width: 100px;
-  }
-}
-/* HERO DA CORRIDA – RESPONSIVO */
+/* =========================
+   HERO DA CORRIDA
+   ========================= */
 .race-hero {
-  position: relative;
-  width: 100%;
-  min-height: 260px;
-  max-height: 420px;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.race-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.25)
-  );
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  color: #fff;
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.6)
+    ),
+    url("assets/hero-australia.jpg") center/cover no-repeat;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
-.hero-overlay h1 {
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
+.race-hero h2 {
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
-.hero-overlay .countdown {
-  font-size: clamp(1rem, 3vw, 1.3rem);
+.countdown {
+  font-size: 22px;
   font-weight: bold;
-  color: #e10600;
 }
+
+/* =========================
+   CARTÕES
+   ========================= */
+.card {
+  background: #1c1c1c;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.card h3 {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+}
+
+/* =========================
+   LISTAS
+   ========================= */
+.card p {
+  margin-bottom: 6px;
+}
+
+/* =========================
+   BOTÕES
+   ========================= */
+.print-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #e10600;
+  color: #ffffff;
+}
+
+#print-btn:hover {
+  opacity: 0.9;
+}
+
+#backToTop {
+  display: block;
+  text-align: center;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+footer {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* =========================
+   MODO IMPRESSÃO
+   ========================= */
+@media print {
+  header,
+  nav,
+  footer,
+  #backToTop,
+  .print-btn {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .container {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .card {
+    background: none;
+    box-shadow: none;
+    border: none;
+    page-break-inside: avoid;
+  }
+
+  .race-hero {
+    background: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .countdown {
+    font-size: 18px;
+  }
+    }
