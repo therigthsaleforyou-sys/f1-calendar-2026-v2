@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Grande Prémio – F1 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
 <header>
   <div class="navbar">
     <div class="logo">F1 2026</div>
@@ -9,3 +19,93 @@
     </nav>
   </div>
 </header>
+
+<!-- HERO -->
+<section class="hero" style="background-image:url('assets/australia.jpg')">
+  <div class="hero-overlay">
+    <h1>Grande Prémio da Austrália</h1>
+    <p id="race-countdown">A calcular…</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <!-- PRÓXIMA SESSÃO -->
+  <div class="card">
+    <h2>Próxima Sessão</h2>
+    <p id="next-session-name">FP1</p>
+    <div class="countdown" id="next-session-countdown">A calcular…</div>
+  </div>
+
+  <!-- PROGRAMA -->
+  <div class="card">
+    <h2>Programa do Evento</h2>
+    <ul>
+      <li>FP1 — sexta, 06/03, 02:30</li>
+      <li>FP2 — sexta, 06/03, 06:00</li>
+      <li>FP3 — sábado, 07/03, 02:30</li>
+      <li>Qualificação — sábado, 07/03, 06:00</li>
+      <li>Corrida — domingo, 08/03, 05:00</li>
+    </ul>
+  </div>
+
+  <!-- DADOS 2025 -->
+  <div class="card">
+    <h2>Dados da Corrida 2025</h2>
+    <p><strong>Meteorologia:</strong> Sol, 24°C</p>
+    <p><strong>Pole:</strong> 1:15.915</p>
+    <p><strong>Melhor volta:</strong> 1:19.813</p>
+    <p><strong>Tempo total:</strong> 1h 31m 12s</p>
+
+    <h3>Pódio 2025</h3>
+    <ol>
+      <li>Max Verstappen</li>
+      <li>Lando Norris</li>
+      <li>Charles Leclerc</li>
+    </ol>
+
+    <p>Corrida marcada por Safety Car e estratégia agressiva nas boxes.</p>
+  </div>
+
+  <!-- IMPRIMIR -->
+  <div class="card">
+    <button class="btn" onclick="window.print()">🖨️ Imprimir ficha</button>
+  </div>
+
+  <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    ⬆ Voltar ao topo
+  </button>
+
+</main>
+
+<footer>
+  F1 2026 – Projeto independente
+</footer>
+
+<script>
+/* COUNTDOWN SIMPLES */
+const targetDate = new Date("2026-03-06T02:30:00Z");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = targetDate - now;
+
+  if (diff <= 0) return;
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  const text = `${d}d ${h}h ${m}m ${s}s`;
+
+  document.getElementById("race-countdown").innerText = text;
+  document.getElementById("next-session-countdown").innerText = text;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
