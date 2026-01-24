@@ -1,27 +1,4 @@
 /* ===========================
-   BASE GLOBAL
-=========================== */
-
-body {
-  font-size: 22px; /* +100% face ao início do projeto */
-  line-height: 1.8;
-}
-
-/* ===========================
-   HEADER (TOPO)
-=========================== */
-
-header h1 {
-  font-size: 4rem; /* 2× */
-  letter-spacing: 1px;
-}
-
-.nav-btn {
-  font-size: 2rem; /* 2× */
-  padding: 18px 28px;
-}
-
-/* ===========================
    HERO DA CORRIDA
 =========================== */
 
@@ -58,14 +35,14 @@ header h1 {
 }
 
 .race-hero-overlay h1 {
-  font-size: 4.8rem; /* título principal */
+  font-size: 4.8rem;
   margin-bottom: 26px;
 }
 
 .hero-countdown {
-  font-size: 4.3rem; /* ~90% do título */
+  font-size: 4.3rem;
   font-weight: bold;
-  color: #e10600;
+  color: #ffcc00;
 }
 
 /* ===========================
@@ -78,6 +55,10 @@ header h1 {
   padding: 80px 28px;
 }
 
+/* ===========================
+   CARDS
+=========================== */
+
 .card {
   background: #111;
   border-radius: 18px;
@@ -87,28 +68,28 @@ header h1 {
 }
 
 /* ===========================
-   CABEÇALHOS INTERNOS (+50%)
+   CABEÇALHOS INTERNOS
 =========================== */
 
 .card h2 {
-  font-size: 3.4rem; /* +50% */
+  font-size: 3.4rem;
   margin-bottom: 28px;
   color: #e10600;
 }
 
 .card h3 {
-  font-size: 2.6rem; /* +50% */
+  font-size: 2.6rem;
   margin-top: 32px;
   margin-bottom: 18px;
 }
 
 /* ===========================
-   TEXTO (+100%)
+   TEXTO
 =========================== */
 
 .card p,
 .card li {
-  font-size: 2.2rem; /* +100% */
+  font-size: 2.2rem;
 }
 
 /* ===========================
@@ -158,7 +139,7 @@ header h1 {
 }
 
 /* ===========================
-   VOLTAR AO TOPO (MUITO VISÍVEL)
+   VOLTAR AO TOPO
 =========================== */
 
 .back-top {
@@ -182,28 +163,20 @@ header h1 {
 }
 
 /* ===========================
-   RESPONSIVO
+   RESPONSIVO (APENAS CORRIDA)
 =========================== */
 
 @media (max-width: 768px) {
 
-  body {
-    font-size: 18px;
-  }
-
-  header h1 {
-    font-size: 2.6rem;
-  }
-
-  .nav-btn {
-    font-size: 1.4rem;
-  }
-
   .race-hero-overlay h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
   }
 
   .hero-countdown {
-    font-size: 2.7rem;
+    font-size: 2.8rem;
+  }
+
+  .card {
+    padding: 34px 28px;
   }
 }
