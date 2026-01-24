@@ -2,16 +2,13 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Grande Prémio da Austrália – F1 2026</title>
-
-  <!-- CSS GLOBAL -->
+  <title>Grande Prémio da Austrália</title>
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- CSS DA CORRIDA -->
   <link rel="stylesheet" href="css/race.css">
+  <script src="app.js" defer></script>
 </head>
 
-<body id="top">
+<body>
 
 <header>
   <div class="navbar">
@@ -25,70 +22,19 @@
   </div>
 </header>
 
-<!-- HERO DA CORRIDA -->
-<section class="race-hero" style="background-image:url('assets/australia.jpg')">
+<section class="race-hero">
   <div class="race-hero-overlay">
     <h1>Grande Prémio da Austrália</h1>
-    <div class="hero-countdown" id="race-countdown">
-      A calcular…
-    </div>
+    <div class="hero-countdown" id="race-countdown">A calcular…</div>
   </div>
 </section>
 
-<main class="container race-container">
+<main class="race-container">
 
-  <!-- PRÓXIMA SESSÃO -->
-  <section class="card">
+  <div class="card">
     <h2>Próxima Sessão</h2>
     <p id="next-session-name">FP1</p>
-    <div class="countdown" id="next-session-countdown">
-      A calcular…
-    </div>
-  </section>
-
-  <!-- PROGRAMA DO EVENTO -->
-  <section class="card">
-    <h2>Programa do Evento</h2>
-    <ul class="schedule">
-      <li><strong>FP1</strong> — sexta-feira, 06/03, 02:30</li>
-      <li><strong>FP2</strong> — sexta-feira, 06/03, 06:00</li>
-      <li><strong>FP3</strong> — sábado, 07/03, 02:30</li>
-      <li><strong>Qualificação</strong> — sábado, 07/03, 06:00</li>
-      <li><strong>Corrida</strong> — domingo, 08/03, 05:00</li>
-    </ul>
-  </section>
-
-  <!-- DADOS DA CORRIDA 2025 -->
-  <section class="card">
-    <h2>Dados da Corrida 2025</h2>
-
-    <p><strong>Meteorologia:</strong> Sol, 24°C</p>
-    <p><strong>Pole:</strong> 1:15.915</p>
-    <p><strong>Melhor volta:</strong> 1:19.813</p>
-    <p><strong>Tempo da corrida:</strong> 1h 31m 12s</p>
-
-    <h3>Pódio 2025</h3>
-    <ol class="podium">
-      <li>Max Verstappen</li>
-      <li>Lando Norris</li>
-      <li>Charles Leclerc</li>
-    </ol>
-
-    <p class="note">
-      Corrida marcada por Safety Car e estratégia agressiva nas boxes.
-    </p>
-  </section>
-
-  <!-- IMPRIMIR -->
-  <section class="card print-card">
-    <button class="btn-print" onclick="window.print()">
-      🖨️ Imprimir ficha + dados 2025
-    </button>
-  </section>
-
-  <!-- VOLTAR AO TOPO -->
-  <div class="back-top">
-    <a href="#top">⬆ Voltar ao topo</a>
+    <div class="countdown" id="next-session-countdown">A calcular…</div>
   </div>
 
 </main>
@@ -96,9 +42,6 @@
 <footer>
   F1 2026 – Projeto independente
 </footer>
-
-<!-- JS GLOBAL -->
-<script src="app.js"></script>
 
 </body>
 </html>
