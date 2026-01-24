@@ -2,20 +2,16 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <title>F1 2026 – Calendário</title>
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- IMPORTANTE: defer -->
   <script src="app.js" defer></script>
 </head>
+
 <body>
 
 <header>
   <div class="navbar">
     <div class="logo">F1 2026</div>
-
     <nav class="nav">
       <a href="index.html" class="nav-btn active">🏠 Home</a>
       <a href="teams.html" class="nav-btn">👥 Equipas</a>
@@ -25,13 +21,18 @@
   </div>
 </header>
 
-<main>
+<section class="hero home-hero">
+  <div class="hero-overlay">
+    <h1 id="next-race-name">Grande Prémio da Austrália</h1>
+    <div class="hero-countdown" id="home-countdown">A calcular…</div>
+  </div>
+</section>
 
-  <section class="home-hero">
-    <h1 id="next-race-name">Próxima Corrida</h1>
-    <div id="home-countdown" class="home-countdown">A calcular…</div>
-  </section>
-
+<main class="container">
+  <div class="card">
+    <h2>Próxima corrida</h2>
+    <p id="next-race-date">A carregar…</p>
+  </div>
 </main>
 
 <footer>
