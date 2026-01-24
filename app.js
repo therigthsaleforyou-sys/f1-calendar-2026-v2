@@ -1,62 +1,57 @@
-const races = [
-  {
-    name: "Grande Prémio da Austrália",
-    date: "2026-03-08T05:00:00",
-    location: "Melbourne",
-    image: "assets/australia.jpg",
-    link: "race.html"
-  },
-  {
-    name: "Grande Prémio do Bahrein",
-    date: "2026-03-22T16:00:00",
-    location: "Sakhir",
-    image: "assets/bahrain.jpg",
-    link: "#"
-  },
-  {
-    name: "Grande Prémio da Arábia Saudita",
-    date: "2026-03-29T18:00:00",
-    location: "Jeddah",
-    image: "assets/saudiarabia.jpg",
-    link: "#"
+document.addEventListener("DOMContentLoaded", () => {
+
+  const races = [
+    {
+      name: "Grande Prémio da Austrália",
+      date: "2026-03-08T05:00:00"
+    },
+    {
+      name: "Grande Prémio do Bahrein",
+      date: "2026-03-22T16:00:00"
+    },
+    {
+      name: "Grande Prémio da Arábia Saudita",
+      date: "2026-03-29T18:00:00"
+    }
+  ];
+
+  const now = new Date();
+
+  // ordenar corridas
+  races.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // encontrar próxima corrida
+  const nextRace = races.find(race => new Date(race.date) > now);
+
+  const raceTitleEl = document.getElementById("next-race-name");
+  const countdownEl = document.getElementById("home-countdown");
+
+  if (!nextRace || !raceTitleEl || !countdownEl) {
+    console.error("Erro: elementos ou corrida não encontrados");
+    return;
   }
-];
 
-const grid = document.getElementById("racesGrid");
-const now = new Date();
+  raceTitleEl.textContent = nextRace.name;
 
-// ordenar por data
-races.sort((a, b) => new Date(a.date) - new Date(b.date));
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const raceTime = new Date(nextRace.date).getTime();
+    const diff = raceTime - now;
 
-// descobrir próxima corrida
-let nextRaceIndex = races.findIndex(race => new Date(race.date) > now);
+    if (diff <= 0) {
+      countdownEl.textContent = "A decorrer ou concluída";
+      return;
+    }
 
-if (nextRaceIndex === -1) nextRaceIndex = 0;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-// mover próxima corrida para o topo
-const nextRace = races.splice(nextRaceIndex, 1)[0];
-races.unshift(nextRace);
+    countdownEl.textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
 
-// render
-races.forEach((race, index) => {
-  const isNext = index === 0;
-
-  const card = document.createElement("a");
-  card.href = race.link;
-  card.className = `race-card ${isNext ? "next-race" : ""}`;
-
-  card.innerHTML = `
-    <div class="race-card-bg" style="background-image:url('${race.image}')"></div>
-    <div class="race-card-overlay">
-      ${isNext ? `<span class="next-badge">PRÓXIMA</span>` : ""}
-      <h2>${race.name}</h2>
-      <p>${race.location}</p>
-      <span>${new Date(race.date).toLocaleDateString("pt-PT", {
-        day: "2-digit",
-        month: "long"
-      })}</span>
-    </div>
-  `;
-
-  grid.appendChild(card);
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 });
