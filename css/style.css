@@ -33,32 +33,33 @@ header {
     rgba(11, 11, 11, 0.92)
   );
   border-bottom: 3px solid #e10600;
-  padding: 24px 16px 20px;
+  padding: 28px 20px 22px;
   text-align: center;
 }
 
-/* TÍTULO DA APP */
+/* TÍTULO DA APP — IGUAL AO HERO */
 header h1 {
-  font-size: 4.8rem;
+  font-size: 4.8rem;          /* igual ao hero */
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 /* NAV */
 .nav {
   display: flex;
   justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 28px;
+  flex-wrap: nowrap;          /* 🔒 NUNCA quebra linha */
+  white-space: nowrap;
 }
 
 .nav-btn {
   text-decoration: none;
   color: #ffffff;
-  font-size: 2rem;
-  padding: 14px 26px;
+  font-size: 2.2rem;
+  padding: 14px 28px;
   border-radius: 999px;
   transition: all 0.25s ease;
   border: 2px solid transparent;
@@ -75,7 +76,7 @@ header h1 {
 }
 
 /* ===========================
-   HERO (PÁGINA DA CORRIDA / HOME)
+   HERO
 =========================== */
 
 .hero {
@@ -156,13 +157,12 @@ header h1 {
   margin-bottom: 12px;
 }
 
-/* LISTAS */
 ul {
   list-style: none;
 }
 
 /* ===========================
-   TABELAS (Pilotos / Construtores)
+   TABELAS
 =========================== */
 
 table {
@@ -182,7 +182,6 @@ td {
 
 th {
   background: #e10600;
-  color: #ffffff;
 }
 
 tr:nth-child(even) {
@@ -190,28 +189,27 @@ tr:nth-child(even) {
 }
 
 /* ===========================
-   LOGOS EQUIPAS
+   LOGOS
 =========================== */
 
 .team-logo {
   max-width: 180px;
   height: auto;
-  display: block;
   margin-bottom: 16px;
 }
 
 /* ===========================
-   BOTÃO VOLTAR AO TOPO
+   VOLTAR AO TOPO
 =========================== */
 
 .back-to-top {
   display: inline-block;
   margin: 60px auto 0;
-  padding: 18px 32px;
-  font-size: 2.2rem;
-  font-weight: 700;
+  padding: 18px 34px;
+  font-size: 2.4rem;
+  font-weight: 800;
   background: #ffd400;
-  color: #000000;
+  color: #000;
   border-radius: 999px;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
