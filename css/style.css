@@ -1,5 +1,5 @@
 /* ===========================
-   RESET BASE
+   RESET + BASE
 =========================== */
 
 * {
@@ -8,40 +8,39 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: #0b0b0b;
-  color: #f1f1f1;
-  line-height: 1.6;
+  background: #000;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  line-height: 1.8;
 }
 
 /* ===========================
-   HEADER GLOBAL (FORÇADO)
+   HEADER GLOBAL
 =========================== */
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(180deg, #e10600 0%, #b00000 100%);
+  background: #e10600;
   border-bottom: 4px solid #ffcc00;
-  padding: 30px 20px 26px;
-  text-align: center;
 }
 
-/* 🔥 MAIOR TEXTO DO SITE — FORÇADO */
-header h1 {
-  font-size: 7.2rem !important;
-  font-weight: 900 !important;
-  letter-spacing: 4px;
+.navbar {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 24px 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* 🔥 F1 2026 — ELEMENTO MAIS IMPORTANTE DO SITE */
+.logo {
+  font-size: 4.8rem; /* IGUAL AO HERO */
+  font-weight: 900;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #ffffff;
-  margin-bottom: 22px;
   text-align: center;
 }
 
@@ -51,26 +50,26 @@ header h1 {
 
 .nav {
   display: flex;
-  justify-content: center;
   gap: 26px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .nav-btn {
-  font-size: 2.2rem;
-  padding: 14px 26px;
-  border-radius: 12px;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 16px 28px;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: 700;
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
   transition: all 0.25s ease;
 }
 
 .nav-btn:hover {
   background: #ffcc00;
   color: #000;
-  transform: translateY(-2px);
 }
 
 .nav-btn.active {
@@ -79,110 +78,13 @@ header h1 {
 }
 
 /* ===========================
-   CONTAINER
+   CONTEÚDO BASE
 =========================== */
 
-.container {
-  max-width: 1200px;
+main {
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 60px 20px;
-}
-
-/* ===========================
-   HERO
-=========================== */
-
-.hero {
-  position: relative;
-  min-height: 460px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.85)
-  );
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  padding: 40px;
-}
-
-.hero h2 {
-  font-size: 4.8rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.hero .countdown {
-  font-size: 4.2rem;
-  font-weight: 700;
-}
-
-/* ===========================
-   SECÇÕES
-=========================== */
-
-section {
-  margin-top: 60px;
-}
-
-section h3 {
-  font-size: 3.4rem;
-  margin-bottom: 24px;
-  border-left: 6px solid #ffcc00;
-  padding-left: 18px;
-}
-
-/* ===========================
-   CARDS
-=========================== */
-
-.card {
-  background: #151515;
-  border-radius: 20px;
-  padding: 32px;
-  margin-bottom: 40px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-}
-
-.card p,
-.card li {
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-}
-
-.card strong {
-  color: #ffcc00;
-}
-
-/* ===========================
-   BOTÃO VOLTAR AO TOPO
-=========================== */
-
-.back-to-top {
-  display: inline-block;
-  margin: 60px auto 0;
-  padding: 18px 36px;
-  background: #ffcc00;
-  color: #000;
-  font-size: 2.2rem;
-  font-weight: 800;
-  border-radius: 14px;
-  text-decoration: none;
+  padding: 80px 28px;
 }
 
 /* ===========================
@@ -190,12 +92,11 @@ section h3 {
 =========================== */
 
 footer {
-  margin-top: 80px;
-  padding: 30px 20px;
   text-align: center;
+  padding: 40px 20px;
   background: #000;
-  font-size: 1.8rem;
   color: #aaa;
+  font-size: 1.6rem;
 }
 
 /* ===========================
@@ -203,12 +104,17 @@ footer {
 =========================== */
 
 @media (max-width: 768px) {
-  header h1 {
-    font-size: 5.2rem !important;
+
+  body {
+    font-size: 18px;
+  }
+
+  .logo {
+    font-size: 3.2rem;
   }
 
   .nav-btn {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     padding: 12px 18px;
   }
 }
