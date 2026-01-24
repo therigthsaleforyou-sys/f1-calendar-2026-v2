@@ -1,4 +1,213 @@
 /* ===========================
+   BASE GLOBAL
+=========================== */
+
+body {
+  font-size: 22px; /* +100% face ao início do projeto */
+  line-height: 1.8;
+}
+
+/* ===========================
+   HEADER (TOPO)
+=========================== */
+
+header h1 {
+  font-size: 4rem; /* 2× */
+  letter-spacing: 1px;
+}
+
+.nav-btn {
+  font-size: 2rem; /* 2× */
+  padding: 18px 28px;
+}
+
+/* ===========================
+   HERO DA CORRIDA
+=========================== */
+
+.race-hero {
+  width: 100%;
+  height: 70vh;
+  min-height: 450px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.race-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.9)
+  );
+}
+
+.race-hero-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 40px;
+}
+
+.race-hero-overlay h1 {
+  font-size: 4.8rem; /* título principal */
+  margin-bottom: 26px;
+}
+
+.hero-countdown {
+  font-size: 4.3rem; /* ~90% do título */
+  font-weight: bold;
+  color: #e10600;
+}
+
+/* ===========================
+   CONTEÚDO PRINCIPAL
+=========================== */
+
+.race-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 28px;
+}
+
+.card {
+  background: #111;
+  border-radius: 18px;
+  padding: 46px 50px;
+  margin-bottom: 60px;
+  box-shadow: 0 20px 55px rgba(0,0,0,0.5);
+}
+
+/* ===========================
+   CABEÇALHOS INTERNOS (+50%)
+=========================== */
+
+.card h2 {
+  font-size: 3.4rem; /* +50% */
+  margin-bottom: 28px;
+  color: #e10600;
+}
+
+.card h3 {
+  font-size: 2.6rem; /* +50% */
+  margin-top: 32px;
+  margin-bottom: 18px;
+}
+
+/* ===========================
+   TEXTO (+100%)
+=========================== */
+
+.card p,
+.card li {
+  font-size: 2.2rem; /* +100% */
+}
+
+/* ===========================
+   PROGRAMA DO EVENTO
+=========================== */
+
+.schedule {
+  list-style: none;
+  padding: 0;
+}
+
+.schedule li {
+  padding: 18px 0;
+  border-bottom: 1px solid #222;
+}
+
+/* ===========================
+   PÓDIO
+=========================== */
+
+.podium {
+  padding-left: 28px;
+}
+
+.podium li {
+  font-size: 2.3rem;
+  margin: 14px 0;
+}
+
+/* ===========================
+   BOTÃO IMPRIMIR
+=========================== */
+
+.btn-print {
+  width: 100%;
+  padding: 26px;
+  font-size: 2.2rem;
+  background: #e10600;
+  border: none;
+  color: #fff;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.btn-print:hover {
+  background: #ff1e1e;
+}
+
+/* ===========================
+   VOLTAR AO TOPO (MUITO VISÍVEL)
+=========================== */
+
+.back-top {
+  text-align: center;
+  margin: 80px 0 30px;
+}
+
+.back-top a {
+  display: inline-block;
+  background: #ffd700;
+  color: #000;
+  padding: 22px 36px;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 16px;
+  text-decoration: none;
+}
+
+.back-top a:hover {
+  background: #ffea00;
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+
+@media (max-width: 768px) {
+
+  body {
+    font-size: 18px;
+  }
+
+  header h1 {
+    font-size: 2.6rem;
+  }
+
+  .nav-btn {
+    font-size: 1.4rem;
+  }
+
+  .race-hero-overlay h1 {
+    font-size: 3rem;
+  }
+
+  .hero-countdown {
+    font-size: 2.7rem;
+  }
+}
+/* ===========================
    HEADER – TÍTULO DA APP (HERO STYLE)
 =========================== */
 
