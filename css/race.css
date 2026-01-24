@@ -1,74 +1,97 @@
-/* ====== BASE ====== */
+/* ===========================
+   BASE GERAL DA PÁGINA CORRIDA
+=========================== */
+
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0b0b0b;
-  color: #fff;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* ===========================
+   HERO DA CORRIDA
+=========================== */
 
-/* ====== HEADER FIXO ====== */
-.app-header {
-  position: sticky;
-  top: 0;
-  background: #e10600;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.app-header nav a {
-  margin-left: 15px;
-  font-weight: bold;
-}
-
-/* ====== HERO ====== */
 .race-hero {
-  background: linear-gradient(135deg, #111, #000);
-  padding: 60px 20px;
+  width: 100%;
+  height: 70vh;                 /* HERO ALTO */
+  min-height: 420px;
+  background-size: cover;       /* NUNCA mosaico */
+  background-repeat: no-repeat; /* CORREÇÃO DO MOSAICO */
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.race-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.85)
+  );
+}
+
+.race-hero-overlay {
+  position: relative;
+  z-index: 2;
   text-align: center;
+  color: #fff;
+  padding: 40px;
 }
 
-.race-hero h2 {
-  margin: 0 0 15px;
-  font-size: 32px;
+.race-hero-overlay h1 {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
-.countdown {
-  font-size: 22px;
+.hero-countdown {
+  font-size: 2.2rem;
   font-weight: bold;
   color: #e10600;
 }
 
-/* ====== CONTEÚDO ====== */
+/* ===========================
+   CONTEÚDO
+=========================== */
+
 .race-container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px;
 }
 
 .card {
-  background: #151515;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: #111;
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.card h2 {
+  font-size: 1.9rem;
+  margin-bottom: 18px;
+  color: #e10600;
 }
 
 .card h3 {
-  margin-top: 0;
-  color: #e10600;
+  font-size: 1.4rem;
+  margin-top: 20px;
 }
+
+.card p,
+.card li {
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   PROGRAMA
+=========================== */
 
 .schedule {
   list-style: none;
@@ -76,31 +99,74 @@ a {
 }
 
 .schedule li {
-  padding: 6px 0;
-  border-bottom: 1px solid #333;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
 }
 
-/* ====== PODIUM ====== */
-.podium ol {
+/* ===========================
+   PÓDIO
+=========================== */
+
+.podium {
   padding-left: 20px;
 }
 
 .podium li {
-  margin-bottom: 6px;
+  font-size: 1.2rem;
+  margin: 6px 0;
 }
 
-/* ====== VOLTAR AO TOPO ====== */
-.back-to-top {
-  display: block;
-  text-align: center;
-  margin: 30px 0;
-  font-weight: bold;
+/* ===========================
+   BOTÕES
+=========================== */
+
+.btn-print {
+  width: 100%;
+  padding: 18px;
+  font-size: 1.2rem;
+  background: #e10600;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-/* ====== FOOTER ====== */
-footer {
+.btn-print:hover {
+  background: #ff1e1e;
+}
+
+/* ===========================
+   VOLTAR AO TOPO
+=========================== */
+
+.back-top {
   text-align: center;
-  padding: 15px;
-  font-size: 14px;
-  color: #aaa;
+  margin-top: 40px;
+}
+
+.back-top a {
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   RESPONSIVO (TELEMÓVEL)
+=========================== */
+
+@media (max-width: 768px) {
+
+  .race-hero {
+    height: 55vh;
+  }
+
+  .race-hero-overlay h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-countdown {
+    font-size: 1.6rem;
+  }
+
+  body {
+    font-size: 17px;
+  }
 }
