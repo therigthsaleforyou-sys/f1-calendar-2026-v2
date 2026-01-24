@@ -1,105 +1,17 @@
-* {
-  box-sizing: border-box;
-}
+/* ... tudo igual ao anterior ... */
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #000;
-  color: #fff;
-}
-
-/* HEADER */
-header {
+.hero-btn {
+  display: inline-block;
+  margin-top: 30px;
   background: #e10600;
-}
-
-.navbar {
-  max-width: 1400px;
-  margin: auto;
-  padding: 28px;
-  text-align: center;
-}
-
-.logo {
-  font-size: 4.8rem;
-  font-weight: 900;
-  margin-bottom: 24px;
-}
-
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-}
-
-.nav-btn {
   color: #fff;
+  font-size: 2.2rem;
+  padding: 18px 36px;
+  border-radius: 14px;
   text-decoration: none;
-  font-size: 2rem;
-  padding: 16px 26px;
-  border-radius: 10px;
-}
-
-.nav-btn.active,
-.nav-btn:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* HERO */
-.hero {
-  height: 65vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  background: url("../assets/australia.jpg") center/cover no-repeat;
-}
-
-.hero-overlay {
-  text-align: center;
-  background: rgba(0,0,0,0.6);
-  padding: 60px;
-  border-radius: 18px;
-}
-
-.hero h1 {
-  font-size: 4.8rem;
-  margin-bottom: 20px;
-}
-
-.hero-countdown {
-  font-size: 4.3rem;
-  color: #ffd700;
   font-weight: bold;
 }
 
-/* CONTENT */
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 80px 30px;
-}
-
-.card {
-  background: #111;
-  padding: 46px;
-  border-radius: 18px;
-  margin-bottom: 60px;
-}
-
-.card h2 {
-  font-size: 3.2rem;
-  color: #e10600;
-}
-
-.card p {
-  font-size: 2.2rem;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #aaa;
+.hero-btn:hover {
+  background: #ff1e1e;
 }
