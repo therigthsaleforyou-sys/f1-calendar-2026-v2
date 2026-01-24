@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 2026</title>
+  <title>F1 2026 – Calendário</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -21,20 +21,47 @@
 </header>
 
 <main class="container">
-  <h1>Calendário Fórmula 1 2026</h1>
-  <p>Se estás a ler isto, o layout base está a funcionar.</p>
 
-  <h2>Estado do projeto</h2>
-  <ul>
-    <li>Header unificado ✅</li>
-    <li>CSS global ativo ✅</li>
-    <li>Conteúdo visível ✅</li>
-  </ul>
+  <div class="card">
+    <h2>Próxima Corrida</h2>
+    <h3>Grande Prémio da Austrália</h3>
+
+    <p><strong>FP1</strong></p>
+    <div class="countdown" id="home-countdown">A calcular…</div>
+
+    <a href="race.html">
+      <button class="btn">Ver detalhes</button>
+    </a>
+  </div>
+
 </main>
 
 <footer>
   F1 2026 – Projeto independente
 </footer>
+
+<script>
+/* COUNTDOWN HOME */
+const targetDate = new Date("2026-03-06T02:30:00Z");
+
+function updateHomeCountdown() {
+  const now = new Date();
+  const diff = targetDate - now;
+
+  if (diff <= 0) return;
+
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("home-countdown").innerText =
+    `${d}d ${h}h ${m}m ${s}s`;
+}
+
+setInterval(updateHomeCountdown, 1000);
+updateHomeCountdown();
+</script>
 
 </body>
 </html>
