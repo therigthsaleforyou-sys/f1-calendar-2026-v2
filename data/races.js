@@ -20,4 +20,4 @@ const races = [
     hero: "assets/japan.jpg",
     date: "2026-03-29T06:00:00Z"
   }
-]; 
+];
