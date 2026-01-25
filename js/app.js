@@ -1,9 +1,15 @@
-function startCountdown(id, date) {
-  const el = document.getElementById(id);
+function getNextRace() {
+  const now = new Date();
+  return races.find(r => new Date(r.raceDate) > now);
+}
+
+function startCountdown(elementId, date) {
+  const el = document.getElementById(elementId);
   if (!el) return;
 
   function update() {
     const diff = new Date(date) - new Date();
+
     if (diff <= 0) {
       el.textContent = "Já começou!";
       return;
@@ -22,9 +28,10 @@ function startCountdown(id, date) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.races) return;
+  if (!window.races || races.length === 0) return;
 
-  const nextRace = races[0];
+  const nextRace = getNextRace();
+  if (!nextRace) return;
 
   startCountdown("home-countdown", nextRace.raceDate);
   startCountdown("race-countdown", nextRace.raceDate);
@@ -35,15 +42,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!list) return;
 
-  function render() {
-    const m = monthSelect.value;
-    const c = countrySelect.value;
+  function renderRaces() {
+    const month = monthSelect.value;
+    const country = countrySelect.value;
 
     list.innerHTML = "";
 
     races
-      .filter(r => (m === "all" || r.month === m))
-      .filter(r => (c === "all" || r.country === c))
+      .filter(r => month === "all" || r.month === month)
+      .filter(r => country === "all" || r.country === country)
       .forEach(r => {
         list.innerHTML += `
           <div class="race-card">
@@ -58,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  monthSelect?.addEventListener("change", render);
-  countrySelect?.addEventListener("change", render);
-  render();
+  monthSelect.addEventListener("change", renderRaces);
+  countrySelect.addEventListener("change", renderRaces);
+
+  renderRaces();
 });
