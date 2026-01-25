@@ -4,22 +4,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const now = new Date();
 
-  // ===============================
-  // PRÓXIMA CORRIDA
-  // ===============================
-  const nextRace = races
-    .map(r => ({ ...r, date: new Date(r.raceDate) }))
-    .find(r => r.date > now);
+  // ==========================
+  // DETETAR PÁGINA DE CORRIDA
+  // ==========================
+  const racePage = document.querySelector("[data-race-id]");
+  let currentRace = null;
 
-  // ===============================
+  if (racePage) {
+    const raceId = racePage.dataset.raceId;
+    currentRace = races.find(r => r.id === raceId);
+  }
+
+  // ==========================
   // COUNTDOWN (HOME OU RACE)
-  // ===============================
-  const countdownEl = document.getElementById("countdown");
-  const raceCountdownEl = document.getElementById("race-countdown");
+  // ==========================
+  const countdownEl =
+    document.getElementById("countdown") ||
+    document.getElementById("race-countdown");
 
-  if (nextRace && (countdownEl || raceCountdownEl)) {
+  const raceToCount = currentRace
+    ? { ...currentRace, date: new Date(currentRace.raceDate) }
+    : races.map(r => ({ ...r, date: new Date(r.raceDate) }))
+        .find(r => r.date > now);
+
+  if (countdownEl && raceToCount) {
     setInterval(() => {
-      const diff = nextRace.date - new Date();
+      const diff = raceToCount.date - new Date();
 
       if (diff <= 0) return;
 
@@ -28,24 +38,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      const text = `${d}d ${h}h ${m}m ${s}s`;
-
-      if (countdownEl) countdownEl.textContent = text;
-      if (raceCountdownEl) raceCountdownEl.textContent = text;
+      countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
   }
 
-  // ===============================
-  // LINK PARA PÁGINA DA CORRIDA
-  // ===============================
+  // ==========================
+  // LINK HOME → CORRIDA
+  // ==========================
   const raceLink = document.getElementById("race-link");
-  if (raceLink && nextRace) {
-    raceLink.href = nextRace.page;
+  if (raceLink && raceToCount) {
+    raceLink.href = raceToCount.page;
   }
 
-  // ===============================
+  // ==========================
   // FILTROS (HOME)
-  // ===============================
+  // ==========================
   const monthFilter = document.getElementById("filter-month");
   const countryFilter = document.getElementById("filter-country");
   const raceList = document.getElementById("race-list");
@@ -53,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderRaces(list) {
     if (!raceList) return;
     raceList.innerHTML = "";
-
     list.forEach(race => {
       const li = document.createElement("li");
       li.innerHTML = `<a href="${race.page}">${race.name}</a>`;
