@@ -1,20 +1,18 @@
 const races = [
   {
-    slug: "australia",
+    id: "australia",
     name: "Grande Prémio da Austrália",
     country: "Austrália",
     month: "Março",
-    raceDate: "2026-03-08T05:00:00Z",
-    image: "assets/races/australia.jpg",
+    raceDate: "2026-03-08T05:00:00",
     page: "race-australia.html"
   },
   {
-    slug: "bahrain",
+    id: "bahrain",
     name: "Grande Prémio do Bahrain",
     country: "Bahrain",
     month: "Março",
-    raceDate: "2026-03-15T15:00:00Z",
-    image: "assets/races/bahrain.jpg",
+    raceDate: "2026-03-15T17:00:00",
     page: "race-bahrain.html"
   }
 ];
