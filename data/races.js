@@ -3,16 +3,16 @@ const races = [
     id: "australia",
     name: "Grande Prémio da Austrália",
     country: "Austrália",
-    month: "Março",
-    raceDate: "2026-03-08T05:00:00",
-    page: "race-australia.html"
+    circuit: "Albert Park",
+    date: "2026-03-15T06:00:00Z",
+    image: "assets/races/australia.jpg"
   },
   {
     id: "bahrain",
     name: "Grande Prémio do Bahrain",
     country: "Bahrain",
-    month: "Março",
-    raceDate: "2026-03-15T17:00:00",
-    page: "race-bahrain.html"
+    circuit: "Sakhir",
+    date: "2026-03-22T15:00:00Z",
+    image: "assets/races/bahrain.jpg"
   }
 ];
