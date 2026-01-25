@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initSessions();
   initHistory2025();
   initResults2026();
+  initDrivers();
+  initConstructors();
 });
 
 const LOCALE = "pt-PT";
@@ -104,6 +106,36 @@ function initResults2026() {
     html += "</ol>";
   }
 
+  c.innerHTML = html;
+}
+
+function initDrivers() {
+  const c = document.getElementById("drivers-table");
+  const id = document.documentElement.dataset.raceId;
+  if (!c || !id) return;
+
+  const r = races.find(r => r.id === id);
+  let html = `<table>
+                <thead><tr><th>Piloto</th><th>Equipa</th></tr></thead><tbody>`;
+  r.drivers.forEach(d => {
+    html += `<tr><td>${d.name}</td><td>${d.team}</td></tr>`;
+  });
+  html += "</tbody></table>";
+  c.innerHTML = html;
+}
+
+function initConstructors() {
+  const c = document.getElementById("constructors-table");
+  const id = document.documentElement.dataset.raceId;
+  if (!c || !id) return;
+
+  const r = races.find(r => r.id === id);
+  let html = `<table>
+                <thead><tr><th>Equipa</th><th>Pontos</th></tr></thead><tbody>`;
+  r.constructors.forEach(d => {
+    html += `<tr><td>${d.name}</td><td>${d.points}</td></tr>`;
+  });
+  html += "</tbody></table>";
   c.innerHTML = html;
 }
 
