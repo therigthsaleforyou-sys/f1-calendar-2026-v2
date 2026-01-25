@@ -1,17 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof races === "undefined") return;
 
-  initNextRaceCountdown();
+  initHome();
   initInternalRaceCountdown();
+  initSessionsTable();
 });
 
 /* =========================
-   Countdown da PRÓXIMA corrida (FP1)
+   HOME
 ========================= */
+function initHome() {
+  renderRaceList();
+  initNextRaceCountdown();
+}
+
+function renderRaceList() {
+  const list = document.getElementById("race-list");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  races.forEach(race => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${race.name}</strong><br>
+      ${race.country} — ${race.circuit}<br>
+      <a class="btn" href="race-${race.id}.html">Ver detalhes →</a>
+    `;
+    list.appendChild(li);
+  });
+}
+
 function initNextRaceCountdown() {
-  const countdownEl = document.getElementById("countdown");
-  const raceLink = document.getElementById("race-link");
-  if (!countdownEl) return;
+  const el = document.getElementById("countdown");
+  const link = document.getElementById("race-link");
+  if (!el) return;
 
   const now = new Date();
 
@@ -20,65 +43,79 @@ function initNextRaceCountdown() {
     .sort((a, b) => new Date(a.sessions.FP1) - new Date(b.sessions.FP1));
 
   if (upcoming.length === 0) {
-    countdownEl.textContent = "Temporada terminada";
+    el.textContent = "Temporada terminada";
     return;
   }
 
   const nextRace = upcoming[0];
 
-  if (raceLink) {
-    raceLink.href = `race-${nextRace.id}.html`;
-  }
+  if (link) link.href = `race-${nextRace.id}.html`;
 
-  updateCountdown(countdownEl, new Date(nextRace.sessions.FP1));
+  updateCountdown(el, new Date(nextRace.sessions.FP1));
   setInterval(() => {
-    updateCountdown(countdownEl, new Date(nextRace.sessions.FP1));
+    updateCountdown(el, new Date(nextRace.sessions.FP1));
   }, 1000);
 }
 
 /* =========================
-   Countdown INTERNO da corrida (FP1)
+   COUNTDOWN INTERNO
 ========================= */
 function initInternalRaceCountdown() {
-  const internalEl = document.getElementById("internal-countdown");
+  const el = document.getElementById("internal-countdown");
   const raceId = document.documentElement.dataset.raceId;
-
-  if (!internalEl || !raceId) return;
+  if (!el || !raceId) return;
 
   const race = races.find(r => r.id === raceId);
   if (!race) return;
 
-  const fp1Date = new Date(race.sessions.FP1);
+  const fp1 = new Date(race.sessions.FP1);
 
-  updateCountdown(internalEl, fp1Date);
+  updateCountdown(el, fp1);
   setInterval(() => {
-    updateCountdown(internalEl, fp1Date);
+    updateCountdown(el, fp1);
   }, 1000);
 }
 
 /* =========================
-   Função base de countdown
+   SESSÕES AUTOMÁTICAS
 ========================= */
-function updateCountdown(element, targetDate) {
-  const now = new Date();
-  const diff = targetDate - now;
+function initSessionsTable() {
+  const container = document.getElementById("sessions-2026");
+  const raceId = document.documentElement.dataset.raceId;
+  if (!container || !raceId) return;
 
-  if (diff <= 0) {
-    element.textContent = "Sessão iniciada ou terminada";
-    return;
+  const race = races.find(r => r.id === raceId);
+  if (!race) return;
+
+  let html = "<ul>";
+
+  for (const session in race.sessions) {
+    const date = new Date(race.sessions[session]);
+    html += `<li>${session}: ${date.toLocaleString("pt-PT")}</li>`;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  html += "</ul>";
+  container.innerHTML = html;
 }
 
 /* =========================
-   Imprimir página
+   UTIL
 ========================= */
+function updateCountdown(el, target) {
+  const diff = target - new Date();
+  if (diff <= 0) {
+    el.textContent = "Sessão iniciada ou terminada";
+    return;
+  }
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+}
+
 function printPage() {
   window.print();
 }
