@@ -1,77 +1,25 @@
-/* RESET BÁSICO */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background-color: #111; color: #fff; line-height: 1.5; }
 
-/* BODY */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #111;
-  color: #fff;
-  line-height: 1.5;
-}
+header { text-align: center; padding: 20px 0; }
+header h1, header h2 { font-size: 36px; font-weight: 700; }
 
-/* HEADER UNIFICADO */
-header {
-  text-align: center;
-  padding: 20px 0;
-}
-header h1,
-header h2 {
-  font-size: 36px;
-  font-weight: 700;
-}
+#countdown, #internal-countdown { margin: 15px 0; font-size: 20px; font-weight: bold; }
 
-/* COUNTDOWN */
-#countdown {
-  margin: 15px 0;
-  font-size: 20px;
-  font-weight: bold;
-}
+.btn { display: inline-block; background-color: #e10600; color: #fff; padding: 8px 12px; text-decoration: none; border-radius: 5px; margin-top: 5px; }
 
-/* BTN */
-.btn {
-  display: inline-block;
-  background-color: #e10600;
-  color: #fff;
-  padding: 8px 12px;
-  text-decoration: none;
-  border-radius: 5px;
-  margin-top: 5px;
-}
+.race-card { display: flex; align-items: center; border: 1px solid #444; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+.race-card img.race-img { width: 100px; height: 60px; object-fit: cover; margin-right: 10px; border-radius: 5px; }
+.race-info h3 { margin-bottom: 5px; }
+.race-info p { margin-bottom: 3px; }
 
-/* RACES */
-.race-card {
-  display: flex;
-  align-items: center;
-  border: 1px solid #444;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
+.filters { margin: 20px 0; }
+.filters select { padding: 5px 10px; margin-right: 10px; border-radius: 5px; }
 
-.race-card img.race-img {
-  width: 100px;
-  height: 60px;
-  object-fit: cover;
-  margin-right: 10px;
-  border-radius: 5px;
+/* Scroll-top */
+.scroll-top {
+  position: fixed; bottom: 20px; right: 20px;
+  background-color: #e10600; color: #fff; border: none; padding: 10px 15px; border-radius: 5px;
+  cursor: pointer; font-size: 16px;
 }
-.race-info h3 {
-  margin-bottom: 5px;
-}
-.race-info p {
-  margin-bottom: 3px;
-}
-
-/* FILTROS */
-.filters {
-  margin: 20px 0;
-}
-.filters select {
-  padding: 5px 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-}
+.scroll-top:hover { background-color: #ff1c1c; }
