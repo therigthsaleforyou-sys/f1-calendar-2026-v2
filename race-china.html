@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GP China – F1 2026</title>
+<title>GP da China – F1 2026</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,21 +20,26 @@
 </header>
 
 <main class="race-page">
-<h2>Grande Prémio da China</h2>
-<img src="assets/races/china.jpg" alt="China">
 
-<h3>Sessões 2026</h3>
-<div id="sessions-2026"></div>
+  <h2>Grande Prémio da China</h2>
+  <img src="assets/races/china.jpg" alt="GP da China">
 
-<h3>Histórico 2025</h3>
-<div id="history-2025"></div>
+  <h3>Sessões 2026</h3>
+  <div id="sessions-2026">A carregar…</div>
 
-<h3>Resultados 2026</h3>
-<div id="results-2026"></div>
+  <h3>Histórico 2025</h3>
+  <div id="history-2025">A carregar…</div>
 
-<p>Countdown FP1: <strong id="internal-countdown"></strong></p>
+  <h3>Resultados das Sessões 2026</h3>
+  <div id="results-2026">A carregar…</div>
 
-<button class="btn" onclick="printPage()">Imprimir dados</button>
+  <p>
+    <strong>Countdown para FP1:</strong>
+    <span id="internal-countdown">A calcular…</span>
+  </p>
+
+  <button class="btn" onclick="printPage()">Imprimir dados</button>
+
 </main>
 
 <script src="data/races.js"></script>
