@@ -2,70 +2,43 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 2026 – Calendário Oficial</title>
+  <title>F1 2026 – Calendário</title>
 
-  <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- JS GLOBAL -->
-  <script src="app.js" defer></script>
+  <script src="data/races.js"></script>
+  <script src="js/app.js" defer></script>
 </head>
-
 <body>
 
-<!-- =========================
-     HEADER GLOBAL
-========================= -->
 <header>
-  <div class="navbar">
-    <div class="logo">F1 2026</div>
-
-    <nav class="nav">
-      <a href="index.html" class="nav-btn active">🏠 Home</a>
-      <a href="teams.html" class="nav-btn">👥 Equipas</a>
-      <a href="pilots.html" class="nav-btn">🏆 Pilotos</a>
-      <a href="constructors.html" class="nav-btn">🏎️ Construtores</a>
-    </nav>
-  </div>
+  <h1 class="app-title">F1 2026</h1>
+  <nav class="nav">
+    <a href="index.html" class="nav-btn active">🏠 Home</a>
+    <a href="teams.html" class="nav-btn">👥 Equipas</a>
+    <a href="pilots.html" class="nav-btn">🏆 Pilotos</a>
+    <a href="constructors.html" class="nav-btn">🏎️ Construtores</a>
+  </nav>
 </header>
 
-<!-- =========================
-     HERO – PRÓXIMA CORRIDA
-========================= -->
-<section class="hero home-hero" style="background-image:url('assets/australia.jpg')">
+<section class="hero" style="background-image:url('assets/races/australia.jpg')">
   <div class="hero-overlay">
-
-    <h1>Grande Prémio da Austrália</h1>
-
-    <div class="hero-countdown" id="home-countdown">
-      A calcular…
-    </div>
-
-    <a href="races/australia.html" class="hero-btn">
-      Ver página da corrida →
-    </a>
-
+    <h2>Grande Prémio da Austrália</h2>
+    <div id="home-countdown" class="hero-countdown">A calcular…</div>
+    <a href="race.html" class="hero-btn">Ver página da corrida →</a>
   </div>
 </section>
 
-<!-- =========================
-     CONTEÚDO HOME
-========================= -->
-<main class="home-container">
-
+<main class="content">
   <section class="card">
-    <h2>Calendário Fórmula 1 2026</h2>
+    <h3>Calendário Fórmula 1 2026</h3>
     <p>
       Acompanhe todas as corridas, horários e resultados da temporada 2026
       com contagem decrescente automática e páginas dedicadas por Grande Prémio.
     </p>
   </section>
-
 </main>
 
-<!-- =========================
-     FOOTER
-========================= -->
 <footer>
   F1 2026 – Projeto independente
 </footer>
