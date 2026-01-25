@@ -41,7 +41,21 @@ const races = [
         { pos: 2, driver: "Norris", time: "+3.221s" },
         { pos: 3, driver: "Sainz", time: "+7.845s" }
       ]
-    }
+    },
+    drivers: [
+      { name: "Max Verstappen", team: "Red Bull" },
+      { name: "Charles Leclerc", team: "Ferrari" },
+      { name: "Lando Norris", team: "McLaren" },
+      { name: "Carlos Sainz", team: "Ferrari" },
+      { name: "Lewis Hamilton", team: "Mercedes" },
+      { name: "Oscar Piastri", team: "McLaren" }
+    ],
+    constructors: [
+      { name: "Red Bull", points: 45 },
+      { name: "Ferrari", points: 38 },
+      { name: "McLaren", points: 30 },
+      { name: "Mercedes", points: 25 }
+    ]
   },
   {
     id: "china",
@@ -85,6 +99,21 @@ const races = [
         { pos: 2, driver: "Piastri", time: "+4.112s" },
         { pos: 3, driver: "Hamilton", time: "+8.334s" }
       ]
-    }
+    },
+    drivers: [
+      { name: "Lando Norris", team: "McLaren" },
+      { name: "Oscar Piastri", team: "McLaren" },
+      { name: "Lewis Hamilton", team: "Mercedes" },
+      { name: "Max Verstappen", team: "Red Bull" },
+      { name: "Charles Leclerc", team: "Ferrari" },
+      { name: "Fernando Alonso", team: "Alpine" }
+    ],
+    constructors: [
+      { name: "McLaren", points: 35 },
+      { name: "Mercedes", points: 28 },
+      { name: "Red Bull", points: 40 },
+      { name: "Ferrari", points: 32 },
+      { name: "Alpine", points: 20 }
+    ]
   }
 ];
