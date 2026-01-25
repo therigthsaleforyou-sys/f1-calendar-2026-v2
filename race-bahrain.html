@@ -14,20 +14,29 @@
 </header>
 
 <main class="race-page">
-  <section class="next-race">
-    <h2>Próxima Corrida</h2>
-    <div id="countdown">A calcular…</div>
-    <a id="race-link" class="btn">Ver página da corrida →</a>
-  </section>
+<section class="next-race">
+  <h2>Próxima Corrida</h2>
+  <div id="countdown">A calcular…</div>
+  <a id="race-link" class="btn">Ver página da corrida →</a>
+</section>
 
-  <section class="race-details">
-    <h2>Grande Prémio do Bahrain</h2>
-    <img src="assets/races/bahrain.jpg" alt="Bahrain">
-    <p>Circuito: Sakhir</p>
-    <p>Data/Hora: 12/04/2026 18:00</p>
-    <p>País: Bahrain</p>
-    <p>Countdown desta corrida: <span id="internal-countdown">A calcular…</span></p>
-  </section>
+<section class="race-details">
+  <h2>Grande Prémio do Bahrain</h2>
+  <img src="assets/races/bahrain.jpg" alt="Bahrain">
+  <p>Circuito: Sakhir</p>
+  <p>País: Bahrain</p>
+
+  <h3>Sessões 2026</h3>
+  <div id="sessions-2026">A calcular…</div>
+
+  <h3>Ficha técnica e histórico 2025</h3>
+  <div id="history-2025"></div>
+
+  <h3>Resultados placeholder 2026</h3>
+  <div id="results-2026"></div>
+
+  <button onclick="printPage()" class="btn">Imprimir Dados</button>
+</section>
 </main>
 
 <script defer src="data/races.js"></script>
