@@ -31,6 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // HOME
   startCountdown("home-countdown", nextRace.raceDate);
 
-  // RACE PAGE
+  // RACE PAGE (se existir)
   startCountdown("race-countdown", nextRace.raceDate);
 });
