@@ -5,19 +5,18 @@
   <title>F1 2026</title>
 
   <link rel="stylesheet" href="css/style.css">
-
   <script src="data/races.js"></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
 
 <header>
-  <h1 class="app-title">F1 2026</h1>
+  <h1>F1 2026</h1>
   <nav class="nav">
-    <a href="index.html" class="nav-btn active">🏠 Home</a>
-    <a href="teams.html" class="nav-btn">👥 Equipas</a>
-    <a href="pilots.html" class="nav-btn">🏆 Pilotos</a>
-    <a href="constructors.html" class="nav-btn">🏎️ Construtores</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="#">👥 Equipas</a>
+    <a href="#">🏆 Pilotos</a>
+    <a href="#">🏎️ Construtores</a>
   </nav>
 </header>
 
@@ -25,28 +24,24 @@
   <div class="hero-overlay">
     <h2>Próxima Corrida</h2>
     <div id="home-countdown" class="hero-countdown">A calcular…</div>
-    <a href="race-australia.html" class="hero-btn">Ver página da corrida →</a>
+    <a href="race-australia.html" class="btn">Ver página da corrida</a>
   </div>
 </section>
 
-<main class="content">
+<div class="filters">
+  <select id="filter-month">
+    <option value="all">Todos os meses</option>
+    <option>Março</option>
+  </select>
 
-  <div class="filters">
-    <select id="filter-month">
-      <option value="all">Todos os meses</option>
-      <option>Março</option>
-    </select>
+  <select id="filter-country">
+    <option value="all">Todos os países</option>
+    <option>Austrália</option>
+    <option>Bahrain</option>
+  </select>
+</div>
 
-    <select id="filter-country">
-      <option value="all">Todos os países</option>
-      <option>Austrália</option>
-      <option>Bahrain</option>
-    </select>
-  </div>
-
-  <div id="race-list" class="race-list"></div>
-
-</main>
+<div id="race-list" class="race-list"></div>
 
 <footer>F1 2026 – Projeto independente</footer>
 
