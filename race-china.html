@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-PT" data-race-id="china">
+<html lang="pt-PT" data-race-id="japan">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GP China – F1 2026</title>
+<title>GP Japão – F1 2026</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,20 +14,29 @@
 </header>
 
 <main class="race-page">
-  <section class="next-race">
-    <h2>Próxima Corrida</h2>
-    <div id="countdown">A calcular…</div>
-    <a id="race-link" class="btn">Ver página da corrida →</a>
-  </section>
+<section class="next-race">
+  <h2>Próxima Corrida</h2>
+  <div id="countdown">A calcular…</div>
+  <a id="race-link" class="btn">Ver página da corrida →</a>
+</section>
 
-  <section class="race-details">
-    <h2>Grande Prémio da China</h2>
-    <img src="assets/races/china.jpg" alt="China">
-    <p>Circuito: Shanghai</p>
-    <p>Data/Hora: 15/03/2026 15:00</p>
-    <p>País: China</p>
-    <p>Countdown desta corrida: <span id="internal-countdown">A calcular…</span></p>
-  </section>
+<section class="race-details">
+  <h2>Grande Prémio do Japão</h2>
+  <img src="assets/races/japan.jpg" alt="Japão">
+  <p>Circuito: Suzuka</p>
+  <p>País: Japão</p>
+
+  <h3>Sessões 2026</h3>
+  <div id="sessions-2026">A calcular…</div>
+
+  <h3>Ficha técnica e histórico 2025</h3>
+  <div id="history-2025"></div>
+
+  <h3>Resultados placeholder 2026</h3>
+  <div id="results-2026"></div>
+
+  <button onclick="printPage()" class="btn">Imprimir Dados</button>
+</section>
 </main>
 
 <script defer src="data/races.js"></script>
