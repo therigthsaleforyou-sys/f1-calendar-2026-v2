@@ -1,19 +1,17 @@
-function startCountdown(elementId, targetDate) {
-  const el = document.getElementById(elementId);
+function startCountdown(id, date) {
+  const el = document.getElementById(id);
   if (!el) return;
 
   function update() {
-    const now = new Date();
-    const diff = new Date(targetDate) - now;
-
+    const diff = new Date(date) - new Date();
     if (diff <= 0) {
       el.textContent = "Já começou!";
       return;
     }
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff / 3600000) % 24);
+    const m = Math.floor((diff / 60000) % 60);
     const s = Math.floor((diff / 1000) % 60);
 
     el.textContent = `${d}d ${h}h ${m}m ${s}s`;
@@ -24,13 +22,43 @@ function startCountdown(elementId, targetDate) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof races === "undefined") return;
+  if (!window.races) return;
 
   const nextRace = races[0];
 
-  // HOME
   startCountdown("home-countdown", nextRace.raceDate);
-
-  // RACE PAGE (se existir)
   startCountdown("race-countdown", nextRace.raceDate);
+
+  const monthSelect = document.getElementById("filter-month");
+  const countrySelect = document.getElementById("filter-country");
+  const list = document.getElementById("race-list");
+
+  if (!list) return;
+
+  function render() {
+    const m = monthSelect.value;
+    const c = countrySelect.value;
+
+    list.innerHTML = "";
+
+    races
+      .filter(r => (m === "all" || r.month === m))
+      .filter(r => (c === "all" || r.country === c))
+      .forEach(r => {
+        list.innerHTML += `
+          <div class="race-card">
+            <img src="${r.image}">
+            <div>
+              <h4>${r.name}</h4>
+              <p>${r.country} — ${r.month}</p>
+              <a href="${r.page}" class="hero-btn">Ver corrida</a>
+            </div>
+          </div>
+        `;
+      });
+  }
+
+  monthSelect?.addEventListener("change", render);
+  countrySelect?.addEventListener("change", render);
+  render();
 });
