@@ -4,31 +4,29 @@ document.addEventListener("DOMContentLoaded", () => {
   initHome();
   initInternalRaceCountdown();
   initSessions();
+  initHistory2025();
 });
 
 const LOCALE = "pt-PT";
 const TIMEZONE = "Europe/Lisbon";
 
-/* ================= HOME ================= */
+/* HOME */
 function initHome() {
-  renderRaceList();
-  nextRaceCountdown();
-}
-
-function renderRaceList() {
   const list = document.getElementById("race-list");
   if (!list) return;
 
   list.innerHTML = "";
-  races.forEach(race => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>${race.name}</strong><br>
-      ${race.country} — ${race.circuit}<br>
-      <a class="btn" href="race-${race.id}.html">Ver corrida</a>
+  races.forEach(r => {
+    list.innerHTML += `
+      <li>
+        <strong>${r.name}</strong><br>
+        ${r.country} — ${r.circuit}<br>
+        <a class="btn" href="race-${r.id}.html">Ver corrida</a>
+      </li>
     `;
-    list.appendChild(li);
   });
+
+  nextRaceCountdown();
 }
 
 function nextRaceCountdown() {
@@ -47,23 +45,19 @@ function nextRaceCountdown() {
   }
 
   const race = upcoming[0];
-  if (link) link.href = `race-${race.id}.html`;
+  link.href = `race-${race.id}.html`;
 
-  updateCountdown(el, race.fp1);
   setInterval(() => updateCountdown(el, race.fp1), 1000);
 }
 
-/* ============== RACE PAGE ============== */
+/* RACE PAGE */
 function initInternalRaceCountdown() {
   const el = document.getElementById("internal-countdown");
   const id = document.documentElement.dataset.raceId;
   if (!el || !id) return;
 
   const race = races.find(r => r.id === id);
-  const fp1 = new Date(race.sessions.FP1);
-
-  updateCountdown(el, fp1);
-  setInterval(() => updateCountdown(el, fp1), 1000);
+  setInterval(() => updateCountdown(el, new Date(race.sessions.FP1)), 1000);
 }
 
 function initSessions() {
@@ -83,7 +77,25 @@ function initSessions() {
   container.innerHTML = html;
 }
 
-/* ============== UTIL ============== */
+function initHistory2025() {
+  const container = document.getElementById("history-2025");
+  const id = document.documentElement.dataset.raceId;
+  if (!container || !id) return;
+
+  const h = races.find(r => r.id === id).history2025;
+
+  container.innerHTML = `
+    <ul>
+      <li><strong>Meteorologia:</strong> ${h.weather}</li>
+      <li><strong>Pole Position:</strong> ${h.pole.driver} (${h.pole.time})</li>
+      <li><strong>Volta Mais Rápida:</strong> ${h.fastestLap.driver} (${h.fastestLap.time})</li>
+      <li><strong>Tempo Total da Corrida:</strong> ${h.raceTime}</li>
+      <li><strong>Pódio:</strong> 🥇 ${h.podium[0]} | 🥈 ${h.podium[1]} | 🥉 ${h.podium[2]}</li>
+    </ul>
+  `;
+}
+
+/* UTIL */
 function updateCountdown(el, target) {
   const diff = target - new Date();
   if (diff <= 0) {
