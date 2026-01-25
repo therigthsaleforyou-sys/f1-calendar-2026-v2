@@ -2,41 +2,41 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Grande Prémio da Austrália</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/race.css">
-  <script src="app.js" defer></script>
-</head>
+  <title>GP da Austrália – F1 2026</title>
 
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="data/races.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
 <body>
 
 <header>
-  <div class="navbar">
-    <div class="logo">F1 2026</div>
-    <nav class="nav">
-      <a href="index.html" class="nav-btn">🏠 Home</a>
-      <a href="teams.html" class="nav-btn">👥 Equipas</a>
-      <a href="pilots.html" class="nav-btn">🏆 Pilotos</a>
-      <a href="constructors.html" class="nav-btn">🏎️ Construtores</a>
-    </nav>
-  </div>
+  <h1 class="app-title">F1 2026</h1>
+  <nav class="nav">
+    <a href="index.html" class="nav-btn">🏠 Home</a>
+    <a href="race.html" class="nav-btn active">🏁 Corrida</a>
+  </nav>
 </header>
 
-<section class="race-hero">
-  <div class="race-hero-overlay">
-    <h1>Grande Prémio da Austrália</h1>
-    <div class="hero-countdown" id="race-countdown">A calcular…</div>
+<section class="hero" style="background-image:url('assets/races/australia.jpg')">
+  <div class="hero-overlay">
+    <h2>Grande Prémio da Austrália</h2>
+    <div id="race-countdown" class="hero-countdown">A calcular…</div>
   </div>
 </section>
 
-<main class="race-container">
-
-  <div class="card">
-    <h2>Próxima Sessão</h2>
-    <p id="next-session-name">FP1</p>
-    <div class="countdown" id="next-session-countdown">A calcular…</div>
-  </div>
-
+<main class="content">
+  <section class="card">
+    <h3>Programa do Evento</h3>
+    <ul>
+      <li>FP1 — sexta-feira, 06/03, 02:30</li>
+      <li>FP2 — sexta-feira, 06/03, 06:00</li>
+      <li>FP3 — sábado, 07/03, 02:30</li>
+      <li>Qualificação — sábado, 07/03, 06:00</li>
+      <li><strong>Corrida — domingo, 08/03, 05:00</strong></li>
+    </ul>
+  </section>
 </main>
 
 <footer>
