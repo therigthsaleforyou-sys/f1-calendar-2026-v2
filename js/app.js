@@ -2,20 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof races === "undefined") return;
 
   initCountdown();
+  initInternalCountdown();
   initFilters();
+  initScrollTopButton();
 });
-
-/* =========================
-   COUNTDOWN
-========================= */
 
 function initCountdown() {
   const countdownEl = document.getElementById("countdown");
+  const raceLink = document.getElementById("race-link");
   if (!countdownEl) return;
 
-  const raceLink = document.getElementById("race-link");
   const now = new Date();
-
   const upcoming = races.filter(r => new Date(r.date) > now);
   const nextRace = upcoming.length ? upcoming[0] : races[races.length - 1];
 
@@ -27,9 +24,19 @@ function initCountdown() {
   }
 
   updateCountdown(countdownEl, new Date(nextRace.date));
-  setInterval(() => {
-    updateCountdown(countdownEl, new Date(nextRace.date));
-  }, 1000);
+  setInterval(() => updateCountdown(countdownEl, new Date(nextRace.date)), 1000);
+}
+
+function initInternalCountdown() {
+  const internalCountdown = document.getElementById("internal-countdown");
+  const raceId = document.body.dataset.raceId;
+  if (!internalCountdown || !raceId) return;
+
+  const race = races.find(r => r.id === raceId);
+  if (!race) return;
+
+  updateCountdown(internalCountdown, new Date(race.date));
+  setInterval(() => updateCountdown(internalCountdown, new Date(race.date)), 1000);
 }
 
 function updateCountdown(element, raceDate) {
@@ -46,14 +53,12 @@ function updateCountdown(element, raceDate) {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
-  element.textContent =
-    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  element.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
 /* =========================
    FILTROS
 ========================= */
-
 function initFilters() {
   const monthFilter = document.getElementById("filter-month");
   const countryFilter = document.getElementById("filter-country");
@@ -63,12 +68,8 @@ function initFilters() {
 
   renderRaces(races, raceList);
 
-  if (monthFilter) {
-    monthFilter.addEventListener("change", () => applyFilters(raceList, monthFilter, countryFilter));
-  }
-  if (countryFilter) {
-    countryFilter.addEventListener("change", () => applyFilters(raceList, monthFilter, countryFilter));
-  }
+  if (monthFilter) monthFilter.addEventListener("change", () => applyFilters(raceList, monthFilter, countryFilter));
+  if (countryFilter) countryFilter.addEventListener("change", () => applyFilters(raceList, monthFilter, countryFilter));
 }
 
 function applyFilters(container, monthSelect, countrySelect) {
@@ -105,4 +106,15 @@ function renderRaces(list, container) {
     `;
     container.appendChild(li);
   });
+}
+
+/* =========================
+   SCROLL TOP
+========================= */
+function initScrollTopButton() {
+  const btn = document.createElement("button");
+  btn.textContent = "↑ Topo";
+  btn.className = "scroll-top";
+  btn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  document.body.appendChild(btn);
 }
