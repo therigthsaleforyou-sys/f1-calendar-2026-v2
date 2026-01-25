@@ -1,3 +1,7 @@
+/* =========================
+   BASE
+========================= */
+
 body {
   margin: 0;
   background: #000;
@@ -5,23 +9,30 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+a {
+  color: inherit;
+}
+
 /* =========================
-   HEADER GLOBAL
+   HEADER
 ========================= */
 
 .site-header {
   text-align: center;
   padding: 40px 20px 30px;
-  background: #000;
 }
 
 .site-header h1 {
   font-size: 4.8rem;
   font-weight: 900;
   letter-spacing: 2px;
-  margin-bottom: 25px;
   text-transform: uppercase;
+  margin-bottom: 25px;
 }
+
+/* =========================
+   NAV
+========================= */
 
 .nav {
   display: flex;
@@ -31,57 +42,76 @@ body {
 }
 
 .nav-btn {
-  color: #fff;
   text-decoration: none;
   font-size: 2rem;
   padding: 14px 24px;
   border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
-.nav-btn:hover {
+.nav-btn:hover,
+.nav-btn.active {
   background: #e10600;
+  transform: translateY(-3px);
 }
 
 /* =========================
-   HOME
+   CONTEÚDO
 ========================= */
 
-.next-race {
+.page-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 30px;
   text-align: center;
-  padding: 60px 20px;
 }
 
-#countdown,
-#race-countdown {
-  font-size: 4rem;
-  margin: 25px 0;
+.page-content h2 {
+  font-size: 3.5rem;
+  margin-bottom: 40px;
   color: #e10600;
 }
 
+/* =========================
+   LISTAS
+========================= */
+
+.simple-list {
+  list-style: none;
+  padding: 0;
+}
+
+.simple-list li {
+  font-size: 2.4rem;
+  padding: 18px 0;
+  border-bottom: 1px solid #222;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.simple-list li:hover {
+  transform: translateX(12px);
+  color: #e10600;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
 .btn {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 30px;
   padding: 18px 30px;
   background: #e10600;
   color: #fff;
   text-decoration: none;
   font-size: 1.8rem;
   border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-/* =========================
-   LISTA CORRIDAS
-========================= */
-
-#race-list {
-  list-style: none;
-  padding: 40px;
-  text-align: center;
-}
-
-#race-list li {
-  margin: 14px 0;
-  font-size: 2rem;
+.btn:hover {
+  transform: scale(1.08);
+  background: #ff1e1e;
 }
 
 /* =========================
@@ -92,4 +122,45 @@ body {
   text-align: center;
   padding: 40px 20px;
   opacity: 0.6;
+}
+
+/* =========================
+   ANIMAÇÕES F1 TV 🔥
+========================= */
+
+.animate {
+  animation: fadeSlide 0.8s ease-out both;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+  .site-header h1 {
+    font-size: 3.2rem;
+  }
+
+  .nav-btn {
+    font-size: 1.4rem;
+  }
+
+  .page-content h2 {
+    font-size: 2.4rem;
+  }
+
+  .simple-list li {
+    font-size: 1.8rem;
+  }
 }
