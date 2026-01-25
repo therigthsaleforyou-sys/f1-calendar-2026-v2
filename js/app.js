@@ -1,65 +1,85 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.races || races.length === 0) {
-    console.error("Races não carregadas");
-    return;
-  }
+
+  if (typeof races === "undefined") return;
 
   const now = new Date();
-  const nextRace = races.find(r => new Date(r.raceDate) > now);
-  if (!nextRace) return;
 
-  function startCountdown(id, date) {
-    const el = document.getElementById(id);
-    if (!el) return;
+  // ===============================
+  // PRÓXIMA CORRIDA
+  // ===============================
+  const nextRace = races
+    .map(r => ({ ...r, date: new Date(r.raceDate) }))
+    .find(r => r.date > now);
 
-    function update() {
-      const diff = new Date(date) - new Date();
-      if (diff <= 0) {
-        el.textContent = "Já começou!";
-        return;
-      }
+  // ===============================
+  // COUNTDOWN (HOME OU RACE)
+  // ===============================
+  const countdownEl = document.getElementById("countdown");
+  const raceCountdownEl = document.getElementById("race-countdown");
 
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff / 3600000) % 24);
-      const m = Math.floor((diff / 60000) % 60);
+  if (nextRace && (countdownEl || raceCountdownEl)) {
+    setInterval(() => {
+      const diff = nextRace.date - new Date();
+
+      if (diff <= 0) return;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      el.textContent = `${d}d ${h}h ${m}m ${s}s`;
-    }
+      const text = `${d}d ${h}h ${m}m ${s}s`;
 
-    update();
-    setInterval(update, 1000);
+      if (countdownEl) countdownEl.textContent = text;
+      if (raceCountdownEl) raceCountdownEl.textContent = text;
+    }, 1000);
   }
 
-  startCountdown("home-countdown", nextRace.raceDate);
-  startCountdown("race-countdown", nextRace.raceDate);
+  // ===============================
+  // LINK PARA PÁGINA DA CORRIDA
+  // ===============================
+  const raceLink = document.getElementById("race-link");
+  if (raceLink && nextRace) {
+    raceLink.href = nextRace.page;
+  }
 
-  const list = document.getElementById("race-list");
+  // ===============================
+  // FILTROS (HOME)
+  // ===============================
   const monthFilter = document.getElementById("filter-month");
   const countryFilter = document.getElementById("filter-country");
+  const raceList = document.getElementById("race-list");
 
-  if (!list || !monthFilter || !countryFilter) return;
+  function renderRaces(list) {
+    if (!raceList) return;
+    raceList.innerHTML = "";
 
-  function render() {
-    list.innerHTML = "";
-
-    races
-      .filter(r => monthFilter.value === "all" || r.month === monthFilter.value)
-      .filter(r => countryFilter.value === "all" || r.country === countryFilter.value)
-      .forEach(r => {
-        list.innerHTML += `
-          <div class="race-card">
-            <img src="${r.image}">
-            <h3>${r.name}</h3>
-            <p>${r.country} — ${r.month}</p>
-            <a href="${r.page}" class="btn">Ver corrida</a>
-          </div>
-        `;
-      });
+    list.forEach(race => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${race.page}">${race.name}</a>`;
+      raceList.appendChild(li);
+    });
   }
 
-  monthFilter.addEventListener("change", render);
-  countryFilter.addEventListener("change", render);
+  if (raceList) {
+    renderRaces(races);
 
-  render();
+    function applyFilters() {
+      let filtered = races;
+
+      if (monthFilter.value !== "all") {
+        filtered = filtered.filter(r => r.month === monthFilter.value);
+      }
+
+      if (countryFilter.value !== "all") {
+        filtered = filtered.filter(r => r.country === countryFilter.value);
+      }
+
+      renderRaces(filtered);
+    }
+
+    monthFilter.addEventListener("change", applyFilters);
+    countryFilter.addEventListener("change", applyFilters);
+  }
+
 });
