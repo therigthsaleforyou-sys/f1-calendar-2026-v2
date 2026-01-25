@@ -18,6 +18,29 @@ const races = [
       fastestLap: { driver: "Charles Leclerc", time: "1:19.813" },
       raceTime: "1:31:12.456",
       podium: ["Max Verstappen", "Lando Norris", "Carlos Sainz"]
+    },
+    results2026: {
+      FP1: [
+        { pos: 1, driver: "Verstappen", time: "1:18.201" },
+        { pos: 2, driver: "Leclerc", time: "1:18.355" }
+      ],
+      FP2: [
+        { pos: 1, driver: "Norris", time: "1:17.998" },
+        { pos: 2, driver: "Hamilton", time: "1:18.112" }
+      ],
+      FP3: [
+        { pos: 1, driver: "Leclerc", time: "1:17.901" },
+        { pos: 2, driver: "Piastri", time: "1:18.004" }
+      ],
+      Quali: [
+        { pos: 1, driver: "Verstappen", time: "1:15.732" },
+        { pos: 2, driver: "Norris", time: "1:15.811" }
+      ],
+      Corrida: [
+        { pos: 1, driver: "Verstappen", time: "1:31:12.456" },
+        { pos: 2, driver: "Norris", time: "+3.221s" },
+        { pos: 3, driver: "Sainz", time: "+7.845s" }
+      ]
     }
   },
   {
@@ -39,48 +62,29 @@ const races = [
       fastestLap: { driver: "Oscar Piastri", time: "1:36.912" },
       raceTime: "1:37:48.103",
       podium: ["Lando Norris", "Oscar Piastri", "Lewis Hamilton"]
-    }
-  },
-  {
-    id: "japan",
-    name: "Grande Prémio do Japão",
-    country: "Japão",
-    circuit: "Suzuka",
-    image: "assets/races/japan.jpg",
-    sessions: {
-      FP1: "2026-03-26T01:00:00Z",
-      FP2: "2026-03-26T04:30:00Z",
-      FP3: "2026-03-27T02:00:00Z",
-      Quali: "2026-03-27T05:00:00Z",
-      Corrida: "2026-03-28T04:00:00Z"
     },
-    history2025: {
-      weather: "Chuva fraca, 19°C",
-      pole: { driver: "George Russell", time: "1:28.112" },
-      fastestLap: { driver: "Max Verstappen", time: "1:32.004" },
-      raceTime: "1:45:21.876",
-      podium: ["Max Verstappen", "George Russell", "Sergio Pérez"]
-    }
-  },
-  {
-    id: "bahrain",
-    name: "Grande Prémio do Bahrain",
-    country: "Bahrain",
-    circuit: "Sakhir",
-    image: "assets/races/bahrain.jpg",
-    sessions: {
-      FP1: "2026-04-09T12:00:00Z",
-      FP2: "2026-04-09T16:00:00Z",
-      FP3: "2026-04-10T13:00:00Z",
-      Quali: "2026-04-10T16:00:00Z",
-      Corrida: "2026-04-11T15:00:00Z"
-    },
-    history2025: {
-      weather: "Noite limpa, 24°C",
-      pole: { driver: "Charles Leclerc", time: "1:29.998" },
-      fastestLap: { driver: "Carlos Sainz", time: "1:34.221" },
-      raceTime: "1:33:09.554",
-      podium: ["Charles Leclerc", "Carlos Sainz", "Lando Norris"]
+    results2026: {
+      FP1: [
+        { pos: 1, driver: "Norris", time: "1:34.221" },
+        { pos: 2, driver: "Piastri", time: "1:34.355" }
+      ],
+      FP2: [
+        { pos: 1, driver: "Hamilton", time: "1:33.998" },
+        { pos: 2, driver: "Russell", time: "1:34.112" }
+      ],
+      FP3: [
+        { pos: 1, driver: "Verstappen", time: "1:33.901" },
+        { pos: 2, driver: "Leclerc", time: "1:34.004" }
+      ],
+      Quali: [
+        { pos: 1, driver: "Alonso", time: "1:32.401" },
+        { pos: 2, driver: "Norris", time: "1:32.512" }
+      ],
+      Corrida: [
+        { pos: 1, driver: "Norris", time: "1:37:48.103" },
+        { pos: 2, driver: "Piastri", time: "+4.112s" },
+        { pos: 3, driver: "Hamilton", time: "+8.334s" }
+      ]
     }
   }
 ];
