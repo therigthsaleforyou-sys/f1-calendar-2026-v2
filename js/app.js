@@ -1,27 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof races === "undefined") return;
 
-  // Home
   if (document.querySelector(".home")) {
-    renderCalendar();
-    renderNextRace();
+    initHome();
   }
 
-  // Páginas de corrida
-  const racePage = document.querySelector(".race-page");
-  if (racePage) {
-    const raceId = document.documentElement.getAttribute("data-race-id");
-    const raceData = races.find(r => r.id === raceId);
-    if (raceData) {
-      startInternalCountdown(raceData.fp1);
-      renderSessions(raceData);
-    }
+  if (document.querySelector(".race-page")) {
+    initRacePage();
   }
 });
 
-/* ===========================
-   COUNTDOWN HOME
-=========================== */
+/* =========================
+   HOME
+========================= */
+function initHome() {
+  renderCalendar();
+  renderNextRace();
+}
+
+function renderCalendar() {
+  const list = document.getElementById("race-list");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  races.forEach(race => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${race.name}</strong> – ${race.country}<br>
+      <a class="btn" href="${race.page}">Ver detalhes</a>
+    `;
+    list.appendChild(li);
+  });
+}
+
 function renderNextRace() {
   const now = new Date();
 
@@ -35,11 +47,14 @@ function renderNextRace() {
   const raceLink = document.getElementById("race-link");
   if (raceLink) raceLink.href = upcoming.page;
 
-  startCountdown(upcoming.date);
+  startCountdown(upcoming.date, "countdown");
 }
 
-function startCountdown(targetDate) {
-  const el = document.getElementById("countdown");
+/* =========================
+   COUNTDOWN GENÉRICO
+========================= */
+function startCountdown(targetDate, elementId) {
+  const el = document.getElementById(elementId);
   if (!el) return;
 
   function update() {
@@ -51,67 +66,25 @@ function startCountdown(targetDate) {
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
 
-    el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
   update();
   setInterval(update, 1000);
 }
 
-/* ===========================
-   COUNTDOWN INTERNO (FP1) NAS CORRIDAS
-=========================== */
-function startInternalCountdown(fp1Date) {
-  const el = document.getElementById("internal-countdown");
-  if (!el) return;
+/* =========================
+   PÁGINAS DE CORRIDA
+========================= */
+function initRacePage() {
+  const raceId = document.documentElement.getAttribute("data-race-id");
+  const race = races.find(r => r.id === raceId);
+  if (!race) return;
 
-  const targetDate = new Date(fp1Date);
-
-  function update() {
-    const now = new Date();
-    const diff = targetDate - now;
-
-    if (diff <= 0) {
-      el.textContent = "Sessão FP1 iniciada";
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    el.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
-
-  update();
-  setInterval(update, 1000);
-}
-
-/* ===========================
-   SESSÕES NAS CORRIDAS
-=========================== */
-function renderSessions(raceData) {
-  const el = document.getElementById("sessions-2026");
-  if (!el) return;
-
-  let html = "";
-  for (const [session, datetime] of Object.entries(raceData)) {
-    if (["id","name","country","page","raceResult"].includes(session)) continue;
-    const date = new Date(datetime);
-    html += `<p>${session}: ${date.toLocaleString("pt-PT", {dateStyle:"short", timeStyle:"short"})}</p>`;
-  }
-  el.innerHTML = html || "Sem sessões disponíveis";
-}
-
-/* ===========================
-   Função imprimir
-=========================== */
-function printPage() {
-  window.print();
+  startCountdown(new Date(race.fp1), "internal-countdown");
 }
