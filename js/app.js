@@ -29,19 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     FUNÇÃO PARA RESULTADOS 2026
+     RESULTADOS 2026
   ========================== */
   function loadResults(raceId) {
-    const storageKey = "results2026";
-    const allResults = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const allResults = JSON.parse(localStorage.getItem("results2026") || "{}");
     return allResults[raceId] || [];
   }
 
   function saveResults(raceId, results) {
-    const storageKey = "results2026";
-    const allResults = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const allResults = JSON.parse(localStorage.getItem("results2026") || "{}");
     allResults[raceId] = results;
-    localStorage.setItem(storageKey, JSON.stringify(allResults));
+    localStorage.setItem("results2026", JSON.stringify(allResults));
   }
 
   function displayResults(raceId, container) {
@@ -59,6 +57,83 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     container.innerHTML = "";
     container.appendChild(list);
+  }
+
+  /* =========================
+     CLASSIFICAÇÃO PILOTOS/CONSTRUTORES
+  ========================== */
+  const POINTS = [25,18,15,12,10,8,6,4,2,1];
+
+  function updateChampionship() {
+    const results = JSON.parse(localStorage.getItem("results2026") || "{}");
+    const pilotPoints = JSON.parse(localStorage.getItem("pilotPoints") || "{}");
+    const constructorPoints = JSON.parse(localStorage.getItem("constructorPoints") || "{}");
+
+    for (const raceId in results) {
+      results[raceId].forEach((pilot, idx) => {
+        const pts = POINTS[idx] || 0;
+
+        // Atualizar piloto
+        pilotPoints[pilot] = (pilotPoints[pilot] || 0) + pts;
+
+        // Atualizar construtor
+        const team = window.TEAMS.find(t => t.drivers.includes(pilot))?.name;
+        if (team) {
+          constructorPoints[team] = (constructorPoints[team] || 0) + pts;
+        }
+      });
+    }
+
+    localStorage.setItem("pilotPoints", JSON.stringify(pilotPoints));
+    localStorage.setItem("constructorPoints", JSON.stringify(constructorPoints));
+  }
+
+  /* =========================
+     TABELA PILOTOS
+  ========================== */
+  function displayPilotTable() {
+    const tableEl = document.getElementById("pilots-table");
+    if (!tableEl) return;
+
+    const pilotPoints = JSON.parse(localStorage.getItem("pilotPoints") || "{}");
+    const entries = Object.entries(pilotPoints)
+      .sort((a,b) => b[1] - a[1]);
+
+    if (!entries.length) {
+      tableEl.innerHTML = "<p>A calcular…</p>";
+      return;
+    }
+
+    let html = '<table><thead><tr><th>Piloto</th><th>Pontos</th></tr></thead><tbody>';
+    entries.forEach(([pilot, pts]) => {
+      html += `<tr><td>${pilot}</td><td>${pts}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    tableEl.innerHTML = html;
+  }
+
+  /* =========================
+     TABELA CONSTRUTORES
+  ========================== */
+  function displayConstructorTable() {
+    const tableEl = document.getElementById("constructors-table");
+    if (!tableEl) return;
+
+    const constructorPoints = JSON.parse(localStorage.getItem("constructorPoints") || "{}");
+    const entries = Object.entries(constructorPoints)
+      .sort((a,b) => b[1] - a[1]);
+
+    if (!entries.length) {
+      tableEl.innerHTML = "<p>A calcular…</p>";
+      return;
+    }
+
+    let html = '<table><thead><tr><th>Construtor</th><th>Pontos</th></tr></thead><tbody>';
+    entries.forEach(([team, pts]) => {
+      html += `<tr><td>${team}</td><td>${pts}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    tableEl.innerHTML = html;
   }
 
   /* =========================
@@ -136,6 +211,13 @@ document.addEventListener("DOMContentLoaded", () => {
       displayResults(raceId, resultsDiv);
     }
   }
+
+  /* =========================
+     TABELAS AUTOMÁTICAS
+  ========================== */
+  updateChampionship();
+  displayPilotTable();
+  displayConstructorTable();
 });
 
 /* =========================
