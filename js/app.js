@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     LISTA DE CORRIDAS
+     LISTA DE CORRIDAS (HOME)
   ========================== */
   const listEl = document.getElementById("race-list");
   if (listEl) {
@@ -68,4 +68,50 @@ document.addEventListener("DOMContentLoaded", () => {
       listEl.appendChild(li);
     });
   }
+
+  /* =========================
+     PÁGINA DE CORRIDA
+  ========================== */
+  const raceId = document.documentElement.dataset.raceId;
+  if (raceId) {
+    const race = races.find(r => r.id === raceId);
+    if (!race) return;
+
+    const internalCountdown = document.getElementById("internal-countdown");
+    if (internalCountdown) {
+      startCountdown(new Date(race.sessions.fp1), internalCountdown);
+    }
+
+    const sessionsDiv = document.getElementById("sessions-2026");
+    if (sessionsDiv) {
+      sessionsDiv.innerHTML = `
+        <ul>
+          <li>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</li>
+          <li>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</li>
+          <li>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</li>
+          <li>Qualificação: ${new Date(race.sessions.qualifying).toLocaleString()}</li>
+          <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
+        </ul>
+      `;
+    }
+  }
 });
+
+/* =========================
+   RESET CAMPEONATO (COM PASSWORD)
+========================= */
+function resetChampionship() {
+  const code = prompt("Introduz o código de 4 dígitos para resetar o campeonato:");
+
+  if (code !== "2026") {
+    alert("Código incorreto. Operação cancelada.");
+    return;
+  }
+
+  localStorage.removeItem("results2026");
+  localStorage.removeItem("pilotPoints");
+  localStorage.removeItem("constructorPoints");
+
+  alert("Campeonato 2026 foi reiniciado com sucesso.");
+  location.reload();
+}
