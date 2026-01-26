@@ -29,6 +29,39 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
+     FUNÇÃO PARA RESULTADOS 2026
+  ========================== */
+  function loadResults(raceId) {
+    const storageKey = "results2026";
+    const allResults = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    return allResults[raceId] || [];
+  }
+
+  function saveResults(raceId, results) {
+    const storageKey = "results2026";
+    const allResults = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    allResults[raceId] = results;
+    localStorage.setItem(storageKey, JSON.stringify(allResults));
+  }
+
+  function displayResults(raceId, container) {
+    const results = loadResults(raceId);
+    if (!results.length) {
+      container.innerHTML = "<p>Ainda não existem resultados.</p>";
+      return;
+    }
+
+    const list = document.createElement("ol");
+    results.forEach(driver => {
+      const li = document.createElement("li");
+      li.textContent = driver;
+      list.appendChild(li);
+    });
+    container.innerHTML = "";
+    container.appendChild(list);
+  }
+
+  /* =========================
      HOME – PRÓXIMA CORRIDA
   ========================== */
   const countdownEl = document.getElementById("countdown");
@@ -77,11 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const race = races.find(r => r.id === raceId);
     if (!race) return;
 
+    // Countdown FP1
     const internalCountdown = document.getElementById("internal-countdown");
     if (internalCountdown) {
       startCountdown(new Date(race.sessions.fp1), internalCountdown);
     }
 
+    // Sessões 2026
     const sessionsDiv = document.getElementById("sessions-2026");
     if (sessionsDiv) {
       sessionsDiv.innerHTML = `
@@ -93,6 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
         </ul>
       `;
+    }
+
+    // Resultados 2026
+    const resultsDiv = document.getElementById("results-2026");
+    if (resultsDiv) {
+      displayResults(raceId, resultsDiv);
     }
   }
 });
