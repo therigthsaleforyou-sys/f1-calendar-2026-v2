@@ -1,35 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-PT" data-race-id="australia">
+<html lang="pt-PT" data-race-id="australia" data-hide-results="true">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GP Austrália – F1 2026</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GP da Austrália – F1 2026</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header class="header-bg">
-<h1>F1 2026</h1>
-<nav class="nav-buttons">
-<a href="index.html" class="btn">Home</a>
-<a href="teams.html" class="btn">Equipas</a>
-<a href="pilots.html" class="btn">Tabela Pilotos</a>
-<a href="constructors.html" class="btn">Tabela Construtores</a>
-<a href="curiosities.html" class="btn">Curiosidades</a>
-</nav>
+<header class="site-header">
+  <div class="header-overlay">
+    <h1>F1 2026</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="teams.html">Equipas</a>
+      <a href="pilots.html">Tabela Pilotos</a>
+      <a href="constructors.html">Tabela Construtores</a>
+      <a href="curiosities.html">Curiosidades</a>
+    </nav>
+  </div>
 </header>
 
 <main class="race-page">
-<h2>Grande Prémio da Austrália</h2>
-<p>Countdown FP1: <strong id="internal-countdown">A calcular…</strong></p>
+  <h2>Grande Prémio da Austrália</h2>
 
-<h3>Resultados 2026 (guardados)</h3>
-<div id="results-2026"></div>
+  <img src="assets/races/australia.jpg" alt="Grande Prémio da Austrália" class="race-image">
+
+  <section>
+    <h3>Countdown FP1</h3>
+    <p id="internal-countdown">A calcular…</p>
+  </section>
+
+  <section>
+    <h3>Sessões 2026</h3>
+    <div id="sessions-2026"></div>
+  </section>
+
+  <section>
+    <h3>Histórico 2025</h3>
+    <p>Será adicionado mais tarde.</p>
+  </section>
+
+  <button class="btn" onclick="window.print()">Imprimir dados</button>
 </main>
 
 <script src="data/races.js"></script>
-<script src="data/teams.js"></script>
-<script src="data/points.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
