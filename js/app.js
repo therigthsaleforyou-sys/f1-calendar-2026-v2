@@ -1,22 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const races = window.RACES || [];
-  const pageRaceId = document.documentElement.dataset.raceId;
-  const hideResults = document.documentElement.dataset.hideResults === "true";
+  if (!window.RACES || !Array.isArray(window.RACES)) return;
+
+  const races = window.RACES;
+  const now = new Date();
 
   /* =========================
-     COUNTDOWN (FP1)
+     FUNÇÃO COUNTDOWN
   ========================== */
-  function startCountdown(dateStr, elementId) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-
+  function startCountdown(targetDate, element) {
     function update() {
-      const now = new Date();
-      const target = new Date(dateStr);
-      const diff = target - now;
+      const diff = targetDate - new Date();
 
       if (diff <= 0) {
-        el.textContent = "Sessão iniciada";
+        element.textContent = "Sessão iniciada";
         return;
       }
 
@@ -25,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
 
-      el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      element.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }
 
     update();
@@ -35,64 +31,41 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      HOME – PRÓXIMA CORRIDA
   ========================== */
-  if (!pageRaceId && document.getElementById("countdown")) {
-    const now = new Date();
+  const countdownEl = document.getElementById("countdown");
+  const raceLinkEl = document.getElementById("race-link");
 
+  if (countdownEl && raceLinkEl) {
     const upcoming = races
-      .map(r => ({
-        ...r,
-        fp1Date: new Date(r.sessions.fp1)
-      }))
+      .map(r => ({ ...r, fp1Date: new Date(r.sessions.fp1) }))
       .filter(r => r.fp1Date > now)
       .sort((a, b) => a.fp1Date - b.fp1Date)[0];
 
     if (upcoming) {
-      startCountdown(upcoming.sessions.fp1, "countdown");
-
-      const link = document.getElementById("race-link");
-      if (link) link.href = upcoming.page;
+      startCountdown(upcoming.fp1Date, countdownEl);
+      raceLinkEl.href = upcoming.page;
+    } else {
+      countdownEl.textContent = "Época terminada";
     }
   }
 
   /* =========================
-     PÁGINA DE CORRIDA
+     LISTA DE CORRIDAS
   ========================== */
-  if (pageRaceId) {
-    const race = races.find(r => r.id === pageRaceId);
-    if (!race) return;
+  const listEl = document.getElementById("race-list");
+  if (listEl) {
+    listEl.innerHTML = "";
 
-    // Countdown FP1
-    startCountdown(race.sessions.fp1, "internal-countdown");
+    races.forEach(race => {
+      const li = document.createElement("li");
+      const date = new Date(race.sessions.race);
 
-    // Sessões
-    const sessionsDiv = document.getElementById("sessions-2026");
-    if (sessionsDiv) {
-      sessionsDiv.innerHTML = `
-        <ul>
-          <li>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</li>
-          <li>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</li>
-          <li>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</li>
-          <li>Qualificação: ${new Date(race.sessions.qualifying).toLocaleString()}</li>
-          <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
-        </ul>
+      li.innerHTML = `
+        <strong>${race.name}</strong> – 
+        ${date.toLocaleDateString()} 
+        <a href="${race.page}">Ver</a>
       `;
-    }
 
-    // 🚫 BLOQUEIO TOTAL DE RESULTADOS NAS CORRIDAS
-    if (hideResults) return;
+      listEl.appendChild(li);
+    });
   }
 });
-
-/* =========================
-   RESET CAMPEONATO
-========================= */
-function resetChampionship() {
-  if (!confirm("Tens a certeza que queres resetar o campeonato 2026?")) return;
-
-  localStorage.removeItem("results2026");
-  localStorage.removeItem("pilotPoints");
-  localStorage.removeItem("constructorPoints");
-
-  alert("Campeonato 2026 reiniciado.");
-  location.reload();
-}
