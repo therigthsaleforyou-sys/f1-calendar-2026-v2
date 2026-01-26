@@ -1,56 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
-  calculateStandings();
-  renderPilotsTable();
-  renderConstructorsTable();
+  if (typeof races === "undefined") return;
+
+  renderCalendar();
+  renderNextRace();
 });
 
-/* CALCULAR PONTOS */
-function calculateStandings() {
-  window.pilotPoints = {};
-  teamsData.forEach(t => t.points = 0);
+/* ===========================
+   CALENDÁRIO DE CORRIDAS
+=========================== */
+function renderCalendar() {
+  const list = document.getElementById("race-list");
+  if (!list) return;
+
+  list.innerHTML = "";
 
   races.forEach(race => {
-    race.raceResult.forEach((driver, index) => {
-      if (index < pointsSystem.length) {
-        const pts = pointsSystem[index];
-        pilotPoints[driver] = (pilotPoints[driver] || 0) + pts;
-
-        const team = teamsData.find(t => t.drivers.includes(driver));
-        if (team) team.points += pts;
-      }
-    });
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${race.name}</strong> – ${race.country}
+      <br>
+      <a class="btn" href="${race.page}">Ver detalhes</a>
+    `;
+    list.appendChild(li);
   });
 }
 
-/* PILOTOS */
-function renderPilotsTable() {
-  const el = document.getElementById("pilots-table");
-  if (!el) return;
+/* ===========================
+   PRÓXIMA CORRIDA + COUNTDOWN
+=========================== */
+function renderNextRace() {
+  const now = new Date();
 
-  const sorted = Object.entries(pilotPoints)
-    .sort((a, b) => b[1] - a[1]);
+  const upcoming = races
+    .map(r => ({ ...r, date: new Date(r.fp1) }))
+    .filter(r => r.date > now)
+    .sort((a, b) => a.date - b.date)[0];
 
-  let html = "<table><tr><th>Pos</th><th>Piloto</th><th>Pontos</th></tr>";
-  sorted.forEach((p, i) => {
-    html += `<tr><td>${i + 1}</td><td>${p[0]}</td><td>${p[1]}</td></tr>`;
-  });
-  html += "</table>";
+  if (!upcoming) return;
 
-  el.innerHTML = html;
+  const raceLink = document.getElementById("race-link");
+  if (raceLink) raceLink.href = upcoming.page;
+
+  startCountdown(upcoming.date);
 }
 
-/* CONSTRUTORES */
-function renderConstructorsTable() {
-  const el = document.getElementById("constructors-table");
+/* ===========================
+   COUNTDOWN
+=========================== */
+function startCountdown(targetDate) {
+  const el = document.getElementById("countdown");
   if (!el) return;
 
-  const sorted = [...teamsData].sort((a, b) => b.points - a.points);
+  function update() {
+    const now = new Date();
+    const diff = targetDate - now;
 
-  let html = "<table><tr><th>Pos</th><th>Equipa</th><th>Pontos</th></tr>";
-  sorted.forEach((t, i) => {
-    html += `<tr><td>${i + 1}</td><td>${t.name}</td><td>${t.points}</td></tr>`;
-  });
-  html += "</table>";
+    if (diff <= 0) {
+      el.textContent = "Sessão iniciada";
+      return;
+    }
 
-  el.innerHTML = html;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    el.textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  update();
+  setInterval(update, 1000);
 }
