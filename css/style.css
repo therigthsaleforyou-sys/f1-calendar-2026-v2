@@ -16,7 +16,7 @@
 }
 
 html {
-  font-size: 16px; /* desktop base */
+  font-size: 16px;
 }
 
 body {
@@ -122,11 +122,30 @@ li {
   margin: 0.4rem 0;
 }
 
+/* FOOTER */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+  background: #eee;
+}
+
+.site-footer p {
+  margin: 0.4rem 0;
+  line-height: 1.4;
+}
+
+.site-footer strong {
+  color: #000;
+}
+
 /* MOBILE OPTIMIZATION */
 @media (max-width: 600px) {
 
   html {
-    font-size: 18px; /* 🔥 AQUI está o segredo para o Chrome */
+    font-size: 18px;
   }
 
   header h1 {
