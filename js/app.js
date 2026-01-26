@@ -1,104 +1,98 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof races === "undefined") return;
+  const races = window.RACES || [];
+  const pageRaceId = document.documentElement.dataset.raceId;
+  const hideResults = document.documentElement.dataset.hideResults === "true";
 
-  initChampionship();
+  /* =========================
+     COUNTDOWN (FP1)
+  ========================== */
+  function startCountdown(dateStr, elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
 
-  if (document.querySelector(".home")) {
-    renderCalendar();
-    renderNextRace();
+    function update() {
+      const now = new Date();
+      const target = new Date(dateStr);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        el.textContent = "Sessão iniciada";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }
+
+    update();
+    setInterval(update, 1000);
   }
 
-  if (document.querySelector(".race-page")) {
-    initRacePage();
+  /* =========================
+     HOME – PRÓXIMA CORRIDA
+  ========================== */
+  if (!pageRaceId && document.getElementById("countdown")) {
+    const now = new Date();
+
+    const upcoming = races
+      .map(r => ({
+        ...r,
+        fp1Date: new Date(r.sessions.fp1)
+      }))
+      .filter(r => r.fp1Date > now)
+      .sort((a, b) => a.fp1Date - b.fp1Date)[0];
+
+    if (upcoming) {
+      startCountdown(upcoming.sessions.fp1, "countdown");
+
+      const link = document.getElementById("race-link");
+      if (link) link.href = upcoming.page;
+    }
+  }
+
+  /* =========================
+     PÁGINA DE CORRIDA
+  ========================== */
+  if (pageRaceId) {
+    const race = races.find(r => r.id === pageRaceId);
+    if (!race) return;
+
+    // Countdown FP1
+    startCountdown(race.sessions.fp1, "internal-countdown");
+
+    // Sessões
+    const sessionsDiv = document.getElementById("sessions-2026");
+    if (sessionsDiv) {
+      sessionsDiv.innerHTML = `
+        <ul>
+          <li>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</li>
+          <li>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</li>
+          <li>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</li>
+          <li>Qualificação: ${new Date(race.sessions.qualifying).toLocaleString()}</li>
+          <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
+        </ul>
+      `;
+    }
+
+    // 🚫 BLOQUEIO TOTAL DE RESULTADOS NAS CORRIDAS
+    if (hideResults) return;
   }
 });
 
 /* =========================
-   CAMPEONATO PERSISTENTE
+   RESET CAMPEONATO
 ========================= */
-function initChampionship() {
-  if (!localStorage.getItem("f1Results")) {
-    const stored = {};
-    races.forEach(race => {
-      stored[race.id] = race.results;
-    });
-    localStorage.setItem("f1Results", JSON.stringify(stored));
-  }
-}
+function resetChampionship() {
+  if (!confirm("Tens a certeza que queres resetar o campeonato 2026?")) return;
 
-/* =========================
-   HOME
-========================= */
-function renderCalendar() {
-  const list = document.getElementById("race-list");
-  if (!list) return;
+  localStorage.removeItem("results2026");
+  localStorage.removeItem("pilotPoints");
+  localStorage.removeItem("constructorPoints");
 
-  list.innerHTML = "";
-  races.forEach(race => {
-    list.innerHTML += `
-      <li>
-        <strong>${race.name}</strong> – ${race.country}<br>
-        <a class="btn" href="${race.page}">Ver detalhes</a>
-      </li>
-    `;
-  });
-}
-
-function renderNextRace() {
-  const now = new Date();
-  const upcoming = races
-    .map(r => ({ ...r, date: new Date(r.fp1) }))
-    .filter(r => r.date > now)
-    .sort((a, b) => a.date - b.date)[0];
-
-  if (!upcoming) return;
-
-  document.getElementById("race-link").href = upcoming.page;
-  startCountdown(upcoming.date, "countdown");
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-function startCountdown(targetDate, elementId) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-
-  function update() {
-    const diff = targetDate - new Date();
-    if (diff <= 0) {
-      el.textContent = "Sessão iniciada";
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60;
-    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
-  }
-
-  update();
-  setInterval(update, 1000);
-}
-
-/* =========================
-   PÁGINA DE CORRIDA
-========================= */
-function initRacePage() {
-  const raceId = document.documentElement.dataset.raceId;
-  const race = races.find(r => r.id === raceId);
-  if (!race) return;
-
-  startCountdown(new Date(race.fp1), "internal-countdown");
-
-  const resultsBox = document.getElementById("results-2026");
-  if (resultsBox) {
-    const stored = JSON.parse(localStorage.getItem("f1Results"));
-    const results = stored[raceId];
-
-    let html = "<ol>";
-    results.forEach(driver => html += `<li>${driver}</li>`);
-    html += "</ol>";
-    resultsBox.innerHTML = html;
-  }
+  alert("Campeonato 2026 reiniciado.");
+  location.reload();
 }
