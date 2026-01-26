@@ -1,0 +1,22 @@
+window.PILOTS = [
+  "Max Verstappen",
+  "Sergio Perez",
+  "Lewis Hamilton",
+  "George Russell",
+  "Charles Leclerc",
+  "Carlos Sainz",
+  "Lando Norris",
+  "Oscar Piastri",
+  "Fernando Alonso",
+  "Lance Stroll",
+  "Esteban Ocon",
+  "Pierre Gasly",
+  "Valtteri Bottas",
+  "Zhou Guanyu",
+  "Kevin Magnussen",
+  "Yuki Tsunoda",
+  "Alex Albon",
+  "Nicholas Latifi",
+  "Mick Schumacher",
+  "Logan Sargeant"
+];
