@@ -1,179 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.RACES || !Array.isArray(window.RACES)) return;
-
-  const races = window.RACES;
-  const now = new Date();
 
   /* =========================
-     FUNÇÃO COUNTDOWN
+     DADOS BASE
+  ========================== */
+  const races = window.RACES || [];
+  const teams = window.TEAMS || [];
+  const pilots = window.PILOTS || [];
+  const constructors = window.CONSTRUCTORS || [];
+
+  /* =========================
+     COUNTDOWN
   ========================== */
   function startCountdown(targetDate, element) {
     function update() {
       const diff = targetDate - new Date();
-
       if (diff <= 0) {
         element.textContent = "Sessão iniciada";
         return;
       }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
       element.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }
-
     update();
     setInterval(update, 1000);
   }
 
   /* =========================
-     RESULTADOS 2026
-  ========================== */
-  function loadResults(raceId) {
-    const allResults = JSON.parse(localStorage.getItem("results2026") || "{}");
-    return allResults[raceId] || [];
-  }
-
-  function saveResults(raceId, results) {
-    const allResults = JSON.parse(localStorage.getItem("results2026") || "{}");
-    allResults[raceId] = results;
-    localStorage.setItem("results2026", JSON.stringify(allResults));
-  }
-
-  function displayResults(raceId, container) {
-    const results = loadResults(raceId);
-    if (!results.length) {
-      container.innerHTML = "<p>Ainda não existem resultados.</p>";
-      return;
-    }
-
-    const list = document.createElement("ol");
-    results.forEach(driver => {
-      const li = document.createElement("li");
-      li.textContent = driver;
-      list.appendChild(li);
-    });
-    container.innerHTML = "";
-    container.appendChild(list);
-  }
-
-  /* =========================
-     CLASSIFICAÇÃO PILOTOS/CONSTRUTORES
-  ========================== */
-  const POINTS = [25,18,15,12,10,8,6,4,2,1];
-
-  function updateChampionship() {
-    const results = JSON.parse(localStorage.getItem("results2026") || "{}");
-    const pilotPoints = JSON.parse(localStorage.getItem("pilotPoints") || "{}");
-    const constructorPoints = JSON.parse(localStorage.getItem("constructorPoints") || "{}");
-
-    for (const raceId in results) {
-      results[raceId].forEach((pilot, idx) => {
-        const pts = POINTS[idx] || 0;
-
-        // Atualizar piloto
-        pilotPoints[pilot] = (pilotPoints[pilot] || 0) + pts;
-
-        // Atualizar construtor
-        const team = window.TEAMS.find(t => t.drivers.includes(pilot))?.name;
-        if (team) {
-          constructorPoints[team] = (constructorPoints[team] || 0) + pts;
-        }
-      });
-    }
-
-    localStorage.setItem("pilotPoints", JSON.stringify(pilotPoints));
-    localStorage.setItem("constructorPoints", JSON.stringify(constructorPoints));
-  }
-
-  /* =========================
-     TABELA PILOTOS
-  ========================== */
-  function displayPilotTable() {
-    const tableEl = document.getElementById("pilots-table");
-    if (!tableEl) return;
-
-    const pilotPoints = JSON.parse(localStorage.getItem("pilotPoints") || "{}");
-    const entries = Object.entries(pilotPoints)
-      .sort((a,b) => b[1] - a[1]);
-
-    if (!entries.length) {
-      tableEl.innerHTML = "<p>A calcular…</p>";
-      return;
-    }
-
-    let html = '<table><thead><tr><th>Piloto</th><th>Pontos</th></tr></thead><tbody>';
-    entries.forEach(([pilot, pts]) => {
-      html += `<tr><td>${pilot}</td><td>${pts}</td></tr>`;
-    });
-    html += "</tbody></table>";
-    tableEl.innerHTML = html;
-  }
-
-  /* =========================
-     TABELA CONSTRUTORES
-  ========================== */
-  function displayConstructorTable() {
-    const tableEl = document.getElementById("constructors-table");
-    if (!tableEl) return;
-
-    const constructorPoints = JSON.parse(localStorage.getItem("constructorPoints") || "{}");
-    const entries = Object.entries(constructorPoints)
-      .sort((a,b) => b[1] - a[1]);
-
-    if (!entries.length) {
-      tableEl.innerHTML = "<p>A calcular…</p>";
-      return;
-    }
-
-    let html = '<table><thead><tr><th>Construtor</th><th>Pontos</th></tr></thead><tbody>';
-    entries.forEach(([team, pts]) => {
-      html += `<tr><td>${team}</td><td>${pts}</td></tr>`;
-    });
-    html += "</tbody></table>";
-    tableEl.innerHTML = html;
-  }
-
-  /* =========================
-     HOME – PRÓXIMA CORRIDA
+     HOME
   ========================== */
   const countdownEl = document.getElementById("countdown");
-  const raceLinkEl = document.getElementById("race-link");
+  const raceLink = document.getElementById("race-link");
+  const raceList = document.getElementById("race-list");
 
-  if (countdownEl && raceLinkEl) {
+  if (countdownEl && raceLink && races.length) {
     const upcoming = races
-      .map(r => ({ ...r, fp1Date: new Date(r.sessions.fp1) }))
-      .filter(r => r.fp1Date > now)
-      .sort((a, b) => a.fp1Date - b.fp1Date)[0];
+      .map(r => ({ ...r, fp1: new Date(r.sessions.fp1) }))
+      .filter(r => r.fp1 > new Date())
+      .sort((a, b) => a.fp1 - b.fp1)[0];
 
     if (upcoming) {
-      startCountdown(upcoming.fp1Date, countdownEl);
-      raceLinkEl.href = upcoming.page;
+      startCountdown(upcoming.fp1, countdownEl);
+      raceLink.href = upcoming.page;
     } else {
       countdownEl.textContent = "Época terminada";
     }
   }
 
-  /* =========================
-     LISTA DE CORRIDAS (HOME)
-  ========================== */
-  const listEl = document.getElementById("race-list");
-  if (listEl) {
-    listEl.innerHTML = "";
-
-    races.forEach(race => {
+  if (raceList && races.length) {
+    raceList.innerHTML = "";
+    races.forEach(r => {
       const li = document.createElement("li");
-      const date = new Date(race.sessions.race);
-
-      li.innerHTML = `
-        <strong>${race.name}</strong> – 
-        ${date.toLocaleDateString()} 
-        <a href="${race.page}">Ver</a>
-      `;
-
-      listEl.appendChild(li);
+      li.innerHTML = `<strong>${r.name}</strong> – <a href="${r.page}">Ver</a>`;
+      raceList.appendChild(li);
     });
   }
 
@@ -183,58 +64,85 @@ document.addEventListener("DOMContentLoaded", () => {
   const raceId = document.documentElement.dataset.raceId;
   if (raceId) {
     const race = races.find(r => r.id === raceId);
-    if (!race) return;
+    if (race) {
+      const cd = document.getElementById("internal-countdown");
+      if (cd) startCountdown(new Date(race.sessions.fp1), cd);
 
-    // Countdown FP1
-    const internalCountdown = document.getElementById("internal-countdown");
-    if (internalCountdown) {
-      startCountdown(new Date(race.sessions.fp1), internalCountdown);
-    }
+      const sessions = document.getElementById("sessions-2026");
+      if (sessions) {
+        sessions.innerHTML = `
+          <ul>
+            <li>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</li>
+            <li>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</li>
+            <li>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</li>
+            <li>Qualificação: ${new Date(race.sessions.qualifying).toLocaleString()}</li>
+            <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
+          </ul>`;
+      }
 
-    // Sessões 2026
-    const sessionsDiv = document.getElementById("sessions-2026");
-    if (sessionsDiv) {
-      sessionsDiv.innerHTML = `
-        <ul>
-          <li>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</li>
-          <li>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</li>
-          <li>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</li>
-          <li>Qualificação: ${new Date(race.sessions.qualifying).toLocaleString()}</li>
-          <li>Corrida: ${new Date(race.sessions.race).toLocaleString()}</li>
-        </ul>
-      `;
-    }
+      const history = document.getElementById("history-2025");
+      if (history && race.history2025) {
+        history.innerHTML = `
+          <ul>
+            <li>Meteorologia: ${race.history2025.weather}</li>
+            <li>Pole: ${race.history2025.pole}</li>
+            <li>Volta mais rápida: ${race.history2025.fastestLap}</li>
+            <li>Tempo total: ${race.history2025.totalTime}</li>
+            <li>Pódio: ${race.history2025.podium.join(", ")}</li>
+          </ul>`;
+      }
 
-    // Resultados 2026
-    const resultsDiv = document.getElementById("results-2026");
-    if (resultsDiv) {
-      displayResults(raceId, resultsDiv);
+      const results = document.getElementById("results-2026");
+      if (results) {
+        const all = JSON.parse(localStorage.getItem("results2026") || "{}");
+        const raceResults = all[raceId] || [];
+        results.innerHTML = raceResults.length
+          ? `<ol>${raceResults.map(p => `<li>${p}</li>`).join("")}</ol>`
+          : "<p>Ainda sem resultados.</p>";
+      }
     }
   }
 
   /* =========================
-     TABELAS AUTOMÁTICAS
+     EQUIPAS
   ========================== */
-  updateChampionship();
-  displayPilotTable();
-  displayConstructorTable();
-});
-
-/* =========================
-   RESET CAMPEONATO (COM PASSWORD)
-========================= */
-function resetChampionship() {
-  const code = prompt("Introduz o código de 4 dígitos para resetar o campeonato:");
-
-  if (code !== "2026") {
-    alert("Código incorreto. Operação cancelada.");
-    return;
+  const teamsDiv = document.getElementById("teams-list");
+  if (teamsDiv && teams.length) {
+    teamsDiv.innerHTML = "";
+    teams.forEach(t => {
+      const div = document.createElement("div");
+      div.innerHTML = `<h3>${t.name}</h3><ul>${t.drivers.map(d => `<li>${d}</li>`).join("")}</ul>`;
+      teamsDiv.appendChild(div);
+    });
   }
 
-  localStorage.removeItem("results2026");
-  localStorage.removeItem("pilotPoints");
-  localStorage.removeItem("constructorPoints");
+  /* =========================
+     TABELA PILOTOS
+  ========================== */
+  const pilotsTable = document.getElementById("pilots-table");
+  if (pilotsTable) {
+    const points = JSON.parse(localStorage.getItem("pilotPoints") || "{}");
+    pilotsTable.innerHTML = Object.keys(points).length
+      ? `<table><tr><th>Piloto</th><th>Pontos</th></tr>${
+          Object.entries(points)
+            .sort((a,b)=>b[1]-a[1])
+            .map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td></tr>`).join("")
+        }</table>`
+      : "<p>Ainda sem pontos.</p>";
+  }
 
-  alert("Campeonato 2026 foi reiniciado com sucesso.");
-  location.reload();
-}
+  /* =========================
+     TABELA CONSTRUTORES
+  ========================== */
+  const constructorsTable = document.getElementById("constructors-table");
+  if (constructorsTable) {
+    const points = JSON.parse(localStorage.getItem("constructorPoints") || "{}");
+    constructorsTable.innerHTML = Object.keys(points).length
+      ? `<table><tr><th>Construtor</th><th>Pontos</th></tr>${
+          Object.entries(points)
+            .sort((a,b)=>b[1]-a[1])
+            .map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td></tr>`).join("")
+        }</table>`
+      : "<p>Ainda sem pontos.</p>";
+  }
+});
