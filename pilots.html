@@ -1,54 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tabela Pilotos – F1 2026</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela de Pilotos – F1 2026</title>
+
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
+<header class="site-header">
   <h1>F1 2026</h1>
-  <nav>
+  <nav class="main-nav">
     <a href="index.html">Home</a>
     <a href="teams.html">Equipas</a>
-    <a href="pilots.html">Tabela Pilotos</a>
+    <a href="pilots.html" class="active">Tabela Pilotos</a>
     <a href="constructors.html">Tabela Construtores</a>
     <a href="curiosities.html">Curiosidades</a>
   </nav>
 </header>
 
-<main>
-  <h2>Tabela de Pilotos 2026</h2>
+<main class="page-content centered">
 
-  <div id="pilots-table">
-    <table>
-      <thead>
-        <tr>
-          <th>Posição</th>
-          <th>Piloto</th>
-          <th>Equipe</th>
-          <th>Pontos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Preenchido automaticamente pelo JS -->
-      </tbody>
-    </table>
-  </div>
+  <h2>Tabela Geral de Pilotos – 2026</h2>
+
+  <table class="data-table" id="pilots-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Piloto</th>
+        <th>Equipa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="3">A calcular…</td>
+      </tr>
+    </tbody>
+  </table>
+
 </main>
 
+<button id="backToTop" class="back-to-top">
+  Voltar ao Topo
+</button>
+
 <footer class="site-footer">
-  <p style="font-size:75%;">⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala.<br>
-  © 2026 — Projeto independente F1 Calendar 2026<br>
-  Produção: <strong>The Right Sale For You</strong> | Contacto: <a href="mailto:the.rigth.sale.for.you@gmail.com">the.rigth.sale.for.you@gmail.com</a></p>
+  <p>
+    ⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo,
+    navegador ou definições de escala do utilizador.
+  </p>
+  <p>
+    © 2026 — Projeto independente <strong>F1 Calendar 2026</strong><br>
+    Produção e desenvolvimento: <strong>The Right Sale For You</strong><br>
+    Contacto: the.rigth.sale.for.you@gmail.com
+  </p>
 </footer>
 
-<button id="scrollTopBtn" title="Voltar ao topo">↑</button>
+<script src="data/teams-2026.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.querySelector("#pilots-table tbody");
 
-<script src="data/pilots.js"></script>
-<script src="data/constructors.js"></script>
+    if (!window.F1_TEAMS_2026) {
+      tbody.innerHTML = "<tr><td colspan='3'>Erro ao carregar pilotos.</td></tr>";
+      return;
+    }
+
+    let rows = [];
+    let counter = 1;
+
+    window.F1_TEAMS_2026.forEach(team => {
+      team.drivers.forEach(driver => {
+        rows.push(`
+          <tr>
+            <td>${counter++}</td>
+            <td>${driver.name}</td>
+            <td>${team.name}</td>
+          </tr>
+        `);
+      });
+    });
+
+    tbody.innerHTML = rows.join("");
+  });
+</script>
+
 <script src="js/app.js"></script>
 </body>
 </html>
