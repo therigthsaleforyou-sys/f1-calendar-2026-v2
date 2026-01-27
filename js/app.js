@@ -1,113 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
+const raceList = [
+  {id:'australia', country:'Austrália', month:'Março', name:'GP Austrália', date:'2026-03-08T04:00:00'},
+  {id:'china', country:'China', month:'Abril', name:'GP China', date:'2026-04-12T08:00:00'}
+];
 
-  /* =========================
-     DADOS DAS CORRIDAS
-  ========================= */
-  const races = [
-    {
-      id: "australia",
-      name: "Grande Prémio da Austrália",
-      date: "2026-03-08T05:00:00Z",
-      link: "race-australia.html"
-    },
-    {
-      id: "china",
-      name: "Grande Prémio da China",
-      date: "2026-03-15T07:00:00Z",
-      link: "race-china.html"
+// ELEMENTOS
+const countdownEl = document.getElementById('countdown');
+const nextRaceNameEl = document.getElementById('next-race-name');
+const raceLinkEl = document.getElementById('race-link');
+const heroRaceNameEl = document.getElementById('hero-next-race');
+const filterMonth = document.getElementById('filter-month');
+const filterCountry = document.getElementById('filter-country');
+const raceListEl = document.getElementById('race-list');
+const scrollBtn = document.getElementById('scroll-top-btn');
+
+// PRÓXIMA CORRIDA
+let upcomingRace = raceList[0];
+nextRaceNameEl.textContent = upcomingRace.name;
+raceLinkEl.href = `race-${upcomingRace.id}.html`;
+if(heroRaceNameEl) heroRaceNameEl.textContent = `${upcomingRace.name} – F1 2026`;
+
+// FILTROS
+function renderRaces(filterMonthVal, filterCountryVal){
+  raceListEl.innerHTML='';
+  raceList.forEach(r=>{
+    if((filterMonthVal==='all'||r.month===filterMonthVal) &&
+       (filterCountryVal==='all'||r.country===filterCountryVal)){
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.textContent = r.name;
+      a.href = `race-${r.id}.html`;
+      li.appendChild(a);
+      raceListEl.appendChild(li);
     }
-  ];
-
-  races.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  /* =========================
-     PRÓXIMA CORRIDA
-  ========================= */
-  const now = new Date();
-  const nextRace = races.find(r => new Date(r.date) > now);
-
-  if (nextRace) {
-    document.getElementById("next-race-name").textContent = nextRace.name;
-    document.getElementById("next-race-link").href = nextRace.link;
-    startCountdown("main-countdown", nextRace.date);
-  }
-
-  /* =========================
-     LISTA DE CORRIDAS
-  ========================= */
-  const raceList = document.getElementById("race-list");
-  if (raceList) {
-    raceList.innerHTML = "";
-    races.forEach(race => {
-      const div = document.createElement("div");
-      div.className = "race-card";
-      div.dataset.race = race.id;
-      div.innerHTML = `<a href="${race.link}">${race.name}</a>`;
-      raceList.appendChild(div);
-    });
-  }
-
-  /* =========================
-     FILTROS HOME
-  ========================= */
-  document.querySelectorAll(".filters button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const filter = btn.dataset.filter;
-      document.querySelectorAll(".race-card").forEach(card => {
-        card.style.display =
-          filter === "all" || card.dataset.race === filter
-            ? "block"
-            : "none";
-      });
-    });
   });
+}
+renderRaces('all','all');
+filterMonth.addEventListener('change',e=>renderRaces(e.target.value,filterCountry.value));
+filterCountry.addEventListener('change',e=>renderRaces(filterMonth.value,e.target.value));
 
-  /* =========================
-     COUNTDOWN INTERNO CORRIDA
-  ========================= */
-  const racePage = document.querySelector("html[data-race-id]");
-  if (racePage) {
-    const raceId = racePage.dataset.raceId;
-    const race = races.find(r => r.id === raceId);
-    if (race) startCountdown("internal-countdown", race.date);
-  }
-
-  /* =========================
-     BOTÃO VOLTAR AO TOPO
-  ========================= */
-  const btn = document.getElementById("scrollTopBtn");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-
-});
-
-/* =========================
-   FUNÇÃO COUNTDOWN
-========================= */
-function startCountdown(elementId, date) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-
-  function update() {
-    const now = new Date();
-    const diff = new Date(date) - now;
-
-    if (diff <= 0) {
-      el.textContent = "A decorrer";
-      return;
+// COUNTDOWN
+function updateCountdown(dateStr, el){
+  function tick(){
+    const diff = new Date(dateStr)-new Date();
+    if(diff<=0){el.textContent='Começou!'; clearInterval(interval);}
+    else{
+      const d=Math.floor(diff/86400000), h=Math.floor(diff%86400000/3600000), m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
+      el.textContent=`${d}d ${h}h ${m}m ${s}s`;
     }
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
+  tick();
+  const interval = setInterval(tick,1000);
+}
+if(countdownEl) updateCountdown(upcomingRace.date,countdownEl);
 
-  update();
-  setInterval(update, 1000);
+// SCROLL TOP
+if(scrollBtn){
+  scrollBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 }
