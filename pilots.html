@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equipas e Pilotos – F1 2026</title>
+<title>Tabela Pilotos – F1 2026</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,9 +20,22 @@
 </header>
 
 <main>
-  <h2>Equipas e Pilotos 2026</h2>
-  <div id="teams-list">
-    <!-- Preenchido pelo JS -->
+  <h2>Tabela de Pilotos 2026</h2>
+
+  <div id="pilots-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Piloto</th>
+          <th>Equipe</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Preenchido automaticamente pelo JS -->
+      </tbody>
+    </table>
   </div>
 </main>
 
@@ -34,8 +47,8 @@
 
 <button id="scrollTopBtn" title="Voltar ao topo">↑</button>
 
-<script src="data/teams.js"></script>
 <script src="data/pilots.js"></script>
+<script src="data/constructors.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
