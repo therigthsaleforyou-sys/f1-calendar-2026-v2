@@ -1,56 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap');
-
-:root {
-  --f1-red: #e10600;
-  --f1-black: #000000;
-  --f1-white: #ffffff;
-  --f1-yellow: #ffd400;
-  --bg-light: #f5f5f5;
-}
-
 /* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
+/* CORES */
+:root {
+  --f1-red: #e10600;
+  --f1-black: #000;
+  --f1-white: #fff;
+  --f1-yellow: #ffd400;
 }
 
+/* BODY */
 body {
-  font-family: 'Titillium Web', sans-serif;
-  background: var(--bg-light);
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--f1-white);
   color: var(--f1-black);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 /* HEADER */
 header {
-  background: #555;
+  background: var(--f1-black);
   color: var(--f1-white);
   text-align: center;
-  padding: 2.2rem 1rem;
+  padding: 1.2rem 1rem;
 }
 
 header h1 {
-  font-size: 3.2rem;
-  font-weight: 900;
-  letter-spacing: 2px;
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
 }
 
-/* NAV */
 nav {
-  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 nav a {
   color: var(--f1-white);
   text-decoration: none;
-  margin: 0 0.7rem;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: bold;
 }
 
 nav a:hover {
@@ -59,111 +53,116 @@ nav a:hover {
 
 /* MAIN */
 main {
-  max-width: 900px;
-  margin: 2.5rem auto;
-  padding: 0 1.2rem;
-  text-align: center;
+  padding: 1.5rem 1rem;
+  max-width: 1000px;
+  margin: auto;
 }
 
 h2 {
-  font-size: 2.2rem;
+  text-align: center;
   margin-bottom: 1rem;
-}
-
-h3 {
-  margin: 2rem 0 1rem;
   color: var(--f1-red);
-  font-size: 1.4rem;
 }
 
-/* IMAGES */
-img {
-  max-width: 100%;
-  border-radius: 14px;
-  margin: 1.2rem 0;
-}
-
-/* COUNTDOWNS */
-.countdown,
+/* COUNTDOWN */
+#countdown,
 #internal-countdown {
-  display: block;
-  font-size: 2.6rem;
-  font-weight: 700;
-  margin: 1.2rem 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem 0;
   color: var(--f1-red);
 }
 
-/* BUTTONS */
-.btn {
-  display: inline-block;
-  background: var(--f1-red);
+/* HOME FILTERS */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.filters select {
+  background: var(--f1-black);
   color: var(--f1-white);
-  padding: 0.7rem 1.6rem;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 700;
-  margin-top: 1.2rem;
-  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.4rem;
+  border: none;
 }
 
-.btn:hover {
-  background: #b00000;
-}
-
-/* LISTS – REMOVE PONTINHOS */
-ul,
-ol {
+/* RACE LIST */
+#race-list li {
   list-style: none;
-  padding-left: 0;
-  margin: 1rem 0;
+  margin: 0.6rem 0;
+  text-align: center;
 }
 
-li {
-  margin: 0.4rem 0;
+#race-list a {
+  color: var(--f1-black);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#race-list a:hover {
+  text-decoration: underline;
+}
+
+/* RACE PAGE */
+.race-page img {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 1rem auto;
+}
+
+/* TEAMS */
+.team {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.team img {
+  max-width: 160px;
+  border: 1px solid #000;
+  padding: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+/* TABLES */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #000;
+  padding: 0.4rem;
+  text-align: center;
+}
+
+th {
+  background: var(--f1-black);
+  color: var(--f1-white);
 }
 
 /* FOOTER */
 .site-footer {
-  margin-top: 4rem;
-  padding: 2rem 1rem;
+  margin-top: 3rem;
+  padding: 1rem;
   text-align: center;
   font-size: 0.75rem;
-  color: #666;
   background: #eee;
 }
 
-.site-footer p {
-  margin: 0.4rem 0;
-  line-height: 1.4;
-}
-
-.site-footer strong {
-  color: #000;
-}
-
-/* MOBILE OPTIMIZATION */
-@media (max-width: 600px) {
-
-  html {
-    font-size: 18px;
-  }
-
-  header h1 {
-    font-size: 2.8rem;
-  }
-
-  nav a {
-    display: inline-block;
-    margin: 0.4rem 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
-  .countdown,
-  #internal-countdown {
-    font-size: 2.2rem;
-  }
+/* SCROLL TOP BUTTON */
+#scrollTopBtn {
+  display: block;
+  margin: 1.5rem auto 0;
+  background: var(--f1-yellow);
+  color: var(--f1-black);
+  font-weight: bold;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
 }
