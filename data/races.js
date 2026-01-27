@@ -3,7 +3,7 @@ const races2026 = [
     id: "australia",
     name: "GP da Austrália",
     country: "Austrália",
-    month: "march",
+    month: "Março",
     hero: "assets/races/australia.jpg",
     fp1: "2026-03-06T02:30:00Z",
     sessions: [
@@ -15,17 +15,27 @@ const races2026 = [
     ],
     history2025: {
       weather: "Sol",
-      pole: "Max Verstappen",
-      fastestLap: "Charles Leclerc",
+      pole: {
+        driver: "Max Verstappen",
+        time: "1:15.915"
+      },
+      fastestLap: {
+        driver: "Charles Leclerc",
+        time: "1:19.813"
+      },
       raceTime: "1h24m12s",
-      podium: ["Max Verstappen", "Lando Norris", "Charles Leclerc"]
+      podium: [
+        "Max Verstappen",
+        "Lando Norris",
+        "Charles Leclerc"
+      ]
     }
   },
   {
     id: "china",
     name: "GP da China",
     country: "China",
-    month: "march",
+    month: "Março",
     hero: "assets/races/china.jpg",
     fp1: "2026-03-13T03:30:00Z",
     sessions: [
@@ -37,10 +47,20 @@ const races2026 = [
     ],
     history2025: {
       weather: "Nublado",
-      pole: "Lewis Hamilton",
-      fastestLap: "Oscar Piastri",
+      pole: {
+        driver: "Lewis Hamilton",
+        time: "1:32.480"
+      },
+      fastestLap: {
+        driver: "Oscar Piastri",
+        time: "1:35.210"
+      },
       raceTime: "1h37m44s",
-      podium: ["Lewis Hamilton", "Max Verstappen", "Lando Norris"]
+      podium: [
+        "Lewis Hamilton",
+        "Max Verstappen",
+        "Lando Norris"
+      ]
     }
   }
 ];
