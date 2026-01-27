@@ -1,28 +1,46 @@
-window.RACES = [
+const races2026 = [
   {
     id: "australia",
-    name: "Grande Prémio da Austrália",
+    name: "GP da Austrália",
     country: "Austrália",
-    page: "race-australia.html",
-    sessions: {
-      fp1: "2026-03-06T04:00:00Z",
-      fp2: "2026-03-06T08:00:00Z",
-      fp3: "2026-03-07T06:00:00Z",
-      qualifying: "2026-03-07T09:00:00Z",
-      race: "2026-03-08T04:00:00Z"
+    month: "march",
+    hero: "assets/races/australia.jpg",
+    fp1: "2026-03-06T02:30:00Z",
+    sessions: [
+      "FP1 – Sexta-feira",
+      "FP2 – Sexta-feira",
+      "FP3 – Sábado",
+      "Qualificação – Sábado",
+      "Corrida – Domingo"
+    ],
+    history2025: {
+      weather: "Sol",
+      pole: "Max Verstappen",
+      fastestLap: "Charles Leclerc",
+      raceTime: "1h24m12s",
+      podium: ["Max Verstappen", "Lando Norris", "Charles Leclerc"]
     }
   },
   {
     id: "china",
-    name: "Grande Prémio da China",
+    name: "GP da China",
     country: "China",
-    page: "race-china.html",
-    sessions: {
-      fp1: "2026-03-13T03:00:00Z",
-      fp2: "2026-03-13T07:00:00Z",
-      fp3: "2026-03-14T03:00:00Z",
-      qualifying: "2026-03-14T07:00:00Z",
-      race: "2026-03-15T07:00:00Z"
+    month: "march",
+    hero: "assets/races/china.jpg",
+    fp1: "2026-03-13T03:30:00Z",
+    sessions: [
+      "FP1 – Sexta-feira",
+      "Sprint Qualifying – Sexta-feira",
+      "Sprint – Sábado",
+      "Qualificação – Sábado",
+      "Corrida – Domingo"
+    ],
+    history2025: {
+      weather: "Nublado",
+      pole: "Lewis Hamilton",
+      fastestLap: "Oscar Piastri",
+      raceTime: "1h37m44s",
+      podium: ["Lewis Hamilton", "Max Verstappen", "Lando Norris"]
     }
   }
 ];
