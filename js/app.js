@@ -1,6 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* SCROLL TO TOP */
+  /* =========================
+     DADOS DAS CORRIDAS
+  ========================= */
+  const races = [
+    {
+      id: "australia",
+      name: "Grande Prémio da Austrália",
+      date: "2026-03-08T05:00:00Z",
+      link: "race-australia.html"
+    },
+    {
+      id: "china",
+      name: "Grande Prémio da China",
+      date: "2026-03-15T07:00:00Z",
+      link: "race-china.html"
+    }
+  ];
+
+  races.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  /* =========================
+     PRÓXIMA CORRIDA
+  ========================= */
+  const now = new Date();
+  const nextRace = races.find(r => new Date(r.date) > now);
+
+  if (nextRace) {
+    document.getElementById("next-race-name").textContent = nextRace.name;
+    document.getElementById("next-race-link").href = nextRace.link;
+    startCountdown("main-countdown", nextRace.date);
+  }
+
+  /* =========================
+     LISTA DE CORRIDAS
+  ========================= */
+  const raceList = document.getElementById("race-list");
+  if (raceList) {
+    raceList.innerHTML = "";
+    races.forEach(race => {
+      const div = document.createElement("div");
+      div.className = "race-card";
+      div.dataset.race = race.id;
+      div.innerHTML = `<a href="${race.link}">${race.name}</a>`;
+      raceList.appendChild(div);
+    });
+  }
+
+  /* =========================
+     FILTROS HOME
+  ========================= */
+  document.querySelectorAll(".filters button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+      document.querySelectorAll(".race-card").forEach(card => {
+        card.style.display =
+          filter === "all" || card.dataset.race === filter
+            ? "block"
+            : "none";
+      });
+    });
+  });
+
+  /* =========================
+     COUNTDOWN INTERNO CORRIDA
+  ========================= */
+  const racePage = document.querySelector("html[data-race-id]");
+  if (racePage) {
+    const raceId = racePage.dataset.raceId;
+    const race = races.find(r => r.id === raceId);
+    if (race) startCountdown("internal-countdown", race.date);
+  }
+
+  /* =========================
+     BOTÃO VOLTAR AO TOPO
+  ========================= */
   const btn = document.getElementById("scrollTopBtn");
   if (btn) {
     btn.addEventListener("click", () => {
@@ -8,104 +82,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* RACES DATA (TEMP) */
-  const races = [
-    {
-      id: "australia",
-      name: "Grande Prémio da Austrália",
-      country: "Austrália",
-      month: "Março",
-      fp1: "2026-03-06T04:00:00",
-      link: "race-australia.html"
-    },
-    {
-      id: "china",
-      name: "Grande Prémio da China",
-      country: "China",
-      month: "Março",
-      fp1: "2026-03-13T04:00:00",
-      link: "race-china.html"
-    }
-  ];
-
-  /* HOME */
-  const raceList = document.getElementById("race-list");
-  const countdown = document.getElementById("countdown");
-  const raceLink = document.getElementById("race-link");
-  const nextRaceTitle = document.getElementById("next-race-name");
-
-  if (raceList) {
-    renderRaces(races);
-  }
-
-  function renderRaces(list) {
-    raceList.innerHTML = "";
-    list.forEach(r => {
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="${r.link}">${r.name}</a>`;
-      raceList.appendChild(li);
-    });
-  }
-
-  /* FILTERS */
-  const monthFilter = document.getElementById("filter-month");
-  const countryFilter = document.getElementById("filter-country");
-
-  if (monthFilter && countryFilter) {
-    function applyFilters() {
-      const m = monthFilter.value;
-      const c = countryFilter.value;
-
-      const filtered = races.filter(r =>
-        (m === "all" || r.month === m) &&
-        (c === "all" || r.country === c)
-      );
-      renderRaces(filtered);
-    }
-
-    monthFilter.addEventListener("change", applyFilters);
-    countryFilter.addEventListener("change", applyFilters);
-  }
-
-  /* NEXT RACE */
-  if (countdown && raceLink) {
-    const next = races[1]; // China
-    raceLink.href = next.link;
-    if (nextRaceTitle) nextRaceTitle.textContent = next.name;
-
-    setInterval(() => {
-      const diff = new Date(next.fp1) - new Date();
-      if (diff <= 0) {
-        countdown.textContent = "Já começou";
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor(diff / 3600000) % 24;
-      const m = Math.floor(diff / 60000) % 60;
-      const s = Math.floor(diff / 1000) % 60;
-      countdown.textContent = `${d}d ${h}h ${m}m ${s}s`;
-    }, 1000);
-  }
-
-  /* INTERNAL COUNTDOWN */
-  const internal = document.getElementById("internal-countdown");
-  const raceId = document.documentElement.dataset.raceId;
-  if (internal && raceId) {
-    const race = races.find(r => r.id === raceId);
-    if (race) {
-      setInterval(() => {
-        const diff = new Date(race.fp1) - new Date();
-        if (diff <= 0) {
-          internal.textContent = "Já começou";
-          return;
-        }
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor(diff / 3600000) % 24;
-        const m = Math.floor(diff / 60000) % 60;
-        const s = Math.floor(diff / 1000) % 60;
-        internal.textContent = `${d}d ${h}h ${m}m ${s}s`;
-      }, 1000);
-    }
-  }
-
 });
+
+/* =========================
+   FUNÇÃO COUNTDOWN
+========================= */
+function startCountdown(elementId, date) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  function update() {
+    const now = new Date();
+    const diff = new Date(date) - now;
+
+    if (diff <= 0) {
+      el.textContent = "A decorrer";
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+  }
+
+  update();
+  setInterval(update, 1000);
+}
