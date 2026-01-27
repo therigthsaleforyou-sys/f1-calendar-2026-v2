@@ -1,160 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-
-/* RESET */
+/* =========================
+   RESET & BASE
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
 body {
-  font-family: Arial, sans-serif;
-  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f4f4;
   color: #000;
-  text-align: center; /* 👈 tudo centrado */
-}
-
-h1, h2, h3 {
-  margin: 1rem 0;
+  text-align: center;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
-/* HEADER */
+/* =========================
+   HEADER / NAV
+========================= */
 header {
-  padding: 1rem;
   background: #000;
+  padding: 15px 10px;
 }
 
 header h1 {
-  font-family: 'Anton', sans-serif;
-  font-size: 2.5rem;
-  color: #c40000;
-  margin-bottom: 1rem;
+  color: #fff;
+  margin-bottom: 10px;
 }
 
-/* NAV */
-.main-nav {
+nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
-.main-nav a {
-  background: #ffffff;
-  color: #c40000;
+nav a {
+  background: #fff;
+  color: #d10000;
   font-weight: bold;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #000;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 2px solid #d10000;
+  transition: 0.2s;
 }
 
-/* HERO */
-.next-race-hero,
-.race-hero {
-  position: relative;
-  margin: 1rem auto;
-  max-width: 900px;
+nav a:hover {
+  background: #d10000;
+  color: #fff;
 }
 
-.next-race-hero img,
-.race-hero img {
+/* =========================
+   HERO IMAGES
+========================= */
+.hero {
   width: 100%;
-  max-height: 300px;
+  max-height: 320px;
   object-fit: cover;
-  border-radius: 8px;
+  border-bottom: 4px solid #000;
 }
 
-.race-name {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.5rem;
+/* =========================
+   SECTIONS
+========================= */
+section {
+  padding: 25px 15px;
+}
+
+section h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+#countdown {
+  font-size: 22px;
   font-weight: bold;
-  color: #fff;
-  text-shadow: 2px 2px 6px #000;
+  margin: 15px 0 25px;
 }
 
-/* COUNTDOWN */
-.countdown {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #c40000;
-  margin: 1rem 0;
-}
-
-/* FILTERS */
-.filters {
-  margin: 1.5rem 0;
-}
-
-.filters select {
-  padding: 0.5rem;
-  margin: 0.3rem;
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-}
-
-/* LISTAS */
-ul {
+/* =========================
+   LISTS (HOMEPAGE)
+========================= */
+#race-list {
   list-style: none;
 }
 
-ul li {
-  margin: 0.5rem 0;
+#race-list li {
+  margin: 10px 0;
 }
 
-ul li a {
+#race-list a {
   font-weight: bold;
-  color: #c40000;
+  font-size: 18px;
 }
 
-/* BOTÃO VOLTAR AO TOPO */
-.scroll-top-btn {
-  display: block;
-  margin: 2rem auto 1rem auto;
-  padding: 0.6rem 1.2rem;
-  background: #ff0;
+/* =========================
+   TEAMS
+========================= */
+#teams-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.team-card {
+  background: #fff;
+  padding: 15px;
+  width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.team-card img {
+  width: 120px;
+  height: auto;
+  border: 2px solid #000;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.team-card h3 {
+  margin-bottom: 5px;
+}
+
+/* =========================
+   TABLE-LIKE LISTS
+========================= */
+#pilots-table p,
+#constructors-table p,
+#sessions-2026 p,
+#history-2025 p,
+#results-2026 p {
+  background: #fff;
+  margin: 8px auto;
+  padding: 10px;
+  max-width: 420px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   BUTTON - VOLTAR AO TOPO
+========================= */
+.back-to-top {
+  display: inline-block;
+  margin: 30px auto 20px;
+  background: #ffd700;
   color: #000;
   font-weight: bold;
-  border: none;
-  border-radius: 4px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-/* RACE PAGE */
-.race-page {
-  max-width: 900px;
-  margin: auto;
-  padding: 1rem;
+.back-to-top:hover {
+  background: #ffcc00;
 }
 
-/* TEAMS */
-.teams img {
-  border: 1px solid #000;
-  border-radius: 10px;
-  max-width: 160px;
-  margin: 0.5rem auto;
-  display: block;
+/* =========================
+   FOOTER
+========================= */
+footer {
+  background: #000;
+  color: #fff;
+  padding: 20px 10px;
+  font-size: 14px;
 }
 
-/* FOOTER */
-.site-footer {
-  margin-top: 3rem;
-  padding: 2rem 1rem;
-  background: #eee;
-  font-size: 0.75rem;
-  color: #666;
+footer p {
+  margin: 5px 0;
 }
 
-.site-footer p {
-  margin: 0.4rem 0;
-  line-height: 1.4;
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  nav a {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .team-card {
+    width: 90%;
+  }
 }
