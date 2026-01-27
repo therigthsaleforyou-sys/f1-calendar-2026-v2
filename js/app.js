@@ -1,16 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
+  renderHomepage();
+  renderRacePage();
   renderTeams();
   renderPilots();
   renderConstructors();
-  renderRacePage();
-  renderHomepage();
 });
 
+/* ======================
+   UTIL
+====================== */
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ---------------- RACE PAGE ---------------- */
+/* ======================
+   COUNTDOWN
+====================== */
+function startCountdown(dateString, elementId = "countdown") {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  const target = new Date(dateString).getTime();
+
+  setInterval(() => {
+    const now = Date.now();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      el.textContent = "Sessão iniciada";
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+
+    el.textContent = `${d}d ${h}h ${m}m`;
+  }, 1000);
+}
+
+/* ======================
+   HOMEPAGE
+====================== */
+function renderHomepage() {
+  const list = document.getElementById("race-list");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  races2026.forEach(race => {
+    const li = document.createElement("li");
+    li.innerHTML = `<a href="race-${race.id}.html">${race.name}</a>`;
+    list.appendChild(li);
+  });
+
+  const nextRace = races2026[0];
+  const nameEl = document.getElementById("next-race-name");
+  const linkEl = document.getElementById("next-race-link");
+  const heroEl = document.getElementById("next-race-hero");
+
+  if (nameEl) nameEl.textContent = nextRace.name;
+  if (linkEl) linkEl.href = `race-${nextRace.id}.html`;
+  if (heroEl) heroEl.src = nextRace.hero;
+
+  startCountdown(nextRace.fp1);
+}
+
+/* ======================
+   RACE PAGE
+====================== */
 function renderRacePage() {
   const raceId = document.documentElement.dataset.raceId;
   if (!raceId) return;
@@ -18,79 +76,56 @@ function renderRacePage() {
   const race = races2026.find(r => r.id === raceId);
   if (!race) return;
 
-  document.querySelector("#sessions-2026").innerHTML =
-    race.sessions.map(s => `<p>${s}</p>`).join("");
+  const sessionsEl = document.getElementById("sessions-2026");
+  const historyEl = document.getElementById("history-2025");
+  const resultsEl = document.getElementById("results-2026");
 
-  document.querySelector("#history-2025").innerHTML = `
-    <p>Meteorologia: ${race.history2025.weather}</p>
-    <p>Pole: ${race.history2025.pole}</p>
-    <p>Melhor volta: ${race.history2025.fastestLap}</p>
-    <p>Tempo total: ${race.history2025.raceTime}</p>
-    <p>Pódio: ${race.history2025.podium.join(" / ")}</p>
-  `;
+  if (sessionsEl) {
+    sessionsEl.innerHTML = race.sessions.map(s => `<p>${s}</p>`).join("");
+  }
 
-  loadResults2026(raceId);
+  if (historyEl) {
+    historyEl.innerHTML = `
+      <p>Meteorologia: ${race.history2025.weather}</p>
+      <p>Pole: ${race.history2025.pole.driver} (${race.history2025.pole.time})</p>
+      <p>Melhor volta: ${race.history2025.fastestLap.driver} (${race.history2025.fastestLap.time})</p>
+      <p>Tempo total: ${race.history2025.raceTime}</p>
+      <p>Pódio: ${race.history2025.podium.join(" / ")}</p>
+    `;
+  }
+
+  loadResults2026(raceId, resultsEl);
   startCountdown(race.fp1);
 }
 
-function loadResults2026(raceId) {
+function loadResults2026(raceId, container) {
+  if (!container) return;
+
   const key = `results_${raceId}`;
   let results = JSON.parse(localStorage.getItem(key));
 
   if (!results) {
-    results = drivers2026.slice(0, 3).map((d, i) => ({
-      position: i + 1,
-      driver: d.name
-    }));
+    results = [
+      { pos: 1, driver: "Max Verstappen" },
+      { pos: 2, driver: "Sergio Pérez" },
+      { pos: 3, driver: "Charles Leclerc" }
+    ];
     localStorage.setItem(key, JSON.stringify(results));
   }
 
-  document.querySelector("#results-2026").innerHTML =
-    results.map(r => `<p>${r.position}º – ${r.driver}</p>`).join("");
+  container.innerHTML = results
+    .map(r => `<p>${r.pos}º – ${r.driver}</p>`)
+    .join("");
 }
 
-/* ---------------- COUNTDOWN ---------------- */
-function startCountdown(dateString) {
-  const el = document.querySelector("#countdown");
-  const target = new Date(dateString).getTime();
-
-  setInterval(() => {
-    const now = Date.now();
-    const diff = target - now;
-    if (diff <= 0) {
-      el.textContent = "Sessão iniciada";
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    el.textContent = `${d}d ${h}h ${m}m`;
-  }, 1000);
-}
-
-/* ---------------- HOMEPAGE ---------------- */
-function renderHomepage() {
-  const list = document.querySelector("#race-list");
-  if (!list) return;
-
-  races2026.forEach(r => {
-    const li = document.createElement("li");
-    li.innerHTML = `<a href="race-${r.id}.html">${r.name}</a>`;
-    list.appendChild(li);
-  });
-
-  const nextRace = races2026[0];
-  document.querySelector("#next-race-name").textContent = nextRace.name;
-  document.querySelector("#next-race-link").href = `race-${nextRace.id}.html`;
-  document.querySelector("#next-race-hero").src = nextRace.hero;
-
-  startCountdown(nextRace.fp1);
-}
-
-/* ---------------- TEAMS ---------------- */
+/* ======================
+   TEAMS / PILOTS / CONSTRUCTORS
+====================== */
 function renderTeams() {
-  const container = document.querySelector("#teams-list");
-  if (!container) return;
+  const el = document.getElementById("teams-list");
+  if (!el || typeof teams2026 === "undefined") return;
+
+  el.innerHTML = "";
 
   teams2026.forEach(team => {
     const div = document.createElement("div");
@@ -100,26 +135,24 @@ function renderTeams() {
       <h3>${team.name}</h3>
       <p>${team.drivers.join(" / ")}</p>
     `;
-    container.appendChild(div);
+    el.appendChild(div);
   });
 }
 
-/* ---------------- PILOTS ---------------- */
 function renderPilots() {
-  const el = document.querySelector("#pilots-table");
-  if (!el) return;
+  const el = document.getElementById("pilots-table");
+  if (!el || typeof drivers2026 === "undefined") return;
 
   el.innerHTML = drivers2026
-    .map(d => `<p>${d.name} — ${d.team}</p>`)
+    .map(d => `<p>${d.name} — ${d.team} (0 pts)</p>`)
     .join("");
 }
 
-/* ---------------- CONSTRUCTORS ---------------- */
 function renderConstructors() {
-  const el = document.querySelector("#constructors-table");
-  if (!el) return;
+  const el = document.getElementById("constructors-table");
+  if (!el || typeof teams2026 === "undefined") return;
 
   el.innerHTML = teams2026
-    .map(t => `<p>${t.name}</p>`)
+    .map(t => `<p>${t.name} — 0 pts</p>`)
     .join("");
 }
