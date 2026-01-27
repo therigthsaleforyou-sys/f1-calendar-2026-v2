@@ -14,16 +14,25 @@ function scrollToTop() {
 }
 
 /* ======================
-   COUNTDOWN
+   COUNTDOWN (HORA LOCAL FIXA)
 ====================== */
-function startCountdown(dateString, elementId = "countdown") {
+function startCountdownLocal(dateString, elementId = "countdown") {
   const el = document.getElementById(elementId);
   if (!el) return;
 
-  const target = new Date(dateString).getTime();
+  // dateString no formato: "2026-03-06 04:30"
+  const parts = dateString.split(/[- :]/);
+  const target = new Date(
+    Number(parts[0]),        // ano
+    Number(parts[1]) - 1,    // mês (0-based)
+    Number(parts[2]),        // dia
+    Number(parts[3]),        // hora
+    Number(parts[4]),        // minuto
+    0
+  );
 
   setInterval(() => {
-    const now = Date.now();
+    const now = new Date();
     const diff = target - now;
 
     if (diff <= 0) {
@@ -55,6 +64,7 @@ function renderHomepage() {
   });
 
   const nextRace = races2026[0];
+
   const nameEl = document.getElementById("next-race-name");
   const linkEl = document.getElementById("next-race-link");
   const heroEl = document.getElementById("next-race-hero");
@@ -63,7 +73,8 @@ function renderHomepage() {
   if (linkEl) linkEl.href = `race-${nextRace.id}.html`;
   if (heroEl) heroEl.src = nextRace.hero;
 
-  startCountdown(nextRace.fp1);
+  // FP1 em hora LOCAL (Portugal)
+  startCountdownLocal(nextRace.fp1Local);
 }
 
 /* ======================
@@ -81,7 +92,9 @@ function renderRacePage() {
   const resultsEl = document.getElementById("results-2026");
 
   if (sessionsEl) {
-    sessionsEl.innerHTML = race.sessions.map(s => `<p>${s}</p>`).join("");
+    sessionsEl.innerHTML = race.sessions
+      .map(s => `<p>${s}</p>`)
+      .join("");
   }
 
   if (historyEl) {
@@ -95,9 +108,14 @@ function renderRacePage() {
   }
 
   loadResults2026(raceId, resultsEl);
-  startCountdown(race.fp1);
+
+  // Countdown FP1 (hora local)
+  startCountdownLocal(race.fp1Local);
 }
 
+/* ======================
+   RESULTADOS 2026 (localStorage)
+====================== */
 function loadResults2026(raceId, container) {
   if (!container) return;
 
