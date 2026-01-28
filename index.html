@@ -1,54 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F1 2026 – Calendário Oficial</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fórmula 1 2026 – Calendário Oficial</title>
 
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  <h1>Fórmula 1 – Temporada 2026</h1>
+<header class="site-header">
+  <div class="header-inner">
+    <h1>Fórmula 1 – Temporada 2026</h1>
 
-  <nav>
-    <a href="#proxima">Próxima Corrida</a>
-    <a href="#calendario">Calendário</a>
-  </nav>
+    <nav class="main-nav">
+      <a href="#proxima">Próxima Corrida</a>
+      <a href="#calendario">Calendário</a>
+    </nav>
+  </div>
 </header>
 
 <main>
 
-<section id="proxima" class="hero">
-  <h2 id="nome-corrida">A calcular…</h2>
-  <p id="local-corrida"></p>
-  <div id="countdown">--d --h --m --s</div>
-</section>
+  <!-- HERO -->
+  <section id="proxima" class="hero">
+    <div class="hero-content">
+      <span class="hero-label">Próxima Corrida</span>
+      <h2 id="nome-corrida">A calcular…</h2>
+      <p id="local-corrida"></p>
+      <div id="countdown">--d --h --m --s</div>
+    </div>
+  </section>
 
-<section id="calendario">
-  <h2>Calendário Oficial 2026 (Horário Lisboa)</h2>
+  <!-- CALENDÁRIO -->
+  <section id="calendario" class="section">
+    <h2 class="section-title">Calendário Oficial F1 2026</h2>
+    <p class="section-subtitle">Horários convertidos para Lisboa (Portugal)</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Grande Prémio</th>
-        <th>País</th>
-        <th>Data</th>
-        <th>Hora Corrida (PT)</th>
-      </tr>
-    </thead>
-    <tbody id="tabela-calendario">
-      <!-- JS -->
-    </tbody>
-  </table>
-</section>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Grande Prémio</th>
+            <th>País</th>
+            <th>Data</th>
+            <th>Hora da Corrida (PT)</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-calendario">
+          <!-- JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
 
 </main>
 
-<footer>
-  <p>F1 2026 – Dados oficiais convertidos para fuso horário de Lisboa</p>
+<footer class="site-footer">
+  <p>F1 2026 • Projeto experimental • Dados apresentados em hora de Lisboa</p>
 </footer>
 
 <script src="js/script.js"></script>
