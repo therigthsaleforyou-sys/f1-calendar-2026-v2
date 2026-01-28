@@ -3,87 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equipas F1 2026</title>
+<title>Equipas – F1 2026</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <header>
-<h1>F1 2026</h1>
-<nav class="main-nav">
-<a href="index.html">Home</a>
-<a href="teams.html">Equipas</a>
-<a href="pilots.html">Tabela Pilotos</a>
-<a href="constructors.html">Tabela Construtores</a>
-<a href="curiosities.html">Curiosidades</a>
-</nav>
+  <h1 class="app-title">F1 2026</h1>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="teams.html">Equipas</a>
+    <a href="pilots.html">Tabela Pilotos</a>
+    <a href="constructors.html">Tabela Construtores</a>
+    <a href="curiosities.html">Curiosidades</a>
+  </nav>
 </header>
 
-<main class="teams-page">
-<h2>Equipas e Pilotos 2026</h2>
-<div id="teams-container" class="teams-grid">
-  <!-- Cada equipa -->
-  <div class="team-card">
-    <img src="assets/teams/redbull.png" alt="Red Bull Racing" class="team-logo">
+<section class="teams-list">
+  <h2>Equipas 2026</h2>
+  <div class="team" id="team-redbull">
+    <img src="assets/teams/redbull.png" alt="Red Bull Racing" class="team-logo rounded">
     <h3>Red Bull Racing</h3>
-    <p>Max Verstappen / Sergio Pérez</p>
+    <ul>
+      <li>Max Verstappen (#1)</li>
+      <li>Isack Hadjar (#6)</li>
+    </ul>
   </div>
-  <div class="team-card">
-    <img src="assets/teams/ferrari.png" alt="Ferrari" class="team-logo">
+
+  <div class="team" id="team-ferrari">
+    <img src="assets/teams/ferrari.png" alt="Ferrari" class="team-logo rounded">
     <h3>Ferrari</h3>
-    <p>Charles Leclerc / Carlos Sainz</p>
+    <ul>
+      <li>Charles Leclerc (#16)</li>
+      <li>Lewis Hamilton (#44)</li>
+    </ul>
   </div>
-  <div class="team-card">
-    <img src="assets/teams/mercedes.png" alt="Mercedes" class="team-logo">
-    <h3>Mercedes</h3>
-    <p>Lewis Hamilton / George Russell</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/mclaren.png" alt="McLaren" class="team-logo">
+
+  <div class="team" id="team-mclaren">
+    <img src="assets/teams/mclaren.png" alt="McLaren" class="team-logo rounded">
     <h3>McLaren</h3>
-    <p>Lando Norris / Oscar Piastri</p>
+    <ul>
+      <li>Lando Norris (#4)</li>
+      <li>Oscar Piastri (#81)</li>
+    </ul>
   </div>
-  <div class="team-card">
-    <img src="assets/teams/alpine.png" alt="Alpine" class="team-logo">
-    <h3>Alpine</h3>
-    <p>Fernando Alonso / Esteban Ocon</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/astonmartin.png" alt="Aston Martin" class="team-logo">
-    <h3>Aston Martin</h3>
-    <p>Lance Stroll / Fernando Alonso</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/alphatauri.png" alt="AlphaTauri" class="team-logo">
-    <h3>AlphaTauri</h3>
-    <p>Yuki Tsunoda / Daniel Ricciardo</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/haas.png" alt="Haas" class="team-logo">
-    <h3>Haas</h3>
-    <p>Kevin Magnussen / Nico Hülkenberg</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/williams.png" alt="Williams" class="team-logo">
-    <h3>Williams</h3>
-    <p>Alex Albon / Logan Sargeant</p>
-  </div>
-  <div class="team-card">
-    <img src="assets/teams/alfa.png" alt="Alfa Romeo" class="team-logo">
-    <h3>Alfa Romeo</h3>
-    <p>Valtteri Bottas / Zhou Guanyu</p>
-  </div>
+
+  <!-- repetir para todas as equipas restantes conforme drivers/teams oficiais 2026 -->
+</section>
+
+<div class="centered">
+  <button id="backToTop" class="back-to-top">Voltar ao Topo</button>
 </div>
 
-<button class="btn scroll-top" onclick="scrollToTop()">Voltar ao Topo</button>
-
 <footer class="site-footer">
-<p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
-<p>© 2026 — Projeto independente F1 Calendar 2026</p>
-<p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
+  <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
+  <p>© 2026 — Projeto independente F1 Calendar 2026</p>
+  <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
 </footer>
 
-<script src="data/teams.js"></script>
+<script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/teams.js"></script>
 </body>
 </html>
