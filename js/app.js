@@ -2,10 +2,7 @@
 // F1 CALENDAR 2026 — APP CORE
 // ===============================
 
-// ===============================
-// TIMEZONE (Portugal)
-// ===============================
-
+// Função para formatar horário local de acordo com Lisboa
 function formatLocalTime(iso) {
   const date = new Date(iso);
   return date.toLocaleTimeString("pt-PT", {
@@ -16,15 +13,14 @@ function formatLocalTime(iso) {
 }
 
 // ===============================
-// COUNTDOWN (para a CORRIDA)
+// COUNTDOWN (FP1 ou sessão escolhida)
 // ===============================
-
 function startCountdown(targetISO, elementId) {
   const el = document.getElementById(elementId);
   if (!el) return;
 
   function update() {
-    const now = Date.now();
+    const now = new Date().getTime();
     const target = new Date(targetISO).getTime();
     const diff = target - now;
 
@@ -47,16 +43,25 @@ function startCountdown(targetISO, elementId) {
 // ===============================
 // PRÓXIMA CORRIDA
 // ===============================
-
 function getNextRace() {
   const now = new Date();
-  return RACES_2026.find(r => new Date(r.sessions.race) > now);
+  return RACES_2026.find(r => new Date(r.fp1) > now) || RACES_2026[0];
+}
+
+function showNextRace() {
+  const race = getNextRace();
+  const elName = document.getElementById("nextRaceName");
+  const elCountdown = document.getElementById("nextRaceCountdown");
+  const elLink = document.getElementById("nextRaceLink");
+
+  if (elName) elName.textContent = race.name;
+  if (elCountdown) startCountdown(race.fp1, "nextRaceCountdown");
+  if (elLink) elLink.href = `race-${race.id}.html`;
 }
 
 // ===============================
 // RESULTADOS 2026 (localStorage)
 // ===============================
-
 function getRaceResults(raceId) {
   return JSON.parse(localStorage.getItem(`results_${raceId}`)) || [];
 }
@@ -66,38 +71,8 @@ function saveRaceResults(raceId, results) {
 }
 
 // ===============================
-// LOAD RACE PAGE
-// ===============================
-
-function loadRacePage(raceId) {
-  const race = RACES_2026.find(r => r.id === raceId);
-  if (!race) return;
-
-  startCountdown(race.sessions.race, "countdown");
-
-  const sessionsEl = document.getElementById("sessions");
-  if (!sessionsEl) return;
-
-  sessionsEl.innerHTML = "";
-
-  if (race.sprint) {
-    sessionsEl.innerHTML += `<p>FP1 — ${formatLocalTime(race.sessions.fp1)}</p>`;
-    sessionsEl.innerHTML += `<p>Qualificação Sprint — ${formatLocalTime(race.sessions.sprintQuali)}</p>`;
-    sessionsEl.innerHTML += `<p>Corrida Sprint — ${formatLocalTime(race.sessions.sprint)}</p>`;
-  } else {
-    sessionsEl.innerHTML += `<p>FP1 — ${formatLocalTime(race.sessions.fp1)}</p>`;
-    sessionsEl.innerHTML += `<p>FP2 — ${formatLocalTime(race.sessions.fp2)}</p>`;
-    sessionsEl.innerHTML += `<p>FP3 — ${formatLocalTime(race.sessions.fp3)}</p>`;
-  }
-
-  sessionsEl.innerHTML += `<p>Qualificação — ${formatLocalTime(race.sessions.quali)}</p>`;
-  sessionsEl.innerHTML += `<p>Corrida — ${formatLocalTime(race.sessions.race)}</p>`;
-}
-
-// ===============================
 // VOLTAR AO TOPO
 // ===============================
-
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("backToTop");
   if (btn) {
@@ -105,4 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+
+  // Mostrar próxima corrida na homepage
+  showNextRace();
+
+  // Preencher horários das sessões e resultados
+  if (typeof populateSessions === "function") populateSessions();
+  if (typeof populateResults === "function") populateResults();
 });
