@@ -96,6 +96,25 @@ body {
   font-size: 26px;
 }
 
+/* TABELA PILOTOS */
+#pilotos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+#pilotos-table th,
+#pilotos-table td {
+  border: 1px solid #000;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+#pilotos-table th {
+  background: #e10600;
+  color: #fff;
+}
+
 /* CARDS */
 .race-card {
   padding: 20px;
