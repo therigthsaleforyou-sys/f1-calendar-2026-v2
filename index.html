@@ -1,53 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F1 2026 – Calendário</title>
+<title>F1 Calendar 2026</title>
 <link rel="stylesheet" href="css/style.css">
+<script src="js/data.js" defer></script>
+<script src="js/app.js" defer></script>
+<script src="js/teams.js" defer></script>
+<script src="js/pilots.js" defer></script>
+<script src="js/constructors.js" defer></script>
+<script src="js/races.js" defer></script>
 </head>
 <body>
-<header>
-  <h1 class="app-title">F1 2026</h1>
-  <nav class="main-nav">
-    <a href="index.html">Home</a>
-    <a href="teams.html">Equipas</a>
-    <a href="pilots.html">Tabela Pilotos</a>
-    <a href="constructors.html">Tabela Construtores</a>
-    <a href="curiosities.html">Curiosidades</a>
-  </nav>
-</header>
+  <header class="site-header">
+    <h1 class="app-title">F1 2026</h1>
+    <nav class="nav-main">
+      <a href="index.html">Home</a>
+      <a href="teams.html">Equipas</a>
+      <a href="pilots.html">Tabela Pilotos</a>
+      <a href="constructors.html">Tabela Construtores</a>
+      <a href="curiosities.html">Curiosidades</a>
+    </nav>
+    <div class="hero-image">
+      <h2 class="hero-title">Próxima Corrida: GP da Austrália</h2>
+      <div id="countdown-next" class="countdown"></div>
+    </div>
+  </header>
 
-<section class="hero" style="background-image:url('assets/hero/home.jpg');">
-  <h2 class="race-title">Próxima Corrida: GP da Austrália</h2>
-  <div id="countdown" class="countdown red-shadow"></div>
-  <a href="race-australia.html" class="next-race-link">Ir para a corrida</a>
-</section>
+  <main>
+    <section class="calendar-section">
+      <h2>Calendário de Corridas 2026</h2>
+      <div class="filters">
+        <button class="filter active" data-month="all">Todas</button>
+        <button class="filter" data-month="mar">Março</button>
+        <button class="filter" data-month="apr">Abril</button>
+      </div>
+      <div id="races-list">
+        <a href="race-australia.html" class="race-link">GP da Austrália</a>
+        <a href="race-china.html" class="race-link">GP da China</a>
+      </div>
+    </section>
 
-<section class="calendar">
-  <h3>Calendário de Corridas 2026</h3>
-  <div class="filters">
-    <button class="filter-btn active">Todas</button>
-    <button class="filter-btn">Março</button>
-    <button class="filter-btn">Abril</button>
-  </div>
-  <ul class="race-list">
-    <li><a href="race-australia.html">GP da Austrália</a></li>
-    <li><a href="race-china.html">GP da China</a></li>
-  </ul>
-</section>
+    <button id="backToTop" class="back-to-top">Voltar ao Topo</button>
+  </main>
 
-<div class="centered">
-  <button id="backToTop" class="back-to-top">Voltar ao Topo</button>
-</div>
-
-<footer class="site-footer">
-  <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
-  <p>© 2026 — Projeto independente F1 Calendar 2026</p>
-  <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
-</footer>
-
-<script src="js/data.js"></script>
-<script src="js/app.js"></script>
+  <footer class="site-footer">
+    <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
+    <p>© 2026 — Projeto independente F1 Calendar 2026</p>
+    <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
+  </footer>
 </body>
 </html>
