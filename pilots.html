@@ -3,36 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tabela Pilotos – F1 2026</title>
+<title>Tabela Pilotos F1 2026</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <h1>F1 2026</h1>
-  <nav class="nav-buttons">
-    <a href="index.html">Home</a>
-    <a href="teams.html">Equipas</a>
-    <a href="pilots.html">Tabela Pilotos</a>
-    <a href="constructors.html">Tabela Construtores</a>
-    <a href="curiosities.html">Curiosidades</a>
-  </nav>
+<header>
+<h1>F1 2026</h1>
+<nav class="main-nav">
+<a href="index.html">Home</a>
+<a href="teams.html">Equipas</a>
+<a href="pilots.html">Tabela Pilotos</a>
+<a href="constructors.html">Tabela Construtores</a>
+<a href="curiosities.html">Curiosidades</a>
+</nav>
 </header>
 
 <main class="pilots-page">
-  <h2>Tabela de Pilotos 2026</h2>
-  <div id="pilots-table">A carregar pilotos…</div>
+<h2>Tabela de Pontos Pilotos 2026</h2>
 
-  <button id="scroll-top-btn" class="btn yellow-black-btn" onclick="scrollToTop()">Voltar ao Topo</button>
-</main>
+<table id="pilots-table">
+<thead>
+<tr>
+<th>Posição</th>
+<th>Piloto</th>
+<th>Equipe</th>
+<th>Pontos</th>
+</tr>
+</thead>
+<tbody>
+<!-- Os dados serão preenchidos pelo app.js com localStorage -->
+</tbody>
+</table>
+
+<button class="btn scroll-top" onclick="scrollToTop()">Voltar ao Topo</button>
 
 <footer class="site-footer">
-  <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
-  <p>© 2026 — Projeto independente F1 Calendar 2026</p>
-  <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
+<p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
+<p>© 2026 — Projeto independente F1 Calendar 2026</p>
+<p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
 </footer>
 
-<script src="data/drivers-constructors.js"></script>
+<script src="data/pilots.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
