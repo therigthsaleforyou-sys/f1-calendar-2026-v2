@@ -57,6 +57,3 @@ function renderPilotos() {
 }
 
 renderPilotos();
-
-// ======== ATUALIZAÇÃO DE PONTOS EXEMPLO ========
-// localStorage.setItem(storageKey, JSON.stringify(pilotos));
