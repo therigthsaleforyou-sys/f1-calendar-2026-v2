@@ -2,7 +2,7 @@
 // F1 CALENDAR 2026 — APP CORE
 // ===============================
 
-// Função para formatar horário local de acordo com Lisboa
+// Formatação de horas locais
 function formatLocalTime(iso) {
   const date = new Date(iso);
   return date.toLocaleTimeString("pt-PT", {
@@ -13,7 +13,7 @@ function formatLocalTime(iso) {
 }
 
 // ===============================
-// COUNTDOWN (FP1 ou sessão escolhida)
+// COUNTDOWN (FP1 por defeito)
 // ===============================
 function startCountdown(targetISO, elementId) {
   const el = document.getElementById(elementId);
@@ -45,18 +45,7 @@ function startCountdown(targetISO, elementId) {
 // ===============================
 function getNextRace() {
   const now = new Date();
-  return RACES_2026.find(r => new Date(r.fp1) > now) || RACES_2026[0];
-}
-
-function showNextRace() {
-  const race = getNextRace();
-  const elName = document.getElementById("nextRaceName");
-  const elCountdown = document.getElementById("nextRaceCountdown");
-  const elLink = document.getElementById("nextRaceLink");
-
-  if (elName) elName.textContent = race.name;
-  if (elCountdown) startCountdown(race.fp1, "nextRaceCountdown");
-  if (elLink) elLink.href = `race-${race.id}.html`;
+  return RACES_2026.find(r => new Date(r.fp1) > now);
 }
 
 // ===============================
@@ -81,10 +70,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Mostrar próxima corrida na homepage
-  showNextRace();
+  // Inicializa countdown da homepage
+  const nextRace = getNextRace();
+  if (nextRace) {
+    startCountdown(nextRace.fp1, "countdown");
+  }
 
-  // Preencher horários das sessões e resultados
-  if (typeof populateSessions === "function") populateSessions();
-  if (typeof populateResults === "function") populateResults();
+  // Inicializa resultados 2026 com placeholders
+  RACES_2026.forEach(race => {
+    const results = getRaceResults(race.id);
+    if (results.length === 0) {
+      const defaultResults = TEAMS_2026.map(team => team.drivers[0].name);
+      saveRaceResults(race.id, defaultResults);
+    }
+  });
 });
