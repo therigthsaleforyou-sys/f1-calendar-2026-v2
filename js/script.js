@@ -1,23 +1,27 @@
+// COUNTDOWN
 const raceDate = new Date("2026-03-08T04:00:00");
-
-const countdownEl = document.getElementById("countdown");
+const countdown = document.getElementById("countdown");
 
 function updateCountdown() {
   const now = new Date();
   const diff = raceDate - now;
 
   if (diff <= 0) {
-    countdownEl.textContent = "🏁 Corrida em andamento!";
+    countdown.textContent = "🏁 Corrida em andamento";
     return;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
 
-  countdownEl.textContent =
-    `${days}d ${hours}h ${minutes}m`;
+  countdown.textContent = `${d}d ${h}h ${m}m`;
 }
 
 updateCountdown();
 setInterval(updateCountdown, 60000);
+
+// BOTÃO VOLTAR AO TOPO
+document.getElementById("btn-topo").onclick = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
