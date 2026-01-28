@@ -1,69 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-PT" data-race-id="china">
 <head>
-  <meta charset="UTF-8">
-  <title>GP da China – F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GP China – F1 2026</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header>
-  <h1>F1 2026</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Equipas</a>
-    <a href="pilots.html">Tabela Pilotos</a>
-    <a href="constructors.html">Tabela Construtores</a>
-    <a href="curiosities.html">Curiosidades</a>
-  </nav>
+<h1>F1 2026</h1>
+<nav class="main-nav">
+<a href="index.html">Home</a>
+<a href="teams.html">Equipas</a>
+<a href="pilots.html">Tabela Pilotos</a>
+<a href="constructors.html">Tabela Construtores</a>
+<a href="curiosities.html">Curiosidades</a>
+</nav>
 </header>
 
-<!-- HERO -->
-<section class="hero hero-race" style="background-image:url('assets/races/china.jpg')">
-  <div class="hero-overlay">
-    <h2>Grande Prémio da China</h2>
-    <div id="countdown"></div>
-  </div>
-</section>
+<main class="race-page">
 
-<main>
+<div class="hero" style="background-image: url('assets/races/china.jpg');">
+<h2 class="hero-title">Grande Prémio da China</h2>
+<div id="countdown" class="hero-countdown"></div>
+</div>
 
-<section>
-  <h3>Sessões 2026 (hora local PT)</h3>
-  <div id="sessions-2026">
-    <p>FP1 – Sexta-feira · 03:30</p>
-    <p>FP2 – Sexta-feira · 07:00</p>
-    <p>FP3 – Sábado · 03:30</p>
-    <p>Qualificação – Sábado · 07:00</p>
-    <p><strong>Corrida – Domingo · 07:00</strong></p>
-  </div>
-</section>
+<h3>Sessões 2026</h3>
+<div id="sessions-2026"></div>
 
-<section>
-  <h3>Histórico 2025</h3>
-  <div id="history-2025">
-    <p>Meteorologia: Nublado</p>
-    <p>Pole: Lando Norris – 1:32.441</p>
-    <p>Melhor volta: Oscar Piastri – 1:35.109</p>
-    <p>Tempo total: 1h37m45s</p>
-    <p>Pódio: Lando Norris / Max Verstappen / Charles Leclerc</p>
-  </div>
-</section>
+<h3>Histórico 2025</h3>
+<div id="history-2025"></div>
 
-<section>
-  <h3>Resultados 2026 (guardados)</h3>
-  <div id="results-2026"></div>
-</section>
+<h3>Resultados 2026 (guardados)</h3>
+<div id="results-2026"></div>
 
-</main>
+<button class="btn scroll-top" onclick="scrollToTop()">Voltar ao Topo</button>
 
-<div class="back-to-top" onclick="scrollToTop()">Voltar ao Topo</div>
-
-<footer>
-  <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
-  <p>© 2026 — Projeto independente F1 Calendar 2026</p>
-  <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
+<footer class="site-footer">
+<p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
+<p>© 2026 — Projeto independente F1 Calendar 2026</p>
+<p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
 </footer>
 
 <script src="data/races.js"></script>
