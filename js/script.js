@@ -1,7 +1,7 @@
 /* =============================
-   FUNÇÃO FUSO LISBOA
+   FORMATAÇÃO PARA LISBOA (PT)
 ============================= */
-function formatarLisboa(dataUTC) {
+function horaLisboa(dataUTC) {
   return new Date(dataUTC).toLocaleString("pt-PT", {
     timeZone: "Europe/Lisbon",
     hour: "2-digit",
@@ -10,18 +10,19 @@ function formatarLisboa(dataUTC) {
 }
 
 /* =============================
-   CALENDÁRIO OFICIAL 2026 (UTC)
+   CALENDÁRIO F1 2026 (UTC BASE)
 ============================= */
 const corridas = [
   {
     gp: "GP da Austrália",
     pais: "Austrália",
-    dataUTC: "2026-03-08T03:00:00Z" // 14:00 local / 04:00 Lisboa
+    // FORÇADO para mostrar 04:00 em Lisboa
+    dataUTC: "2026-03-08T04:00:00Z"
   },
   {
     gp: "GP da China",
     pais: "China",
-    dataUTC: "2026-03-15T07:00:00Z" // ~07:00 Lisboa
+    dataUTC: "2026-03-15T07:00:00Z"
   },
   {
     gp: "GP do Japão",
@@ -31,37 +32,35 @@ const corridas = [
 ];
 
 /* =============================
-   TABELA CALENDÁRIO
+   PREENCHER TABELA
 ============================= */
 const tbody = document.getElementById("tabela-calendario");
+tbody.innerHTML = "";
 
 corridas.forEach(c => {
   const tr = document.createElement("tr");
-
   tr.innerHTML = `
     <td>${c.gp}</td>
     <td>${c.pais}</td>
     <td>${new Date(c.dataUTC).toLocaleDateString("pt-PT")}</td>
-    <td>${formatarLisboa(c.dataUTC)}</td>
+    <td>${horaLisboa(c.dataUTC)}</td>
   `;
-
   tbody.appendChild(tr);
 });
 
 /* =============================
    PRÓXIMA CORRIDA + COUNTDOWN
 ============================= */
-function iniciarProxima() {
+function iniciarProximaCorrida() {
   const agora = new Date();
   let proxima = corridas.find(c => new Date(c.dataUTC) > agora);
-
   if (!proxima) proxima = corridas[0];
 
   document.getElementById("nome-corrida").textContent = proxima.gp;
   document.getElementById("local-corrida").textContent =
-    "Hora da corrida em Lisboa: " + formatarLisboa(proxima.dataUTC);
+    "Hora da corrida em Lisboa: " + horaLisboa(proxima.dataUTC);
 
-  function atualizar() {
+  function atualizarCountdown() {
     const diff = new Date(proxima.dataUTC) - new Date();
 
     if (diff <= 0) {
@@ -78,8 +77,8 @@ function iniciarProxima() {
       `${d}d ${h}h ${m}m ${s}s`;
   }
 
-  atualizar();
-  setInterval(atualizar, 1000);
+  atualizarCountdown();
+  setInterval(atualizarCountdown, 1000);
 }
 
-iniciarProxima();
+iniciarProximaCorrida();
