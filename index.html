@@ -1,54 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>F1 Calendar 2026</title>
 <link rel="stylesheet" href="css/style.css">
-<script src="js/data.js" defer></script>
-<script src="js/app.js" defer></script>
-<script src="js/teams.js" defer></script>
-<script src="js/pilots.js" defer></script>
-<script src="js/constructors.js" defer></script>
-<script src="js/races.js" defer></script>
 </head>
-<body style="background-color:white;">
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <h1 class="app-title">F1 2026</h1>
-    <nav class="nav-main">
-      <a href="index.html" class="nav-btn">Home</a>
-      <a href="teams.html" class="nav-btn">Equipas</a>
-      <a href="pilots.html" class="nav-btn">Tabela Pilotos</a>
-      <a href="constructors.html" class="nav-btn">Tabela Construtores</a>
-      <a href="curiosities.html" class="nav-btn">Curiosidades</a>
-    </nav>
-    <div class="hero-image" style="background-color:#eee; border:2px solid #000; border-radius:12px; padding:1rem; text-align:center;">
-      <img src="assets/heroes/home-hero.jpg" alt="F1 2026" style="width:100%; border-radius:12px; border:2px solid #000;">
-      <h2 class="hero-title" style="color:white; text-shadow:2px 2px 4px black; margin-top:-60px;">Próxima Corrida: GP da Austrália</h2>
-      <div id="countdown-next" class="countdown" style="color:red; text-shadow:2px 2px 4px black; font-weight:bold; font-size:2rem;"></div>
-      <a href="race-australia.html" class="race-link" style="display:inline-block; margin-top:1rem; font-weight:bold; text-decoration:none; color:#000;">Ir para a corrida Próxima Corrida</a>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <main style="text-align:center;">
-    <h2>Calendário de Corridas 2026</h2>
-    <ul class="race-list" style="list-style:none; padding:0;">
-      <li><a href="race-australia.html" class="race-link">GP da Austrália</a></li>
-      <li><a href="race-china.html" class="race-link">GP da China</a></li>
+<body>
+<header class="site-header">
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="teams.html">Equipas</a></li>
+      <li><a href="pilots.html">Tabela Pilotos</a></li>
+      <li><a href="constructors.html">Tabela Construtores</a></li>
+      <li><a href="curiosities.html">Curiosidades</a></li>
     </ul>
-  </main>
+  </nav>
+</header>
 
-  <!-- BACK TO TOP -->
-  <button id="backToTop" class="back-to-top" style="background-color:yellow; color:black; font-weight:bold; display:block; margin:2rem auto;">Voltar ao Topo</button>
+<!-- HERO HOMEPAGE -->
+<section class="home-hero">
+  <img src="assets/heroes/home-hero.jpg" alt="F1 2026" class="hero-img">
+  <div class="hero-overlay">
+    <h1 class="hero-title">Próxima Corrida: GP da Austrália</h1>
+    <div id="homeCountdown" class="hero-countdown">A calcular…</div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer" style="text-align:center;">
-    <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
-    <p>© 2026 — Projeto independente F1 Calendar 2026</p>
-    <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
-  </footer>
+<main>
+  <section class="calendar">
+    <h2>Calendário de Corridas 2026</h2>
+    <ul>
+      <li><a href="race-australia.html">GP da Austrália</a></li>
+      <li><a href="race-china.html">GP da China</a></li>
+    </ul>
+  </section>
+</main>
+
+<button id="backToTop">Voltar ao Topo</button>
+
+<footer class="site-footer">
+  <p>⚠️ A apresentação visual pode variar ligeiramente consoante o dispositivo, navegador ou definições de escala do utilizador.</p>
+  <p>© 2026 — Projeto independente F1 Calendar 2026</p>
+  <p>Produção e desenvolvimento: The Right Sale For You | Contacto: the.rigth.sale.for.you@gmail.com</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
