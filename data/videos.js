@@ -1,31 +1,42 @@
-window.VIDEOS = [
+// ===============================
+// F1 CALENDAR 2026 — VIDEOS
+// Fonte: canais oficiais e clipes promocionais
+// ===============================
+
+const VIDEOS_2026 = [
   {
-    title: "Resumo GP Austrália",
-    url: "https://www.youtube.com/embed/lw1R0VQpFjI"
+    id: "teaser2026",
+    title: "F1 2026 Season Teaser",
+    url: "https://www.youtube.com/embed/example1",
+    thumbnail: "assets/videos/teaser2026.jpg",
+    description: "Prévia da temporada 2026 com os principais pilotos e equipas."
   },
   {
-    title: "Resumo GP China",
-    url: "https://www.youtube.com/embed/yG6cKcZ0e6Q"
+    id: "gpAustraliaHighlights",
+    title: "GP da Austrália - Highlights",
+    url: "https://www.youtube.com/embed/example2",
+    thumbnail: "assets/videos/gpaustralia.jpg",
+    description: "Melhores momentos do Grande Prémio da Austrália 2026."
   },
   {
-    title: "Melhores ultrapassagens F1",
-    url: "https://www.youtube.com/embed/6x7kzY1Kc1Q"
+    id: "gpChinaHighlights",
+    title: "GP da China - Highlights",
+    url: "https://www.youtube.com/embed/example3",
+    thumbnail: "assets/videos/gpchina.jpg",
+    description: "Resumo das sessões e corrida do GP da China 2026."
+  },
+  {
+    id: "behindTheScenes",
+    title: "Bastidores da F1 2026",
+    url: "https://www.youtube.com/embed/example4",
+    thumbnail: "assets/videos/bts2026.jpg",
+    description: "Acompanhe os bastidores das equipas durante a temporada 2026."
+  },
+  {
+    id: "techTalk2026",
+    title: "Tecnologia e Inovações 2026",
+    url: "https://www.youtube.com/embed/example5",
+    thumbnail: "assets/videos/tech2026.jpg",
+    description: "As inovações tecnológicas que entram na F1 em 2026."
   }
 ];
-
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("videos-list");
-  if (!container) return;
-
-  window.VIDEOS.forEach(v => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <h3>${v.title}</h3>
-      <iframe width="100%" height="315"
-        src="${v.url}"
-        frameborder="0"
-        allowfullscreen></iframe>
-    `;
-    container.appendChild(div);
-  });
-});
