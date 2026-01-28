@@ -3,64 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fórmula 1 2026 – Calendário Oficial</title>
+  <title>F1 Calendar 2026</title>
 
-  <link rel="stylesheet" href="style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <h1>Fórmula 1 – Temporada 2026</h1>
-
-    <nav class="main-nav">
-      <a href="#proxima">Próxima Corrida</a>
-      <a href="#calendario">Calendário</a>
-    </nav>
-  </div>
+<header class="header">
+  <h1>Fórmula 1 – Temporada 2026</h1>
+  <nav class="nav">
+    <a href="#proxima">Próxima Corrida</a>
+    <a href="#calendario">Calendário</a>
+  </nav>
 </header>
 
 <main>
 
   <!-- HERO -->
   <section id="proxima" class="hero">
-    <div class="hero-content">
-      <span class="hero-label">Próxima Corrida</span>
-      <h2 id="nome-corrida">A calcular…</h2>
-      <p id="local-corrida"></p>
-      <div id="countdown">--d --h --m --s</div>
+    <div class="hero-overlay">
+      <h2 id="race-name">Grande Prémio da Austrália</h2>
+      <p id="race-time">Domingo · 04:00 (Lisboa)</p>
+      <div id="countdown" class="countdown"></div>
     </div>
   </section>
 
   <!-- CALENDÁRIO -->
   <section id="calendario" class="section">
-    <h2 class="section-title">Calendário Oficial F1 2026</h2>
-    <p class="section-subtitle">Horários convertidos para Lisboa (Portugal)</p>
+    <h2>Calendário 2026</h2>
 
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Grande Prémio</th>
-            <th>País</th>
-            <th>Data</th>
-            <th>Hora da Corrida (PT)</th>
-          </tr>
-        </thead>
-        <tbody id="tabela-calendario">
-          <!-- JS -->
-        </tbody>
-      </table>
+    <div class="race-card">
+      <h3>🇦🇺 Austrália</h3>
+      <p>08 Março 2026</p>
+      <p>Corrida: 04:00 (Lisboa)</p>
     </div>
+
   </section>
 
 </main>
 
-<footer class="site-footer">
-  <p>F1 2026 • Projeto experimental • Dados apresentados em hora de Lisboa</p>
+<footer class="footer">
+  <p>Projeto F1 2026 • GitHub Pages</p>
 </footer>
 
+<!-- JS -->
 <script src="js/script.js"></script>
 </body>
 </html>
