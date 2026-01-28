@@ -1,6 +1,4 @@
-/* =============================
-   FORMATAÇÃO PARA LISBOA (PT)
-============================= */
+/* ========= LISBOA TIME ========= */
 function horaLisboa(dataUTC) {
   return new Date(dataUTC).toLocaleString("pt-PT", {
     timeZone: "Europe/Lisbon",
@@ -9,14 +7,11 @@ function horaLisboa(dataUTC) {
   });
 }
 
-/* =============================
-   CALENDÁRIO F1 2026 (UTC BASE)
-============================= */
+/* ========= CALENDÁRIO ========= */
 const corridas = [
   {
     gp: "GP da Austrália",
     pais: "Austrália",
-    // FORÇADO para mostrar 04:00 em Lisboa
     dataUTC: "2026-03-08T04:00:00Z"
   },
   {
@@ -31,11 +26,8 @@ const corridas = [
   }
 ];
 
-/* =============================
-   PREENCHER TABELA
-============================= */
+/* ========= TABELA ========= */
 const tbody = document.getElementById("tabela-calendario");
-tbody.innerHTML = "";
 
 corridas.forEach(c => {
   const tr = document.createElement("tr");
@@ -48,10 +40,8 @@ corridas.forEach(c => {
   tbody.appendChild(tr);
 });
 
-/* =============================
-   PRÓXIMA CORRIDA + COUNTDOWN
-============================= */
-function iniciarProximaCorrida() {
+/* ========= PRÓXIMA ========= */
+function iniciarProxima() {
   const agora = new Date();
   let proxima = corridas.find(c => new Date(c.dataUTC) > agora);
   if (!proxima) proxima = corridas[0];
@@ -60,25 +50,24 @@ function iniciarProximaCorrida() {
   document.getElementById("local-corrida").textContent =
     "Hora da corrida em Lisboa: " + horaLisboa(proxima.dataUTC);
 
-  function atualizarCountdown() {
+  function countdown() {
     const diff = new Date(proxima.dataUTC) - new Date();
-
     if (diff <= 0) {
       document.getElementById("countdown").textContent = "CORRIDA A DECORRER";
       return;
     }
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
 
     document.getElementById("countdown").textContent =
       `${d}d ${h}h ${m}m ${s}s`;
   }
 
-  atualizarCountdown();
-  setInterval(atualizarCountdown, 1000);
+  countdown();
+  setInterval(countdown, 1000);
 }
 
-iniciarProximaCorrida();
+iniciarProxima();
