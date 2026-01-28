@@ -3,150 +3,109 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* BASE */
 body {
+  font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
-  color: #000;
-}
-
-/* HEADER */
-.site-header {
-  background: #fff;
-  border-bottom: 2px solid #000;
-}
-
-.header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 25px 20px;
+  color: #111;
   text-align: center;
 }
 
-.header-inner h1 {
-  margin-bottom: 15px;
-}
-
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.main-nav a {
-  text-decoration: none;
-  color: #c00;
+/* HEADER */
+.header {
   background: #fff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  padding: 20px;
+  border-bottom: 2px solid #000;
 }
 
-.main-nav a:hover {
-  transform: scale(1.05);
+.header h1 {
+  color: #e10600;
+  margin-bottom: 10px;
+}
+
+.nav a {
+  margin: 0 10px;
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  color: #e10600;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg, #111, #333);
-  margin: 40px auto;
+  margin: 20px auto;
   width: 90%;
-  max-width: 1200px;
-  border: 2px solid #000;
+  max-width: 900px;
+  height: 300px;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/3/3c/Melbourne_Grand_Prix_Circuit.svg")
+              center / cover no-repeat;
   border-radius: 20px;
-  box-shadow: 6px 6px 18px rgba(0,0,0,0.5);
+  border: 3px solid #000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  position: relative;
 }
 
-.hero-content {
-  padding: 60px 30px;
-  text-align: center;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
   color: #fff;
-}
-
-.hero-label {
-  display: inline-block;
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 20px;
 }
 
 .hero h2 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  text-shadow: 3px 3px 6px #000;
+  font-size: 28px;
+  text-shadow: 2px 2px 6px #000;
 }
 
 .hero p {
-  margin-bottom: 20px;
+  font-size: 18px;
 }
 
-#countdown {
-  font-size: 2.2rem;
-  color: red;
-  text-shadow: 2px 2px 5px #000;
+/* COUNTDOWN */
+.countdown {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #e10600;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px #000;
 }
 
 /* SECTIONS */
 .section {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
-  text-align: center;
+  margin: 40px auto;
+  width: 90%;
+  max-width: 800px;
 }
 
-.section-title {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
+.section h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
 }
 
-.section-subtitle {
-  margin-bottom: 30px;
-  color: #555;
-}
-
-/* TABLE */
-.table-wrapper {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid #000;
-  padding: 12px;
-}
-
-th {
-  background: #f2f2f2;
+/* RACE CARD */
+.race-card {
+  padding: 20px;
+  margin: 15px auto;
+  border-radius: 16px;
+  border: 2px solid #000;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+  background: #fff;
 }
 
 /* FOOTER */
-.site-footer {
+.footer {
+  margin-top: 40px;
+  padding: 15px;
   border-top: 2px solid #000;
-  padding: 20px;
-  text-align: center;
-  color: #555;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero h2 {
-    font-size: 2.2rem;
-  }
-
-  #countdown {
-    font-size: 1.6rem;
-  }
-
-  .main-nav {
-    flex-direction: column;
-  }
+  font-size: 14px;
 }
