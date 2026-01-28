@@ -1,60 +1,85 @@
-// 🌍 Fuso Lisboa/PT
-const fusoLisboa = () => {
-    return new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" });
-};
+/* =============================
+   FUNÇÃO FUSO LISBOA
+============================= */
+function formatarLisboa(dataUTC) {
+  return new Date(dataUTC).toLocaleString("pt-PT", {
+    timeZone: "Europe/Lisbon",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
 
-// 🏁 Calendário oficial 2026
+/* =============================
+   CALENDÁRIO OFICIAL 2026 (UTC)
+============================= */
 const corridas = [
-    { gp: "Austrália – Melbourne", fp1: "06:00", fp2: "09:00", fp3: "12:00", qual: "15:00", sprint: "", corrida: "16:00", data: "2026-03-08T16:00:00" },
-    { gp: "China – Shanghai", fp1: "06:00", fp2: "09:00", fp3: "12:00", qual: "15:00", sprint: "17:00", corrida: "16:00", data: "2026-03-15T16:00:00" },
-    { gp: "Japão – Suzuka", fp1: "06:00", fp2: "09:00", fp3: "12:00", qual: "15:00", sprint: "", corrida: "16:00", data: "2026-03-29T16:00:00" },
-    // Adicionar todas as restantes corridas 2026
+  {
+    gp: "GP da Austrália",
+    pais: "Austrália",
+    dataUTC: "2026-03-08T03:00:00Z" // 14:00 local / 04:00 Lisboa
+  },
+  {
+    gp: "GP da China",
+    pais: "China",
+    dataUTC: "2026-03-15T07:00:00Z" // ~07:00 Lisboa
+  },
+  {
+    gp: "GP do Japão",
+    pais: "Japão",
+    dataUTC: "2026-03-29T06:00:00Z"
+  }
 ];
 
-// 💻 Preencher tabela do calendário
-const tbody = document.querySelector("#calendario tbody");
+/* =============================
+   TABELA CALENDÁRIO
+============================= */
+const tbody = document.getElementById("tabela-calendario");
+
 corridas.forEach(c => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-        <td>${c.gp}</td>
-        <td>${c.fp1}</td>
-        <td>${c.fp2}</td>
-        <td>${c.fp3}</td>
-        <td>${c.qual}</td>
-        <td>${c.sprint}</td>
-        <td>${c.corrida}</td>
-    `;
-    tbody.appendChild(tr);
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `
+    <td>${c.gp}</td>
+    <td>${c.pais}</td>
+    <td>${new Date(c.dataUTC).toLocaleDateString("pt-PT")}</td>
+    <td>${formatarLisboa(c.dataUTC)}</td>
+  `;
+
+  tbody.appendChild(tr);
 });
 
-// ⏱ Countdown Próxima Corrida
-function proximaCorrida() {
-    const agora = new Date(fusoLisboa());
-    let prox = corridas.find(c => new Date(c.data) > agora);
-    if (!prox) prox = corridas[0]; // se passar todas, volta à primeira
-    document.getElementById("nome-corrida").textContent = prox.gp;
-    
-    const countdownEl = document.getElementById("countdown");
-    function atualizarCountdown() {
-        const agora = new Date(fusoLisboa());
-        const fim = new Date(prox.data);
-        const diff = fim - agora;
-        if (diff <= 0) { countdownEl.textContent = "Corrida a decorrer!"; return; }
-        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const min = Math.floor((diff / (1000 * 60)) % 60);
-        const sec = Math.floor((diff / 1000) % 60);
-        countdownEl.textContent = `${dias}d ${horas}h ${min}m ${sec}s`;
-    }
-    atualizarCountdown();
-    setInterval(atualizarCountdown, 1000);
-}
-proximaCorrida();
+/* =============================
+   PRÓXIMA CORRIDA + COUNTDOWN
+============================= */
+function iniciarProxima() {
+  const agora = new Date();
+  let proxima = corridas.find(c => new Date(c.dataUTC) > agora);
 
-// 🏆 Pontos pilotos 2026 (exemplo)
-let pilotos2026 = JSON.parse(localStorage.getItem("pilotos2026")) || [
-    { nome: "Lewis Hamilton", pontos: 0 },
-    { nome: "Max Verstappen", pontos: 0 },
-    { nome: "Charles Leclerc", pontos: 0 },
-];
-localStorage.setItem("pilotos2026", JSON.stringify(pilotos2026));
+  if (!proxima) proxima = corridas[0];
+
+  document.getElementById("nome-corrida").textContent = proxima.gp;
+  document.getElementById("local-corrida").textContent =
+    "Hora da corrida em Lisboa: " + formatarLisboa(proxima.dataUTC);
+
+  function atualizar() {
+    const diff = new Date(proxima.dataUTC) - new Date();
+
+    if (diff <= 0) {
+      document.getElementById("countdown").textContent = "CORRIDA A DECORRER";
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+      `${d}d ${h}h ${m}m ${s}s`;
+  }
+
+  atualizar();
+  setInterval(atualizar, 1000);
+}
+
+iniciarProxima();
