@@ -4,11 +4,11 @@ const countdown = document.getElementById("countdown");
 function updateCountdown() {
   const now = new Date();
   const diff = raceDate - now;
-  if(diff <= 0) { countdown.textContent = "🏁 Corrida em andamento"; return; }
+  if(diff <= 0){countdown.textContent="🏁 Corrida em andamento";return;}
   const d=Math.floor(diff/(1000*60*60*24));
   const h=Math.floor((diff/(1000*60*60))%24);
   const m=Math.floor((diff/(1000*60))%60);
-  countdown.textContent = `${d}d ${h}h ${m}m`;
+  countdown.textContent=`${d}d ${h}h ${m}m`;
 }
 updateCountdown();
 setInterval(updateCountdown,60000);
@@ -75,21 +75,29 @@ const tbodyConstrutores=document.querySelector("#construtores-table tbody");
 function renderConstrutores(){tbodyConstrutores.innerHTML=""; construtores.forEach(c=>{const tr=document.createElement("tr"); tr.innerHTML=`<td>${c.pos}</td><td>${c.equipe}</td><td>${c.pontos}</td>`; tbodyConstrutores.appendChild(tr);});}
 renderConstrutores();
 
-// ========= CALENDÁRIO + HISTÓRICO 2025 =========
+// ========= CALENDÁRIO + HISTÓRICO 2025 + SESSÕES =========
 const corridas=[
-  {gp:"Austrália", data:"2026-03-08T04:00:00", circuito:"Melbourne GP Circuit", historico:{
+  {gp:"Austrália", data:"2026-03-08T04:00:00", circuito:"Melbourne GP Circuit",
+   sessoes:{
+     FP1:"02:00", FP2:"05:00", FP3:"08:00", Qualificacao:"10:00", Corrida:"04:00"
+   },
+   historico:{
     pole:{piloto:"Max Verstappen", tempo:"1:18.123"},
     melhorVolta:{piloto:"Lewis Hamilton", tempo:"1:19.456"},
     podio:["Max Verstappen","Charles Leclerc","Lewis Hamilton"],
     meteorologia:"Ensolarado, 25°C"
-  }},
-  {gp:"Bahrein", data:"2026-03-15T04:00:00", circuito:"Sakhir GP Circuit", historico:{
+   }
+  },
+  {gp:"Bahrein", data:"2026-03-15T04:00:00", circuito:"Sakhir GP Circuit",
+   sessoes:{FP1:"02:00", FP2:"05:00", FP3:"08:00", Qualificacao:"10:00", Corrida:"04:00"},
+   historico:{
     pole:{piloto:"Charles Leclerc", tempo:"1:29.321"},
     melhorVolta:{piloto:"Sergio Pérez", tempo:"1:30.111"},
     podio:["Charles Leclerc","Sergio Pérez","George Russell"],
     meteorologia:"Nublado, 22°C"
-  }}
-  // adicionar outras corridas conforme necessário
+   }
+  }
+  // Adicionar as outras corridas 2026 aqui
 ];
 
 const corridasList=document.getElementById("corridas-list");
@@ -97,7 +105,9 @@ const corridasList=document.getElementById("corridas-list");
 corridas.forEach((c,i)=>{
   const card=document.createElement("div");
   card.className="race-card";
-  card.innerHTML=`<strong>${c.gp}</strong> - ${new Date(c.data).toLocaleString()}<br>${c.circuito}`;
+  let sessoesHtml="";
+  for(const key in c.sessoes){sessoesHtml+=`<p>${key}: ${c.sessoes[key]} (PT)</p>`;}
+  card.innerHTML=`<strong>${c.gp}</strong> - ${new Date(c.data).toLocaleDateString()}<br>${c.circuito}${sessoesHtml}`;
   
   const historicoDiv=document.createElement("div");
   historicoDiv.className="historico";
