@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <title>F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="topo">
 
 <header class="header">
   <h1>Fórmula 1 • 2026</h1>
-
   <nav class="nav">
     <a href="#topo">Home</a>
     <a href="#equipas">Equipas</a>
@@ -33,17 +31,24 @@
   </section>
 
   <!-- PRÓXIMA CORRIDA -->
-  <section class="section">
+  <section class="section" id="proxima-corrida">
     <h2>Próxima Corrida</h2>
-
-    <div class="race-card">
+    <div class="race-card" id="race-next">
       <h3>🇦🇺 Austrália</h3>
       <p>Melbourne Grand Prix Circuit</p>
       <p>Corrida: 04:00 (PT)</p>
     </div>
   </section>
 
-  <!-- PILOTOS COM PONTOS DINÂMICOS -->
+  <!-- CALENDÁRIO DE CORRIDAS -->
+  <section class="section" id="calendario">
+    <h2>Calendário 2026</h2>
+    <div id="corridas-list">
+      <!-- preenchido por JS -->
+    </div>
+  </section>
+
+  <!-- PILOTOS -->
   <section id="pilotos" class="section">
     <h2>Pilotos – Campeonato</h2>
     <table id="pilotos-table">
@@ -55,20 +60,28 @@
           <th>Pontos</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- preenchido por JS -->
-      </tbody>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- CONSTRUTORES -->
+  <section id="construtores" class="section">
+    <h2>Construtores – Campeonato</h2>
+    <table id="construtores-table">
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Equipe</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
   </section>
 
   <!-- PLACEHOLDERS OUTROS -->
   <section id="equipas" class="section">
     <h2>Equipas</h2>
-    <p>(em construção)</p>
-  </section>
-
-  <section id="construtores" class="section">
-    <h2>Construtores – Campeonato</h2>
     <p>(em construção)</p>
   </section>
 
