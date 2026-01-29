@@ -3,64 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 2026 – Calendário</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Formula 1 – Temporada 2026</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="header">
-  <nav class="nav">
-    <a href="#home">Calendário</a>
-    <a href="#equipas">Equipas</a>
-    <a href="#pilotos">Pilotos</a>
-    <a href="#construtores">Construtores</a>
-    <a href="#curiosidades">Curiosidades</a>
-  </nav>
-</header>
+<nav>
+  <a href="#calendario">Calendário</a>
+  <a href="#pilotos">Pilotos</a>
+  <a href="#construtores">Construtores</a>
+</nav>
 
-<section id="home" class="hero">
-  <img src="assets/heroes/home-hero.jpg" alt="F1 2026">
+<!-- HERO -->
+<div class="hero">
+  <img src="assets/heroes/home-hero.jpg" alt="Formula 1 2026">
   <div class="hero-content">
     <h1>Formula 1 – Temporada 2026</h1>
-    <div id="countdown"></div>
+    <p id="contador"></p>
+  </div>
+</div>
+
+<!-- CALENDÁRIO -->
+<section id="calendario">
+  <h2>Calendário 2026</h2>
+  <div id="lista-corridas"></div>
+</section>
+
+<!-- PILOTOS -->
+<section id="pilotos">
+  <div class="table-card">
+    <h3>Pilotos – Campeonato 2026</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Piloto</th>
+          <th>Equipa</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-pilotos"></tbody>
+    </table>
   </div>
 </section>
 
-<main class="container">
-
-<section id="calendario">
-  <h2>Calendário 2026</h2>
-  <div id="corridas"></div>
-</section>
-
-<section id="pilotos">
-  <h2>Pilotos – Campeonato 2026</h2>
-  <table>
-    <thead>
-      <tr><th>Piloto</th><th>Equipa</th><th>Pontos</th></tr>
-    </thead>
-    <tbody id="tabela-pilotos"></tbody>
-  </table>
-</section>
-
+<!-- CONSTRUTORES -->
 <section id="construtores">
-  <h2>Construtores – Campeonato 2026</h2>
-  <table>
-    <thead>
-      <tr><th>Equipa</th><th>Pontos</th></tr>
-    </thead>
-    <tbody id="tabela-construtores"></tbody>
-  </table>
+  <div class="table-card">
+    <h3>Construtores – Campeonato 2026</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Equipa</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-construtores"></tbody>
+    </table>
+  </div>
 </section>
 
-</main>
+<button id="topo">Voltar ao topo</button>
 
-<button id="btn-topo">Voltar ao topo</button>
-
-<footer class="footer">
+<footer>
   Projeto não oficial – Dados de referência Formula 1
 </footer>
 
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
