@@ -1,24 +1,63 @@
-// BOTÃO TOPO
+// VOLTAR AO TOPO
 document.getElementById("btn-topo").onclick = () =>
   window.scrollTo({ top: 0, behavior: "smooth" });
 
-// PRÓXIMA CORRIDA (exemplo Austrália)
-const corrida = new Date("2026-03-08T04:00:00");
-const countdown = document.getElementById("countdown");
-
+// COUNTDOWN (Austrália)
+const raceDate = new Date("2026-03-08T04:00:00");
 setInterval(() => {
-  const diff = corrida - new Date();
-  if (diff <= 0) {
-    countdown.textContent = "A corrida já começou!";
-    return;
-  }
-  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const m = Math.floor((diff / (1000 * 60)) % 60);
-  countdown.textContent = `${d}d ${h}h ${m}m`;
+  const diff = raceDate - new Date();
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  document.getElementById("countdown").textContent = `${d}d ${h}h ${m}m`;
 }, 1000);
 
-// PILOTOS 2026
+// CORRIDAS (EXEMPLO COMPLETO)
+const corridas = [
+  {
+    gp: "Grande Prémio da Austrália",
+    sessoes: {
+      FP1: "Sexta 02:30",
+      FP2: "Sexta 06:00",
+      Qualificação: "Sábado 06:00",
+      Corrida: "Domingo 04:00"
+    },
+    historico2025: {
+      meteo: "Sol, 24°C",
+      pole: "Max Verstappen – 1:18.123",
+      volta: "Lewis Hamilton – 1:19.456",
+      podio: "1º Verstappen | 2º Leclerc | 3º Norris"
+    }
+  }
+];
+
+const container = document.getElementById("corridas");
+
+corridas.forEach(c => {
+  const div = document.createElement("div");
+  div.className = "corrida";
+  div.innerHTML = `
+    <h3>${c.gp}</h3>
+    <div class="detalhes">
+      <strong>Sessões:</strong><br>
+      ${Object.entries(c.sessoes).map(s => `${s[0]}: ${s[1]}`).join("<br>")}
+      <br><br>
+      <strong>Histórico 2025:</strong><br>
+      Meteorologia: ${c.historico2025.meteo}<br>
+      Pole: ${c.historico2025.pole}<br>
+      Volta rápida: ${c.historico2025.volta}<br>
+      Pódio: ${c.historico2025.podio}
+    </div>
+  `;
+  div.querySelector("h3").onclick = () => {
+    const d = div.querySelector(".detalhes");
+    d.style.display = d.style.display === "block" ? "none" : "block";
+  };
+  container.appendChild(div);
+});
+
+// PILOTOS
 const pilotos = [
   ["Max Verstappen","Red Bull Racing"],
   ["Isack Hadjar","Red Bull Racing"],
@@ -44,21 +83,13 @@ const pilotos = [
   ["Arvid Lindblad","Racing Bulls"]
 ];
 
-// PONTOS DINÂMICOS
 const tabelaPilotos = document.getElementById("tabela-pilotos");
 pilotos.forEach(p => {
-  const pontos = localStorage.getItem(p[0]) || 0;
-  tabelaPilotos.innerHTML += `<tr><td>${p[0]}</td><td>${p[1]}</td><td>${pontos}</td></tr>`;
+  tabelaPilotos.innerHTML += `<tr><td>${p[0]}</td><td>${p[1]}</td><td>0</td></tr>`;
 });
 
-// CONSTRUTORES
-const construtores = [
-  "Red Bull Racing","Ferrari","McLaren","Mercedes","Aston Martin",
-  "Williams","Alpine","Haas","Audi","Cadillac","Racing Bulls"
-];
-
+const construtores = [...new Set(pilotos.map(p => p[1]))];
 const tabelaConstrutores = document.getElementById("tabela-construtores");
 construtores.forEach(e => {
-  const pontos = localStorage.getItem(e) || 0;
-  tabelaConstrutores.innerHTML += `<tr><td>${e}</td><td>${pontos}</td></tr>`;
+  tabelaConstrutores.innerHTML += `<tr><td>${e}</td><td>0</td></tr>`;
 });
