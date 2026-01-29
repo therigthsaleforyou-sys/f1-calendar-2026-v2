@@ -2,60 +2,102 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+  <title>F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 2026 – Calendário</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="header">
-  <nav class="nav">
-    <a href="#home">Calendário</a>
-    <a href="#equipas">Equipas</a>
-    <a href="#pilotos">Pilotos</a>
-    <a href="#construtores">Construtores</a>
-    <a href="#curiosidades">Curiosidades</a>
-  </nav>
+<header class="top-nav">
+  <a href="#calendario">Calendário</a>
+  <a href="#equipas">Equipas</a>
+  <a href="#pilotos">Pilotos</a>
+  <a href="#construtores">Construtores</a>
+  <a href="#curiosidades">Curiosidades</a>
 </header>
-
-<section id="home" class="hero">
-  <img src="assets/heroes/home-hero.jpg" alt="F1 2026">
-  <div class="hero-content">
-    <h1>Formula 1 – Temporada 2026</h1>
-    <div id="countdown"></div>
-  </div>
-</section>
 
 <main class="container">
 
-<section id="calendario">
-  <h2>Calendário 2026</h2>
-  <div id="corridas"></div>
-</section>
+  <!-- HERO -->
+  <section class="card hero-card">
+    <img src="assets/heroes/home-hero.jpg" alt="F1 2026">
+    <div class="hero-overlay">
+      <h1>Formula 1 – Temporada 2026</h1>
+      <div id="countdown">—</div>
+    </div>
+  </section>
 
-<section id="pilotos">
-  <h2>Pilotos – Campeonato 2026</h2>
-  <table>
-    <thead>
-      <tr><th>Piloto</th><th>Equipa</th><th>Pontos</th></tr>
-    </thead>
-    <tbody id="tabela-pilotos"></tbody>
-  </table>
-</section>
+  <!-- CALENDÁRIO -->
+  <section id="calendario">
+    <h2 class="section-title">Calendário 2026</h2>
 
-<section id="construtores">
-  <h2>Construtores – Campeonato 2026</h2>
-  <table>
-    <thead>
-      <tr><th>Equipa</th><th>Pontos</th></tr>
-    </thead>
-    <tbody id="tabela-construtores"></tbody>
-  </table>
-</section>
+    <div class="card race-card">
+      <h3 class="race-title">Grande Prémio da Austrália</h3>
+
+      <img src="assets/races/australia.jpg" class="race-image" data-toggle="race1">
+
+      <div class="race-details" id="race1">
+        <strong>Sessões:</strong><br>
+        FP1: Sexta 02:30<br>
+        FP2: Sexta 06:00<br>
+        Qualificação: Sábado 06:00<br>
+        Corrida: Domingo 04:00<br><br>
+
+        <strong>Histórico 2025:</strong><br>
+        Meteorologia: Sol, 24ºC<br>
+        Pole: Max Verstappen – 1:18.123<br>
+        Volta rápida: Lewis Hamilton – 1:19.456<br>
+        Pódio: Verstappen · Leclerc · Norris
+      </div>
+    </div>
+  </section>
+
+  <!-- PILOTOS -->
+  <section id="pilotos">
+    <div class="card table-card">
+      <h3>Pilotos – Campeonato 2026</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Piloto</th>
+            <th>Equipa</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Max Verstappen</td><td>Red Bull Racing</td><td>0</td></tr>
+          <tr><td>Lewis Hamilton</td><td>Ferrari</td><td>0</td></tr>
+          <tr><td>Charles Leclerc</td><td>Ferrari</td><td>0</td></tr>
+          <tr><td>Lando Norris</td><td>McLaren</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CONSTRUTORES -->
+  <section id="construtores">
+    <div class="card table-card">
+      <h3>Construtores – Campeonato 2026</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Equipa</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Red Bull Racing</td><td>0</td></tr>
+          <tr><td>Ferrari</td><td>0</td></tr>
+          <tr><td>McLaren</td><td>0</td></tr>
+          <tr><td>Mercedes</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
 </main>
 
-<button id="btn-topo">Voltar ao topo</button>
+<button id="backToTop">Voltar ao topo</button>
 
 <footer class="footer">
   Projeto não oficial – Dados de referência Formula 1
