@@ -1,51 +1,48 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
-  background: white;
-  color: #111;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
 }
 
-.header {
-  background: white;
-  padding: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.nav {
+nav {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-}
-
-.nav a {
-  text-decoration: none;
-  color: red;
-  font-weight: bold;
+  padding: 10px;
   background: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-/* -------- HERO -------- */
+nav a {
+  padding: 6px 12px;
+  border: 1px solid red;
+  border-radius: 12px;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
+}
 
+section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* HERO COMO CARD */
 .hero {
   max-width: 1200px;
   margin: 20px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   position: relative;
 }
 
 .hero img {
   width: 100%;
-  border-radius: 16px;
-  border: 2px solid black;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  display: block;
 }
 
 .hero-content {
@@ -55,77 +52,51 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: rgba(0,0,0,0.4);
   color: white;
   text-align: center;
-  text-shadow: 2px 2px 6px black;
 }
 
-#countdown {
-  margin-top: 10px;
-  font-size: 20px;
-  color: red;
-  text-shadow: 2px 2px 6px black;
-}
-
-/* -------- CONTAINER -------- */
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-h2 {
-  text-align: center;
-  margin: 30px 0 15px;
-}
-
-/* -------- FICHA DA CORRIDA -------- */
-
-.corrida {
+/* CARDS CORRIDAS */
+.card {
   border: 1px solid #ccc;
   border-radius: 16px;
-  margin-bottom: 20px;
+  background: white;
   padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.corrida h3 {
-  cursor: pointer;
-  color: red;
-  margin-bottom: 10px;
+.card h3 {
   text-align: center;
+  margin-top: 0;
+  color: red;
+  cursor: pointer;
 }
 
-/* imagem clicável */
-.corrida a img {
+.card img {
   width: 100%;
-  max-height: 220px;
-  object-fit: cover;
   border-radius: 12px;
-  border: 1px solid #000;
-  margin-bottom: 12px;
-  transition: transform 0.3s ease;
-}
-
-.corrida a img:hover {
-  transform: scale(1.02);
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .detalhes {
   display: none;
-  margin-top: 10px;
-  line-height: 1.5;
 }
 
-/* -------- TABELAS COMO CARDS -------- */
-
+/* TABELAS */
 .table-card {
-  border: 1px solid #ccc;
+  background: white;
   border-radius: 16px;
   padding: 15px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.table-card h3 {
+  text-align: center;
+  color: red;
+  margin-top: 0;
 }
 
 table {
@@ -134,31 +105,28 @@ table {
 }
 
 th, td {
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-/* -------- BOTÃO TOPO -------- */
-
-#btn-topo {
+/* BOTÃO TOPO */
+#topo {
   position: fixed;
-  bottom: 80px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   background: red;
   color: white;
   border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-/* -------- FOOTER -------- */
-
-.footer {
+/* FOOTER */
+footer {
   text-align: center;
-  padding: 15px;
-  border-top: 1px solid #ccc;
+  padding: 20px;
+  font-size: 14px;
 }
