@@ -1,131 +1,115 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background: white;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f2f2;
   color: #111;
 }
 
-.header {
-  background: white;
-  padding: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.nav {
+/* NAV */
+.top-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
+  padding: 10px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.nav a {
-  text-decoration: none;
+.top-nav a {
+  padding: 6px 12px;
+  border: 1px solid red;
+  border-radius: 14px;
   color: red;
+  text-decoration: none;
   font-weight: bold;
-  background: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
-/* -------- HERO -------- */
+/* CONTAINER */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 16px;
+}
 
-.hero {
-  max-width: 1200px;
-  margin: 20px auto;
+/* TITULOS */
+.section-title {
+  text-align: center;
+  margin: 30px 0 20px;
+}
+
+/* CARD BASE */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* HERO */
+.hero-card {
+  padding: 0;
+  overflow: hidden;
   position: relative;
 }
 
-.hero img {
+.hero-card img {
   width: 100%;
-  border-radius: 16px;
-  border: 2px solid black;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  display: block;
 }
 
-.hero-content {
+.hero-overlay {
   position: absolute;
   inset: 0;
+  background: rgba(0,0,0,0.45);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  color: white;
+  justify-content: center;
+  color: #fff;
   text-align: center;
-  text-shadow: 2px 2px 6px black;
+}
+
+.hero-overlay h1 {
+  margin: 0;
 }
 
 #countdown {
-  margin-top: 10px;
-  font-size: 20px;
+  margin-top: 8px;
   color: red;
-  text-shadow: 2px 2px 6px black;
+  font-weight: bold;
 }
 
-/* -------- CONTAINER -------- */
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-h2 {
+/* RACE */
+.race-title {
   text-align: center;
-  margin: 30px 0 15px;
-}
-
-/* -------- FICHA DA CORRIDA -------- */
-
-.corrida {
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.corrida h3 {
-  cursor: pointer;
   color: red;
-  margin-bottom: 10px;
-  text-align: center;
 }
 
-/* imagem clicável */
-.corrida a img {
+.race-image {
   width: 100%;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid #000;
-  margin-bottom: 12px;
-  transition: transform 0.3s ease;
+  border-radius: 14px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.corrida a img:hover {
-  transform: scale(1.02);
-}
-
-.detalhes {
+.race-details {
   display: none;
-  margin-top: 10px;
-  line-height: 1.5;
+  font-size: 14px;
 }
 
-/* -------- TABELAS COMO CARDS -------- */
-
-.table-card {
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  padding: 15px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+/* TABLES */
+.table-card h3 {
+  text-align: center;
+  color: red;
+  margin-top: 0;
 }
 
 table {
@@ -134,31 +118,28 @@ table {
 }
 
 th, td {
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-/* -------- BOTÃO TOPO -------- */
-
-#btn-topo {
+/* BOTAO TOPO */
+#backToTop {
   position: fixed;
-  bottom: 80px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   background: red;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-/* -------- FOOTER -------- */
-
+/* FOOTER */
 .footer {
   text-align: center;
-  padding: 15px;
-  border-top: 1px solid #ccc;
+  padding: 20px;
+  font-size: 14px;
 }
