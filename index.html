@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>F1 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 2026 – Calendário Oficial</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body id="topo">
+<body>
 
-<header class="header">
-  <h1>Fórmula 1 • 2026</h1>
+<header class="main-header">
   <nav class="nav">
-    <a href="#topo">Home</a>
+    <a href="#home">Home</a>
+    <a href="#calendario">Calendário</a>
     <a href="#equipas">Equipas</a>
     <a href="#pilotos">Pilotos</a>
     <a href="#construtores">Construtores</a>
@@ -19,84 +19,47 @@
   </nav>
 </header>
 
-<main>
+<section id="home" class="hero">
+  <img src="assets/heroes/home-hero.jpg" alt="F1 2026 Hero">
+  <div class="hero-overlay">
+    <h1>Formula 1 – Temporada 2026</h1>
+    <div id="countdown"></div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay">
-      <h2>Grande Prémio da Austrália</h2>
-      <p>Domingo · 08 Março 2026 · 04:00 (Lisboa)</p>
-      <div id="countdown" class="countdown"></div>
-    </div>
-  </section>
+<main class="container">
 
-  <!-- PRÓXIMA CORRIDA -->
-  <section class="section" id="proxima-corrida">
-    <h2>Próxima Corrida</h2>
-    <div class="race-card" id="race-next">
-      <h3>🇦🇺 Austrália</h3>
-      <p>Melbourne Grand Prix Circuit</p>
-      <p>Corrida: 04:00 (PT)</p>
-    </div>
-  </section>
+<section id="calendario">
+  <h2>Calendário 2026</h2>
+  <div id="lista-corridas"></div>
+</section>
 
-  <!-- CALENDÁRIO DE CORRIDAS -->
-  <section class="section" id="calendario">
-    <h2>Calendário 2026</h2>
-    <div id="corridas-list">
-      <!-- preenchido por JS -->
-    </div>
-  </section>
+<section id="pilotos">
+  <h2>Pilotos – Campeonato 2026</h2>
+  <table>
+    <thead>
+      <tr><th>Piloto</th><th>Equipa</th><th>Pontos</th></tr>
+    </thead>
+    <tbody id="tabela-pilotos"></tbody>
+  </table>
+</section>
 
-  <!-- PILOTOS -->
-  <section id="pilotos" class="section">
-    <h2>Pilotos – Campeonato</h2>
-    <table id="pilotos-table">
-      <thead>
-        <tr>
-          <th>Posição</th>
-          <th>Piloto</th>
-          <th>Equipe</th>
-          <th>Pontos</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
-
-  <!-- CONSTRUTORES -->
-  <section id="construtores" class="section">
-    <h2>Construtores – Campeonato</h2>
-    <table id="construtores-table">
-      <thead>
-        <tr>
-          <th>Posição</th>
-          <th>Equipe</th>
-          <th>Pontos</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </section>
-
-  <!-- PLACEHOLDERS OUTROS -->
-  <section id="equipas" class="section">
-    <h2>Equipas</h2>
-    <p>(em construção)</p>
-  </section>
-
-  <section id="curiosidades" class="section">
-    <h2>Curiosidades</h2>
-    <p>(em construção)</p>
-  </section>
+<section id="construtores">
+  <h2>Construtores – Campeonato 2026</h2>
+  <table>
+    <thead>
+      <tr><th>Equipa</th><th>Pontos</th></tr>
+    </thead>
+    <tbody id="tabela-construtores"></tbody>
+  </table>
+</section>
 
 </main>
 
-<!-- BOTÃO VOLTAR AO TOPO FIXO -->
-<button id="btn-topo">⬆ Voltar para o topo</button>
+<button id="btn-topo">Voltar ao topo</button>
 
 <footer class="footer">
-  <p>Projeto F1 2026 • Dados oficiais • Não afiliado à FIA</p>
+  <p>Projeto não oficial – Dados de referência Formula 1</p>
 </footer>
 
 <script src="js/script.js"></script>
