@@ -14,6 +14,7 @@ function updateCountdown() {
   const m = Math.floor(diff / 60000) % 60;
   countdownEl.textContent = `${d}d ${h}h ${m}m`;
 }
+
 updateCountdown();
 setInterval(updateCountdown, 60000);
 
