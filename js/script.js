@@ -2,7 +2,7 @@
 document.getElementById("btn-topo").onclick = () =>
   window.scrollTo({ top: 0, behavior: "smooth" });
 
-// COUNTDOWN (Austrália)
+// COUNTDOWN – Austrália
 const raceDate = new Date("2026-03-08T04:00:00");
 setInterval(() => {
   const diff = raceDate - new Date();
@@ -13,10 +13,11 @@ setInterval(() => {
   document.getElementById("countdown").textContent = `${d}d ${h}h ${m}m`;
 }, 1000);
 
-// CORRIDAS (EXEMPLO COMPLETO)
+// CORRIDAS COM IMAGEM
 const corridas = [
   {
     gp: "Grande Prémio da Austrália",
+    imagem: "assets/races/australia.jpg",
     sessoes: {
       FP1: "Sexta 02:30",
       FP2: "Sexta 06:00",
@@ -39,6 +40,7 @@ corridas.forEach(c => {
   div.className = "corrida";
   div.innerHTML = `
     <h3>${c.gp}</h3>
+    <img src="${c.imagem}" alt="${c.gp}">
     <div class="detalhes">
       <strong>Sessões:</strong><br>
       ${Object.entries(c.sessoes).map(s => `${s[0]}: ${s[1]}`).join("<br>")}
@@ -50,10 +52,12 @@ corridas.forEach(c => {
       Pódio: ${c.historico2025.podio}
     </div>
   `;
+
   div.querySelector("h3").onclick = () => {
     const d = div.querySelector(".detalhes");
     d.style.display = d.style.display === "block" ? "none" : "block";
   };
+
   container.appendChild(div);
 });
 
