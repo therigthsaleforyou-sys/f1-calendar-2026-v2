@@ -13,7 +13,7 @@ setInterval(() => {
   document.getElementById("countdown").textContent = `${d}d ${h}h ${m}m`;
 }, 1000);
 
-// CORRIDAS COM IMAGEM
+// CORRIDAS
 const corridas = [
   {
     gp: "Grande Prémio da Austrália",
@@ -40,7 +40,9 @@ corridas.forEach(c => {
   div.className = "corrida";
   div.innerHTML = `
     <h3>${c.gp}</h3>
-    <img src="${c.imagem}" alt="${c.gp}">
+    <a href="${c.imagem}" target="_blank">
+      <img src="${c.imagem}" alt="${c.gp}">
+    </a>
     <div class="detalhes">
       <strong>Sessões:</strong><br>
       ${Object.entries(c.sessoes).map(s => `${s[0]}: ${s[1]}`).join("<br>")}
@@ -87,13 +89,18 @@ const pilotos = [
   ["Arvid Lindblad","Racing Bulls"]
 ];
 
+// tabelas com card
 const tabelaPilotos = document.getElementById("tabela-pilotos");
+tabelaPilotos.parentElement.classList.add("table-card");
+
 pilotos.forEach(p => {
   tabelaPilotos.innerHTML += `<tr><td>${p[0]}</td><td>${p[1]}</td><td>0</td></tr>`;
 });
 
 const construtores = [...new Set(pilotos.map(p => p[1]))];
 const tabelaConstrutores = document.getElementById("tabela-construtores");
+tabelaConstrutores.parentElement.classList.add("table-card");
+
 construtores.forEach(e => {
   tabelaConstrutores.innerHTML += `<tr><td>${e}</td><td>0</td></tr>`;
 });
