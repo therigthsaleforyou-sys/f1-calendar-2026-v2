@@ -65,10 +65,11 @@ body {
   display: block;
 }
 
+/* ⬇️ OVERLAY MUITO MAIS CLARO */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.18); /* antes ~0.45 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,12 +80,14 @@ body {
 
 .hero-overlay h1 {
   margin: 0;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
 #countdown {
   margin-top: 8px;
   color: red;
   font-weight: bold;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
 }
 
 /* RACE */
