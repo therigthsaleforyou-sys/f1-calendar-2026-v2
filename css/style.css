@@ -49,6 +49,8 @@ body {
 .hero img {
   width: 100%;
   display: block;
+  height: 300px;
+  object-fit: cover;
 }
 
 .hero-content {
@@ -58,7 +60,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,.35);
+  background: rgba(0,0,0,.25);
   color: #fff;
   text-align: center;
 }
@@ -92,13 +94,13 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,.25);
   background: #fff;
+  cursor: pointer;
 }
 
 .race-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
-  cursor: pointer;
 }
 
 .race-card h2 {
@@ -123,7 +125,7 @@ body {
   font-size: 26px;
   cursor: pointer;
 }
-
+   
 /* BACK TO TOP */
 #backToTop {
   display: block;
