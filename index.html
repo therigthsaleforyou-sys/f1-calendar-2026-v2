@@ -2,63 +2,59 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 Calendar 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <title>F1 Calendar 2026</title>
   <link rel="stylesheet" href="css/style.css">
-
-  <script defer src="data/races.js"></script>
-  <script defer src="data/drivers.js"></script>
-  <script defer src="data/teams.js"></script>
-  <script defer src="js/main.js"></script>
 </head>
 <body>
+  <!-- Cabeçalho -->
+  <header>
+    <nav>
+      <button id="homeBtn">Home</button>
+      <button id="teamsBtn">Equipas</button>
+      <button id="driversBtn">Pilotos</button>
+      <button id="constructorsBtn">Construtores</button>
+      <button id="curiositiesBtn">Curiosidades</button>
+    </nav>
+  </header>
 
-<header class="header">
-  <nav class="nav">
-    <a href="#">Home</a>
-    <a href="#calendario">Calendário</a>
-    <a href="#pilotos">Pilotos</a>
-    <a href="#construtores">Construtores</a>
-  </nav>
-</header>
-
-<main class="container">
-
-  <!-- HERO -->
-  <section class="card hero">
-    <img src="assets/heroes/home-hero.jpg" alt="F1 2026">
-    <div class="hero-overlay">
-      <h1>Fórmula 1 · Temporada 2026</h1>
-      <p id="countdown">A calcular countdown…</p>
+  <!-- Hero -->
+  <section class="hero">
+    <img src="assets/heroes/home-hero.jpg" alt="Hero F1 2026" id="homeHero">
+    <div class="hero-content">
+      <h1>Próxima Corrida</h1>
+      <div id="countdown"></div>
     </div>
   </section>
 
-  <!-- CALENDÁRIO -->
-  <section id="calendario" class="card">
-    <h2>Calendário</h2>
-    <div id="races"></div>
+  <!-- Calendário / Fichas de Corrida -->
+  <main id="races"></main>
+
+  <!-- Pilotos -->
+  <section id="driversSection">
+    <h2>Pilotos 2026</h2>
+    <div id="driversTable" class="card"></div>
   </section>
 
-  <!-- PILOTOS -->
-  <section id="pilotos" class="card">
-    <h2>Pilotos · Campeonato</h2>
-    <button class="toggle" data-target="driversTable">Mostrar / Esconder</button>
-    <div id="driversTable" class="dropdown"></div>
+  <!-- Construtores -->
+  <section id="teamsSection">
+    <h2>Construtores 2026</h2>
+    <div id="teamsTable" class="card"></div>
   </section>
 
-  <!-- CONSTRUTORES -->
-  <section id="construtores" class="card">
-    <h2>Construtores · Campeonato</h2>
-    <button class="toggle" data-target="teamsTable">Mostrar / Esconder</button>
-    <div id="teamsTable" class="dropdown"></div>
-  </section>
+  <!-- Botão voltar topo -->
+  <button id="backToTop">Voltar para o topo</button>
 
-</main>
+  <!-- Disclaimer -->
+  <footer>
+    <p>© 2026 F1 Calendar</p>
+  </footer>
 
-<footer class="footer">
-  <p>Projeto não oficial · Dados para fins educativos</p>
-</footer>
-
+  <!-- Scripts -->
+  <script src="data/teams.js"></script>
+  <script src="data/drivers.js"></script>
+  <script src="data/results2025.js"></script>
+  <script src="data/results2026.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
