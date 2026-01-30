@@ -18,6 +18,8 @@ body {
 }
 
 .nav a {
+  display: inline-block;
+  margin: 5px 10px;
   color: red;
   font-weight: bold;
   text-decoration: none;
@@ -44,7 +46,7 @@ body {
   color: #fff;
   text-shadow: 2px 2px 4px #000;
 }
-
+ 
 #countdown {
   font-size: 1.2rem;
   color: red;
@@ -61,6 +63,7 @@ body {
   border-radius: 12px;
   margin-bottom: 20px;
   padding: 10px;
+  text-align: center;
 }
 
 .race-card img {
@@ -72,9 +75,11 @@ body {
 .race-details {
   display: none;
   padding: 10px;
+  text-align: left;
 }
 
 #backToTop {
   margin: 20px auto;
   display: block;
+  cursor: pointer;
 }
