@@ -26,18 +26,21 @@ header {
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 15px;
+  padding: 10px 5px;
 }
 
 .navbar button {
   background: #fff;
   color: #c00;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 120px;
+  max-width: 200px;
   transition: background 0.2s;
 }
 
@@ -53,13 +56,14 @@ header {
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  padding: 0 10px;
 }
 
 .hero img {
   width: 100%;
   height: 400px;
-  object-fit: cover; /* garante preenchimento completo */
-  filter: brightness(0.9);
+  object-fit: cover;
+  filter: brightness(0.95);
 }
 
 .hero-text {
@@ -106,6 +110,7 @@ header {
   border-radius: 12px;
   overflow: hidden;
   text-align: left;
+  padding: 0 10px;
 }
 
 .race-card h3 {
@@ -119,7 +124,7 @@ header {
 .race-card img.race-img {
   width: 100%;
   height: 300px;
-  object-fit: cover; /* ocupa todo o espaço */
+  object-fit: cover;
   cursor: pointer;
 }
 
@@ -147,6 +152,8 @@ header {
     height: 200px;
   }
   .navbar .nav-buttons {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
