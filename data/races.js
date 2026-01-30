@@ -1,18 +1,12 @@
 const races = [
   {
     name: "Grande Prémio da Austrália",
-    image: "assets/races/australia.jpg",
-    sessions: {
-      fp1: "Sexta 02:30",
-      fp2: "Sexta 06:00",
-      quali: "Sábado 06:00",
-      race: "Domingo 04:00"
-    },
-    history2025: {
-      weather: "Sol, 24°C",
-      pole: "Max Verstappen – 1:18.123",
-      fastestLap: "Lando Norris – 1:20.456",
-      podium: ["Verstappen", "Norris", "Leclerc"]
-    }
+    location: "Melbourne",
+    date: "2026-03-08T04:00:00"
+  },
+  {
+    name: "Grande Prémio do Bahrain",
+    location: "Sakhir",
+    date: "2026-03-15T16:00:00"
   }
 ];
