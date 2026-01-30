@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><strong>Corrida:</strong> ${race.sessions.Race}</p>
 
         <h4>Histórico 2025</h4>
-        <p><strong>Pole:</strong> ${result.pole || "—"}</p>
-        <p><strong>Melhor volta:</strong> ${result.fastestLap || "—"}</p>
+        <p><strong>Pole:</strong> ${result.pole || "—"} (${result.poleTime || "—"})</p>
+        <p><strong>Melhor volta:</strong> ${result.fastestLap || "—"} (${result.fastestLapTime || "—"})</p>
         <p><strong>Pódio:</strong> ${result.podium || "—"}</p>
         <p><strong>Meteo:</strong> ${result.meteo || "—"}</p>
       </div>
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-/* -------- AJUDA PARA SCROLL HEADER -------- */
+/* -------- SCROLL PARA SECÇÃO -------- */
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
