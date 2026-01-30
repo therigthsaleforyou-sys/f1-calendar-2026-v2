@@ -1,149 +1,128 @@
+/* Reset básico */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f2f2f2;
-  color: #111;
-}
-
-/* HEADER */
-.header {
+  font-family: Arial, sans-serif;
   background: #fff;
-  border-bottom: 2px solid #e10600;
+  color: #000;
 }
 
-.nav {
-  max-width: 1000px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 14px;
+/* Cabeçalho */
+header {
+  background: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.nav a {
-  text-decoration: none;
-  color: #e10600;
+header nav button {
+  background: #fff;
+  color: #c00;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
   font-weight: bold;
 }
 
-/* CONTAINER */
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-}
-
-/* CARD BASE */
-.card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-}
-
-/* HERO */
+/* Hero */
 .hero {
-  padding: 0;
-  overflow: hidden;
+  position: relative;
+  text-align: center;
+  margin: 20px;
 }
 
 .hero img {
-  width: 100%;
-  display: block;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 15px;
 }
 
-.hero-overlay {
+.hero-content {
   position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-shadow: 0 2px 6px black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-shadow: 1px 1px 5px #000;
 }
 
-.hero {
-  position: relative;
-}
-
-.hero-overlay h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.hero-overlay p {
-  font-size: 1.2rem;
-  background: rgba(225,6,0,0.85);
-  padding: 6px 14px;
-  border-radius: 20px;
-}
-
-/* DROPDOWNS */
-.toggle {
-  background: #e10600;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 14px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.dropdown {
-  display: none;
-}
-
-/* TABLES */
-table {
-  width: 100%;
-  border-collapse: collapse;
+#countdown {
   margin-top: 10px;
+  font-size: 1.5em;
+  color: #f00;
+  text-shadow: 1px 1px 3px #000;
 }
 
-th, td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+/* Cards gerais */
+.card {
+  background: #fff;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-th {
-  background: #f7f7f7;
-  text-align: left;
-}
-
-/* RACES */
+/* Fichas de corrida */
 .race-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.race-header {
-  padding: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.race-body {
-  display: none;
-  padding: 12px;
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 15px;
 }
 
 .race-card img {
   width: 100%;
-  display: block;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-/* FOOTER */
-.footer {
+.race-card h3 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.race-body {
+  display: none;
+  margin-top: 10px;
+}
+
+/* Dropdowns */
+.race-header {
+  cursor: pointer;
+}
+
+.podium ol {
+  padding-left: 20px;
+}
+
+/* Botão voltar topo */
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #fff;
+  color: #c00;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Footer */
+footer {
   text-align: center;
   padding: 20px;
-  color: #666;
-  font-size: 14px;
+  margin-top: 50px;
 }
