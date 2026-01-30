@@ -14,12 +14,14 @@ function saveState(state) {
 /* HERO + COUNTDOWN */
 const heroTitle = document.getElementById("heroTitle");
 const countdownEl = document.getElementById("countdown");
+const heroImage = document.getElementById("heroImage");
 
-const nextRace =
-  calendar2026.find(r => new Date(r.date) > new Date()) || calendar2026[0];
+const nextRace = calendar2026.find(r => new Date(r.date) > new Date()) || calendar2026[0];
 
 heroTitle.textContent = nextRace.name;
+heroImage.src = nextRace.image;
 
+// Countdown atualizado a cada segundo
 function updateCountdown() {
   const diff = new Date(nextRace.date) - new Date();
   if (diff <= 0) {
@@ -29,11 +31,11 @@ function updateCountdown() {
   const d = Math.floor(diff / 86400000);
   const h = Math.floor(diff / 3600000) % 24;
   const m = Math.floor(diff / 60000) % 60;
-  countdownEl.textContent = `${d}d ${h}h ${m}m`;
+  const s = Math.floor(diff / 1000) % 60;
+  countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
 }
-
 updateCountdown();
-setInterval(updateCountdown, 60000);
+setInterval(updateCountdown, 1000);
 
 /* RACES */
 const container = document.getElementById("racesContainer");
@@ -58,6 +60,7 @@ calendar2026.forEach(race => {
     <button class="favorite-btn">⭐</button>
   `;
 
+  // Favoritos
   card.querySelector(".favorite-btn").onclick = () => {
     if (state.favorites.includes(race.id)) {
       state.favorites = state.favorites.filter(id => id !== race.id);
@@ -69,6 +72,11 @@ calendar2026.forEach(race => {
     saveState(state);
   };
 
+  // Clicar na imagem abre dropdown simples (exemplo)
+  card.querySelector("img").onclick = () => {
+    alert(`Informações da corrida: ${race.name}\nData: ${new Date(race.date).toLocaleString()}`);
+  };
+  
   container.appendChild(card);
 });
 
