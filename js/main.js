@@ -1,49 +1,51 @@
-// UTIL
-function getTeamName(teamId) {
-  const team = teams.find(t => t.id === teamId);
-  return team ? team.name : teamId;
-}
-
-/* PILOTOS */
-function renderDrivers() {
-  if (!document.getElementById("driversTable")) return;
-
-  const table = `
-    <table>
-      <tr><th>Piloto</th><th>Equipa</th><th>Pontos</th></tr>
-      ${drivers.map(d => `
-        <tr>
-          <td>${d.name}</td>
-          <td>${getTeamName(d.team)}</td>
-          <td>${d.points}</td>
-        </tr>
-      `).join("")}
-    </table>
-  `;
-
-  document.getElementById("driversTable").innerHTML = table;
-}
-
-/* CONSTRUTORES */
-function renderTeams() {
-  if (!document.getElementById("teamsTable")) return;
-
-  const table = `
-    <table>
-      <tr><th>Construtor</th><th>Pontos</th></tr>
-      ${teams.map(t => `
-        <tr>
-          <td>${t.name}</td>
-          <td>${t.points}</td>
-        </tr>
-      `).join("")}
-    </table>
-  `;
-
-  document.getElementById("teamsTable").innerHTML = table;
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  renderDrivers();
-  renderTeams();
+
+  /* ===============================
+     DROPDOWNS EXISTENTES
+     =============================== */
+  document.querySelectorAll(".race-header").forEach(header => {
+    header.addEventListener("click", () => {
+      const body = header.nextElementSibling;
+      if (!body) return;
+      body.style.display = body.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  /* ===============================
+     RESULTADOS 2025
+     =============================== */
+
+  if (typeof results2025 === "undefined") return;
+
+  Object.keys(results2025).forEach(raceId => {
+    const data = results2025[raceId];
+
+    // Cada ficha de corrida deve ter data-race="australia", etc
+    const raceCard = document.querySelector(`[data-race="${raceId}"]`);
+    if (!raceCard) return;
+
+    let html = `
+      <div class="race-2025">
+        <h4>Resultados 2025</h4>
+        <p><strong>Meteorologia:</strong> ${data.weather}</p>
+        <p><strong>Pole Position:</strong> ${data.pole.driver} (${data.pole.time})</p>
+        <p><strong>Volta mais rápida:</strong> ${data.fastestLap.driver} (${data.fastestLap.time})</p>
+
+        <div class="podium">
+          <strong>Pódio:</strong>
+          <ol>
+            ${data.podium.map(p =>
+              `<li>${p.driver} <span>(${p.team})</span></li>`
+            ).join("")}
+          </ol>
+        </div>
+      </div>
+    `;
+
+    const body = raceCard.querySelector(".race-body");
+    if (body) {
+      body.insertAdjacentHTML("beforeend", html);
+    }
+  });
+
 });
