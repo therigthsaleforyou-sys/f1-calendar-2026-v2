@@ -19,7 +19,7 @@ const calendar2026 = [
     results2025: {
       pole: "Max Verstappen – 1:15.915",
       fastestLap: "Charles Leclerc – 1:19.813",
-      podium: ["Verstappen", "Perez", "Alonso"],
+      podium: ["Max Verstappen", "Sergio Perez", "Fernando Alonso"],
       weather: "Sol"
     }
   },
@@ -37,9 +37,9 @@ const calendar2026 = [
       race: "2026-03-15T15:00:00"
     },
     results2025: {
-      pole: "Leclerc – 1:29.203",
-      fastestLap: "Hamilton – 1:34.500",
-      podium: ["Leclerc", "Sainz", "Russell"],
+      pole: "Charles Leclerc – 1:29.203",
+      fastestLap: "Lewis Hamilton – 1:34.500",
+      podium: ["Leclerc", "Carlos Sainz", "George Russell"],
       weather: "Noite limpa"
     }
   },
@@ -57,9 +57,9 @@ const calendar2026 = [
       race: "2026-03-22T07:00:00"
     },
     results2025: {
-      pole: "Norris – 1:31.012",
-      fastestLap: "Piastri – 1:35.221",
-      podium: ["Norris", "Piastri", "Verstappen"],
+      pole: "Lando Norris – 1:31.012",
+      fastestLap: "Oscar Piastri – 1:35.221",
+      podium: ["Norris", "Piastri", "Max Verstappen"],
       weather: "Nublado"
     }
   }
