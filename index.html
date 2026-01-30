@@ -7,54 +7,44 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Cabeçalho -->
+
+  <!-- CABEÇALHO -->
   <header>
-    <nav>
-      <button id="homeBtn">Home</button>
-      <button id="teamsBtn">Equipas</button>
-      <button id="driversBtn">Pilotos</button>
-      <button id="constructorsBtn">Construtores</button>
-      <button id="curiositiesBtn">Curiosidades</button>
+    <nav class="navbar">
+      <button onclick="scrollToSection('home')">Home</button>
+      <button onclick="scrollToSection('teams')">Equipas</button>
+      <button onclick="scrollToSection('drivers')">Pilotos</button>
+      <button onclick="scrollToSection('constructors')">Construtores</button>
+      <button onclick="scrollToSection('curiosities')">Curiosidades</button>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <img src="assets/heroes/home-hero.jpg" alt="Hero F1 2026" id="homeHero">
-    <div class="hero-content">
-      <h1>Próxima Corrida</h1>
-      <div id="countdown"></div>
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <a id="next-race-link" href="#"></a>
+    <img id="hero-img" src="assets/heroes/home-hero.jpg" alt="Hero F1">
+    <div class="hero-text">
+      <h1 id="next-race-name"></h1>
+      <p id="countdown"></p>
     </div>
   </section>
 
-  <!-- Calendário / Fichas de Corrida -->
-  <main id="races"></main>
-
-  <!-- Pilotos -->
-  <section id="driversSection">
-    <h2>Pilotos 2026</h2>
-    <div id="driversTable" class="card"></div>
+  <!-- CALENDÁRIO -->
+  <section id="calendar">
+    <h2>Calendário 2026</h2>
+    <div id="races"></div>
   </section>
 
-  <!-- Construtores -->
-  <section id="teamsSection">
-    <h2>Construtores 2026</h2>
-    <div id="teamsTable" class="card"></div>
-  </section>
-
-  <!-- Botão voltar topo -->
+  <!-- BOTÃO VOLTAR TOPO -->
   <button id="backToTop">Voltar para o topo</button>
 
-  <!-- Disclaimer -->
+  <!-- RODAPÉ / DISCLAIMER -->
   <footer>
-    <p>© 2026 F1 Calendar</p>
+    <p>&copy; 2026 F1 Calendar - Dados oficiais</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="data/teams.js"></script>
-  <script src="data/drivers.js"></script>
+  <script src="data/calendar2026.js"></script>
   <script src="data/results2025.js"></script>
-  <script src="data/results2026.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
