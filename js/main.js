@@ -1,102 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
+const STORAGE_KEY = "f1_2026_state";
 
-  /* =========================
-     FORMATAÇÃO DE DATA
-  ========================= */
-  const formatDate = (iso) => {
-    const d = new Date(iso);
-    return d.toLocaleString("pt-PT", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+function loadState() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+    favorites: [],
+    disputed: []
   };
+}
 
-  /* =========================
-     PRÓXIMA CORRIDA
-  ========================= */
-  const now = new Date();
-  const nextRace = calendar2026.find(r => new Date(r.raceDate) > now) || calendar2026[0];
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
 
-  const heroTitle = document.querySelector(".hero-content h1 a");
-  const heroImg = document.querySelector(".hero img");
-  const countdownEl = document.getElementById("countdown");
+/* HERO + COUNTDOWN */
+const heroTitle = document.getElementById("heroTitle");
+const countdownEl = document.getElementById("countdown");
 
-  heroTitle.textContent = nextRace.name;
-  heroTitle.href = nextRace.page;
-  heroImg.src = nextRace.image;
+const nextRace =
+  calendar2026.find(r => new Date(r.date) > new Date()) || calendar2026[0];
 
-  /* =========================
-     COUNTDOWN
-  ========================= */
-  function updateCountdown() {
-    const diff = new Date(nextRace.raceDate) - new Date();
-    if (diff <= 0) {
-      countdownEl.textContent = "Race Week!";
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor(diff / 3600000) % 24;
-    const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60;
-    countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+heroTitle.textContent = nextRace.name;
+
+function updateCountdown() {
+  const diff = new Date(nextRace.date) - new Date();
+  if (diff <= 0) {
+    countdownEl.textContent = "Race Week!";
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  countdownEl.textContent = `${d}d ${h}h ${m}m`;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+/* RACES */
+const container = document.getElementById("racesContainer");
+const state = loadState();
+
+calendar2026.forEach(race => {
+  const card = document.createElement("section");
+  card.className = "race-card";
+
+  const raceDate = new Date(race.date);
+  if (raceDate < new Date() && !state.disputed.includes(race.id)) {
+    state.disputed.push(race.id);
+    saveState(state);
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  if (state.disputed.includes(race.id)) card.classList.add("disputed");
+  if (state.favorites.includes(race.id)) card.classList.add("favorite");
 
-  /* =========================
-     FICHAS DE CORRIDA
-  ========================= */
-  const container = document.querySelector(".container");
-  container.innerHTML = "";
+  card.innerHTML = `
+    <img src="${race.image}" alt="${race.name}">
+    <h2>${race.name}</h2>
+    <button class="favorite-btn">⭐</button>
+  `;
 
-  calendar2026.forEach(race => {
-    const card = document.createElement("section");
-    card.className = "race-card";
+  card.querySelector(".favorite-btn").onclick = () => {
+    if (state.favorites.includes(race.id)) {
+      state.favorites = state.favorites.filter(id => id !== race.id);
+      card.classList.remove("favorite");
+    } else {
+      state.favorites.push(race.id);
+      card.classList.add("favorite");
+    }
+    saveState(state);
+  };
 
-    card.innerHTML = `
-      <img src="${race.image}" alt="${race.name}" data-toggle="${race.id}">
-      <h2><a href="#">${race.name}</a></h2>
-
-      <div class="race-details" id="${race.id}">
-        <h3>Sessões 2026</h3>
-        <ul>
-          <li>FP1: ${formatDate(race.sessions.fp1)}</li>
-          <li>FP2: ${formatDate(race.sessions.fp2)}</li>
-          <li>FP3: ${formatDate(race.sessions.fp3)}</li>
-          <li>Qualificação: ${formatDate(race.sessions.qualifying)}</li>
-          <li>Corrida: ${formatDate(race.sessions.race)}</li>
-        </ul>
-
-        <h3>Resultados 2025</h3>
-        <ul>
-          <li>Pole: ${race.results2025.pole}</li>
-          <li>Volta mais rápida: ${race.results2025.fastestLap}</li>
-          <li>Pódio: ${race.results2025.podium.join(", ")}</li>
-          <li>Meteorologia: ${race.results2025.weather}</li>
-        </ul>
-      </div>
-    `;
-
-    container.appendChild(card);
-  });
-
-  /* =========================
-     DROPDOWN DAS CORRIDAS
-  ========================= */
-  document.querySelectorAll("[data-toggle]").forEach(img => {
-    img.addEventListener("click", () => {
-      const target = document.getElementById(img.dataset.toggle);
-      target.style.display = target.style.display === "block" ? "none" : "block";
-    });
-  });
-
-  /* =========================
-     BACK TO TOP
-  ========================= */
-  const backToTop = document.getElementById("backToTop");
-  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  container.appendChild(card);
 });
+
+/* BACK TO TOP */
+document.getElementById("backToTop").onclick = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
