@@ -19,10 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(`[data-race="${nextRace.id}"]`).scrollIntoView({behavior:"smooth"});
   }
 
-  /* -------- COUNTDOWN -------- */
+  /* -------- COUNTDOWN FUNCIONAL -------- */
   const countdownEl = document.getElementById("countdown");
   function updateCountdown() {
-    const diff = new Date(nextRace.sessions.Race) - new Date();
+    const now = new Date();
+    const raceDate = new Date(nextRace.sessions.Race);
+    const diff = raceDate - now;
     if (diff <= 0) {
       countdownEl.textContent = "🏁 Corrida em andamento!";
       return;
