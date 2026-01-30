@@ -3,41 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <title>F1 Calendar 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <header class="nav">
   <div class="nav-inner">
-    <a href="teams.html">Equipas</a>
-    <a href="pilots.html">Pilotos</a>
-    <a href="index.html" class="home-btn">Home</a>
-    <a href="constructors.html">Construtores</a>
-    <a href="curiosities.html">Curiosidades</a>
+    <a href="index.html">Home</a>
   </div>
 </header>
 
+<section class="hero">
+  <img src="assets/heroes/home-hero.jpg" alt="Próxima corrida">
+  <div class="hero-content">
+    <h1>
+      <a href="race-australia.html">Grande Prémio da Austrália</a>
+    </h1>
+    <div id="countdown">—</div>
+  </div>
+</section>
+
 <main class="container">
 
-  <!-- HERO -->
-  <section id="hero" class="hero">
-    <div class="hero-overlay">
-      <h1 id="heroRaceName"></h1>
-      <div id="countdown"></div>
-    </div>
+  <section class="race-card">
+    <img src="assets/races/australia.jpg" alt="Austrália">
+    <h2>
+      <a href="race-australia.html">Austrália</a>
+    </h2>
   </section>
 
-  <!-- CALENDÁRIO -->
-  <section id="calendar"></section>
+  <section class="race-card">
+    <img src="assets/races/bahrain.jpg" alt="Bahrein">
+    <h2>
+      <a href="race-bahrain.html">Bahrein</a>
+    </h2>
+  </section>
+
+  <section class="race-card">
+    <img src="assets/races/china.jpg" alt="China">
+    <h2>
+      <a href="race-china.html">China</a>
+    </h2>
+  </section>
 
 </main>
 
-<button id="backToTop">Voltar ao topo</button>
+<button id="backToTop">↑</button>
 
 <script src="data/calendar2026.js"></script>
-<script src="data/results2025.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
