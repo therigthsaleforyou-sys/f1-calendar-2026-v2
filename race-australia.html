@@ -1,40 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>GP Austrália</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <title>Grande Prémio da Austrália – F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a href="index.html">← Voltar</a>
-  </div>
-</header>
-
 <main class="container">
 
-  <section class="race-card">
-    <img src="assets/races/australia.jpg">
-    <h2>Grande Prémio da Austrália</h2>
+  <section class="card">
+    <h1 style="text-align:center;">Grande Prémio da Austrália</h1>
 
-    <p>FP1: 06/03/2026 02:30</p>
-    <p>FP2: 06/03/2026 06:00</p>
-    <p>FP3: 07/03/2026 02:30</p>
-    <p>Qualificação: 07/03/2026 06:00</p>
-    <p>Corrida: 08/03/2026 04:00</p>
+    <img 
+      src="assets/races/australia.jpg"
+      alt="GP Austrália"
+      class="race-image"
+      style="cursor:pointer;"
+      onclick="toggleDetails()"
+    />
 
-    <h3>Resultados 2025</h3>
-    <ul>
-      <li>🥇 Max Verstappen — 1:20:15.123</li>
-      <li>🥈 Charles Leclerc — +5.412s</li>
-      <li>🥉 Lando Norris — +9.876s</li>
-    </ul>
+    <div id="details" style="display:none;">
+
+      <h2>Sessões 2026</h2>
+      <ul>
+        <li>FP1: 06/03/2026 02:30</li>
+        <li>FP2: 06/03/2026 06:00</li>
+        <li>FP3: 07/03/2026 02:30</li>
+        <li>Qualificação: 07/03/2026 06:00</li>
+        <li><strong>Corrida: 08/03/2026 04:00</strong></li>
+      </ul>
+
+      <h2>Resultados 2025</h2>
+      <ul>
+        <li>Pole Position: Max Verstappen – 1:18.123</li>
+        <li>Volta mais rápida: Charles Leclerc – 1:21.456</li>
+        <li>Pódio:
+          <ol>
+            <li>Max Verstappen</li>
+            <li>Lando Norris</li>
+            <li>Carlos Sainz</li>
+          </ol>
+        </li>
+      </ul>
+
+    </div>
   </section>
 
 </main>
+
+<script>
+function toggleDetails() {
+  const el = document.getElementById("details");
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
