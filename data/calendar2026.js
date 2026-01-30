@@ -25,5 +25,5 @@ const calendar2026 = [
       Race: "2026-04-12T15:00:00"
     }
   }
-  // Adicionar todas as outras corridas 2026 conforme desejado...
+  // Adicionar todas as corridas 2026 restantes
 ];
