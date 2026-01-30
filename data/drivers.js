@@ -11,20 +11,8 @@ const drivers = [
   { name: "Alex Albon", team: "Williams", points: 0 },
   { name: "Carlos Sainz", team: "Williams", points: 0 },
 
-  { name: "Liam Lawson", team: "Racing Bulls", points: 0 },
-  { name: "Arvid Lindblad", team: "Racing Bulls", points: 0 },
-
   { name: "Fernando Alonso", team: "Aston Martin", points: 0 },
   { name: "Lance Stroll", team: "Aston Martin", points: 0 },
-
-  { name: "Esteban Ocon", team: "Haas", points: 0 },
-  { name: "Oliver Bearman", team: "Haas", points: 0 },
-
-  { name: "Nico Hülkenberg", team: "Audi", points: 0 },
-  { name: "Gabriel Bortoleto", team: "Audi", points: 0 },
-
-  { name: "Pierre Gasly", team: "Alpine", points: 0 },
-  { name: "Franco Colapinto", team: "Alpine", points: 0 },
 
   { name: "George Russell", team: "Mercedes", points: 0 },
   { name: "Andrea Kimi Antonelli", team: "Mercedes", points: 0 },
