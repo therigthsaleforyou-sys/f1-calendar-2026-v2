@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>F1 Calendar 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -14,42 +14,50 @@
 </head>
 <body>
 
-<header class="site-header">
-  <h1>F1 Calendar 2026</h1>
+<header class="header">
+  <nav class="nav">
+    <a href="#">Home</a>
+    <a href="#calendario">Calendário</a>
+    <a href="#pilotos">Pilotos</a>
+    <a href="#construtores">Construtores</a>
+  </nav>
 </header>
 
 <main class="container">
 
-  <!-- COUNTDOWN -->
-  <section class="card">
-    <h2>⏳ Próxima Corrida</h2>
-    <div id="countdown">A calcular...</div>
+  <!-- HERO -->
+  <section class="card hero">
+    <img src="assets/heroes/home-hero.jpg" alt="F1 2026">
+    <div class="hero-overlay">
+      <h1>Fórmula 1 · Temporada 2026</h1>
+      <p id="countdown">A calcular countdown…</p>
+    </div>
   </section>
 
   <!-- CALENDÁRIO -->
-  <section class="card">
-    <h2>📅 Calendário</h2>
+  <section id="calendario" class="card">
+    <h2>Calendário</h2>
     <div id="races"></div>
   </section>
 
   <!-- PILOTOS -->
-  <section class="card">
-    <h2>👨‍✈️ Pilotos</h2>
+  <section id="pilotos" class="card">
+    <h2>Pilotos · Campeonato</h2>
     <button class="toggle" data-target="driversTable">Mostrar / Esconder</button>
-    <div id="driversTable" class="hidden"></div>
+    <div id="driversTable" class="dropdown"></div>
   </section>
 
   <!-- CONSTRUTORES -->
-  <section class="card">
-    <h2>🏭 Construtores</h2>
+  <section id="construtores" class="card">
+    <h2>Construtores · Campeonato</h2>
     <button class="toggle" data-target="teamsTable">Mostrar / Esconder</button>
-    <div id="teamsTable" class="hidden"></div>
+    <div id="teamsTable" class="dropdown"></div>
   </section>
 
 </main>
 
 <footer class="footer">
-  <p>Dados não oficiais — Projeto educacional</p>
+  <p>Projeto não oficial · Dados para fins educativos</p>
 </footer>
 
 </body>
