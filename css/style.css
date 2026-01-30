@@ -21,15 +21,14 @@ body {
   padding: 10px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .nav a {
   text-decoration: none;
   color: #c00;
   font-weight: bold;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,.2);
@@ -48,34 +47,39 @@ body {
 
 .hero img {
   width: 100%;
-  display: block;
-  height: 300px;
+  height: 260px;
   object-fit: cover;
+  display: block;
 }
 
 .hero-content {
   position: absolute;
   inset: 0;
+  background: rgba(0,0,0,.25);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,.25);
-  color: #fff;
   text-align: center;
 }
 
 .hero-content h1 {
   margin: 0;
-  font-size: 28px;
-  text-shadow: 2px 2px 4px #000;
+  font-size: 35px; /* +25% */
+}
+
+.hero-content h1 a {
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 2px 2px 5px #000;
 }
 
 #countdown {
-  margin-top: 10px;
-  font-size: 22px;
+  margin-top: 12px;
+  font-size: 28px;
+  font-weight: bold;
   color: red;
-  text-shadow: 2px 2px 4px #000;
+  text-shadow: 2px 2px 5px #000;
 }
 
 /* CONTAINER */
@@ -94,13 +98,13 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,.25);
   background: #fff;
-  cursor: pointer;
 }
 
 .race-card img {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .race-card h2 {
@@ -108,24 +112,27 @@ body {
   margin: 10px 0;
 }
 
-.race-card.disputed {
-  opacity: .6;
+.race-details {
+  display: none;
+  padding: 15px;
+  border-top: 2px solid #000;
+  background: #f9f9f9;
 }
 
-.race-card.favorite {
-  outline: 4px solid gold;
+.race-card.open .race-details {
+  display: block;
 }
 
 /* FAVORITE */
 .favorite-btn {
   display: block;
-  margin: 10px auto 20px;
+  margin: 10px auto;
   background: none;
   border: none;
   font-size: 26px;
   cursor: pointer;
 }
-   
+ 
 /* BACK TO TOP */
 #backToTop {
   display: block;
