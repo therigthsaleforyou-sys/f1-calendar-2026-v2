@@ -2,66 +2,55 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <title>F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F1 Calendar 2026</title>
 
   <link rel="stylesheet" href="css/style.css">
+
+  <script defer src="data/races.js"></script>
+  <script defer src="data/drivers.js"></script>
+  <script defer src="data/teams.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
+<body>
 
-<body id="topo">
-
-<header class="header">
-  <h1>F1 2026</h1>
-  <nav>
-    <a href="#calendario">Calendário</a>
-    <a href="#equipas">Equipas</a>
-    <a href="#pilotos">Pilotos</a>
-    <a href="#construtores">Construtores</a>
-    <a href="#curiosidades">Curiosidades</a>
-  </nav>
+<header class="site-header">
+  <h1>F1 Calendar 2026</h1>
 </header>
 
 <main class="container">
 
-  <!-- HERO -->
-  <section class="hero">
-    <img src="assets/heroes/home-hero.jpg" alt="F1 Hero">
-    <h2>Formula 1 – Temporada 2026</h2>
+  <!-- COUNTDOWN -->
+  <section class="card">
+    <h2>⏳ Próxima Corrida</h2>
+    <div id="countdown">A calcular...</div>
   </section>
 
   <!-- CALENDÁRIO -->
-  <section id="calendario" class="box">
-    <h3>Calendário 2026</h3>
-    <div id="races-container"></div>
+  <section class="card">
+    <h2>📅 Calendário</h2>
+    <div id="races"></div>
   </section>
 
   <!-- PILOTOS -->
-  <section id="pilotos" class="box">
-    <h3>Classificação de Pilotos</h3>
-    <div id="drivers-table"></div>
+  <section class="card">
+    <h2>👨‍✈️ Pilotos</h2>
+    <button class="toggle" data-target="driversTable">Mostrar / Esconder</button>
+    <div id="driversTable" class="hidden"></div>
   </section>
 
   <!-- CONSTRUTORES -->
-  <section id="construtores" class="box">
-    <h3>Classificação de Construtores</h3>
-    <div id="constructors-table"></div>
+  <section class="card">
+    <h2>🏭 Construtores</h2>
+    <button class="toggle" data-target="teamsTable">Mostrar / Esconder</button>
+    <div id="teamsTable" class="hidden"></div>
   </section>
 
 </main>
 
-<!-- BOTÃO TOPO -->
-<div class="back-top">
-  <a href="#topo">Voltar para o topo</a>
-</div>
-
 <footer class="footer">
-  <p>Projeto F1 2026 • Dados dinâmicos • Sem edição manual</p>
+  <p>Dados não oficiais — Projeto educacional</p>
 </footer>
-
-<script src="data/teams.js"></script>
-<script src="data/drivers.js"></script>
-<script src="data/races.js"></script>
-<script src="js/main.js"></script>
 
 </body>
 </html>
