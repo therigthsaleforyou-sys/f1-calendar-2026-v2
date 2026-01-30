@@ -1,22 +1,15 @@
 const results2025 = {
-  australia: {
-    weather: "Sol",
-    pole: { driver: "Max Verstappen", time: "1:15.915" },
-    fastestLap: { driver: "Lando Norris", time: "1:20.432" },
-    podium: [
-      { position: 1, driver: "Max Verstappen", team: "Red Bull Racing" },
-      { position: 2, driver: "Charles Leclerc", team: "Ferrari" },
-      { position: 3, driver: "Lando Norris", team: "McLaren" }
-    ]
+  "australia": {
+    pole: "Max Verstappen",
+    fastestLap: "Lewis Hamilton",
+    podium: "Max Verstappen, Lewis Hamilton, Lando Norris",
+    meteo: "Sol, 22°C"
   },
-  bahrain: {
-    weather: "Noite / Seco",
-    pole: { driver: "Charles Leclerc", time: "1:29.203" },
-    fastestLap: { driver: "Oscar Piastri", time: "1:33.118" },
-    podium: [
-      { position: 1, driver: "Charles Leclerc", team: "Ferrari" },
-      { position: 2, driver: "Max Verstappen", team: "Red Bull Racing" },
-      { position: 3, driver: "George Russell", team: "Mercedes" }
-    ]
+  "bahrain": {
+    pole: "Charles Leclerc",
+    fastestLap: "Sergio Perez",
+    podium: "Charles Leclerc, Sergio Perez, George Russell",
+    meteo: "Sol, 28°C"
   }
+  // Adicionar resultados de todas as corridas 2025 correspondentes
 };
