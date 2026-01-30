@@ -1,106 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* --------------------------
-     Botão Voltar ao Topo
-     -------------------------- */
-  const backBtn = document.getElementById("backToTop");
-  backBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  /* -------- BOTÃO VOLTAR AO TOPO -------- */
+  document.getElementById("backToTop").onclick = () =>
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
-  /* --------------------------
-     Render Pilotos
-     -------------------------- */
-  const driversTable = document.getElementById("driversTable");
-  if (driversTable) {
-    driversTable.innerHTML = `
-      <table>
-        <tr><th>Piloto</th><th>Equipa</th><th>Pontos</th></tr>
-        ${drivers.map(d => `
-          <tr>
-            <td>${d.name}</td>
-            <td>${d.team}</td>
-            <td>${d.points}</td>
-          </tr>
-        `).join("")}
-      </table>
-    `;
+  /* -------- COUNTDOWN -------- */
+  const countdownEl = document.getElementById("countdown");
+  const now = new Date();
+
+  let nextRace = calendar2026.find(r =>
+    new Date(r.sessions.Race) > now
+  );
+
+  function updateCountdown() {
+    if (!nextRace) {
+      countdownEl.textContent = "Temporada concluída";
+      return;
+    }
+    const diff = new Date(nextRace.sessions.Race) - new Date();
+    if (diff <= 0) {
+      countdownEl.textContent = "🏁 Corrida em andamento!";
+      return;
+    }
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    countdownEl.textContent = `${d}d ${h}h ${m}m`;
   }
 
-  /* --------------------------
-     Render Construtores
-     -------------------------- */
-  const teamsTable = document.getElementById("teamsTable");
-  if (teamsTable) {
-    teamsTable.innerHTML = `
-      <table>
-        <tr><th>Construtor</th><th>Pontos</th></tr>
-        ${teams.map(t => `
-          <tr>
-            <td>${t.name}</td>
-            <td>${t.points}</td>
-          </tr>
-        `).join("")}
-      </table>
-    `;
-  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
 
-  /* --------------------------
-     Render Fichas Corridas
-     -------------------------- */
+  /* -------- RENDER CORRIDAS -------- */
   const racesContainer = document.getElementById("races");
-  if (!racesContainer) return;
+  racesContainer.innerHTML = "";
 
-  Object.keys(results2025).forEach(raceId => {
-    const data2025 = results2025[raceId];
-    const data2026Race = results2026[raceId] || {};
-
+  calendar2026.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
-    card.setAttribute("data-race", raceId);
+    card.setAttribute("data-race", race.id);
 
     card.innerHTML = `
-      <h3 class="race-header">${raceId.toUpperCase()}</h3>
-      <img src="assets/races/${raceId}.jpg" alt="${raceId}" class="race-img">
+      <h3 class="race-header">${race.name} (${race.circuit})</h3>
+      <img src="${race.image}" class="race-img" alt="${race.name}">
       <div class="race-body">
-        <p><strong>Meteorologia 2025:</strong> ${data2025.weather}</p>
-        <p><strong>Pole Position:</strong> ${data2025.pole.driver} (${data2025.pole.time})</p>
-        <p><strong>Volta mais rápida:</strong> ${data2025.fastestLap.driver} (${data2025.fastestLap.time})</p>
-        <p><strong>Pódio:</strong> ${data2025.podium.map(p => `${p.position}º ${p.driver} (${p.team})`).join(", ")}</p>
+        <p><strong>FP1:</strong> ${race.sessions.FP1 || "—"}</p>
+        <p><strong>FP2:</strong> ${race.sessions.FP2 || "—"}</p>
+        <p><strong>FP3:</strong> ${race.sessions.FP3 || "—"}</p>
+        <p><strong>Qualificação:</strong> ${race.sessions.Qualifying || "—"}</p>
+        <p><strong>Corrida:</strong> ${race.sessions.Race}</p>
       </div>
     `;
 
     racesContainer.appendChild(card);
   });
 
-  /* --------------------------
-     Dropdowns das fichas
-     -------------------------- */
-  document.querySelectorAll(".race-header").forEach(header => {
-    header.addEventListener("click", () => {
-      const body = header.nextElementSibling;
+  /* -------- DROPDOWN FUNCIONAL -------- */
+  document.querySelectorAll(".race-header, .race-img").forEach(el => {
+    el.onclick = () => {
+      const body = el.parentElement.querySelector(".race-body");
       body.style.display = body.style.display === "block" ? "none" : "block";
-    });
+    };
   });
 
-  /* --------------------------
-     Countdown Próxima Corrida
-     -------------------------- */
-  const countdownEl = document.getElementById("countdown");
-  if (countdownEl) {
-    const nextRaceDate = new Date(); // substituir com a data real
-    const updateCountdown = () => {
-      const now = new Date();
-      const diff = nextRaceDate - now;
-      if (diff <= 0) {
-        countdownEl.textContent = "Corrida em andamento!";
-        return;
-      }
-      const h = Math.floor(diff / 1000 / 3600);
-      const m = Math.floor((diff / 1000 % 3600) / 60);
-      const s = Math.floor(diff / 1000 % 60);
-      countdownEl.textContent = `${h}h ${m}m ${s}s`;
-    };
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  }
+  /* -------- TABELAS EXISTENTES -------- */
+  if (typeof renderDrivers === "function") renderDrivers();
+  if (typeof renderTeams === "function") renderTeams();
 
 });
