@@ -5,53 +5,101 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
+  background: #f2f2f2;
   color: #111;
 }
 
-.site-header {
-  background: #e10600;
-  color: white;
-  padding: 16px;
-  text-align: center;
+/* HEADER */
+.header {
+  background: #fff;
+  border-bottom: 2px solid #e10600;
 }
 
-.container {
-  max-width: 900px;
+.nav {
+  max-width: 1000px;
   margin: auto;
-  padding: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px;
 }
 
+.nav a {
+  text-decoration: none;
+  color: #e10600;
+  font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* CARD BASE */
 .card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-h2 {
-  margin-top: 0;
+/* HERO */
+.hero {
+  padding: 0;
+  overflow: hidden;
 }
 
-button.toggle {
-  padding: 8px 14px;
+.hero img {
+  width: 100%;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 0 2px 6px black;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-overlay h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+  background: rgba(225,6,0,0.85);
+  padding: 6px 14px;
   border-radius: 20px;
-  border: none;
+}
+
+/* DROPDOWNS */
+.toggle {
   background: #e10600;
   color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 14px;
   cursor: pointer;
   margin-bottom: 10px;
 }
 
-button.toggle:hover {
-  opacity: 0.9;
-}
-
-.hidden {
+.dropdown {
   display: none;
 }
 
+/* TABLES */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -59,18 +107,43 @@ table {
 }
 
 th, td {
-  padding: 8px;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
-  text-align: left;
 }
 
 th {
-  background: #f0f0f0;
+  background: #f7f7f7;
+  text-align: left;
 }
 
+/* RACES */
+.race-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.race-header {
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.race-body {
+  display: none;
+  padding: 12px;
+}
+
+.race-card img {
+  width: 100%;
+  display: block;
+}
+
+/* FOOTER */
 .footer {
   text-align: center;
-  font-size: 14px;
   padding: 20px;
-  color: #555;
+  color: #666;
+  font-size: 14px;
 }
