@@ -46,17 +46,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dados 2025
     const result = results2025[race.id] || {};
 
+    function formatDateTime(dtStr) {
+      if (!dtStr) return "—";
+      const dt = new Date(dtStr);
+      const day = String(dt.getDate()).padStart(2,'0');
+      const month = String(dt.getMonth()+1).padStart(2,'0');
+      const year = dt.getFullYear();
+      const hours = String(dt.getHours()).padStart(2,'0');
+      const mins = String(dt.getMinutes()).padStart(2,'0');
+      return `${day}/${month}/${year} ${hours}:${mins}`;
+    }
+
     card.innerHTML = `
       <h3>${race.name} (${race.circuit})</h3>
       <img src="${race.image}" class="race-img" alt="${race.name}">
       <div class="race-body">
         <h4>Sessões 2026</h4>
-        <p><strong>FP1:</strong> ${race.sessions.FP1 || "—"}</p>
-        <p><strong>FP2:</strong> ${race.sessions.FP2 || "—"}</p>
-        <p><strong>FP3:</strong> ${race.sessions.FP3 || "—"}</p>
-        <p><strong>Qualificação:</strong> ${race.sessions.Qualifying || "—"}</p>
-        ${race.sessions.Sprint ? `<p><strong>Sprint:</strong> ${race.sessions.Sprint}</p>` : ""}
-        <p><strong>Corrida:</strong> ${race.sessions.Race}</p>
+        <p><strong>FP1:</strong> ${formatDateTime(race.sessions.FP1)}</p>
+        <p><strong>FP2:</strong> ${formatDateTime(race.sessions.FP2)}</p>
+        <p><strong>FP3:</strong> ${formatDateTime(race.sessions.FP3)}</p>
+        <p><strong>Qualificação:</strong> ${formatDateTime(race.sessions.Qualifying)}</p>
+        ${race.sessions.Sprint ? `<p><strong>Sprint:</strong> ${formatDateTime(race.sessions.Sprint)}</p>` : ""}
+        <p><strong>Corrida:</strong> ${formatDateTime(race.sessions.Race)}</p>
 
         <h4>Histórico 2025</h4>
         <p><strong>Pole:</strong> ${result.pole || "—"} (${result.poleTime || "—"})</p>
