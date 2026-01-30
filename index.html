@@ -1,52 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
   <title>F1 Calendar 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- CABEÇALHO -->
-  <header>
-    <nav class="navbar">
-      <div class="nav-buttons">
-        <button onclick="scrollToSection('teams')">Equipas</button>
-        <button onclick="scrollToSection('home')">Home</button>
-        <button onclick="scrollToSection('drivers')">Pilotos</button>
-        <button onclick="scrollToSection('constructors')">Construtores</button>
-        <button onclick="scrollToSection('curiosities')">Curiosidades</button>
-      </div>
-    </nav>
-  </header>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="teams.html">Equipas</a>
+    <a href="pilots.html">Pilotos</a>
+    <a href="index.html" class="home-btn">Home</a>
+    <a href="constructors.html">Construtores</a>
+    <a href="curiosities.html">Curiosidades</a>
+  </div>
+</header>
+
+<main class="container">
 
   <!-- HERO -->
-  <section id="home" class="hero">
-    <a id="next-race-link" href="#"></a>
-    <img id="hero-img" src="assets/heroes/home-hero.jpg" alt="Hero F1">
-    <div class="hero-text">
-      <h1 id="next-race-name"></h1>
-      <p id="countdown"></p>
+  <section id="hero" class="hero">
+    <div class="hero-overlay">
+      <h1 id="heroRaceName"></h1>
+      <div id="countdown"></div>
     </div>
   </section>
 
   <!-- CALENDÁRIO -->
-  <section id="calendar">
-    <h2>Calendário 2026</h2>
-    <div id="races"></div>
-  </section>
+  <section id="calendar"></section>
 
-  <!-- BOTÃO VOLTAR TOPO -->
-  <button id="backToTop">Voltar para o topo</button>
+</main>
 
-  <!-- RODAPÉ / DISCLAIMER -->
-  <footer>
-    <p>&copy; 2026 F1 Calendar - Dados oficiais</p>
-  </footer>
+<button id="backToTop">Voltar ao topo</button>
 
-  <script src="data/calendar2026.js"></script>
-  <script src="data/results2025.js"></script>
-  <script src="js/main.js"></script>
+<script src="data/calendar2026.js"></script>
+<script src="data/results2025.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
