@@ -126,6 +126,8 @@ header {
   height: 300px;
   object-fit: cover;
   cursor: pointer;
+  margin: 0 auto;
+  display: block;
 }
 
 .race-body {
@@ -143,8 +145,12 @@ header {
   margin: 10px 0;
 }
 
-/* RESPONSIVIDADE */
+/* MARGENS LATERAIS PARA MOBILE */
 @media (max-width: 768px) {
+  .hero, .race-card {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
   .hero img {
     height: 250px;
   }
