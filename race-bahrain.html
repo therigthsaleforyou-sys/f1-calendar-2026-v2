@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grande Prémio do Bahrain – F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<main class="container">
+
+  <section class="card">
+    <h1 style="text-align:center;">Grande Prémio do Bahrain</h1>
+
+    <img 
+      src="assets/races/bahrain.jpg"
+      alt="GP Bahrain"
+      class="race-image"
+      style="cursor:pointer;"
+      onclick="toggleDetails()"
+    />
+
+    <div id="details" style="display:none;">
+
+      <h2>Sessões 2026</h2>
+      <ul>
+        <li>FP1: 13/03/2026 11:30</li>
+        <li>FP2: 13/03/2026 15:00</li>
+        <li>FP3: 14/03/2026 12:30</li>
+        <li>Qualificação: 14/03/2026 16:00</li>
+        <li><strong>Corrida: 15/03/2026 15:00</strong></li>
+      </ul>
+
+      <h2>Resultados 2025</h2>
+      <ul>
+        <li>Pole Position: Max Verstappen – 1:29.179</li>
+        <li>Volta mais rápida: Sergio Pérez – 1:32.384</li>
+        <li>Pódio:
+          <ol>
+            <li>Max Verstappen</li>
+            <li>Sergio Pérez</li>
+            <li>George Russell</li>
+          </ol>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+function toggleDetails() {
+  const el = document.getElementById("details");
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
