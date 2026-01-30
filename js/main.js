@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
-     UTILITÁRIOS
+     FORMATAÇÃO DE DATA
   ========================= */
   const formatDate = (iso) => {
     const d = new Date(iso);
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const now = new Date();
   const nextRace = calendar2026.find(r => new Date(r.raceDate) > now) || calendar2026[0];
 
-  /* HERO */
   const heroTitle = document.querySelector(".hero-content h1 a");
   const heroImg = document.querySelector(".hero img");
   const countdownEl = document.getElementById("countdown");
@@ -29,20 +28,19 @@ document.addEventListener("DOMContentLoaded", () => {
   heroTitle.href = nextRace.page;
   heroImg.src = nextRace.image;
 
-  /* COUNTDOWN */
+  /* =========================
+     COUNTDOWN
+  ========================= */
   function updateCountdown() {
     const diff = new Date(nextRace.raceDate) - new Date();
-
     if (diff <= 0) {
       countdownEl.textContent = "Race Week!";
       return;
     }
-
     const d = Math.floor(diff / 86400000);
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
     const s = Math.floor(diff / 1000) % 60;
-
     countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card.innerHTML = `
       <img src="${race.image}" alt="${race.name}" data-toggle="${race.id}">
-      <h2>${race.name}</h2>
+      <h2><a href="#">${race.name}</a></h2>
 
       <div class="race-details" id="${race.id}">
         <h3>Sessões 2026</h3>
@@ -86,15 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(card);
   });
 
-  /* DROPDOWN */
-  document.querySelectorAll("[data-toggle]").forEach(el => {
-    el.addEventListener("click", () => {
-      const target = document.getElementById(el.dataset.toggle);
+  /* =========================
+     DROPDOWN DAS CORRIDAS
+  ========================= */
+  document.querySelectorAll("[data-toggle]").forEach(img => {
+    img.addEventListener("click", () => {
+      const target = document.getElementById(img.dataset.toggle);
       target.style.display = target.style.display === "block" ? "none" : "block";
     });
   });
 
-  /* BACK TO TOP */
+  /* =========================
+     BACK TO TOP
+  ========================= */
   const backToTop = document.getElementById("backToTop");
   backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 });
