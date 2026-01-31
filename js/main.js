@@ -1,7 +1,7 @@
 // main.js
-// F1 Calendar 2026 - funcionalidade completa
+// F1 Calendar 2026 - funcionalidades completas
 
-// --- Encontrar a próxima corrida ---
+// --- Encontrar próxima corrida ---
 function getNextRace() {
   const now = new Date();
   return calendar2026.find(race => new Date(race.date) > now);
@@ -11,8 +11,7 @@ function getNextRace() {
 function generateRaceCards() {
   const container = document.querySelector('main.container');
   if (!container) return;
-
-  container.innerHTML = ''; // Limpa antes de criar
+  container.innerHTML = '';
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
@@ -26,26 +25,23 @@ function generateRaceCards() {
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título da corrida clicável
+    // Título da corrida
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
     a.textContent = race.name;
-    a.classList.add('race-title');
     h2.appendChild(a);
     card.appendChild(h2);
 
-    // Dropdown será criado dinamicamente ao clicar
+    // Dropdown ao clicar
     img.addEventListener('click', () => toggleDropdown(card, race));
     a.addEventListener('click', (e) => { e.preventDefault(); toggleDropdown(card, race); });
 
-    // Botão favorito
+    // Botão favorito no fundo
     const favBtn = document.createElement('button');
     favBtn.textContent = '★';
     favBtn.classList.add('fav-btn');
-    if (localStorage.getItem(`fav-${race.slug}`)) {
-      favBtn.classList.add('fav-selected');
-    }
+    if (localStorage.getItem(`fav-${race.slug}`)) favBtn.classList.add('fav-selected');
     favBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleFavorite(favBtn, race.slug);
@@ -66,17 +62,16 @@ function toggleDropdown(card, race) {
     let html = `<h3>Sessões 2026</h3><ul>`;
     for (const [session, dateStr] of Object.entries(race.sessions)) {
       const date = new Date(dateStr);
-      const day = String(date.getUTCDate()).padStart(2, '0');
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-      const hours = String(date.getUTCHours()).padStart(2, '0');
-      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const day = String(date.getUTCDate()).padStart(2,'0');
+      const month = String(date.getUTCMonth()+1).padStart(2,'0');
+      const hours = String(date.getUTCHours()).padStart(2,'0');
+      const minutes = String(date.getUTCMinutes()).padStart(2,'0');
       html += `<li>${session}: ${day}/${month}/${date.getUTCFullYear()} ${hours}:${minutes}</li>`;
     }
 
-    // Resultados 2025 se existirem
     if (race.results2025) {
       html += `<h4>Resultados 2025</h4><ul>`;
-      for (const [key, val] of Object.entries(race.results2025)) {
+      for (const [key,val] of Object.entries(race.results2025)) {
         html += `<li>${key}: ${val}</li>`;
       }
       html += `</ul>`;
@@ -87,7 +82,6 @@ function toggleDropdown(card, race) {
     card.appendChild(dropdown);
   }
 
-  // Toggle visibilidade
   dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 
@@ -105,15 +99,15 @@ function updateHero() {
   a.textContent = `Grande Prémio da ${nextRace.name}`;
   a.href = `#${nextRace.slug}`;
   a.style.cursor = 'pointer';
-  a.addEventListener('click', (e) => { 
-    e.preventDefault(); 
-    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'}); 
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'});
   });
 
   startCountdown(nextRace.date);
 }
 
-// --- Countdown com segundos ---
+// --- Countdown ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
@@ -125,7 +119,6 @@ function startCountdown(raceDateStr) {
       countdownEl.textContent = "Race Week!";
       return;
     }
-
     const d = Math.floor(diff / 86400000);
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
@@ -148,14 +141,13 @@ function toggleFavorite(btn, slug) {
   }
 }
 
-// --- Botão voltar ao topo ---
+// --- Back to Top ---
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
-
-  btn.textContent = '↑ Top';
+  btn.textContent = '↑ Topo';
   btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top:0,behavior:'smooth'});
   });
 }
 
