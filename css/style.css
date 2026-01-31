@@ -1,161 +1,56 @@
-/* Reset e base */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.hero,
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #000;
-  color: #fff;
-}
-
-header {
-  background-color: #111;
-  padding: 10px 0;
-}
-
-header nav ul {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-}
-
-header nav ul li {
-  margin: 0 15px;
-}
-
-header nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* Hero */
 .hero {
   position: relative;
-  max-width: 1200px;
-  margin: 20px auto;
-  text-align: center;
 }
 
 .hero img {
   width: 100%;
-  height: auto;
   display: block;
 }
 
-.hero-content {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.hero-content h1 a {
+.hero h1 {
   color: #fff;
   text-shadow: 2px 2px 4px #000;
-  font-size: 2rem;
-  text-decoration: none;
 }
 
 #countdown {
-  margin-top: 10px;
-  font-size: 1.5rem;
   color: red;
   text-shadow: 1px 1px 3px #000;
 }
 
-/* Fichas de corrida */
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
-  max-width: 1200px;
-  margin: 20px auto;
 }
 
 .race-card {
-  background-color: #111;
-  border-radius: 8px;
-  overflow: hidden;
+  background: #111;
+  border: 2px solid red;
+  box-shadow: 0 0 8px #000;
   position: relative;
-  transition: all 0.3s ease;
-  border: 3px solid transparent;
-  box-shadow: 0 0 5px #000;
-}
-
-.race-card img {
-  width: 100%;
-  display: block;
-  cursor: pointer;
-}
-
-.race-card h2 {
-  padding: 10px;
-  font-size: 1.25rem;
-  text-align: center;
-  color: #fff;
-  text-shadow: 1px 1px 3px #000;
-}
-
-.race-card .fav-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
 }
 
 .race-card.fav-selected {
-  border: 3px solid yellow;
-  box-shadow: 0 0 10px #000;
+  border-color: yellow;
 }
 
-/* Dropdown */
-.race-dropdown {
-  display: none;
-  background-color: #222;
-  padding: 10px;
-  font-size: 0.9rem;
+.race-card h2 a {
   color: #fff;
+  text-shadow: 1px 1px 3px #000;
+  text-decoration: none;
 }
 
-.race-dropdown h3 {
-  margin-bottom: 5px;
-  font-size: 1rem;
-}
-
-.race-dropdown ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.race-dropdown li {
-  margin-bottom: 3px;
-}
- 
-/* Botão voltar ao topo */
-#backToTop {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #222;
-  color: #fff;
+.fav-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: none;
   border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-/* Rodapé */
-footer {
-  text-align: center;
-  padding: 15px 0;
-  background-color: #111;
-  margin-top: 40px;
-  font-size: 0.9rem;
+  font-size: 1.4rem;
 }
