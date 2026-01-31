@@ -1,6 +1,6 @@
 // data/calendar2026.js
-// F1 Calendar 2026 com resultados de 2025 integrados
-// Compatível com main.js e Estado Canónico
+// F1 Calendar 2026 com resultados 2025 integrados
+// Global, compatível com main.js
 
 const calendar2026 = [
   {
@@ -94,6 +94,3 @@ const calendar2026 = [
     }
   }
 ];
-
-// Exportar para main.js
-export default calendar2026;
