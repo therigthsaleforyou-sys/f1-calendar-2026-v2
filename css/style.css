@@ -32,6 +32,7 @@ header nav ul li a {
   font-weight: bold;
 }
 
+/* Hero */
 .hero {
   position: relative;
   max-width: 1200px;
@@ -69,7 +70,7 @@ header nav ul li a {
 /* Fichas de corrida */
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: 20px auto;
@@ -95,6 +96,7 @@ header nav ul li a {
   padding: 10px;
   font-size: 1.25rem;
   text-align: center;
+  color: #fff;
   text-shadow: 1px 1px 3px #000;
 }
 
@@ -135,7 +137,7 @@ header nav ul li a {
 .race-dropdown li {
   margin-bottom: 3px;
 }
-
+ 
 /* Botão voltar ao topo */
 #backToTop {
   position: fixed;
