@@ -1,10 +1,19 @@
-// --- Encontrar a próxima corrida ---
+// js/main.js
+
 function getNextRace() {
   const now = new Date();
-  return calendar2026.find(race => new Date(race.date) > now);
+
+  // tenta próxima corrida no futuro
+  let next = calendar2026.find(r => {
+    return r.date && !isNaN(new Date(r.date)) && new Date(r.date) > now;
+  });
+
+  // fallback absoluto: primeira corrida
+  if (!next) next = calendar2026[0];
+
+  return next;
 }
 
-// --- Gerar fichas das corridas ---
 function generateRaceCards() {
   const container = document.querySelector('main.container');
   if (!container) return;
@@ -13,104 +22,92 @@ function generateRaceCards() {
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
-    card.classList.add('race-card');
-    card.setAttribute('data-slug', race.slug);
- 
+    card.className = 'race-card';
+    card.dataset.slug = race.slug;
+
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
-    card.appendChild(img);
 
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
-    a.href = `#${race.slug}`;
     a.textContent = race.name;
+    a.href = '#';
     h2.appendChild(a);
-    card.appendChild(h2);
 
-    img.addEventListener('click', () => toggleDropdown(card, race));
-    a.addEventListener('click', e => {
+    img.onclick = () => toggleDropdown(card, race);
+    a.onclick = e => {
       e.preventDefault();
       toggleDropdown(card, race);
-    });
+    };
 
-    const favBtn = document.createElement('button');
-    favBtn.classList.add('fav-btn');
-    favBtn.innerHTML = '🏁';
-    favBtn.addEventListener('click', e => {
+    const fav = document.createElement('button');
+    fav.className = 'fav-btn';
+    fav.textContent = '🏁';
+    fav.onclick = e => {
       e.stopPropagation();
-      toggleFavorite(card);
-    });
-    card.appendChild(favBtn);
+      card.classList.toggle('fav-selected');
+    };
 
+    card.append(img, h2, fav);
     container.appendChild(card);
   });
 }
 
-// --- Toggle dropdown ---
 function toggleDropdown(card, race) {
-  let dropdown = card.querySelector('.race-dropdown');
-  if (!dropdown) {
-    dropdown = document.createElement('div');
-    dropdown.classList.add('race-dropdown');
-
-    let html = `<h3>Sessões 2026</h3><ul>`;
-    for (const [session, dateStr] of Object.entries(race.sessions)) {
-      const date = new Date(dateStr);
-      const day = String(date.getUTCDate()).padStart(2, '0');
-      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-      const hours = String(date.getUTCHours()).padStart(2, '0');
-      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-      html += `<li>${session}: ${day}/${month}/${date.getUTCFullYear()} ${hours}:${minutes}</li>`;
-    }
-    html += `</ul>`;
-
-    if (race.results2025) {
-      html += `<h3>Resultados 2025</h3><ul>`;
-      for (const [key, val] of Object.entries(race.results2025)) {
-        html += `<li>${key}: ${val}</li>`;
-      }
-      html += `</ul>`;
-    }
-
-    dropdown.innerHTML = html;
-    card.appendChild(dropdown);
+  let d = card.querySelector('.race-dropdown');
+  if (d) {
+    d.remove();
+    return;
   }
 
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
+  d = document.createElement('div');
+  d.className = 'race-dropdown';
 
-// --- Hero ---
-function updateHero() {
-  const hero = document.querySelector('.hero');
-  const heroContent = document.querySelector('.hero-content');
-  const nextRace = getNextRace();
-  if (!nextRace) return;
-
-  hero.querySelector('img').src = "assets/heroes/home-hero.jpg";
-  hero.querySelector('img').alt = nextRace.name;
-
-  const a = heroContent.querySelector('h1 a');
-  a.textContent = `Grande Prémio da ${nextRace.name}`;
-  a.href = `#${nextRace.slug}`;
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({ behavior: 'smooth' });
+  let html = `<h3>Sessões 2026</h3><ul>`;
+  Object.entries(race.sessions || {}).forEach(([k, v]) => {
+    html += `<li>${k}: ${v}</li>`;
   });
+  html += `</ul>`;
 
-  startCountdown(nextRace.date);
+  if (race.results2025) {
+    html += `<h3>Resultados 2025</h3><ul>`;
+    Object.entries(race.results2025).forEach(([k, v]) => {
+      html += `<li>${k}: ${v}</li>`;
+    });
+    html += `</ul>`;
+  }
+
+  d.innerHTML = html;
+  card.appendChild(d);
 }
 
-// --- Countdown ---
-function startCountdown(raceDateStr) {
-  const countdownEl = document.getElementById('countdown');
-  const raceDate = new Date(raceDateStr);
+function updateHero() {
+  const race = getNextRace();
+  if (!race) return;
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = raceDate - now;
+  const hero = document.querySelector('.hero');
+  hero.querySelector('img').src = 'assets/heroes/home-hero.jpg';
+
+  const title = hero.querySelector('h1');
+  title.textContent = `Grande Prémio da ${race.name}`;
+
+  startCountdown(race.date);
+}
+
+function startCountdown(dateStr) {
+  const el = document.getElementById('countdown');
+  const target = new Date(dateStr);
+
+  if (isNaN(target)) {
+    el.textContent = '—';
+    return;
+  }
+
+  setInterval(() => {
+    const diff = target - new Date();
     if (diff <= 0) {
-      countdownEl.textContent = "Race Week!";
+      el.textContent = 'Race Week!';
       return;
     }
 
@@ -119,28 +116,11 @@ function startCountdown(raceDateStr) {
     const m = Math.floor(diff / 60000) % 60;
     const s = Math.floor(diff / 1000) % 60;
 
-    countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
+  }, 1000);
 }
 
-// --- Favoritos ---
-function toggleFavorite(card) {
-  card.classList.toggle('fav-selected');
-}
-
-// --- Back to top ---
-function setupBackToTop() {
-  const btn = document.getElementById('backToTop');
-  if (!btn) return;
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-}
-
-// --- Inicialização ---
 document.addEventListener('DOMContentLoaded', () => {
   generateRaceCards();
   updateHero();
-  setupBackToTop();
 });
