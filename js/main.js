@@ -103,6 +103,7 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
+// --- Countdown melhorado com segundos ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
@@ -111,15 +112,22 @@ function startCountdown(raceDateStr) {
   function updateCountdown() {
     const now = new Date();
     const diff = raceDate - now;
-    if (diff <= 0) { countdownEl.textContent = "Race Week!"; return; }
+    if (diff <= 0) {
+      countdownEl.textContent = "Race Week!";
+      return;
+    }
+
     const d = Math.floor(diff / 86400000);
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
-    countdownEl.textContent = `${d}d ${h}h ${m}m`;
+    const s = Math.floor(diff / 1000) % 60; // Segundos
+
+    // Atualiza texto com dias, horas, minutos e segundos
+    countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 60000);
+  setInterval(updateCountdown, 1000); // Atualiza a cada segundo
 }
 
 function setupBackToTop() {
