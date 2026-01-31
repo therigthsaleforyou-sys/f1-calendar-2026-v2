@@ -1,142 +1,154 @@
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Fundo e corpo */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #121212;
+  background-color: #000;
   color: #fff;
 }
 
-header.nav {
-  background-color: #1c1c1c;
-  padding: 1rem;
-  text-align: center;
+/* Header */
+.nav {
+  background-color: #111;
+  padding: 10px 20px;
 }
-
-header.nav a {
+.nav-inner {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+.nav-inner a {
   color: #fff;
-  margin: 0 1rem;
   text-decoration: none;
   font-weight: bold;
 }
+.nav-inner a:hover { text-decoration: underline; }
 
+/* Hero */
 .hero {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px auto;
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
 }
-
 .hero img {
   width: 100%;
-  height: 400px;
+  height: auto;
+  max-height: 400px;
   object-fit: cover;
-  border-radius: 10px;
 }
-
 .hero-content {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: #fff;
+  transform: translate(-50%,-50%);
 }
-
 .hero-content h1 a {
-  color: #fff;
   font-size: 2rem;
+  color: #FFD700;
   text-decoration: none;
 }
-
+.hero-content h1 a:hover { text-decoration: underline; }
 #countdown {
-  margin-top: 0.5rem;
   font-size: 1.2rem;
-  font-weight: bold;
+  margin-top: 10px;
 }
 
-/* Container principal */
+/* Fichas das corridas */
 main.container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 20px;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+  margin: 0 auto 40px;
 }
-
-/* Fichas de corrida */
 .race-card {
-  background-color: #1e1e1e;
-  border-radius: 10px;
-  overflow: hidden;
+  background-color: #111;
+  border-radius: 12px;
   width: 300px;
+  min-height: 350px;
+  padding: 10px;
   position: relative;
-  text-align: center;
-  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .race-card img {
   width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
   cursor: pointer;
 }
-
 .race-card h2 {
-  margin-top: 0.5rem;
-}
-
-.race-card h2 a.race-title {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
+  margin: 10px 0;
   font-size: 1.2rem;
+  text-align: center;
 }
-
-/* Dropdown */
-.race-dropdown {
-  background-color: #2a2a2a;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 5px;
-  display: none;
+.race-card h2 a {
+  color: #FFD700;
+  text-decoration: none;
 }
+.race-card h2 a:hover { text-decoration: underline; }
 
-.race-dropdown h3,
-.race-dropdown h4 {
-  margin-bottom: 0.5rem;
-}
-
-/* Botão favorito */
+/* Botão favorito no fundo */
 .fav-btn {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   right: 10px;
-  font-size: 1.5rem;
   background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-}
-
-.fav-btn.fav-selected {
-  border: 2px solid yellow;
+  border: 2px solid #FFD700;
   border-radius: 50%;
+  color: #FFD700;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fav-btn.fav-selected {
+  background-color: #FFD700;
+  color: #111;
 }
 
-/* Botão voltar ao topo */
+/* Dropdown das corridas */
+.race-dropdown {
+  background-color: #222;
+  color: #fff;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+}
+.race-dropdown ul { list-style: none; padding-left: 0; }
+.race-dropdown li { padding: 2px 0; }
+.race-dropdown h4 { margin-top: 10px; }
+
+/* Back to Top */
 #backToTop {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 0.5rem 1rem;
-  background-color: #222;
-  color: #fff;
-  border-radius: 0.5rem;
+  padding: 8px 12px;
+  font-size: 1rem;
+  background: #FFD700;
+  color: #111;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  z-index: 1000;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  main.container { flex-direction: column; align-items: center; }
+  .hero img { max-height: 300px; }
+  .hero-content h1 a { font-size: 1.5rem; }
 }
