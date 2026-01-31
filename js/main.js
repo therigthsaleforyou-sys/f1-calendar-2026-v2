@@ -1,7 +1,29 @@
 // main.js
-// F1 Calendar 2026 — versão estável e segura
+// F1 Calendar 2026 — versão estável FINAL
 
-// ---------- Próxima corrida ----------
+// ---------- GERAR CORRIDAS ----------
+function generateRaceCards() {
+  const container = document.querySelector('main.container');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  calendar2026.forEach(race => {
+    const card = document.createElement('section');
+    card.className = 'race-card';
+    card.dataset.slug = race.slug;
+
+    card.innerHTML = `
+      <img src="${race.image}" alt="${race.name}">
+      <h2><a href="#${race.slug}">${race.name}</a></h2>
+      <button class="fav-btn" data-slug="${race.slug}">★</button>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+// ---------- PRÓXIMA CORRIDA ----------
 function getNextRace() {
   const now = new Date();
   return calendar2026.find(race => new Date(race.date) > now);
@@ -12,9 +34,8 @@ function updateHero() {
   const hero = document.querySelector('.hero');
   const heroImg = hero?.querySelector('img');
   const heroLink = hero?.querySelector('.hero-content h1 a');
-  const countdownEl = document.getElementById('countdown');
 
-  if (!hero || !heroImg || !heroLink || !countdownEl) return;
+  if (!hero || !heroImg || !heroLink) return;
 
   const nextRace = getNextRace();
   if (!nextRace) return;
@@ -55,8 +76,8 @@ function startCountdown(raceDateStr) {
   setInterval(update, 60000);
 }
 
-// ---------- DROPDOWN DAS CORRIDAS ----------
-function setupRaceCards() {
+// ---------- DROPDOWN ----------
+function setupRaceDropdowns() {
   document.querySelectorAll('.race-card').forEach(card => {
     card.addEventListener('click', () => {
       const slug = card.dataset.slug;
@@ -73,12 +94,7 @@ function setupRaceCards() {
 
         for (const [session, dateStr] of Object.entries(race.sessions)) {
           const d = new Date(dateStr);
-          const day = String(d.getDate()).padStart(2, '0');
-          const month = String(d.getMonth() + 1).padStart(2, '0');
-          const hour = String(d.getHours()).padStart(2, '0');
-          const min = String(d.getMinutes()).padStart(2, '0');
-
-          html += `<li>${session}: ${day}/${month}/${d.getFullYear()} ${hour}:${min}</li>`;
+          html += `<li>${session}: ${d.toLocaleString('pt-PT')}</li>`;
         }
 
         html += `</ul>`;
@@ -122,7 +138,7 @@ function setupFavorites() {
     });
   });
 }
-
+ 
 // ---------- BACK TO TOP ----------
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
@@ -135,8 +151,9 @@ function setupBackToTop() {
 
 // ---------- INIT ----------
 document.addEventListener('DOMContentLoaded', () => {
+  generateRaceCards();
   updateHero();
-  setupRaceCards();
+  setupRaceDropdowns();
   setupFavorites();
   setupBackToTop();
 });
