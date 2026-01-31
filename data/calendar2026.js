@@ -1,10 +1,13 @@
 // data/calendar2026.js
+// Calendário oficial F1 2026 (somente sessões e metadados)
+
 const calendar2026 = [
   {
-    name: "Austrália",
+    id: "australia",
     slug: "australia",
-    image: "assets/races/australia.jpg",
+    name: "Grande Prémio da Austrália",
     date: "2026-03-08T04:00:00Z",
+    image: "assets/races/australia.jpg",
     sessions: {
       "Practice 1": "2026-03-06T01:30:00Z",
       "Practice 2": "2026-03-06T05:00:00Z",
@@ -14,10 +17,11 @@ const calendar2026 = [
     }
   },
   {
-    name: "China",
+    id: "china",
     slug: "china",
-    image: "assets/races/china.jpg",
+    name: "Grande Prémio da China",
     date: "2026-03-15T07:00:00Z",
+    image: "assets/races/china.jpg",
     sessions: {
       "Practice 1": "2026-03-13T03:30:00Z",
       "Sprint Qualifying": "2026-03-13T07:30:00Z",
@@ -27,10 +31,11 @@ const calendar2026 = [
     }
   },
   {
-    name: "Japão",
+    id: "japan",
     slug: "japan",
-    image: "assets/races/japan.jpg",
+    name: "Grande Prémio do Japão",
     date: "2026-03-29T06:00:00Z",
+    image: "assets/races/japan.jpg",
     sessions: {
       "Practice 1": "2026-03-27T02:30:00Z",
       "Practice 2": "2026-03-27T06:00:00Z",
@@ -40,10 +45,11 @@ const calendar2026 = [
     }
   },
   {
-    name: "Bahrein",
+    id: "bahrain",
     slug: "bahrain",
-    image: "assets/races/bahrain.jpg",
+    name: "Grande Prémio do Bahrein",
     date: "2026-04-12T16:00:00Z",
+    image: "assets/races/bahrain.jpg",
     sessions: {
       "Practice 1": "2026-04-10T12:30:00Z",
       "Practice 2": "2026-04-10T16:00:00Z",
