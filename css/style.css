@@ -1,251 +1,183 @@
-/* css/style.css */
-
-/* ------------------------
+/* ===============================
    RESET & BASE
------------------------- */
+================================ */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
 }
 
 body {
-  background-color: #000;
+  background: #000;
   color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-}
-
-/* ------------------------
-   HEADER
------------------------- */
-header.nav {
-  width: 100%;
-  background: #111;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2rem;
-}
-
-header.nav a {
-  font-size: 1rem;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-header.nav a:hover {
-  color: #f00;
-}
-
-/* ------------------------
-   HERO
------------------------- */
-.hero {
-  position: relative;
-  width: 100%;
+/* ===============================
+   CONTAINER
+================================ */
+.container {
   max-width: 1200px;
-  margin: 2rem auto;
-  overflow: hidden;
-  border-radius: 12px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ===============================
+   HERO
+================================ */
+.hero {
+  width: 100%;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 .hero img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 .hero-content {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  color: #fff;
-  text-shadow: 2px 2px 5px #000;
+  bottom: 24px;
+  left: 24px;
 }
 
-.hero-content h1 a {
-  font-size: 2rem;
-  font-weight: bold;
+.hero-content h1 {
+  font-size: 2.2rem;
+  color: #fff;
+  text-shadow: 2px 2px 6px #000;
 }
 
 #countdown {
-  margin-top: 0.5rem;
-  font-size: 1.5rem;
-  color: #f00;
-  text-shadow: 2px 2px 4px #000;
+  margin-top: 8px;
+  font-size: 1.4rem;
+  color: #ff0000;
+  text-shadow: 2px 2px 6px #000;
 }
 
-/* ------------------------
-   MAIN CONTAINER
------------------------- */
+/* ===============================
+   GRID DAS CORRIDAS
+================================ */
 main.container {
-  max-width: 1200px;
-  margin: 2rem auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 0 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
 }
 
-/* ------------------------
-   FICHAS DE CORRIDA
------------------------- */
+/* ===============================
+   FICHA DA CORRIDA
+================================ */
 .race-card {
-  background-color: #111;
-  border-radius: 12px;
-  overflow: hidden;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  background: #111;
+  border-radius: 14px;
+  overflow: hidden;
+
+  /* rebordo base */
+  border: 2px solid #b30000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.9);
+
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
+/* quando é favorita */
+.race-card.fav-active {
+  border: 3px solid #ff0000;
+  box-shadow: 0 0 16px rgba(0,0,0,1);
+}
+
+/* imagem */
 .race-card img {
   width: 100%;
-  display: block;
-  border-bottom: 2px solid #222;
-  cursor: pointer;
+  height: 200px;
+  object-fit: cover;
 }
 
+/* título */
 .race-card h2 {
-  margin: 0.5rem 1rem;
+  padding: 12px 14px 6px;
   font-size: 1.25rem;
-  text-shadow: 1px 1px 3px #000;
+  text-shadow: 1px 1px 4px #000;
 }
 
 .race-card h2 a {
   color: #fff;
-  font-weight: bold;
+  text-decoration: none;
 }
 
-.race-dropdown {
-  padding: 1rem;
-  background: #222;
-  display: none;
-}
-
-.race-dropdown h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  text-decoration: underline;
-}
-
-.race-dropdown ul li {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.race-dropdown ul li span {
-  font-weight: bold;
-}
-
-/* ------------------------
-   FAVORITOS
------------------------- */
+/* ===============================
+   BOTÃO FAVORITO
+================================ */
 .fav-btn {
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  background: #000;
-  border: 2px solid #fff;
-  color: #fff;
-  font-size: 1.5rem;
+  bottom: 10px;
+  right: 10px;
+
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
   cursor: pointer;
-  padding: 0.3rem 0.6rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  color: #ccc;
 }
 
+/* ícone ativo */
 .fav-btn.fav-selected {
-  border-color: #ff0;
-  color: #ff0;
+  color: #ffcc00;
 }
 
-/* ------------------------
+/* ===============================
+   DROPDOWN
+================================ */
+.race-dropdown {
+  padding: 14px;
+  font-size: 0.95rem;
+}
+
+.race-dropdown h3,
+.race-dropdown h4 {
+  font-size: 1.05rem;
+  margin: 10px 0 6px;
+}
+
+.race-dropdown ul {
+  list-style: none;
+}
+
+.race-dropdown li {
+  margin-bottom: 4px;
+}
+
+/* ===============================
    BOTÃO VOLTAR AO TOPO
------------------------- */
+================================ */
 #backToTop {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background: #111;
+  bottom: 20px;
+  right: 20px;
+
+  background: #ff0000;
   color: #fff;
-  padding: 0.75rem 1rem;
   border: none;
-  border-radius: 50px;
+  padding: 10px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 2px 2px 8px #000;
-  z-index: 999;
-  transition: all 0.3s ease;
 }
 
-#backToTop:hover {
-  background: #222;
-}
-
-/* ------------------------
+/* ===============================
    RESPONSIVO
------------------------- */
+================================ */
 @media (max-width: 768px) {
-  .hero-content h1 a {
-    font-size: 1.5rem;
+  .hero img {
+    height: 300px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.6rem;
   }
 
   #countdown {
-    font-size: 1.2rem;
-  }
-
-  .race-card h2 {
-    font-size: 1rem;
-  }
-
-  .race-dropdown h3 {
-    font-size: 1rem;
-  }
-
-  .race-dropdown ul li {
-    font-size: 0.9rem;
-  }
-
-  .fav-btn {
-    font-size: 1.2rem;
-    padding: 0.2rem 0.4rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-content h1 a {
-    font-size: 1.25rem;
-  }
-
-  #countdown {
-    font-size: 1rem;
-  }
-
-  .race-card h2 {
-    font-size: 0.9rem;
-  }
-
-  .race-dropdown h3 {
-    font-size: 0.9rem;
-  }
-
-  .race-dropdown ul li {
-    font-size: 0.8rem;
-  }
-
-  .fav-btn {
-    font-size: 1rem;
-    padding: 0.2rem 0.3rem;
+    font-size: 1.1rem;
   }
 }
