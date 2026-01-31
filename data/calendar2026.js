@@ -1,13 +1,14 @@
 // data/calendar2026.js
-// Calendário F1 2026 + Resultados oficiais de 2025
-// Compatível com main.js e Estado Canónico
+// F1 Calendar 2026 - versão final com resultados de 2025 integrados
+// Mantido compatível com o Estado Canónico
 
 const calendar2026 = [
   {
-    id: "australia",
-    name: "Austrália",
     slug: "australia",
+    name: "Austrália",
+    country: "Austrália",
     image: "assets/races/australia.jpg",
+    date: "2026-03-08T04:00:00Z",
     sessions: {
       "Practice 1": "2026-03-06T01:30:00Z",
       "Practice 2": "2026-03-06T05:00:00Z",
@@ -16,18 +17,19 @@ const calendar2026 = [
       "Race": "2026-03-08T04:00:00Z"
     },
     results2025: {
-      pole: "Lando Norris",
-      fastestLap: "Lando Norris — 1:22.167",
-      podium: "Lando Norris / Max Verstappen / George Russell",
-      weather: "Ensolarado, pista seca",
-      raceTime: "1:42:06.304"
+      "Pole": "Lando Norris",
+      "Fastest Lap": "Lando Norris — 1:22.167",
+      "Pódio": "Lando Norris / Max Verstappen / George Russell",
+      "Weather": "Ensolarado, pista seca",
+      "Race Time": "1:42:06.304"
     }
   },
   {
-    id: "china",
-    name: "China",
     slug: "china",
+    name: "China",
+    country: "China",
     image: "assets/races/china.jpg",
+    date: "2026-03-15T07:00:00Z",
     sessions: {
       "Practice 1": "2026-03-13T03:30:00Z",
       "Sprint Qualifying": "2026-03-13T07:30:00Z",
@@ -36,20 +38,21 @@ const calendar2026 = [
       "Race": "2026-03-15T07:00:00Z"
     },
     results2025: {
-      pole: "Oscar Piastri",
-      sprintPole: "Lewis Hamilton",
-      sprintWinner: "Lewis Hamilton",
-      fastestLap: "Lando Norris — 1:35.454",
-      podium: "Oscar Piastri / Lando Norris / George Russell",
-      weather: "Céu limpo, pista seca",
-      raceTime: "—"
+      "Pole": "Oscar Piastri",
+      "Sprint Pole": "Lewis Hamilton",
+      "Sprint Winner": "Lewis Hamilton",
+      "Fastest Lap": "Lando Norris — 1:35.454",
+      "Pódio": "Oscar Piastri / Lando Norris / George Russell",
+      "Weather": "Céu limpo, pista seca",
+      "Race Time": "—"
     }
   },
   {
-    id: "japan",
-    name: "Japão",
     slug: "japan",
+    name: "Japão",
+    country: "Japão",
     image: "assets/races/japan.jpg",
+    date: "2026-03-29T06:00:00Z",
     sessions: {
       "Practice 1": "2026-03-27T02:30:00Z",
       "Practice 2": "2026-03-27T06:00:00Z",
@@ -58,18 +61,19 @@ const calendar2026 = [
       "Race": "2026-03-29T06:00:00Z"
     },
     results2025: {
-      pole: "Max Verstappen",
-      fastestLap: "Kimi Antonelli — 1:30.965",
-      podium: "Max Verstappen / Lando Norris / Oscar Piastri",
-      weather: "Parcialmente nublado, pista seca",
-      raceTime: "—"
+      "Pole": "Max Verstappen",
+      "Fastest Lap": "Kimi Antonelli — 1:30.965",
+      "Pódio": "Max Verstappen / Lando Norris / Oscar Piastri",
+      "Weather": "Parcialmente nublado, pista seca",
+      "Race Time": "—"
     }
   },
   {
-    id: "bahrain",
-    name: "Bahrein",
     slug: "bahrain",
+    name: "Bahrein",
+    country: "Bahrein",
     image: "assets/races/bahrain.jpg",
+    date: "2026-04-12T16:00:00Z",
     sessions: {
       "Practice 1": "2026-04-10T12:30:00Z",
       "Practice 2": "2026-04-10T16:00:00Z",
@@ -78,11 +82,11 @@ const calendar2026 = [
       "Race": "2026-04-12T16:00:00Z"
     },
     results2025: {
-      pole: "Oscar Piastri",
-      fastestLap: "Oscar Piastri — 1:35.140",
-      podium: "Oscar Piastri / George Russell / Lando Norris",
-      weather: "Noite limpa, pista seca",
-      raceTime: "—"
+      "Pole": "Oscar Piastri",
+      "Fastest Lap": "Oscar Piastri — 1:35.140",
+      "Pódio": "Oscar Piastri / George Russell / Lando Norris",
+      "Weather": "Noite limpa, pista seca",
+      "Race Time": "—"
     }
   }
 ];
