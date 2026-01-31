@@ -1,5 +1,5 @@
 // main.js
-// F1 Calendar 2026 - funcionalidade completa com hero seguro
+// F1 Calendar 2026 - Versão Final
 
 // --- Encontrar a próxima corrida ---
 function getNextRace() {
@@ -38,7 +38,7 @@ function generateRaceCards() {
     img.addEventListener('click', () => toggleDropdown(card, race));
     a.addEventListener('click', (e) => { e.preventDefault(); toggleDropdown(card, race); });
 
-    // Marca favorito
+    // Botão favorito
     const favBtn = document.createElement('button');
     favBtn.textContent = '★';
     favBtn.classList.add('fav-btn');
@@ -71,8 +71,8 @@ function toggleDropdown(card, race) {
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       html += `<li>${session}: ${day}/${month}/${date.getUTCFullYear()} ${hours}:${minutes}</li>`;
     }
+    html += `</ul>`;
 
-    // Resultados 2025 se existirem
     if (race.results2025) {
       html += `<h4>Resultados 2025</h4><ul>`;
       for (const [key, val] of Object.entries(race.results2025)) {
@@ -81,7 +81,6 @@ function toggleDropdown(card, race) {
       html += `</ul>`;
     }
 
-    html += `</ul>`;
     dropdown.innerHTML = html;
     card.appendChild(dropdown);
   }
@@ -97,7 +96,6 @@ function updateHero() {
   const nextRace = getNextRace();
   if (!nextRace) return;
 
-  // Forçar imagem correta do hero
   hero.querySelector('img').src = 'assets/heroes/home-hero.jpg';
   hero.querySelector('img').alt = nextRace.name;
 
@@ -113,14 +111,15 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
-// --- Countdown ---
+// --- Countdown com segundos ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
 
   function updateCountdown() {
     const now = new Date();
-    const diff = raceDate - now;
+    let diff = raceDate - now;
+
     if (diff <= 0) {
       countdownEl.textContent = "Race Week!";
       return;
