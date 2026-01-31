@@ -1,20 +1,17 @@
 // js/main.js
-// F1 Calendar 2026 - versão final compatível com calendar2026.js
-
-import calendar2026 from './data/calendar2026.js';
+// F1 Calendar 2026 - versão final compatível com calendar2026.js global
 
 // --- Encontrar a próxima corrida ---
 function getNextRace() {
   const now = new Date();
-  return calendar2026.find(race => new Date(race.date) > now);
+  return calendar2026.find(race => new Date(race.sessions.race) > now);
 }
 
 // --- Gerar fichas das corridas ---
 function generateRaceCards() {
   const container = document.querySelector('main.container');
   if (!container) return;
-
-  container.innerHTML = ''; // Limpa antes de criar
+  container.innerHTML = '';
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
@@ -28,7 +25,7 @@ function generateRaceCards() {
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título da corrida
+    // Título
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
@@ -38,19 +35,19 @@ function generateRaceCards() {
 
     // Toggle dropdown ao clicar
     img.addEventListener('click', () => toggleDropdown(card, race));
-    a.addEventListener('click', (e) => {
+    a.addEventListener('click', e => {
       e.preventDefault();
       toggleDropdown(card, race);
     });
 
-    // Botão de favorito
+    // Botão favorito
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
     favBtn.innerHTML = '🏁';
     if (localStorage.getItem(`fav-${race.slug}`)) {
       favBtn.classList.add('fav-selected');
     }
-    favBtn.addEventListener('click', (e) => {
+    favBtn.addEventListener('click', e => {
       e.stopPropagation();
       toggleFavorite(favBtn, race.slug);
     });
@@ -107,12 +104,12 @@ function updateHero() {
   a.textContent = `Grande Prémio da ${nextRace.name}`;
   a.href = `#${nextRace.slug}`;
   a.style.cursor = 'pointer';
-  a.addEventListener('click', (e) => {
+  a.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'});
+    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({ behavior: 'smooth' });
   });
 
-  startCountdown(nextRace.date);
+  startCountdown(nextRace.sessions.race);
 }
 
 // --- Countdown ---
@@ -155,10 +152,7 @@ function toggleFavorite(btn, slug) {
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
 // --- Inicialização ---
