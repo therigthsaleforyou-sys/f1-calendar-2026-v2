@@ -30,15 +30,15 @@ body {
   align-items: center;
   text-align: center;
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: 1200px; /* largura alinhada com fichas */
+  height: 400px;
   overflow: hidden;
   border-radius: 12px;
   position: relative;
 }
 .hero img {
   width: 100%;
-  height: auto;
-  max-height: 400px;
+  height: 100%;
   object-fit: cover;
 }
 .hero-content {
@@ -49,13 +49,16 @@ body {
 }
 .hero-content h1 a {
   font-size: 2rem;
-  color: #FFD700;
+  color: #fff;
+  text-shadow: 2px 2px 5px #000;
   text-decoration: none;
 }
 .hero-content h1 a:hover { text-decoration: underline; }
 #countdown {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-top: 10px;
+  color: #ff0000;
+  text-shadow: 2px 2px 5px #000;
 }
 
 /* Fichas das corridas */
@@ -70,8 +73,8 @@ main.container {
 .race-card {
   background-color: #111;
   border-radius: 12px;
-  width: 300px;
-  min-height: 350px;
+  width: 300px; /* aumenta a largura se necessário */
+  min-height: 250px; /* altura mínima reduzida */
   padding: 10px;
   position: relative;
   display: flex;
@@ -84,14 +87,17 @@ main.container {
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .race-card h2 {
-  margin: 10px 0;
+  margin: 0;
   font-size: 1.2rem;
   text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
 }
 .race-card h2 a {
-  color: #FFD700;
+  color: #fff;
   text-decoration: none;
 }
 .race-card h2 a:hover { text-decoration: underline; }
@@ -149,6 +155,7 @@ main.container {
 /* Responsivo */
 @media (max-width: 768px) {
   main.container { flex-direction: column; align-items: center; }
-  .hero img { max-height: 300px; }
+  .hero { height: 300px; }
   .hero-content h1 a { font-size: 1.5rem; }
+  #countdown { font-size: 1.2rem; }
 }
