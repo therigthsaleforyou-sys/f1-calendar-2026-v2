@@ -1,22 +1,16 @@
 // js/main.js
+// F1 Calendar 2026 — MOBILE FIRST, HERO ESTÁVEL
 
 function getNextRace() {
+  if (!window.calendar2026 || calendar2026.length === 0) return null;
   const now = new Date();
-
-  // tenta próxima corrida no futuro
-  let next = calendar2026.find(r => {
-    return r.date && !isNaN(new Date(r.date)) && new Date(r.date) > now;
-  });
-
-  // fallback absoluto: primeira corrida
-  if (!next) next = calendar2026[0];
-
-  return next;
+  return calendar2026.find(r => new Date(r.date) > now) || calendar2026[0];
 }
 
+// --- GERAR FICHAS ---
 function generateRaceCards() {
   const container = document.querySelector('main.container');
-  if (!container) return;
+  if (!container || !window.calendar2026) return;
 
   container.innerHTML = '';
 
@@ -28,84 +22,68 @@ function generateRaceCards() {
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
+    card.appendChild(img);
 
     const h2 = document.createElement('h2');
-    const a = document.createElement('a');
-    a.textContent = race.name;
-    a.href = '#';
-    h2.appendChild(a);
+    h2.textContent = race.name;
+    card.appendChild(h2);
 
-    img.onclick = () => toggleDropdown(card, race);
-    a.onclick = e => {
-      e.preventDefault();
-      toggleDropdown(card, race);
-    };
+    const favBtn = document.createElement('button');
+    favBtn.className = 'fav-btn';
+    favBtn.textContent = '🏁';
 
-    const fav = document.createElement('button');
-    fav.className = 'fav-btn';
-    fav.textContent = '🏁';
-    fav.onclick = e => {
+    if (localStorage.getItem(`fav-${race.slug}`)) {
+      card.classList.add('fav-active');
+    }
+
+    favBtn.onclick = (e) => {
       e.stopPropagation();
-      card.classList.toggle('fav-selected');
+      card.classList.toggle('fav-active');
+      if (card.classList.contains('fav-active')) {
+        localStorage.setItem(`fav-${race.slug}`, '1');
+      } else {
+        localStorage.removeItem(`fav-${race.slug}`);
+      }
     };
 
-    card.append(img, h2, fav);
+    card.appendChild(favBtn);
     container.appendChild(card);
   });
 }
 
-function toggleDropdown(card, race) {
-  let d = card.querySelector('.race-dropdown');
-  if (d) {
-    d.remove();
-    return;
-  }
-
-  d = document.createElement('div');
-  d.className = 'race-dropdown';
-
-  let html = `<h3>Sessões 2026</h3><ul>`;
-  Object.entries(race.sessions || {}).forEach(([k, v]) => {
-    html += `<li>${k}: ${v}</li>`;
-  });
-  html += `</ul>`;
-
-  if (race.results2025) {
-    html += `<h3>Resultados 2025</h3><ul>`;
-    Object.entries(race.results2025).forEach(([k, v]) => {
-      html += `<li>${k}: ${v}</li>`;
-    });
-    html += `</ul>`;
-  }
-
-  d.innerHTML = html;
-  card.appendChild(d);
-}
-
+// --- HERO MOBILE ---
 function updateHero() {
-  const race = getNextRace();
-  if (!race) return;
-
   const hero = document.querySelector('.hero');
-  hero.querySelector('img').src = 'assets/heroes/home-hero.jpg';
+  if (!hero) return;
 
-  const title = hero.querySelector('h1');
-  title.textContent = `Grande Prémio da ${race.name}`;
+  const title = hero.querySelector('.hero-title');
+  const countdown = hero.querySelector('#countdown');
+  const img = hero.querySelector('img');
 
-  startCountdown(race.date);
-}
+  const nextRace = getNextRace();
 
-function startCountdown(dateStr) {
-  const el = document.getElementById('countdown');
-  const target = new Date(dateStr);
+  img.src = 'assets/heroes/home-hero.jpg';
 
-  if (isNaN(target)) {
-    el.textContent = '—';
+  if (!nextRace) {
+    title.textContent = 'Calendário Fórmula 1 2026';
+    countdown.textContent = '—';
     return;
   }
- 
-  setInterval(() => {
-    const diff = target - new Date();
+
+  title.textContent = nextRace.name;
+  startCountdown(nextRace.date, countdown);
+}
+
+// --- COUNTDOWN (NUNCA FALHA) ---
+function startCountdown(dateStr, el) {
+  if (!dateStr || !el) return;
+
+  const raceDate = new Date(dateStr);
+
+  function tick() {
+    const now = new Date();
+    const diff = raceDate - now;
+
     if (diff <= 0) {
       el.textContent = 'Race Week!';
       return;
@@ -114,12 +92,15 @@ function startCountdown(dateStr) {
     const d = Math.floor(diff / 86400000);
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60;
 
-    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
-  }, 1000);
+    el.textContent = `${d}d ${h}h ${m}m`;
+  }
+
+  tick();
+  setInterval(tick, 60000);
 }
 
+// --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
   generateRaceCards();
   updateHero();
