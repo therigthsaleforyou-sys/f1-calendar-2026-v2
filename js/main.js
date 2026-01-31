@@ -1,15 +1,7 @@
-
 // js/main.js
-// F1 Calendar 2026 - versão final compatível com CSS, calendar2026.js e results2025.js
+// F1 Calendar 2026 - versão final compatível com calendar2026.js
 
-import calendar2026 from '../data/calendar2026.js';
-import results2025 from '../data/results2025.js';
-
-// --- Associar resultados 2025 a cada corrida ---
-calendar2026.forEach(race => {
-  const resultData = results2025.find(r => r.id === race.id);
-  if (resultData) race.results2025 = resultData.results;
-});
+import calendar2026 from './data/calendar2026.js';
 
 // --- Encontrar a próxima corrida ---
 function getNextRace() {
@@ -29,14 +21,14 @@ function generateRaceCards() {
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
 
-    // Imagem clicável (toggle dropdown)
+    // Imagem clicável
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título da corrida clicável
+    // Título da corrida
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
@@ -44,9 +36,9 @@ function generateRaceCards() {
     h2.appendChild(a);
     card.appendChild(h2);
 
-    // Toggle dropdown ao clicar na imagem ou no título
+    // Toggle dropdown ao clicar
     img.addEventListener('click', () => toggleDropdown(card, race));
-    a.addEventListener('click', e => {
+    a.addEventListener('click', (e) => {
       e.preventDefault();
       toggleDropdown(card, race);
     });
@@ -54,11 +46,11 @@ function generateRaceCards() {
     // Botão de favorito
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
-    favBtn.innerHTML = '🏁'; // bandeirada
+    favBtn.innerHTML = '🏁';
     if (localStorage.getItem(`fav-${race.slug}`)) {
       favBtn.classList.add('fav-selected');
     }
-    favBtn.addEventListener('click', e => {
+    favBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleFavorite(favBtn, race.slug);
     });
@@ -115,7 +107,7 @@ function updateHero() {
   a.textContent = `Grande Prémio da ${nextRace.name}`;
   a.href = `#${nextRace.slug}`;
   a.style.cursor = 'pointer';
-  a.addEventListener('click', e => {
+  a.addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'});
   });
@@ -123,7 +115,7 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
-// --- Countdown (com segundos) ---
+// --- Countdown ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
