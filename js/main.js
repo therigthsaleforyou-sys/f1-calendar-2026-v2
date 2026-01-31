@@ -18,6 +18,12 @@ function generateRaceCards() {
     const card = document.createElement('section');
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
+    card.style.position = 'relative';
+    card.style.border = '2px solid red'; // borda vermelha por defeito
+    card.style.boxShadow = '1px 1px 5px #000';
+    card.style.marginBottom = '15px';
+    card.style.padding = '5px';
+    card.style.backgroundColor = '#111';
 
     // Imagem da corrida
     const img = document.createElement('img');
@@ -36,7 +42,7 @@ function generateRaceCards() {
     // Botão favorito
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
-    favBtn.innerHTML = '🏁'; // bandeirada por defeito
+    favBtn.innerHTML = '🏁'; // bandeirada
     favBtn.style.position = 'absolute';
     favBtn.style.bottom = '5px';
     favBtn.style.right = '5px';
@@ -56,6 +62,8 @@ function generateRaceCards() {
     dropdown.style.display = 'none';
     dropdown.style.marginTop = '10px';
     dropdown.style.padding = '5px';
+    dropdown.style.color = '#fff';
+    dropdown.style.fontSize = '0.9em';
 
     // Sessões 2026
     let html = '<h3>Sessões 2026</h3><ul>';
@@ -89,11 +97,6 @@ function generateRaceCards() {
       dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     });
 
-    // Rebordo vermelho por defeito
-    card.style.border = '2px solid transparent';
-    card.style.boxShadow = '1px 1px 5px #000';
-    card.style.position = 'relative';
-
     container.appendChild(card);
   });
 }
@@ -106,7 +109,7 @@ function toggleFavorite(btn, slug, card) {
     card.style.border = '3px solid yellow';
   } else {
     localStorage.removeItem(`fav-${slug}`);
-    card.style.border = '2px solid transparent';
+    card.style.border = '2px solid red';
   }
 }
 
@@ -125,11 +128,13 @@ function updateHero() {
     img.alt = nextRace.name;
   }
 
-  // Título hero
+  // Título hero (substitui totalmente, sem duplicar)
   const h1 = heroContent.querySelector('h1');
-  h1.innerHTML = `Grande Prémio da ${nextRace.name}`;
-  h1.style.color = '#fff';
-  h1.style.textShadow = '2px 2px 4px #000';
+  if (h1) {
+    h1.textContent = `Grande Prémio da ${nextRace.name}`;
+    h1.style.color = '#fff';
+    h1.style.textShadow = '2px 2px 4px #000';
+  }
 
   startCountdown(nextRace.sessions.race);
 }
