@@ -1,6 +1,6 @@
 /* ========================================
    F1 Calendar 2026 - Style CSS
-   Estado Canónico Atualizado
+   Ajustes tamanhos e alinhamentos
 ======================================== */
 
 /* Reset básico */
@@ -63,14 +63,14 @@ header.nav .nav-inner a:hover {
 }
 
 .hero-content h1 a {
-  font-size: 2em;
+  font-size: 1.5em; /* reduzido 25% */
   color: #fff;
   text-shadow: 2px 2px 6px #000;
   text-decoration: none;
 }
 
 #countdown {
-  font-size: 1.8em;
+  font-size: 1.35em; /* reduzido 25% */
   color: #f00;
   text-shadow: 2px 2px 6px #000;
   margin-top: 10px;
@@ -105,7 +105,7 @@ main.container {
 }
 
 .race-card h2 a {
-  font-size: 1.5em; /* 50% maior */
+  font-size: 1.5em; /* tamanho correto mantido */
   color: #fff;
   text-shadow: 2px 2px 6px #000;
   text-decoration: none;
@@ -142,13 +142,20 @@ main.container {
 }
 
 .race-dropdown h3 {
-  font-size: 1.5em;
+  font-size: 1.5em; /* título consistente */
+  margin-bottom: 5px;
+}
+
+.race-dropdown .results-title {
+  font-size: 1.5em; /* agora mesmo tamanho que "Sessões 2026" */
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 
 .race-dropdown ul li {
-  font-size: 1.5em; /* 50% maior */
+  font-size: 1em; /* reduzido 25% dos exageros anteriores */
   padding: 4px 0;
+  list-style: none; /* remove pontinhos */
 }
 
 /* Botão voltar ao topo */
