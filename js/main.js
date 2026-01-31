@@ -1,90 +1,100 @@
 // main.js
-// F1 Calendar 2026 — funcionalidade completa, hero + countdown + fichas + favoritos
+// F1 Calendar 2026 - funcionalidade completa
 
+// --- Encontrar a próxima corrida ---
 function getNextRace() {
   const now = new Date();
   return calendar2026.find(race => new Date(race.date) > now);
 }
 
+// --- Gerar fichas das corridas ---
 function generateRaceCards() {
   const container = document.querySelector('main.container');
-  if (!container || typeof calendar2026 === 'undefined') return;
+  if (!container) return;
 
-  container.innerHTML = '';
+  container.innerHTML = ''; // Limpa antes de criar
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
 
-    // Imagem clicável
+    // Imagem clicável (toggle dropdown)
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título clicável
+    // Título da corrida clicável
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
     a.textContent = race.name;
+    a.classList.add('race-title');
     h2.appendChild(a);
     card.appendChild(h2);
 
-    // Favorito
+    // Dropdown será criado dinamicamente ao clicar
+    img.addEventListener('click', () => toggleDropdown(card, race));
+    a.addEventListener('click', (e) => { e.preventDefault(); toggleDropdown(card, race); });
+
+    // Botão favorito
     const favBtn = document.createElement('button');
     favBtn.textContent = '★';
     favBtn.classList.add('fav-btn');
-    if (localStorage.getItem(`fav-${race.slug}`)) favBtn.classList.add('fav-selected');
-    favBtn.addEventListener('click', e => {
+    if (localStorage.getItem(`fav-${race.slug}`)) {
+      favBtn.classList.add('fav-selected');
+    }
+    favBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      favBtn.classList.toggle('fav-selected');
-      if (favBtn.classList.contains('fav-selected')) localStorage.setItem(`fav-${race.slug}`, 'true');
-      else localStorage.removeItem(`fav-${race.slug}`);
+      toggleFavorite(favBtn, race.slug);
     });
     card.appendChild(favBtn);
-
-    // Toggle dropdown
-    function toggleDropdown() {
-      let dropdown = card.querySelector('.race-dropdown');
-      if (!dropdown) {
-        dropdown = document.createElement('div');
-        dropdown.classList.add('race-dropdown');
-
-        let html = `<h3>Sessões 2026</h3><ul>`;
-        for (const [session, dateStr] of Object.entries(race.sessions)) {
-          const date = new Date(dateStr);
-          const day = String(date.getUTCDate()).padStart(2, '0');
-          const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-          const hours = String(date.getUTCHours()).padStart(2, '0');
-          const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-          html += `<li>${session}: ${day}/${month}/${date.getUTCFullYear()} ${hours}:${minutes}</li>`;
-        }
-        if (race.results2025) {
-          html += `<h4>Resultados 2025</h4><ul>`;
-          for (const [key, val] of Object.entries(race.results2025)) html += `<li>${key}: ${val}</li>`;
-          html += `</ul>`;
-        }
-        html += `</ul>`;
-        dropdown.innerHTML = html;
-        card.appendChild(dropdown);
-      }
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-
-    img.addEventListener('click', toggleDropdown);
-    a.addEventListener('click', e => { e.preventDefault(); toggleDropdown(); });
 
     container.appendChild(card);
   });
 }
 
+// --- Toggle dropdown ---
+function toggleDropdown(card, race) {
+  let dropdown = card.querySelector('.race-dropdown');
+  if (!dropdown) {
+    dropdown = document.createElement('div');
+    dropdown.classList.add('race-dropdown');
+
+    let html = `<h3>Sessões 2026</h3><ul>`;
+    for (const [session, dateStr] of Object.entries(race.sessions)) {
+      const date = new Date(dateStr);
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      html += `<li>${session}: ${day}/${month}/${date.getUTCFullYear()} ${hours}:${minutes}</li>`;
+    }
+
+    // Resultados 2025 se existirem
+    if (race.results2025) {
+      html += `<h4>Resultados 2025</h4><ul>`;
+      for (const [key, val] of Object.entries(race.results2025)) {
+        html += `<li>${key}: ${val}</li>`;
+      }
+      html += `</ul>`;
+    }
+
+    html += `</ul>`;
+    dropdown.innerHTML = html;
+    card.appendChild(dropdown);
+  }
+
+  // Toggle visibilidade
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// --- Hero ---
 function updateHero() {
   const hero = document.querySelector('.hero');
   const heroContent = document.querySelector('.hero-content');
-  if (!hero || !heroContent) return;
-
   const nextRace = getNextRace();
   if (!nextRace) return;
 
@@ -95,19 +105,18 @@ function updateHero() {
   a.textContent = `Grande Prémio da ${nextRace.name}`;
   a.href = `#${nextRace.slug}`;
   a.style.cursor = 'pointer';
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'});
+  a.addEventListener('click', (e) => { 
+    e.preventDefault(); 
+    document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'}); 
   });
 
   startCountdown(nextRace.date);
 }
 
-// --- Countdown melhorado com segundos ---
+// --- Countdown com segundos ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
-  if (!countdownEl) return;
 
   function updateCountdown() {
     const now = new Date();
@@ -120,27 +129,39 @@ function startCountdown(raceDateStr) {
     const d = Math.floor(diff / 86400000);
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
-    const s = Math.floor(diff / 1000) % 60; // Segundos
+    const s = Math.floor(diff / 1000) % 60;
 
-    // Atualiza texto com dias, horas, minutos e segundos
     countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 1000); // Atualiza a cada segundo
+  setInterval(updateCountdown, 1000);
 }
 
+// --- Favoritos ---
+function toggleFavorite(btn, slug) {
+  btn.classList.toggle('fav-selected');
+  if (btn.classList.contains('fav-selected')) {
+    localStorage.setItem(`fav-${slug}`, 'true');
+  } else {
+    localStorage.removeItem(`fav-${slug}`);
+  }
+}
+
+// --- Botão voltar ao topo ---
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  btn.textContent = '↑ Top';
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
+// --- Inicialização ---
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof calendar2026 === 'undefined') console.error('calendar2026.js não carregou');
-  else {
-    generateRaceCards();
-    updateHero();
-    setupBackToTop();
-  }
+  generateRaceCards();
+  updateHero();
+  setupBackToTop();
 });
