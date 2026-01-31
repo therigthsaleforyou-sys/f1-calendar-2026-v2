@@ -103,7 +103,7 @@ function startCountdown(dateStr) {
     el.textContent = '—';
     return;
   }
-
+ 
   setInterval(() => {
     const diff = target - new Date();
     if (diff <= 0) {
