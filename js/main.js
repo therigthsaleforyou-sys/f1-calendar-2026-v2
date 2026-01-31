@@ -1,5 +1,5 @@
 // main.js
-// F1 Calendar 2026 - Versão Final
+// F1 Calendar 2026 - funcionalidade completa
 
 // --- Encontrar a próxima corrida ---
 function getNextRace() {
@@ -38,7 +38,7 @@ function generateRaceCards() {
     img.addEventListener('click', () => toggleDropdown(card, race));
     a.addEventListener('click', (e) => { e.preventDefault(); toggleDropdown(card, race); });
 
-    // Botão favorito
+    // Marca favorito
     const favBtn = document.createElement('button');
     favBtn.textContent = '★';
     favBtn.classList.add('fav-btn');
@@ -74,11 +74,11 @@ function toggleDropdown(card, race) {
     html += `</ul>`;
 
     if (race.results2025) {
-      html += `<h4>Resultados 2025</h4><ul>`;
+      html += `<div class="results2025"><h4>Resultados 2025</h4><ul>`;
       for (const [key, val] of Object.entries(race.results2025)) {
         html += `<li>${key}: ${val}</li>`;
       }
-      html += `</ul>`;
+      html += `</ul></div>`;
     }
 
     dropdown.innerHTML = html;
@@ -111,15 +111,14 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
-// --- Countdown com segundos ---
+// --- Countdown ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
 
   function updateCountdown() {
     const now = new Date();
-    let diff = raceDate - now;
-
+    const diff = raceDate - now;
     if (diff <= 0) {
       countdownEl.textContent = "Race Week!";
       return;
