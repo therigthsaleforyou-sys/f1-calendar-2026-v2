@@ -1,122 +1,168 @@
-/* style.css */
+/* css/style.css */
 
-/* Reset e base */
+/* ------------------------
+   RESET & BASE
+------------------------ */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: 'Arial', sans-serif;
 }
 
 body {
   background-color: #000;
   color: #fff;
-  line-height: 1.4;
 }
 
-/* Header */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ------------------------
+   HEADER
+------------------------ */
 header.nav {
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
+  width: 100%;
   background: #111;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
 }
 
 header.nav a {
-  color: #fff;
-  margin: 0 1rem;
-  text-decoration: none;
+  font-size: 1rem;
   font-weight: bold;
+  transition: color 0.3s;
 }
 
-/* Hero */
+header.nav a:hover {
+  color: #f00;
+}
+
+/* ------------------------
+   HERO
+------------------------ */
 .hero {
   position: relative;
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .hero img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 10px;
 }
 
 .hero-content {
   position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  width: 90%;
+  bottom: 2rem;
+  left: 2rem;
+  color: #fff;
+  text-shadow: 2px 2px 5px #000;
 }
 
 .hero-content h1 a {
-  color: #fff;
-  text-shadow: 2px 2px 5px #000;
   font-size: 2rem;
-  text-decoration: none;
+  font-weight: bold;
 }
 
 #countdown {
   margin-top: 0.5rem;
-  color: #ff0000;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px #000;
   font-size: 1.5rem;
+  color: #f00;
+  text-shadow: 2px 2px 4px #000;
 }
 
-/* Race Cards */
+/* ------------------------
+   MAIN CONTAINER
+------------------------ */
 main.container {
+  max-width: 1200px;
+  margin: 2rem auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  width: 90%;
-  max-width: 1200px;
-  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
+/* ------------------------
+   FICHAS DE CORRIDA
+------------------------ */
 .race-card {
-  background: #111;
-  border-radius: 10px;
+  background-color: #111;
+  border-radius: 12px;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .race-card img {
   width: 100%;
   display: block;
+  border-bottom: 2px solid #222;
+  cursor: pointer;
 }
 
 .race-card h2 {
-  padding: 0.5rem 1rem;
-  font-size: 1.5rem;
-  text-shadow: 1px 1px 2px #000;
+  margin: 0.5rem 1rem;
+  font-size: 1.25rem;
+  text-shadow: 1px 1px 3px #000;
 }
 
 .race-card h2 a {
   color: #fff;
-  text-decoration: none;
+  font-weight: bold;
 }
 
+.race-dropdown {
+  padding: 1rem;
+  background: #222;
+  display: none;
+}
+
+.race-dropdown h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
+}
+
+.race-dropdown ul li {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.race-dropdown ul li span {
+  font-weight: bold;
+}
+
+/* ------------------------
+   FAVORITOS
+------------------------ */
 .fav-btn {
   position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  background: transparent;
+  bottom: 1rem;
+  right: 1rem;
+  background: #000;
   border: 2px solid #fff;
   color: #fff;
   font-size: 1.5rem;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
 .fav-btn.fav-selected {
@@ -124,67 +170,82 @@ main.container {
   color: #ff0;
 }
 
-/* Dropdown */
-.race-dropdown {
-  background: #222;
-  padding: 0.5rem 1rem;
-  display: none;
-  font-size: 1rem;
-}
-
-.race-dropdown h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.race-dropdown ul {
-  list-style: none;
-}
-
-.race-dropdown ul li {
-  margin-bottom: 0.3rem;
-}
-
-/* Ajuste resultados 2025 */
-.race-dropdown .results2025 h4 {
-  font-size: 1.2rem;
-  margin: 1rem 0 0.5rem 0;
-}
-
-.race-dropdown .results2025 ul li {
-  list-style: none;
-  margin-bottom: 0.3rem;
-  font-size: 1rem; /* Igual aos dados de sessões */
-}
-
-/* Back to top */
+/* ------------------------
+   BOTÃO VOLTAR AO TOPO
+------------------------ */
 #backToTop {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: #ff0000;
+  background: #111;
   color: #fff;
+  padding: 0.75rem 1rem;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
-  font-weight: bold;
-  z-index: 1000;
+  font-size: 1rem;
+  box-shadow: 2px 2px 8px #000;
+  z-index: 999;
+  transition: all 0.3s ease;
 }
 
-/* Mobile adjustments */
-@media (max-width: 600px) {
+#backToTop:hover {
+  background: #222;
+}
+
+/* ------------------------
+   RESPONSIVO
+------------------------ */
+@media (max-width: 768px) {
   .hero-content h1 a {
     font-size: 1.5rem;
   }
+
   #countdown {
     font-size: 1.2rem;
   }
+
   .race-card h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
+
+  .race-dropdown h3 {
+    font-size: 1rem;
+  }
+
+  .race-dropdown ul li {
+    font-size: 0.9rem;
+  }
+
   .fav-btn {
     font-size: 1.2rem;
     padding: 0.2rem 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 a {
+    font-size: 1.25rem;
+  }
+
+  #countdown {
+    font-size: 1rem;
+  }
+
+  .race-card h2 {
+    font-size: 0.9rem;
+  }
+
+  .race-dropdown h3 {
+    font-size: 0.9rem;
+  }
+
+  .race-dropdown ul li {
+    font-size: 0.8rem;
+  }
+
+  .fav-btn {
+    font-size: 1rem;
+    padding: 0.2rem 0.3rem;
   }
 }
