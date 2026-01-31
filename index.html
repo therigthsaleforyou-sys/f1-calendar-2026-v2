@@ -3,44 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>F1 Calendar 2026</title>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- HEADER -->
   <header>
     <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Equipas</a></li>
-        <li><a href="#">Race News</a></li>
-      </ul>
+      <a href="#">Home</a>
+      <a href="#">Equipas</a>
+      <a href="#">Race News</a>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero">
-    <img src="assets/heroes/home-hero.jpg" alt="Hero GP">
+    <img src="assets/heroes/home-hero.jpg" alt="F1 Hero">
     <div class="hero-content">
-      <h1><a href="#">Grande Prémio da Próxima Corrida</a></h1>
-      <div id="countdown">00d 00h 00m 00s</div>
+      <h1>Próxima Corrida</h1>
+      <div id="countdown">—</div>
     </div>
   </section>
-  
-  <!-- Main -->
-  <main class="container"></main>
+ 
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <!-- Fichas das corridas são geradas via JS -->
+  </main>
 
-  <!-- Back to top -->
-  <button id="backToTop">↑ Topo</button>
-
-  <!-- Rodapé -->
+  <!-- FOOTER -->
   <footer>
-    Calendário F1 - Projeto Independente
+    <p>Calendário F1 - Projeto Independente</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- BOTÃO TOPO -->
+  <button id="backToTop">↑ Topo</button>
+
+  <!-- SCRIPTS (ORDEM CRÍTICA) -->
   <script src="data/calendar2026.js"></script>
   <script src="js/main.js"></script>
+
 </body>
 </html>
