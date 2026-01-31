@@ -1,6 +1,15 @@
 // js/main.js
 // F1 Calendar 2026 - versão final compatível com CSS e calendar2026.js
 
+import calendar2026 from '../data/calendar2026.js';
+import results2025 from '../data/results2025.js';
+
+// Associar resultados de 2025 a cada corrida
+calendar2026.forEach(race => {
+  const res = results2025.find(r => r.id === race.id);
+  race.results2025 = res ? res.results : {};
+});
+
 // --- Encontrar a próxima corrida ---
 function getNextRace() {
   const now = new Date();
@@ -11,22 +20,21 @@ function getNextRace() {
 function generateRaceCards() {
   const container = document.querySelector('main.container');
   if (!container) return;
-
-  container.innerHTML = ''; // Limpa antes de criar
+  container.innerHTML = '';
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
 
-    // Imagem clicável (toggle dropdown)
+    // Imagem clicável
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título da corrida clicável
+    // Título
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
@@ -34,21 +42,18 @@ function generateRaceCards() {
     h2.appendChild(a);
     card.appendChild(h2);
 
-    // Toggle dropdown ao clicar na imagem ou no título
     img.addEventListener('click', () => toggleDropdown(card, race));
-    a.addEventListener('click', (e) => {
+    a.addEventListener('click', e => {
       e.preventDefault();
       toggleDropdown(card, race);
     });
 
-    // Botão de favorito
+    // Botão favorito
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
-    favBtn.innerHTML = '🏁'; // bandeirada por defeito
-    if (localStorage.getItem(`fav-${race.slug}`)) {
-      favBtn.classList.add('fav-selected');
-    }
-    favBtn.addEventListener('click', (e) => {
+    favBtn.innerHTML = '🏁';
+    if (localStorage.getItem(`fav-${race.slug}`)) favBtn.classList.add('fav-selected');
+    favBtn.addEventListener('click', e => {
       e.stopPropagation();
       toggleFavorite(favBtn, race.slug);
     });
@@ -76,7 +81,7 @@ function toggleDropdown(card, race) {
     }
     html += `</ul>`;
 
-    if (race.results2025 && Object.keys(race.results2025).length > 0) {
+    if (race.results2025 && Object.keys(race.results2025).length) {
       html += `<h3>Resultados 2025</h3><ul>`;
       for (const [key, val] of Object.entries(race.results2025)) {
         html += `<li>${key}: ${val}</li>`;
@@ -98,7 +103,6 @@ function updateHero() {
   const nextRace = getNextRace();
   if (!nextRace) return;
 
-  // Imagem fixa para homepage
   hero.querySelector('img').src = "assets/heroes/home-hero.jpg";
   hero.querySelector('img').alt = nextRace.name;
 
@@ -106,7 +110,7 @@ function updateHero() {
   a.textContent = `Grande Prémio da ${nextRace.name}`;
   a.href = `#${nextRace.slug}`;
   a.style.cursor = 'pointer';
-  a.addEventListener('click', (e) => {
+  a.addEventListener('click', e => {
     e.preventDefault();
     document.querySelector(`[data-slug="${nextRace.slug}"]`).scrollIntoView({behavior:'smooth'});
   });
@@ -114,7 +118,7 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
-// --- Countdown (com segundos) ---
+// --- Countdown ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
@@ -122,7 +126,6 @@ function startCountdown(raceDateStr) {
   function updateCountdown() {
     const now = new Date();
     const diff = raceDate - now;
-
     if (diff <= 0) {
       countdownEl.textContent = "Race Week!";
       return;
@@ -132,7 +135,6 @@ function startCountdown(raceDateStr) {
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
     const s = Math.floor(diff / 1000) % 60;
-
     countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
@@ -150,14 +152,11 @@ function toggleFavorite(btn, slug) {
   }
 }
 
-// --- Botão voltar ao topo ---
+// --- Back to Top ---
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
 // --- Inicialização ---
