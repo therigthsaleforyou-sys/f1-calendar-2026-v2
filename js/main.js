@@ -15,7 +15,7 @@ function generateRaceCards() {
     const card = document.createElement('section');
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
-
+ 
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
@@ -37,9 +37,6 @@ function generateRaceCards() {
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
     favBtn.innerHTML = '🏁';
-    if (race.favorite) {
-      card.classList.add('fav-selected');
-    }
     favBtn.addEventListener('click', e => {
       e.stopPropagation();
       toggleFavorite(card);
