@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 Calendar 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Equipas</a></li>
+        <li><a href="#">Race News</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a href="index.html">Home</a>
-    <a href="teams.html">Equipas</a>
-    <a href="curiosities.html">Race News</a>
-  </div>
-</header>
+  <section class="hero">
+    <img src="assets/heroes/home-hero.jpg" alt="Hero F1 2026">
+    <div class="hero-content">
+      <h1><a href="#">Grande Prémio da Próxima Corrida</a></h1>
+      <p id="countdown">00d 00h 00m 00s</p>
+    </div>
+  </section>
 
-<section class="hero">
-  <img src="assets/heroes/home-hero.jpg" alt="Próxima corrida">
-  <div class="hero-content">
-    <h1>
-      <a href="#">Próxima Corrida</a>
-    </h1>
-    <div id="countdown">—</div>
-  </div>
-</section>
+  <main class="container">
+    <!-- Fichas das corridas serão geradas aqui -->
+  </main>
 
-<main class="container">
-  <!-- Fichas geradas dinamicamente via main.js -->
-</main>
+  <button id="backToTop">↑ Topo</button>
 
-<button id="backToTop">↑ Topo</button>
-
-<script src="data/calendar2026.js"></script>
-<script src="js/main.js"></script>
+  <!-- Scripts -->
+  <script src="data/calendar2026.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
