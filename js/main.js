@@ -1,13 +1,13 @@
 // js/main.js
-// F1 Calendar 2026 - versão final compatível com CSS e calendar2026.js
+// F1 Calendar 2026 - versão final compatível com CSS, calendar2026.js e results2025.js
 
 import calendar2026 from '../data/calendar2026.js';
 import results2025 from '../data/results2025.js';
 
-// Associar resultados de 2025 a cada corrida
+// --- Associar resultados 2025 a cada corrida ---
 calendar2026.forEach(race => {
-  const res = results2025.find(r => r.id === race.id);
-  race.results2025 = res ? res.results : {};
+  const resultData = results2025.find(r => r.id === race.id);
+  if (resultData) race.results2025 = resultData.results;
 });
 
 // --- Encontrar a próxima corrida ---
@@ -20,21 +20,22 @@ function getNextRace() {
 function generateRaceCards() {
   const container = document.querySelector('main.container');
   if (!container) return;
-  container.innerHTML = '';
+
+  container.innerHTML = ''; // Limpa antes de criar
 
   calendar2026.forEach(race => {
     const card = document.createElement('section');
     card.classList.add('race-card');
     card.setAttribute('data-slug', race.slug);
 
-    // Imagem clicável
+    // Imagem clicável (toggle dropdown)
     const img = document.createElement('img');
     img.src = race.image;
     img.alt = race.name;
     img.style.cursor = 'pointer';
     card.appendChild(img);
 
-    // Título
+    // Título da corrida clicável
     const h2 = document.createElement('h2');
     const a = document.createElement('a');
     a.href = `#${race.slug}`;
@@ -42,17 +43,20 @@ function generateRaceCards() {
     h2.appendChild(a);
     card.appendChild(h2);
 
+    // Toggle dropdown ao clicar na imagem ou no título
     img.addEventListener('click', () => toggleDropdown(card, race));
     a.addEventListener('click', e => {
       e.preventDefault();
       toggleDropdown(card, race);
     });
 
-    // Botão favorito
+    // Botão de favorito
     const favBtn = document.createElement('button');
     favBtn.classList.add('fav-btn');
-    favBtn.innerHTML = '🏁';
-    if (localStorage.getItem(`fav-${race.slug}`)) favBtn.classList.add('fav-selected');
+    favBtn.innerHTML = '🏁'; // bandeirada
+    if (localStorage.getItem(`fav-${race.slug}`)) {
+      favBtn.classList.add('fav-selected');
+    }
     favBtn.addEventListener('click', e => {
       e.stopPropagation();
       toggleFavorite(favBtn, race.slug);
@@ -81,7 +85,7 @@ function toggleDropdown(card, race) {
     }
     html += `</ul>`;
 
-    if (race.results2025 && Object.keys(race.results2025).length) {
+    if (race.results2025 && Object.keys(race.results2025).length > 0) {
       html += `<h3>Resultados 2025</h3><ul>`;
       for (const [key, val] of Object.entries(race.results2025)) {
         html += `<li>${key}: ${val}</li>`;
@@ -118,7 +122,7 @@ function updateHero() {
   startCountdown(nextRace.date);
 }
 
-// --- Countdown ---
+// --- Countdown (com segundos) ---
 function startCountdown(raceDateStr) {
   const countdownEl = document.getElementById('countdown');
   const raceDate = new Date(raceDateStr);
@@ -126,6 +130,7 @@ function startCountdown(raceDateStr) {
   function updateCountdown() {
     const now = new Date();
     const diff = raceDate - now;
+
     if (diff <= 0) {
       countdownEl.textContent = "Race Week!";
       return;
@@ -135,6 +140,7 @@ function startCountdown(raceDateStr) {
     const h = Math.floor(diff / 3600000) % 24;
     const m = Math.floor(diff / 60000) % 60;
     const s = Math.floor(diff / 1000) % 60;
+
     countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
 
@@ -152,11 +158,14 @@ function toggleFavorite(btn, slug) {
   }
 }
 
-// --- Back to Top ---
+// --- Botão voltar ao topo ---
 function setupBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
 // --- Inicialização ---
