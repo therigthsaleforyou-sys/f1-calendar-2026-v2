@@ -1,62 +1,51 @@
-/* ==================================================
-   F1 Calendar 2026 - style.css
-   Estado canónico - Layout aprovado
-================================================== */
+/* style.css */
 
-/* Reset básico */
+/* Reset e base */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Arial', sans-serif;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
   background-color: #000;
   color: #fff;
   line-height: 1.4;
 }
 
-/* ================= Header ================= */
+/* Header */
 header.nav {
   display: flex;
   justify-content: center;
-  padding: 1em 0;
-  background-color: #111;
-}
-
-header.nav .nav-inner {
-  display: flex;
-  gap: 2em;
+  padding: 1rem;
+  background: #111;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 header.nav a {
-  text-decoration: none;
   color: #fff;
+  margin: 0 1rem;
+  text-decoration: none;
   font-weight: bold;
-  transition: color 0.2s;
 }
 
-header.nav a:hover {
-  color: #f00;
-}
-
-/* ================= Hero ================= */
+/* Hero */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 2em auto;
-  max-width: 1200px;
-  width: 90%;
   position: relative;
+  width: 90%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .hero img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
   border-radius: 10px;
 }
 
@@ -66,145 +55,136 @@ header.nav a:hover {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  width: 90%;
 }
 
 .hero-content h1 a {
-  font-size: 2em; /* reduzido 25% para hero */
   color: #fff;
-  text-shadow: 2px 2px 4px #000;
+  text-shadow: 2px 2px 5px #000;
+  font-size: 2rem;
   text-decoration: none;
 }
 
 #countdown {
-  font-size: 1.8em;
-  color: #f00;
-  text-shadow: 1px 1px 2px #000;
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
+  color: #ff0000;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px #000;
+  font-size: 1.5rem;
 }
 
-/* ================= Main Container ================= */
+/* Race Cards */
 main.container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5em;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
   width: 90%;
-  margin: 2em auto;
+  max-width: 1200px;
+  margin: 2rem auto;
 }
 
-/* ================= Race Cards ================= */
 .race-card {
-  background-color: #111;
+  background: #111;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .race-card img {
   width: 100%;
-  height: auto;
-  cursor: pointer;
+  display: block;
+}
+
+.race-card h2 {
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px #000;
 }
 
 .race-card h2 a {
-  display: block;
-  padding: 0.5em;
-  font-size: 1.2em;
   color: #fff;
   text-decoration: none;
-  text-shadow: 1px 1px 2px #000;
 }
 
-.race-card h2 a:hover {
-  color: #f00;
-}
-
-/* ================= Favorite Button ================= */
 .fav-btn {
-  background: none;
-  border: none;
-  font-size: 1.5em;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: 2px solid #fff;
   color: #fff;
+  font-size: 1.5rem;
+  border-radius: 5px;
   cursor: pointer;
-  align-self: flex-end;
-  margin: 0.5em;
-  transition: color 0.2s;
+  padding: 0.2rem 0.5rem;
 }
 
 .fav-btn.fav-selected {
+  border-color: #ff0;
   color: #ff0;
 }
 
-/* ================= Race Dropdown ================= */
+/* Dropdown */
 .race-dropdown {
-  background-color: #222;
-  padding: 0.5em;
+  background: #222;
+  padding: 0.5rem 1rem;
   display: none;
+  font-size: 1rem;
 }
 
 .race-dropdown h3 {
-  font-size: 1.2em;
-  margin: 0.5em 0;
-  color: #fff;
-  text-shadow: 1px 1px 2px #000;
-}
-
-.race-dropdown h4 {
-  font-size: 1.2em;      /* Igual a Sessões 2026 */
-  margin: 0.5em 0;
-  color: #fff;
-  text-shadow: 1px 1px 2px #000;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .race-dropdown ul {
-  list-style: none; /* remove pontinhos */
-  padding-left: 0;
+  list-style: none;
 }
 
-.race-dropdown li {
-  margin: 0.2em 0;
-  font-size: 1em;
-  color: #fff;
+.race-dropdown ul li {
+  margin-bottom: 0.3rem;
 }
 
-/* ================= Back to Top ================= */
+/* Ajuste resultados 2025 */
+.race-dropdown .results2025 h4 {
+  font-size: 1.2rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.race-dropdown .results2025 ul li {
+  list-style: none;
+  margin-bottom: 0.3rem;
+  font-size: 1rem; /* Igual aos dados de sessões */
+}
+
+/* Back to top */
 #backToTop {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #f00;
+  bottom: 2rem;
+  right: 2rem;
+  background: #ff0000;
   color: #fff;
   border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  font-size: 1.2em;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
   z-index: 1000;
-  transition: background-color 0.2s;
 }
 
-#backToTop:hover {
-  background-color: #ff5555;
-}
-
-/* ================= Responsividade ================= */
-@media (max-width: 768px) {
+/* Mobile adjustments */
+@media (max-width: 600px) {
   .hero-content h1 a {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
-
   #countdown {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
-
-  .race-card h2 a {
-    font-size: 1em;
+  .race-card h2 {
+    font-size: 1.2rem;
   }
-
-  .race-dropdown li {
-    font-size: 0.9em;
+  .fav-btn {
+    font-size: 1.2rem;
+    padding: 0.2rem 0.4rem;
   }
 }
