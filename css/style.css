@@ -1,100 +1,140 @@
-/* RESET BÁSICO */
+/* --- Reset / base --- */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  background: #000;
-  color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: black;
+  color: white;
+  line-height: 1.4;
 }
 
-/* CONTAINER MOBILE */
-.container {
-  width: 92%;
-  margin: 0 auto;
-}
-
-/* HERO */
+/* --- Hero --- */
 .hero {
-  width: 92%;
-  margin: 20px auto;
-  border-radius: 14px;
-  overflow: hidden;
   position: relative;
+  width: 100%;
+  max-width: 480px; /* mobile only */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .hero img {
   width: 100%;
+  height: auto;
   display: block;
 }
 
 .hero-content {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
+  bottom: 20px;
+  left: 20px;
 }
 
-.hero-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 2px 2px 6px #000;
-  margin-bottom: 6px;
+.hero-content h1 a {
+  color: white;
+  text-shadow: 2px 2px 4px black;
+  font-size: 1.5em;
+  text-decoration: none;
 }
 
+/* --- Countdown --- */
 #countdown {
-  color: #ff2b2b;
-  font-weight: 600;
-  text-shadow: 1px 1px 4px #000;
+  font-size: 1.2em;
+  color: red;
+  text-shadow: 1px 1px 2px black;
+  margin-top: 10px;
 }
 
-/* FICHAS */
+/* --- Container de corridas --- */
+main.container {
+  max-width: 480px; /* mobile only */
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Fichas de corrida --- */
 .race-card {
-  width: 92%;
-  margin: 16px auto;
-  border-radius: 14px;
-  background: #111;
-  overflow: hidden;
   position: relative;
-  border: 2px solid #c00;
-  box-shadow: 0 0 8px #000;
+  background-color: #111;
+  border: 2px solid #444; /* default borda cinza */
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border 0.3s;
+}
+
+.race-card.fav-active {
+  border: 2px solid yellow; /* rebordo amarelo quando favorito */
 }
 
 .race-card img {
   width: 100%;
   display: block;
+  border-bottom: 1px solid #444;
 }
 
-.race-card h2 {
-  padding: 12px;
-  font-size: 1.1rem;
-  color: #fff;
-  text-shadow: 1px 1px 4px #000;
+.race-card h2 a {
+  display: block;
+  padding: 10px;
+  color: white;                     /* títulos brancos */
+  text-shadow: 2px 2px 4px black;   /* sombra negra */
+  font-size: 135%;                  /* +35% do tamanho anterior */
+  text-decoration: none;
 }
 
-/* FAVORITO */
+/* --- Dropdown das fichas --- */
+.race-card .race-dropdown {
+  display: none;
+  background-color: #222;
+  padding: 10px;
+}
+
+.race-card .race-dropdown ul {
+  list-style: none;
+}
+
+.race-card .race-dropdown li {
+  font-size: 85%; /* -15% do tamanho anterior */
+  margin-bottom: 4px;
+}
+
+/* --- Botão de favorito --- */
 .fav-btn {
   position: absolute;
   bottom: 10px;
   right: 10px;
   background: transparent;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.5em;
+  cursor: pointer;
 }
 
-.race-card.fav-active {
-  border-color: #ffd700;
-  box-shadow: 0 0 12px #ffd700;
+.fav-btn.fav-selected {
+  /* o rebordo amarelo agora está na ficha, não no botão */
 }
 
-/* RODAPÉ */
+/* --- Botão voltar ao topo --- */
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* --- Rodapé --- */
 footer {
-  margin: 40px 0 20px;
   text-align: center;
-  font-size: 0.8rem;
-  opacity: 0.6;
+  color: #aaa;
+  font-size: 0.9em;
+  margin: 40px 0 20px 0;
 }
