@@ -2,6 +2,7 @@
 // F1 Calendar 2026 — main.js funcional
 // Mobile-first, compatível com calendar2026.js
 // Estado canónico respeitado: hero fixo, cards dinâmicos, favoritos, dropdown, back-to-top
+// Botão favorito alinhado à direita do título
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ================= HERO ================= */
-
 function renderHero(race) {
   const heroTitle = document.getElementById("hero-title");
   const heroCountdown = document.getElementById("hero-countdown");
@@ -36,7 +36,6 @@ function renderHero(race) {
 }
 
 /* ================= COUNTDOWN ================= */
-
 function startCountdown(dateISO, el) {
   if (!dateISO || !el) {
     el.textContent = "—";
@@ -64,7 +63,6 @@ function startCountdown(dateISO, el) {
 }
 
 /* ================= CARDS ================= */
-
 function renderCards(calendar) {
   const container = document.getElementById("race-cards");
   if (!container) return;
@@ -82,8 +80,10 @@ function renderCards(calendar) {
     card.innerHTML = `
       <div class="race-header">
         <img src="${race.image}" alt="${race.name}">
-        <h3 class="race-title">${race.name}</h3>
-        <button class="fav-btn" title="Favorito">🏁</button>
+        <div class="race-title-wrapper">
+          <h3 class="race-title">${race.name}</h3>
+          <button class="fav-btn" title="Favorito">🏁</button>
+        </div>
       </div>
 
       <button class="details-toggle">Ver detalhes</button>
@@ -146,7 +146,6 @@ function renderCards(calendar) {
 }
 
 /* ================= HELPERS ================= */
-
 function fmt(dateISO) {
   if (!dateISO) return "—";
   const d = new Date(dateISO);
@@ -160,7 +159,6 @@ function fmt(dateISO) {
 }
 
 /* ================= BACK TO TOP ================= */
-
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
