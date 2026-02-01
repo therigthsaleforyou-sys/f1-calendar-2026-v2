@@ -1,6 +1,6 @@
 // js/main.js
-// Estado canónico — mobile-first
-// NÃO mexe em calendar2026.js
+// Estado canónico — funcional
+// NÃO altera layout, NÃO altera hero, NÃO altera CSS
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -28,10 +28,7 @@ function renderHero(race) {
 
   if (!heroTitle || !heroCountdown || !heroImage) return;
 
-  // 🔒 título simples (sem concatenação)
   heroTitle.textContent = race.name;
-
-  // 🔒 imagem fixa do hero (NÃO a da corrida)
   heroImage.src = "assets/heroes/home-hero.jpg";
   heroImage.alt = "Calendário Fórmula 1 2026";
 
@@ -47,9 +44,7 @@ function startCountdown(dateISO, el) {
   }
 
   function update() {
-    const now = Date.now();
-    const target = new Date(dateISO).getTime();
-    const diff = target - now;
+    const diff = new Date(dateISO).getTime() - Date.now();
 
     if (diff <= 0) {
       el.textContent = "Hoje";
@@ -68,7 +63,7 @@ function startCountdown(dateISO, el) {
   setInterval(update, 1000);
 }
 
-/* ================= CARDS ================= */
+/* ================= CARDS (COMPLETO) ================= */
 
 function renderCards(calendar) {
   const container = document.getElementById("race-cards");
@@ -81,11 +76,71 @@ function renderCards(calendar) {
     card.className = "race-card";
 
     card.innerHTML = `
-      <img src="${race.image}" alt="${race.name}">
-      <h3 class="race-title">${race.name}</h3>
+      <div class="race-click">
+        <img src="${race.image}" alt="${race.name}">
+        <h3 class="race-title">${race.name}</h3>
+      </div>
+
+      <button class="fav-btn" data-id="${race.id}">★</button>
+
+      <div class="race-details hidden">
+        <strong>Sessões</strong><br>
+        Practice 1: ${format(race.sessions.practice1)}<br>
+        Practice 2: ${format(race.sessions.practice2)}<br>
+        Practice 3: ${format(race.sessions.practice3)}<br>
+        Qualifying: ${format(race.sessions.qualifying)}<br>
+        Sprint: ${format(race.sessions.sprint)}<br>
+        Race: ${format(race.sessions.race)}<br><br>
+
+        <strong>Resultados 2025</strong><br>
+        Pole: ${race.results2025?.pole || "—"}<br>
+        Fastest Lap: ${race.results2025?.fastestLap || "—"}<br>
+        Podium: ${race.results2025?.podium || "—"}<br>
+      </div>
     `;
 
+    // Clique na imagem / título
+    card.querySelector(".race-click").onclick = () => {
+      card.querySelector(".race-details").classList.toggle("hidden");
+    };
+
+    // Favoritos
+    const favBtn = card.querySelector(".fav-btn");
+    const favs = JSON.parse(localStorage.getItem("favs") || "[]");
+
+    if (favs.includes(race.id)) {
+      card.classList.add("fav");
+    }
+
+    favBtn.onclick = () => {
+      let favs = JSON.parse(localStorage.getItem("favs") || "[]");
+
+      if (favs.includes(race.id)) {
+        favs = favs.filter(id => id !== race.id);
+        card.classList.remove("fav");
+      } else {
+        favs.push(race.id);
+        card.classList.add("fav");
+      }
+
+      localStorage.setItem("favs", JSON.stringify(favs));
+    };
+
     container.appendChild(card);
+  });
+}
+
+/* ================= HELPERS ================= */
+
+function format(dateISO) {
+  if (!dateISO) return "—";
+  const d = new Date(dateISO);
+  return d.toLocaleString("pt-PT", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
   });
 }
 
