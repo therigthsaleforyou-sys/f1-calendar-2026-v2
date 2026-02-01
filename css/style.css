@@ -1,6 +1,7 @@
 /* css/style.css */
-/* Mobile-first — estado estável */
+/* Mobile-first — Estado Canónico */
 
+/* ================= GLOBAL ================= */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -8,12 +9,29 @@ body {
   color: #fff;
 }
 
-/* ================= HERO ================= */
+/* ================= HEADER ================= */
+header {
+  background: #111;
+  padding: 10px 0;
+}
 
+header nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ================= HERO ================= */
 #hero {
   max-width: 420px;
   margin: 0 auto;
   padding: 12px;
+  text-align: center;
 }
 
 #hero-image {
@@ -37,7 +55,6 @@ body {
 }
 
 /* ================= CARDS ================= */
-
 #race-cards {
   max-width: 420px;
   margin: 0 auto;
@@ -49,6 +66,7 @@ body {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 14px;
+  background: #111;
 }
 
 .race-card img {
@@ -64,17 +82,43 @@ body {
   text-shadow: 0 2px 6px #000;
 }
 
-/* ================= FOOTER ================= */
+/* Dropdown detalhes */
+.race-details {
+  padding: 8px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
 
-footer {
-  text-align: center;
-  padding: 14px;
-  font-size: 0.75rem;
-  opacity: 0.7;
+.hidden {
+  display: none;
+}
+
+/* Botão detalhes */
+.details-toggle {
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border-top: 1px solid #333;
+}
+
+/* Botão favorito */
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Favorito ativo */
+.race-card.fav .fav-btn {
+  color: #ffd700;
 }
 
 /* ================= BACK TO TOP ================= */
-
 #back-to-top {
   position: fixed;
   bottom: 12px;
@@ -85,4 +129,13 @@ footer {
   background: #ff2a2a;
   color: #fff;
   font-weight: 700;
+  z-index: 1000;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  text-align: center;
+  padding: 14px;
+  font-size: 0.75rem;
+  opacity: 0.7;
 }
