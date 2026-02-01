@@ -1,123 +1,125 @@
-/* --- Hero --- */
+/* Reset e base */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background: #111;
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hero */
 .hero {
   position: relative;
-  width: 85%; /* diminui 15% */
-  max-width: 480px; /* ainda mobile-only */
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 12px;
+  text-align: left;
+  margin: 10px;
 }
 
 .hero img {
   width: 100%;
-  height: auto;
   display: block;
 }
 
-/* Hero content */
-.hero-content {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
-
 .hero-content h1 a {
-  color: white;
-  text-shadow: 2px 2px 4px black;
-  font-size: 1.275em; /* título menor (-15%) */
+  color: #fff;
+  text-shadow: 2px 2px 4px #000;
   text-decoration: none;
+  font-size: 1.5em;
 }
 
-/* Countdown */
 #countdown {
-  font-size: 1.2em;
-  color: red;
-  text-shadow: 1px 1px 2px black;
-  margin-top: 10px;
+  color: #f00;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
-/* --- Container de corridas --- */
-main.container {
-  max-width: 480px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* --- Fichas de corrida --- */
+/* Fichas de corrida */
 .race-card {
+  border: 2px solid #f00;
+  margin: 10px;
+  padding: 5px;
   position: relative;
-  background-color: #111;
-  border: 2px solid #444;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border 0.3s;
 }
 
 .race-card.fav-active {
-  border: 2px solid yellow;
+  border-color: yellow;
+  box-shadow: 0 0 5px #000;
 }
 
 .race-card img {
   width: 100%;
   display: block;
-  border-bottom: 1px solid #444;
 }
 
 .race-card h2 a {
-  display: block;
-  padding: 10px;
-  color: white;
-  text-shadow: 2px 2px 4px black;
-  font-size: 115%; /* diminuiu 15% */
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  font-size: 1em;
   text-decoration: none;
 }
 
-/* --- Dropdown --- */
-.race-card .race-dropdown {
+.race-dropdown {
   display: none;
-  background-color: #222;
-  padding: 10px;
+  margin-top: 5px;
 }
 
-.race-card .race-dropdown ul {
+.race-dropdown ul {
   list-style: none;
+  padding: 0;
+  font-size: 0.85em;
 }
 
-.race-card .race-dropdown li {
-  font-size: 85%; /* mantém -15% dos dados */
-  margin-bottom: 4px;
-}
-
-/* --- Botão de favorito --- */
 .fav-btn {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: transparent;
+  bottom: 5px;
+  right: 5px;
+  background: none;
   border: none;
   font-size: 1.5em;
   cursor: pointer;
 }
 
-/* --- Botão voltar ao topo --- */
+.fav-btn.fav-selected {
+  color: yellow;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #111;
+}
+
+/* Botão voltar ao topo */
 #backToTop {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #333;
-  color: white;
+  bottom: 10px;
+  right: 10px;
+  display: block;
+  background: #222;
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 10px;
   cursor: pointer;
 }
 
-/* --- Rodapé --- */
-footer {
-  text-align: center;
-  color: #aaa;
-  font-size: 0.9em;
-  margin: 40px 0 20px 0;
+/* Responsivo mobile */
+@media (min-width: 600px) {
+  .hero-content h1 a {
+    font-size: 2em;
+  }
+  .race-card h2 a {
+    font-size: 1.2em;
+  }
 }
