@@ -1,5 +1,5 @@
 /* css/style.css */
-/* Mobile-only, hero blindado */
+/* Mobile-first — estabilidade máxima */
 
 body {
   margin: 0;
@@ -8,21 +8,8 @@ body {
   color: #fff;
 }
 
-/* ================= HEADER ================= */
-header nav {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  background: #111;
-}
-
-header nav a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
 /* ================= HERO ================= */
+
 #hero {
   max-width: 420px;
   margin: 0 auto;
@@ -38,7 +25,7 @@ header nav a {
 }
 
 #hero-title {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
   line-height: 1.2;
   color: #fff;
@@ -53,6 +40,7 @@ header nav a {
 }
 
 /* ================= CARDS ================= */
+
 #race-cards {
   max-width: 420px;
   margin: 0 auto;
@@ -67,29 +55,57 @@ header nav a {
   padding: 8px;
 }
 
-.race-card.favorite-active {
-  border-color: yellow;
-}
-
 .race-card img {
   width: 100%;
   display: block;
 }
 
 .race-title {
-  font-size: 1.35rem; /* 35% maior */
+  font-size: 1.2rem;
   font-weight: 700;
   padding: 6px 0;
-  color: #fff;
+  color: #00f; /* Apenas alterei a cor conforme pedido */
   text-shadow: 0 2px 6px #000;
+  cursor: pointer;
 }
 
-.race-card p {
-  font-size: 0.85rem; /* 15% menor que padrão */
-  margin: 2px 0;
+.fav-btn {
+  background: #ff2a2a;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.fav-btn.fav-selected {
+  border: 2px solid yellow;
+}
+
+/* Dropdown */
+.race-dropdown {
+  display: none;
+  background: #111;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.race-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.race-dropdown li {
+  font-size: 0.85rem;
+  padding: 2px 0;
 }
 
 /* ================= FOOTER ================= */
+
 footer {
   text-align: center;
   padding: 14px;
@@ -98,6 +114,7 @@ footer {
 }
 
 /* ================= BACK TO TOP ================= */
+
 #back-to-top {
   position: fixed;
   bottom: 12px;
@@ -108,4 +125,6 @@ footer {
   background: #ff2a2a;
   color: #fff;
   font-weight: 700;
+  cursor: pointer;
+  z-index: 1000;
 }
