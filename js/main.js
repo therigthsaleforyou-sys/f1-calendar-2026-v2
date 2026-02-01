@@ -1,8 +1,7 @@
 // js/main.js
-// Correção focada:
-// ✔ Dropbox real (abrir/fechar)
-// ✔ Favorito visível (🏁 + amarelo)
-// ❌ NÃO altera hero, layout, countdown, CSS ou dados
+// F1 Calendar 2026 — main.js funcional
+// Mobile-first, compatível com calendar2026.js
+// Estado canónico respeitado: hero fixo, cards dinâmicos, favoritos, dropdown, back-to-top
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -31,7 +30,7 @@ function renderHero(race) {
 
   heroTitle.textContent = race.name;
   heroImage.src = "assets/heroes/home-hero.jpg";
-  heroImage.alt = "Calendário Fórmula 1 2026";
+  heroImage.alt = "Calendário F1 2026";
 
   startCountdown(race.sessions.race, heroCountdown);
 }
@@ -84,18 +83,13 @@ function renderCards(calendar) {
       <div class="race-header">
         <img src="${race.image}" alt="${race.name}">
         <h3 class="race-title">${race.name}</h3>
-
-        <button class="fav-btn" title="Favorito">
-          🏁
-        </button>
+        <button class="fav-btn" title="Favorito">🏁</button>
       </div>
 
-      <button class="details-toggle">
-        Ver detalhes
-      </button>
+      <button class="details-toggle">Ver detalhes</button>
 
       <div class="race-details hidden">
-        <strong>Sessões</strong><br>
+        <strong>Sessões 2026</strong><br>
         Practice 1: ${fmt(race.sessions.practice1)}<br>
         Practice 2: ${fmt(race.sessions.practice2)}<br>
         Practice 3: ${fmt(race.sessions.practice3)}<br>
@@ -113,7 +107,6 @@ function renderCards(calendar) {
     `;
 
     /* ===== DROPDOWN ===== */
-
     const toggleBtn = card.querySelector(".details-toggle");
     const details = card.querySelector(".race-details");
 
@@ -125,7 +118,6 @@ function renderCards(calendar) {
     };
 
     /* ===== FAVORITO ===== */
-
     const favBtn = card.querySelector(".fav-btn");
 
     if (isFav) {
