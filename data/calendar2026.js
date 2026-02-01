@@ -90,3 +90,4 @@ const calendar2026 = [
     }
   }
 ];
+window.calendar2026 = calendar2026;
