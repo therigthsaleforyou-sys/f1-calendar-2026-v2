@@ -1,5 +1,5 @@
 /* css/style.css */
-/* Mobile-first — estabilidade máxima */
+/* Mobile-first — estado estável */
 
 body {
   margin: 0;
@@ -14,12 +14,10 @@ body {
   max-width: 420px;
   margin: 0 auto;
   padding: 12px;
-  text-align: left;
 }
 
 #hero-image {
   width: 100%;
-  height: auto;
   border-radius: 14px;
   margin-bottom: 12px;
 }
@@ -27,7 +25,6 @@ body {
 #hero-title {
   font-size: 1.9rem;
   font-weight: 800;
-  line-height: 1.2;
   color: #fff;
   text-shadow: 0 2px 6px #000;
   margin: 0 0 6px 0;
@@ -52,7 +49,6 @@ body {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 14px;
-  padding: 8px;
 }
 
 .race-card img {
@@ -63,45 +59,9 @@ body {
 .race-title {
   font-size: 1.2rem;
   font-weight: 700;
-  padding: 6px 0;
-  color: #00f; /* Apenas alterei a cor conforme pedido */
-  text-shadow: 0 2px 6px #000;
-  cursor: pointer;
-}
-
-.fav-btn {
-  background: #ff2a2a;
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  font-size: 1.2rem;
-  padding: 6px 10px;
-  cursor: pointer;
-  margin-top: 6px;
-}
-
-.fav-btn.fav-selected {
-  border: 2px solid yellow;
-}
-
-/* Dropdown */
-.race-dropdown {
-  display: none;
-  background: #111;
   padding: 8px;
-  border-radius: 8px;
-  margin-top: 6px;
-}
-
-.race-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.race-dropdown li {
-  font-size: 0.85rem;
-  padding: 2px 0;
+  color: #fff;              /* 🔒 BRANCO */
+  text-shadow: 0 2px 6px #000;
 }
 
 /* ================= FOOTER ================= */
@@ -125,6 +85,4 @@ footer {
   background: #ff2a2a;
   color: #fff;
   font-weight: 700;
-  cursor: pointer;
-  z-index: 1000;
 }
