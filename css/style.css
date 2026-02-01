@@ -1,22 +1,8 @@
-/* --- Reset / base --- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: black;
-  color: white;
-  line-height: 1.4;
-}
-
 /* --- Hero --- */
 .hero {
   position: relative;
-  width: 100%;
-  max-width: 480px; /* mobile only */
+  width: 85%; /* diminui 15% */
+  max-width: 480px; /* ainda mobile-only */
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
@@ -28,6 +14,7 @@ body {
   display: block;
 }
 
+/* Hero content */
 .hero-content {
   position: absolute;
   bottom: 20px;
@@ -37,11 +24,11 @@ body {
 .hero-content h1 a {
   color: white;
   text-shadow: 2px 2px 4px black;
-  font-size: 1.5em;
+  font-size: 1.275em; /* título menor (-15%) */
   text-decoration: none;
 }
 
-/* --- Countdown --- */
+/* Countdown */
 #countdown {
   font-size: 1.2em;
   color: red;
@@ -51,7 +38,7 @@ body {
 
 /* --- Container de corridas --- */
 main.container {
-  max-width: 480px; /* mobile only */
+  max-width: 480px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -62,14 +49,14 @@ main.container {
 .race-card {
   position: relative;
   background-color: #111;
-  border: 2px solid #444; /* default borda cinza */
+  border: 2px solid #444;
   border-radius: 12px;
   overflow: hidden;
   transition: border 0.3s;
 }
 
 .race-card.fav-active {
-  border: 2px solid yellow; /* rebordo amarelo quando favorito */
+  border: 2px solid yellow;
 }
 
 .race-card img {
@@ -81,13 +68,13 @@ main.container {
 .race-card h2 a {
   display: block;
   padding: 10px;
-  color: white;                     /* títulos brancos */
-  text-shadow: 2px 2px 4px black;   /* sombra negra */
-  font-size: 135%;                  /* +35% do tamanho anterior */
+  color: white;
+  text-shadow: 2px 2px 4px black;
+  font-size: 115%; /* diminuiu 15% */
   text-decoration: none;
 }
 
-/* --- Dropdown das fichas --- */
+/* --- Dropdown --- */
 .race-card .race-dropdown {
   display: none;
   background-color: #222;
@@ -99,7 +86,7 @@ main.container {
 }
 
 .race-card .race-dropdown li {
-  font-size: 85%; /* -15% do tamanho anterior */
+  font-size: 85%; /* mantém -15% dos dados */
   margin-bottom: 4px;
 }
 
@@ -112,10 +99,6 @@ main.container {
   border: none;
   font-size: 1.5em;
   cursor: pointer;
-}
-
-.fav-btn.fav-selected {
-  /* o rebordo amarelo agora está na ficha, não no botão */
 }
 
 /* --- Botão voltar ao topo --- */
