@@ -1,6 +1,8 @@
 // js/main.js
-// Estado canónico — funcional
-// NÃO altera layout, NÃO altera hero, NÃO altera CSS
+// Correção focada:
+// ✔ Dropbox real (abrir/fechar)
+// ✔ Favorito visível (🏁 + amarelo)
+// ❌ NÃO altera hero, layout, countdown, CSS ou dados
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -9,13 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const now = new Date();
-
   const nextRace =
-    window.calendar2026.find(r => new Date(r.sessions.race) > now) ||
-    window.calendar2026[0];
+    calendar2026.find(r => new Date(r.sessions.race) > now) ||
+    calendar2026[0];
 
   renderHero(nextRace);
-  renderCards(window.calendar2026);
+  renderCards(calendar2026);
   initBackToTop();
 });
 
@@ -63,7 +64,7 @@ function startCountdown(dateISO, el) {
   setInterval(update, 1000);
 }
 
-/* ================= CARDS (COMPLETO) ================= */
+/* ================= CARDS ================= */
 
 function renderCards(calendar) {
   const container = document.getElementById("race-cards");
@@ -71,45 +72,65 @@ function renderCards(calendar) {
 
   container.innerHTML = "";
 
+  const storedFavs = JSON.parse(localStorage.getItem("favs") || "[]");
+
   calendar.forEach(race => {
     const card = document.createElement("article");
     card.className = "race-card";
 
+    const isFav = storedFavs.includes(race.id);
+
     card.innerHTML = `
-      <div class="race-click">
+      <div class="race-header">
         <img src="${race.image}" alt="${race.name}">
         <h3 class="race-title">${race.name}</h3>
+
+        <button class="fav-btn" title="Favorito">
+          🏁
+        </button>
       </div>
 
-      <button class="fav-btn" data-id="${race.id}">★</button>
+      <button class="details-toggle">
+        Ver detalhes
+      </button>
 
       <div class="race-details hidden">
         <strong>Sessões</strong><br>
-        Practice 1: ${format(race.sessions.practice1)}<br>
-        Practice 2: ${format(race.sessions.practice2)}<br>
-        Practice 3: ${format(race.sessions.practice3)}<br>
-        Qualifying: ${format(race.sessions.qualifying)}<br>
-        Sprint: ${format(race.sessions.sprint)}<br>
-        Race: ${format(race.sessions.race)}<br><br>
+        Practice 1: ${fmt(race.sessions.practice1)}<br>
+        Practice 2: ${fmt(race.sessions.practice2)}<br>
+        Practice 3: ${fmt(race.sessions.practice3)}<br>
+        Qualifying: ${fmt(race.sessions.qualifying)}<br>
+        Sprint: ${fmt(race.sessions.sprint)}<br>
+        Race: ${fmt(race.sessions.race)}<br><br>
 
         <strong>Resultados 2025</strong><br>
         Pole: ${race.results2025?.pole || "—"}<br>
         Fastest Lap: ${race.results2025?.fastestLap || "—"}<br>
         Podium: ${race.results2025?.podium || "—"}<br>
+        Weather: ${race.results2025?.weather || "—"}<br>
+        Race Time: ${race.results2025?.raceTime || "—"}
       </div>
     `;
 
-    // Clique na imagem / título
-    card.querySelector(".race-click").onclick = () => {
-      card.querySelector(".race-details").classList.toggle("hidden");
+    /* ===== DROPDOWN ===== */
+
+    const toggleBtn = card.querySelector(".details-toggle");
+    const details = card.querySelector(".race-details");
+
+    toggleBtn.onclick = () => {
+      details.classList.toggle("hidden");
+      toggleBtn.textContent = details.classList.contains("hidden")
+        ? "Ver detalhes"
+        : "Fechar";
     };
 
-    // Favoritos
-    const favBtn = card.querySelector(".fav-btn");
-    const favs = JSON.parse(localStorage.getItem("favs") || "[]");
+    /* ===== FAVORITO ===== */
 
-    if (favs.includes(race.id)) {
+    const favBtn = card.querySelector(".fav-btn");
+
+    if (isFav) {
       card.classList.add("fav");
+      favBtn.style.color = "#ffd700";
     }
 
     favBtn.onclick = () => {
@@ -118,9 +139,11 @@ function renderCards(calendar) {
       if (favs.includes(race.id)) {
         favs = favs.filter(id => id !== race.id);
         card.classList.remove("fav");
+        favBtn.style.color = "";
       } else {
         favs.push(race.id);
         card.classList.add("fav");
+        favBtn.style.color = "#ffd700";
       }
 
       localStorage.setItem("favs", JSON.stringify(favs));
@@ -132,7 +155,7 @@ function renderCards(calendar) {
 
 /* ================= HELPERS ================= */
 
-function format(dateISO) {
+function fmt(dateISO) {
   if (!dateISO) return "—";
   const d = new Date(dateISO);
   return d.toLocaleString("pt-PT", {
