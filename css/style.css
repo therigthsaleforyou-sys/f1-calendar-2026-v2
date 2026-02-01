@@ -1,5 +1,5 @@
 /* css/style.css */
-/* Mobile-only — estabilidade máxima */
+/* Mobile-only, hero blindado */
 
 body {
   margin: 0;
@@ -8,8 +8,21 @@ body {
   color: #fff;
 }
 
-/* ================= HERO ================= */
+/* ================= HEADER ================= */
+header nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background: #111;
+}
 
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ================= HERO ================= */
 #hero {
   max-width: 420px;
   margin: 0 auto;
@@ -25,7 +38,7 @@ body {
 }
 
 #hero-title {
-  font-size: 1.9rem;
+  font-size: 1.8rem;
   font-weight: 800;
   line-height: 1.2;
   color: #fff;
@@ -40,7 +53,6 @@ body {
 }
 
 /* ================= CARDS ================= */
-
 #race-cards {
   max-width: 420px;
   margin: 0 auto;
@@ -52,6 +64,11 @@ body {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 14px;
+  padding: 8px;
+}
+
+.race-card.favorite-active {
+  border-color: yellow;
 }
 
 .race-card img {
@@ -60,15 +77,19 @@ body {
 }
 
 .race-title {
-  font-size: 1.2rem;
+  font-size: 1.35rem; /* 35% maior */
   font-weight: 700;
-  padding: 8px;
+  padding: 6px 0;
   color: #fff;
   text-shadow: 0 2px 6px #000;
 }
 
-/* ================= FOOTER ================= */
+.race-card p {
+  font-size: 0.85rem; /* 15% menor que padrão */
+  margin: 2px 0;
+}
 
+/* ================= FOOTER ================= */
 footer {
   text-align: center;
   padding: 14px;
@@ -77,7 +98,6 @@ footer {
 }
 
 /* ================= BACK TO TOP ================= */
-
 #back-to-top {
   position: fixed;
   bottom: 12px;
