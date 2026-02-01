@@ -1,6 +1,5 @@
 // js/main.js
-// Estado canónico — mobile-first
-// Hero nunca falha, nunca duplica, nunca quebra countdown
+// Mobile-first, hero e countdown blindados
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -10,10 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const now = new Date();
 
-  // próxima corrida = primeira corrida com race no futuro
-  const nextRace = calendar2026.find(race => {
-    return race.sessions && new Date(race.sessions.race) > now;
-  }) || calendar2026[0];
+  // Próxima corrida = primeira corrida com race no futuro
+  const nextRace = calendar2026.find(race => new Date(race.sessions.race) > now) || calendar2026[0];
 
   renderHero(nextRace);
   renderCards(calendar2026);
@@ -21,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ================= HERO ================= */
-
 function renderHero(race) {
   const heroTitle = document.querySelector("#hero-title");
   const heroCountdown = document.querySelector("#hero-countdown");
@@ -29,9 +25,7 @@ function renderHero(race) {
 
   if (!heroTitle || !heroCountdown || !heroImage) return;
 
-  // 🔴 CORREÇÃO DEFINITIVA: texto simples, sem concatenações
-  heroTitle.textContent = race.name;
-
+  heroTitle.textContent = race.name; // 🔴 texto único, sem duplicação
   heroImage.src = race.image;
   heroImage.alt = race.name;
 
@@ -39,7 +33,6 @@ function renderHero(race) {
 }
 
 /* ================= COUNTDOWN ================= */
-
 function startCountdown(dateISO, element) {
   if (!dateISO || !element) {
     element.textContent = "—";
@@ -69,7 +62,6 @@ function startCountdown(dateISO, element) {
 }
 
 /* ================= CARDS ================= */
-
 function renderCards(calendar) {
   const container = document.querySelector("#race-cards");
   if (!container) return;
@@ -83,14 +75,27 @@ function renderCards(calendar) {
     card.innerHTML = `
       <img src="${race.image}" alt="${race.name}">
       <h3 class="race-title">${race.name}</h3>
+      <p>Pole: ${race.results2025?.pole || "—"}</p>
+      <p>Fastest Lap: ${race.results2025?.fastestLap || "—"}</p>
+      <p>Podium: ${race.results2025?.podium || "—"}</p>
+      <p>Weather: ${race.results2025?.weather || "—"}</p>
+      <p>Race Time: ${race.results2025?.raceTime || "—"}</p>
+      <button class="favorite-btn">⭐ Favorito</button>
     `;
 
     container.appendChild(card);
   });
+
+  // Adicionar rebordo vermelho nos favoritos
+  container.querySelectorAll(".race-card").forEach(card => {
+    const btn = card.querySelector(".favorite-btn");
+    btn.addEventListener("click", () => {
+      card.classList.toggle("favorite-active");
+    });
+  });
 }
 
 /* ================= BACK TO TOP ================= */
-
 function initBackToTop() {
   const btn = document.querySelector("#back-to-top");
   if (!btn) return;
