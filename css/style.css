@@ -1,3 +1,59 @@
+/* css/style.css */
+/* Mobile-first — Estado Canónico */
+
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #000;
+  color: #fff;
+}
+
+/* ================= HEADER ================= */
+header {
+  background: #111;
+  padding: 10px 0;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ================= HERO ================= */
+#hero {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 12px;
+  text-align: center;
+}
+
+#hero-image {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+#hero-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+  margin: 0 0 6px 0;
+}
+
+#hero-countdown {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ff2a2a;
+}
+
 /* ================= CARDS ================= */
 #race-cards {
   max-width: 420px;
@@ -18,6 +74,7 @@
   display: block;
 }
 
+/* Título e botão favorito na mesma linha */
 .race-title-wrapper {
   display: flex;
   justify-content: space-between;
