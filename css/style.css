@@ -1,63 +1,125 @@
-/* css/style.css */
-body {
-  margin:0;
-  font-family:system-ui,sans-serif;
-  background:#000;
-  color:#fff;
-}
-
-header nav a {
+* {
+  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Header F1 style */
-header nav a {
-  padding:10px;
-  background:#000;
-  border:2px solid red;
-  border-radius:14px;
-  color:#fff;
-  font-weight:700;
-  flex:1;
-  text-align:center;
-  transition: all .2s;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0b0b0b;
+  color: #ffffff;
 }
 
-header nav a:hover {
-  box-shadow:0 0 12px #ff2a2a;
+/* HEADER */
+header {
+  padding: 12px;
+  background: #000;
+  border-bottom: 2px solid #ff0000;
 }
 
-header nav a.active {
-  box-shadow:0 0 16px #ff2a2a;
+nav {
+  display: flex;
+  gap: 10px;
 }
 
-/* Hero */
+nav a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 0;
+  border: 2px solid #ff0000;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+nav a:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+nav a:active {
+  transform: scale(0.96);
+}
+
+nav a.active {
+  box-shadow: 0 0 16px rgba(255, 0, 0, 1);
+}
+
+/* HERO */
 #hero {
-  max-width:420px;
-  margin:0 auto;
-  padding:12px;
-  border:2px solid #fff;
-  border-radius:14px;
+  margin: 16px;
+  padding: 12px;
+  border: 2px solid #ffffff;
+  border-radius: 16px;
 }
 
-#hero-image {
-  width:100%;
-  border-radius:14px;
+#hero img {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
 }
 
-/* Race cards */
-#race-cards {max-width:420px; margin:0 auto; padding:8px;}
+#hero h2 {
+  margin: 12px 0 6px;
+  text-align: center;
+}
+
+#hero .countdown {
+  text-align: center;
+  font-weight: 700;
+}
+
+/* CARDS */
+#race-cards {
+  padding: 12px;
+}
 
 .race-card {
-  border:2px solid red;
-  border-radius:14px;
-  margin-bottom:14px;
+  border: 2px solid #ff0000;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 14px;
 }
 
-.race-card img {
-  width:100%;
-  border-radius:14px;
+.race-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Accordion */
-.race-details.hidden {display:none;}
+.race-header h3 {
+  margin: 0;
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+}
+
+.fav-btn.active {
+  color: #ffd700;
+}
+
+.details-toggle {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid #ff0000;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+}
+
+.race-details {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.hidden {
+  display: none;
+}
