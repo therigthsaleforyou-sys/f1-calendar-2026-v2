@@ -23,16 +23,25 @@
   /* Sombra base */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 
-  /* Animação suave */
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  /* Transições suaves */
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    border-color 0.12s ease;
 }
 
-/* ================= TAP / CLICK EFFECT ================= */
+/* ================= ACTIVE / TAP EFFECT ================= */
 
-/* Efeito ao tocar (mobile) */
 .team-card:active {
   transform: translateY(2px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+
+  /* Glow F1 subtil (vermelho) */
+  box-shadow:
+    0 0 0 2px rgba(255, 42, 42, 0.9),
+    0 0 14px rgba(255, 42, 42, 0.6),
+    0 8px 18px rgba(0, 0, 0, 0.7);
+
+  border-color: #ff2a2a;
 }
 
 /* ================= LOGO ================= */
@@ -43,9 +52,7 @@
   margin: 0 auto 12px auto;
   display: block;
 
-  /* Cantos arredondados iguais à ficha */
   border-radius: 14px;
-
   object-fit: contain;
 }
 
