@@ -7,13 +7,14 @@
 .race-card {
   display: flex;
   flex-direction: column;
-  align-items: center;  /* centra todo o conteúdo horizontalmente */
-  text-align: center;   /* centra texto dentro de h3 e divs */
-  padding: 8px;
+  align-items: center;        /* centra todo o conteúdo horizontalmente */
+  text-align: center;         /* centra texto dentro de h3 e divs */
+  padding: 12px;
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 18px;
   border: 2px solid red;
+  background: #000;           /* mantém fundo preto */
 }
 
 /* Logo da equipa */
@@ -28,10 +29,10 @@
 .race-card .team-info {
   display: flex;
   flex-direction: column;
-  align-items: center;  /* centra horizontalmente */
-  justify-content: center; /* centra verticalmente se houver altura extra */
+  align-items: center;        /* centra horizontalmente */
+  justify-content: center;    /* centra verticalmente se houver altura extra */
   text-align: center;
-  margin-top: 12px; /* distância maior do logo */
+  margin-top: 12px;           /* distância maior do logo */
   margin-bottom: 14px;
   width: 100%;
   padding: 0 8px;
@@ -41,23 +42,26 @@
 .race-card .team-info .race-title {
   font-size: 1.3rem;
   font-weight: 800;
-  margin-bottom: 6px;
+  margin-bottom: 10px;        /* espaçamento extra entre nome e pilotos */
   width: 100%;
-  text-align: center;  /* garante centragem do texto */
+  text-align: center;          /* garante centragem do texto */
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
 }
 
 /* Lista de pilotos */
 .race-card .team-info .drivers {
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;            /* aumenta espaço entre linhas */
   width: 100%;
-  text-align: center; /* garante centragem do texto */
+  text-align: center;          /* garante centragem do texto */
+  color: #fff;
 }
 
 /* Destaque do título "Pilotos" */
 .race-card .team-info strong {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-size: 0.85rem;
   opacity: 0.85;
 }
