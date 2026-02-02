@@ -24,8 +24,8 @@ function renderHero(race) {
   if (!heroTitle || !heroCountdown || !heroImage) return;
 
   heroTitle.textContent = race.name;
-  heroImage.src = "assets/heroes/home-hero.jpg";
-  heroImage.alt = "Calendário Fórmula 1 2026";
+  heroImage.src = race.image; // 🔹 corrige caminho das imagens
+  heroImage.alt = race.name;
 
   startCountdown(race.sessions.race, heroCountdown);
 }
@@ -52,7 +52,6 @@ function renderCards(calendar) {
   if (!container) return;
 
   container.innerHTML = "";
-
   const storedFavs = JSON.parse(localStorage.getItem("favs") || "[]");
 
   calendar.forEach(race => {
@@ -133,9 +132,7 @@ function fmt(dateISO) {
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
-  btn.onclick = () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
-  };
+  btn.onclick = () => window.scrollTo({top:0,behavior:"smooth"});
 }
 
 /* ================= BOTÃO ATIVO NO HEADER ================= */
@@ -143,10 +140,7 @@ function markActiveHeader() {
   const path = window.location.pathname;
   const navLinks = document.querySelectorAll('nav a');
   navLinks.forEach(a => {
-    if(path.includes(a.getAttribute('href'))) {
-      a.classList.add('active');
-    } else {
-      a.classList.remove('active');
-    }
+    if(path.includes(a.getAttribute('href'))) a.classList.add('active');
+    else a.classList.remove('active');
   });
 }
