@@ -1,20 +1,17 @@
-/* css/teams.css */
-/* Estilos exclusivos da página Equipas */
-/* Mobile-first | Não interfere com style.css */
+/* css/teams.css atualizado */
 
 /* ================= TEAM CARD ================= */
-
 .race-card {
   display: flex;
   flex-direction: column;
-  align-items: center;        /* centra todo o conteúdo horizontalmente */
-  text-align: center;         /* centra texto dentro de h3 e divs */
+  align-items: center;      /* centra horizontalmente todo o conteúdo */
+  text-align: center;        /* garante centralização do texto */
   padding: 12px;
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 18px;
   border: 2px solid red;
-  background: #000;           /* mantém fundo preto */
+  background: #000;
 }
 
 /* Logo da equipa */
@@ -26,54 +23,40 @@
 }
 
 /* Container do nome e pilotos */
-.race-card .team-info {
+.team-info {
   display: flex;
   flex-direction: column;
-  align-items: center;        /* centra horizontalmente */
-  justify-content: center;    /* centra verticalmente se houver altura extra */
+  align-items: center;      /* centra horizontalmente */
+  justify-content: center;
   text-align: center;
-  margin-top: 12px;           /* distância maior do logo */
+  margin-top: 12px;
   margin-bottom: 14px;
   width: 100%;
   padding: 0 8px;
 }
 
 /* Nome da equipa */
-.race-card .team-info .race-title {
+.team-info .race-title {
   font-size: 1.3rem;
   font-weight: 800;
-  margin-bottom: 10px;        /* espaçamento extra entre nome e pilotos */
-  width: 100%;
-  text-align: center;          /* garante centragem do texto */
+  margin-bottom: 10px;      /* distância do piloto */
+  text-align: center;        /* garante centralização */
   color: #fff;
   text-shadow: 0 2px 6px #000;
 }
 
 /* Lista de pilotos */
-.race-card .team-info .drivers {
+.team-info .drivers {
   font-size: 0.95rem;
-  line-height: 1.6;            /* aumenta espaço entre linhas */
-  width: 100%;
-  text-align: center;          /* garante centragem do texto */
+  line-height: 1.6;          /* aumenta espaço entre linhas */
+  text-align: center;        /* centraliza o texto */
   color: #fff;
 }
 
-/* Destaque do título "Pilotos" */
-.race-card .team-info strong {
+/* Título “Pilotos” */
+.team-info strong {
   display: block;
   margin-bottom: 6px;
   font-size: 0.85rem;
   opacity: 0.85;
-}
-
-/* ================= AJUSTES VISUAIS ================= */
-.race-card img {
-  max-width: 70%;
-}
-
-/* ================= FUTURO (DESKTOP) ================= */
-@media (min-width: 768px) {
-  .race-card img {
-    max-width: 160px;
-  }
 }
