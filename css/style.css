@@ -1,5 +1,5 @@
 /* css/style.css */
-/* Mobile-first — estado estável */
+/* Mobile-first — versão final corrigida */
 
 /* ================= BODY ================= */
 body {
@@ -41,6 +41,8 @@ nav a,
   transition: transform 0.12s ease,
               box-shadow 0.12s ease,
               border-color 0.12s ease;
+
+  -webkit-tap-highlight-color: transparent; /* 🔹 remove azul feio ao toque */
 }
 
 /* Hover */
@@ -60,7 +62,7 @@ nav a:active,
     0 0 0 2px rgba(255,42,42,0.9),
     0 0 14px rgba(255,42,42,0.6),
     0 4px 10px rgba(0,0,0,0.6);
-  border-color: #ff2a2a; /* glow vermelho */
+  border-color: #ff2a2a;
 }
 
 /* Botão ativo */
@@ -124,6 +126,7 @@ nav a.active,
 .race-card img {
   width: 100%;
   display: block;
+  border-radius: 14px; /* 🔹 cantos arredondados das imagens */
 }
 
 /* ----- Header da ficha: título + favorito ----- */
@@ -140,7 +143,7 @@ nav a.active,
   color: #fff;
   text-shadow: 0 2px 6px #000;
   margin: 0;
-  flex: 1; /* ocupa o espaço restante */
+  flex: 1;
 }
 
 .race-card .fav-btn {
