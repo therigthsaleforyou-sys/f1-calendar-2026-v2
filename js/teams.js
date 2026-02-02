@@ -1,5 +1,6 @@
 // js/teams.js
 // Renderização das equipas — mobile-first
+// Atualizado para nome + pilotos centrados abaixo do logo
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.teams2026) return;
@@ -20,10 +21,12 @@ function renderTeams(teams) {
 
     card.innerHTML = `
       <img src="${team.logo}" alt="${team.name}">
-      <h3 class="race-title">${team.name}</h3>
-      <div style="padding:8px; font-size:0.9rem;">
-        <strong>Pilotos</strong><br>
-        ${team.drivers.join("<br>")}
+      <div class="team-info">
+        <h3 class="race-title">${team.name}</h3>
+        <div class="drivers">
+          <strong>Pilotos</strong>
+          ${team.drivers.join("<br>")}
+        </div>
       </div>
     `;
 
@@ -31,7 +34,7 @@ function renderTeams(teams) {
   });
 }
 
-/* BACK TO TOP */
+/* ================= BACK TO TOP ================= */
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
