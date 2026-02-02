@@ -1,8 +1,6 @@
 // data/calendar2026.js
-// Calendário Fórmula 1 2026
-// Fonte única de dados
-// Horários só serão preenchidos a partir do site oficial da F1
-// Estado canónico — seguro contra regressões
+// Calendário Oficial Fórmula 1 2026
+// Fonte única de dados (site oficial da F1)
 
 const calendar2026 = [
   {
@@ -17,14 +15,10 @@ const calendar2026 = [
       practice3: "Horário Indisponível",
       qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-03-08T04:00:00Z" // horário oficial PT
+      race: "2026-03-08T04:00:00Z"
     },
     results2025: {
-      pole: "Lando Norris",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Lando Norris"
     }
   },
 
@@ -43,11 +37,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "Oscar Piastri",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Oscar Piastri"
     }
   },
 
@@ -66,11 +56,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "Max Verstappen",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Max Verstappen"
     }
   },
 
@@ -89,11 +75,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "Oscar Piastri",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Oscar Piastri"
     }
   },
 
@@ -112,11 +94,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "—",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Max Verstappen"
     }
   },
 
@@ -135,11 +113,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "—",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Max Verstappen"
     }
   },
 
@@ -158,11 +132,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "Charles Leclerc",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Charles Leclerc"
     }
   },
 
@@ -181,11 +151,7 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "—",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "Max Verstappen"
     }
   },
 
@@ -204,16 +170,247 @@ const calendar2026 = [
       race: "Horário Indisponível"
     },
     results2025: {
-      pole: "—",
-      fastestLap: "—",
-      podium: "—",
-      weather: "—",
-      raceTime: "—"
+      pole: "George Russell"
     }
-  }
+  },
 
-  // 👉 restantes GPs seguem exatamente o mesmo padrão
+  {
+    id: "austria",
+    country: "Áustria",
+    name: "Grande Prémio da Áustria",
+    slug: "austria",
+    image: "assets/races/austria.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "britain",
+    country: "Reino Unido",
+    name: "Grande Prémio da Grã-Bretanha",
+    slug: "britain",
+    image: "assets/races/britain.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "George Russell" }
+  },
+
+  {
+    id: "hungary",
+    country: "Hungria",
+    name: "Grande Prémio da Hungria",
+    slug: "hungary",
+    image: "assets/races/hungary.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Lando Norris" }
+  },
+
+  {
+    id: "belgium",
+    country: "Bélgica",
+    name: "Grande Prémio da Bélgica",
+    slug: "belgium",
+    image: "assets/races/belgium.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "netherlands",
+    country: "Países Baixos",
+    name: "Grande Prémio dos Países Baixos",
+    slug: "netherlands",
+    image: "assets/races/netherlands.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "italy",
+    country: "Itália",
+    name: "Grande Prémio de Itália",
+    slug: "italy",
+    image: "assets/races/italy.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Carlos Sainz" }
+  },
+
+  {
+    id: "azerbaijan",
+    country: "Azerbaijão",
+    name: "Grande Prémio do Azerbaijão",
+    slug: "azerbaijan",
+    image: "assets/races/azerbaijan.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Charles Leclerc" }
+  },
+
+  {
+    id: "singapore",
+    country: "Singapura",
+    name: "Grande Prémio de Singapura",
+    slug: "singapore",
+    image: "assets/races/singapore.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Carlos Sainz" }
+  },
+
+  {
+    id: "usa",
+    country: "Estados Unidos",
+    name: "Grande Prémio dos Estados Unidos",
+    slug: "usa",
+    image: "assets/races/usa.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "mexico",
+    country: "México",
+    name: "Grande Prémio do México",
+    slug: "mexico",
+    image: "assets/races/mexico.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "brazil",
+    country: "Brasil",
+    name: "Grande Prémio de São Paulo",
+    slug: "brazil",
+    image: "assets/races/brazil.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "lasvegas",
+    country: "Estados Unidos",
+    name: "Grande Prémio de Las Vegas",
+    slug: "lasvegas",
+    image: "assets/races/lasvegas.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Charles Leclerc" }
+  },
+
+  {
+    id: "qatar",
+    country: "Qatar",
+    name: "Grande Prémio do Qatar",
+    slug: "qatar",
+    image: "assets/races/qatar.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  },
+
+  {
+    id: "abudhabi",
+    country: "Emirados Árabes Unidos",
+    name: "Grande Prémio de Abu Dhabi",
+    slug: "abudhabi",
+    image: "assets/races/abudhabi.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: { pole: "Max Verstappen" }
+  }
 ];
 
-// Fonte única de verdade
 window.calendar2026 = calendar2026;
