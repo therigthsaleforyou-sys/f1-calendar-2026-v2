@@ -1,203 +1,63 @@
 /* css/style.css */
-/* Mobile-first — versão final corrigida */
-
-/* ================= BODY ================= */
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #000;
-  color: #fff;
+  margin:0;
+  font-family:system-ui,sans-serif;
+  background:#000;
+  color:#fff;
 }
 
-/* ================= HEADER / NAV ================= */
-header {
-  padding: 10px;
+header nav a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-nav,
-.main-nav {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+/* Header F1 style */
+header nav a {
+  padding:10px;
+  background:#000;
+  border:2px solid red;
+  border-radius:14px;
+  color:#fff;
+  font-weight:700;
+  flex:1;
+  text-align:center;
+  transition: all .2s;
 }
 
-nav a,
-.main-nav a {
-  flex: 1;
-  text-align: center;
-
-  padding: 10px 0;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #fff;
-
-  background: #000;
-  border: 2px solid red;
-  border-radius: 14px;
-
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-
-  transition: transform 0.12s ease,
-              box-shadow 0.12s ease,
-              border-color 0.12s ease;
-
-  -webkit-tap-highlight-color: transparent; /* 🔹 remove azul feio ao toque */
+header nav a:hover {
+  box-shadow:0 0 12px #ff2a2a;
 }
 
-/* Hover */
-nav a:hover,
-.main-nav a:hover {
-  box-shadow:
-    0 0 0 2px rgba(255,42,42,0.9),
-    0 0 16px rgba(255,42,42,0.6),
-    0 6px 14px rgba(0,0,0,0.6);
+header nav a.active {
+  box-shadow:0 0 16px #ff2a2a;
 }
 
-/* Tap / click */
-nav a:active,
-.main-nav a:active {
-  transform: translateY(2px);
-  box-shadow:
-    0 0 0 2px rgba(255,42,42,0.9),
-    0 0 14px rgba(255,42,42,0.6),
-    0 4px 10px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-/* Botão ativo */
-nav a.active,
-.main-nav a.active {
-  border-color: #ff2a2a;
-  box-shadow:
-    0 0 0 2px rgba(255,42,42,0.9),
-    0 0 16px rgba(255,42,42,0.7),
-    0 8px 18px rgba(0,0,0,0.7);
-}
-
-/* ================= HERO ================= */
+/* Hero */
 #hero {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 12px;
-  border: 2px solid #fff; /* Reborde branco autorizado */
-  border-radius: 14px;
+  max-width:420px;
+  margin:0 auto;
+  padding:12px;
+  border:2px solid #fff;
+  border-radius:14px;
 }
 
 #hero-image {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 12px;
+  width:100%;
+  border-radius:14px;
 }
 
-#hero-title {
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 2px 6px #000;
-  margin: 0 0 6px 0;
-}
+/* Race cards */
+#race-cards {max-width:420px; margin:0 auto; padding:8px;}
 
-#hero-countdown {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ff2a2a;
-}
-
-/* ================= CARDS ================= */
-#race-cards {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-/* --------- RACE CARD --------- */
 .race-card {
-  border: 2px solid red;
-  border-radius: 14px;
-  overflow: hidden;
-  margin-bottom: 14px;
-}
-
-.race-card.fav {
-  border-color: #ffd700; /* amarelo quando favorito */
+  border:2px solid red;
+  border-radius:14px;
+  margin-bottom:14px;
 }
 
 .race-card img {
-  width: 100%;
-  display: block;
-  border-radius: 14px; /* 🔹 cantos arredondados das imagens */
+  width:100%;
+  border-radius:14px;
 }
 
-/* ----- Header da ficha: título + favorito ----- */
-.race-card .race-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px;
-}
-
-.race-card .race-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 2px 6px #000;
-  margin: 0;
-  flex: 1;
-}
-
-.race-card .fav-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  color: inherit;
-  margin-left: 8px;
-}
-
-/* ----- Dropdown detalhes ----- */
-.race-card .details-toggle {
-  display: block;
-  margin: 0 auto 8px auto;
-  padding: 6px 12px;
-  border-radius: 10px;
-  background: #222;
-  border: 2px solid red;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  text-align: center;
-}
-
-.race-card .race-details.hidden {
-  display: none;
-}
-
-.race-card .race-details {
-  padding: 8px;
-  font-size: 0.85rem;
-  line-height: 1.3;
-  color: #fff;
-  text-align: left;
-}
-
-/* ================= FOOTER ================= */
-footer {
-  text-align: center;
-  padding: 14px;
-  font-size: 0.75rem;
-  opacity: 0.7;
-}
-
-/* ================= BACK TO TOP ================= */
-#back-to-top {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  padding: 8px 12px;
-  border-radius: 20px;
-  border: none;
-  background: #ff2a2a;
-  color: #fff;
-  font-weight: 700;
-}
+/* Accordion */
+.race-details.hidden {display:none;}
