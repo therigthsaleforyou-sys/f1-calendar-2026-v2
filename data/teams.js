@@ -1,7 +1,5 @@
 // data/teams.js
-// Equipas e pilotos oficiais da F1 2026
-// Dados com base em https://www.formula1.com/
-// Mobile‑first, isolado de calendar2026.js
+// Dado oficial de equipas e pilotos para a F1 2026
 
 const teams2026 = [
   {
@@ -12,7 +10,7 @@ const teams2026 = [
   },
   {
     id: "mercedes",
-    name: "Mercedes‑AMG Petronas",
+    name: "Mercedes F1 Team",
     logo: "assets/teams/mercedes.png",
     drivers: ["George Russell", "Kimi Antonelli"]
   },
@@ -72,5 +70,5 @@ const teams2026 = [
   }
 ];
 
-// Tornar global para teams.js
+// torna global
 window.teams2026 = teams2026;
