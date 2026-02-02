@@ -1,6 +1,6 @@
 // js/teams.js
 // Renderização das equipas — mobile-first
-// Atualizado para nome + pilotos centrados abaixo do logo
+// Atualizado para compatibilidade com CSS centrado
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.teams2026) return;
