@@ -2,6 +2,8 @@
 /* Mobile-first — estado estável */
 /* Homepage + Equipas com header unificado F1 */
 
+/* ================= BODY ================= */
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -15,15 +17,15 @@ header {
   padding: 10px;
 }
 
-.main-nav,
-nav {
+nav,
+.main-nav {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
 
-.main-nav a,
-nav a {
+nav a,
+.main-nav a {
   flex: 1;
   text-align: center;
 
@@ -37,6 +39,7 @@ nav a {
   border: 2px solid red;
   border-radius: 14px;
 
+  /* sombra tipo ficha */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 
   transition:
@@ -46,20 +49,20 @@ nav a {
 }
 
 /* Tap / click */
-.main-nav a:active,
-nav a:active {
+nav a:active,
+.main-nav a:active {
   transform: translateY(2px);
   box-shadow:
     0 0 0 2px rgba(255, 42, 42, 0.9),
     0 0 14px rgba(255, 42, 42, 0.6),
     0 4px 10px rgba(0, 0, 0, 0.6);
 
-  border-color: #ff2a2a;
+  border-color: #ff2a2a; /* glow vermelho */
 }
 
-/* Botão ativo (quando existir .active) */
-.main-nav a.active,
-nav a.active {
+/* Botão ativo */
+nav a.active,
+.main-nav a.active {
   border-color: #ff2a2a;
   box-shadow:
     0 0 0 2px rgba(255, 42, 42, 0.9),
