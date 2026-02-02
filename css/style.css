@@ -67,6 +67,18 @@ header a {
   overflow: hidden;
   margin-bottom: 14px;
   background: #111;
+
+  /* Animação ao renderizar */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.4s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .race-card img {
@@ -111,10 +123,15 @@ header a {
   padding: 8px;
   font-size: 0.85rem;
   line-height: 1.3;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
 }
 
-.hidden {
-  display: none;
+.race-details.show {
+  max-height: 500px; /* suficiente para o conteúdo */
+  opacity: 1;
 }
 
 .details-toggle {
