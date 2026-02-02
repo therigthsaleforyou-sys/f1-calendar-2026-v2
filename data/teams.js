@@ -1,25 +1,9 @@
 // data/teams.js
-// Fonte: Fórmula 1 (estrutura base)
+// Equipas e pilotos oficiais da F1 2026
+// Dados com base em https://www.formula1.com/
+// Mobile‑first, isolado de calendar2026.js
 
 const teams2026 = [
-  {
-    id: "redbull",
-    name: "Red Bull Racing",
-    logo: "assets/teams/redbull.png",
-    drivers: ["Max Verstappen", "Sergio Pérez"]
-  },
-  {
-    id: "ferrari",
-    name: "Scuderia Ferrari",
-    logo: "assets/teams/ferrari.png",
-    drivers: ["Charles Leclerc", "Carlos Sainz"]
-  },
-  {
-    id: "mercedes",
-    name: "Mercedes-AMG Petronas",
-    logo: "assets/teams/mercedes.png",
-    drivers: ["George Russell", "Lewis Hamilton"]
-  },
   {
     id: "mclaren",
     name: "McLaren",
@@ -27,12 +11,66 @@ const teams2026 = [
     drivers: ["Lando Norris", "Oscar Piastri"]
   },
   {
+    id: "mercedes",
+    name: "Mercedes‑AMG Petronas",
+    logo: "assets/teams/mercedes.png",
+    drivers: ["George Russell", "Kimi Antonelli"]
+  },
+  {
+    id: "redbull",
+    name: "Red Bull Racing",
+    logo: "assets/teams/redbull.png",
+    drivers: ["Max Verstappen", "Isack Hadjar"]
+  },
+  {
+    id: "ferrari",
+    name: "Scuderia Ferrari",
+    logo: "assets/teams/ferrari.png",
+    drivers: ["Charles Leclerc", "Lewis Hamilton"]
+  },
+  {
+    id: "williams",
+    name: "Williams Racing",
+    logo: "assets/teams/williams.png",
+    drivers: ["Alexander Albon", "Carlos Sainz"]
+  },
+  {
+    id: "racingbulls",
+    name: "Racing Bulls",
+    logo: "assets/teams/racingbulls.png",
+    drivers: ["Liam Lawson", "Arvid Lindblad"]
+  },
+  {
     id: "astonmartin",
-    name: "Aston Martin",
+    name: "Aston Martin Aramco",
     logo: "assets/teams/astonmartin.png",
     drivers: ["Fernando Alonso", "Lance Stroll"]
+  },
+  {
+    id: "haas",
+    name: "Haas F1 Team",
+    logo: "assets/teams/haas.png",
+    drivers: ["Esteban Ocon", "Ollie Bearman"]
+  },
+  {
+    id: "audi",
+    name: "Audi F1 Team",
+    logo: "assets/teams/audi.png",
+    drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"]
+  },
+  {
+    id: "alpine",
+    name: "Alpine F1 Team",
+    logo: "assets/teams/alpine.png",
+    drivers: ["Pierre Gasly", "Franco Colapinto"]
+  },
+  {
+    id: "cadillac",
+    name: "Cadillac F1 Team",
+    logo: "assets/teams/cadillac.png",
+    drivers: ["Valtteri Bottas", "Sergio Pérez"]
   }
 ];
 
-// tornar global
+// Tornar global para teams.js
 window.teams2026 = teams2026;
