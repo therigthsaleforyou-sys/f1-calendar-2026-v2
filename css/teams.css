@@ -1,6 +1,61 @@
 /* css/teams.css */
 /* Página Equipas — estado estável */
-/* Mobile-first | visual premium F1 */
+/* Mobile-first | visual F1 premium */
+
+/* ================= NAV HEADER ================= */
+
+header {
+  padding: 10px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.main-nav a {
+  flex: 1;
+  text-align: center;
+
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+
+  /* sombra tipo ficha */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+/* Tap / click */
+.main-nav a:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 0 2px rgba(255, 42, 42, 0.9),
+    0 0 14px rgba(255, 42, 42, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.6);
+
+  border-color: #ff2a2a;
+}
+
+/* Botão ativo (Equipas) */
+.main-nav a.active {
+  border-color: #ff2a2a;
+  box-shadow:
+    0 0 0 2px rgba(255, 42, 42, 0.9),
+    0 0 16px rgba(255, 42, 42, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.7);
+}
 
 /* ================= CONTAINER ================= */
 
@@ -20,22 +75,17 @@
   text-align: center;
   background: #000;
 
-  /* Sombra base */
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 
-  /* Transições suaves */
   transition:
     transform 0.12s ease,
     box-shadow 0.12s ease,
     border-color 0.12s ease;
 }
 
-/* ================= ACTIVE / TAP EFFECT ================= */
-
+/* Glow F1 subtil no toque */
 .team-card:active {
   transform: translateY(2px);
-
-  /* Glow F1 subtil (vermelho) */
   box-shadow:
     0 0 0 2px rgba(255, 42, 42, 0.9),
     0 0 14px rgba(255, 42, 42, 0.6),
@@ -51,7 +101,6 @@
   max-width: 220px;
   margin: 0 auto 12px auto;
   display: block;
-
   border-radius: 14px;
   object-fit: contain;
 }
