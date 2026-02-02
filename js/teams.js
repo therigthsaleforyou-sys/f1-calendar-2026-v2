@@ -1,39 +1,79 @@
-// js/teams.js
-// Renderização das 11 equipas oficiais F1 2026
-// Mobile-first, textos centralizados com container .team-info
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.teams2026 || !Array.isArray(window.teams2026)) {
-    console.error("teams2026 não encontrado");
-    return;
+// data/teams.js
+const teams2026 = [
+  {
+    name: "Red Bull Racing",
+    logo: "assets/teams/redbull.png",
+    drivers: ["Max Verstappen", "Sergio Pérez"]
+  },
+  {
+    name: "Mercedes",
+    logo: "assets/teams/mercedes.png",
+    drivers: ["Lewis Hamilton", "George Russell"]
+  },
+  {
+    name: "Ferrari",
+    logo: "assets/teams/ferrari.png",
+    drivers: ["Charles Leclerc", "Carlos Sainz"]
+  },
+  {
+    name: "McLaren",
+    logo: "assets/teams/mclaren.png",
+    drivers: ["Lando Norris", "Oscar Piastri"]
+  },
+  {
+    name: "Alpine",
+    logo: "assets/teams/alpine.png",
+    drivers: ["Esteban Ocon", "Pierre Gasly"]
+  },
+  {
+    name: "Aston Martin",
+    logo: "assets/teams/astonmartin.png",
+    drivers: ["Fernando Alonso", "Lance Stroll"]
+  },
+  {
+    name: "AlphaTauri",
+    logo: "assets/teams/alphatauri.png",
+    drivers: ["Yuki Tsunoda", "Daniel Ricciardo"]
+  },
+  {
+    name: "Alfa Romeo",
+    logo: "assets/teams/alfaromeo.png",
+    drivers: ["Valtteri Bottas", "Zhou Guanyu"]
+  },
+  {
+    name: "Haas",
+    logo: "assets/teams/haas.png",
+    drivers: ["Kevin Magnussen", "Nico Hülkenberg"]
+  },
+  {
+    name: "Williams",
+    logo: "assets/teams/williams.png",
+    drivers: ["Logan Sargeant", "Alexander Albon"]
+  },
+  {
+    name: "Mercedes Junior/Reserve",
+    logo: "assets/teams/reserve.png",
+    drivers: ["Piloto reserva"]
   }
+];
 
+// Renderizar fichas
+document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("race-cards");
   if (!container) return;
 
   container.innerHTML = "";
 
-  window.teams2026.forEach(team => {
+  teams2026.forEach(team => {
     const card = document.createElement("article");
-    card.className = "race-card";
+    card.className = "team-card";
 
     card.innerHTML = `
       <img src="${team.logo}" alt="${team.name}">
-      <div class="team-info">
-        <h3 class="race-title">${team.name}</h3>
-        <div class="drivers">
-          <strong>Pilotos</strong><br>
-          ${team.drivers.join("<br>")}
-        </div>
-      </div>
+      <div class="team-name">${team.name}</div>
+      <div class="team-drivers">${team.drivers.join(" / ")}</div>
     `;
 
     container.appendChild(card);
   });
-
-  // Back to top
-  const btn = document.getElementById("back-to-top");
-  if (btn) {
-    btn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 });
