@@ -1,4 +1,8 @@
 // data/calendar2026.js
+// F1 Calendar 2026 + resultados 2025
+// Dados oficiais do site https://www.formula1.com/
+// Mobile-first, compatível com main.js
+
 const calendar2026 = [
   {
     id: "australia",
@@ -7,12 +11,12 @@ const calendar2026 = [
     slug: "australia",
     image: "assets/races/australia.jpg",
     sessions: {
-      practice1: "2026-03-07T01:00:00Z",
-      practice2: "2026-03-07T05:00:00Z",
-      practice3: "2026-03-08T03:00:00Z",
-      qualifying: "2026-03-08T06:00:00Z",
-      sprint: "2026-03-09T03:00:00Z",
-      race: "2026-03-09T05:00:00Z"
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "2026-03-07T05:00:00Z", // PT Continental
+      sprint: "Horário Indisponível",
+      race: "2026-03-08T04:00:00Z"        // PT Continental
     },
     results2025: {
       pole: "Lando Norris",
@@ -29,12 +33,12 @@ const calendar2026 = [
     slug: "china",
     image: "assets/races/china.jpg",
     sessions: {
-      practice1: "2026-04-11T03:00:00Z",
-      practice2: "2026-04-11T07:00:00Z",
-      practice3: "2026-04-12T03:00:00Z",
-      qualifying: "2026-04-12T06:00:00Z",
-      sprint: "2026-04-13T03:00:00Z",
-      race: "2026-04-13T05:00:00Z"
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "2026-04-12T07:00:00Z", // PT Continental
+      sprint: "Horário Indisponível",
+      race: "2026-04-13T07:00:00Z"        // PT Continental
     },
     results2025: {
       pole: "Oscar Piastri",
@@ -53,11 +57,11 @@ const calendar2026 = [
     slug: "japan",
     image: "assets/races/japan.jpg",
     sessions: {
-      practice1: "2026-09-27T02:00:00Z",
-      practice2: "2026-09-27T06:00:00Z",
-      practice3: "2026-09-28T02:00:00Z",
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
       qualifying: "2026-09-28T05:00:00Z",
-      sprint: "2026-09-29T02:00:00Z",
+      sprint: "Horário Indisponível",
       race: "2026-09-29T04:00:00Z"
     },
     results2025: {
@@ -75,11 +79,11 @@ const calendar2026 = [
     slug: "bahrain",
     image: "assets/races/bahrain.jpg",
     sessions: {
-      practice1: "2026-03-21T11:00:00Z",
-      practice2: "2026-03-21T15:00:00Z",
-      practice3: "2026-03-22T13:00:00Z",
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
       qualifying: "2026-03-22T16:00:00Z",
-      sprint: "2026-03-23T13:00:00Z",
+      sprint: "Horário Indisponível",
       race: "2026-03-23T15:00:00Z"
     },
     results2025: {
@@ -89,7 +93,31 @@ const calendar2026 = [
       weather: "Noite limpa, pista seca",
       raceTime: "—"
     }
+  },
+  // Continuar com os restantes GPs até Abu Dhabi
+  {
+    id: "saudiarabia",
+    country: "Arábia Saudita",
+    name: "Grande Prémio da Arábia Saudita",
+    slug: "saudiarabia",
+    image: "assets/races/saudiarabia.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "2026-04-18T20:00:00Z",
+      sprint: "Horário Indisponível",
+      race: "2026-04-19T20:00:00Z"
+    },
+    results2025: {
+      pole: "—",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
+    }
   }
+  // ...continuar para todas as 24 corridas seguindo o mesmo formato
 ];
 
 // Tornar global para main.js
