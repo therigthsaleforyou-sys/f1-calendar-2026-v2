@@ -1,130 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
-  markActiveMenu();
-  renderHomepage();
-  setupBackToTop();
-});
+const heroImage = document.getElementById("hero-image");
+const heroTitle = document.getElementById("hero-title");
+const heroCountdown = document.getElementById("hero-countdown");
+const raceCards = document.getElementById("race-cards");
+const backToTopBtn = document.getElementById("back-to-top");
 
-function markActiveMenu() {
-  document.querySelectorAll("nav a").forEach(link => {
-    if (location.pathname.includes(link.getAttribute("href"))) {
-      link.classList.add("active");
-    }
-  });
-}
+// HERO = próxima corrida
+const nextRace = calendar2026[0];
 
-function renderHomepage() {
-  if (!window.calendar2026) return;
-  renderHero();
-  renderRaceCards();
-}
+heroImage.src = nextRace.image;
+heroTitle.textContent = nextRace.name;
 
-/* HERO + COUNTDOWN */
-function renderHero() {
-  const heroTitle = document.getElementById("hero-title");
-  const heroImage = document.getElementById("hero-image");
-  const heroCountdown = document.getElementById("hero-countdown");
+// Countdown
+const raceDate = new Date("2026-03-08T04:00:00"); // Austrália – conforme site oficial
 
-  const nextRace = calendar2026[0];
-  if (!nextRace) return;
+function updateCountdown() {
+  const now = new Date();
+  const diff = raceDate - now;
 
-  heroTitle.textContent = nextRace.name;
-  heroImage.src = nextRace.image;
-  heroImage.alt = nextRace.name;
-
-  startCountdown(nextRace.sessions.race, heroCountdown);
-}
-
-function startCountdown(dateStr, el) {
-  if (!dateStr) {
-    el.textContent = "Horário indisponível";
+  if (diff <= 0) {
+    heroCountdown.textContent = "🏁 A CORRIDA COMEÇOU 🏁";
     return;
   }
 
-  function parseDate(str) {
-    const [day, mon, time] = str.split(" ");
-    const [h, m] = time.split(":");
-    const months = {
-      Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-      Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
-    };
-    return new Date(2026, months[mon], day, h, m);
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  heroCountdown.textContent =
+    `🏁 ${days}d ${hours}h ${minutes}m ${seconds}s 🏁`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// Corridas
+calendar2026.forEach(race => {
+  const card = document.createElement("div");
+  card.className = "race-card";
+  card.dataset.id = race.id;
+
+  card.innerHTML = `
+    <img src="${race.image}" alt="${race.name}">
+    <h3>${race.name}</h3>
+    <button class="fav-btn">🏁</button>
+    <button class="details-btn">Ver detalhes</button>
+  `;
+
+  raceCards.appendChild(card);
+});
+
+// Favoritos
+document.addEventListener("click", e => {
+  if (e.target.classList.contains("fav-btn")) {
+    const card = e.target.closest(".race-card");
+    card.classList.toggle("favorite");
   }
+});
 
-  const target = parseDate(dateStr);
+// Back to top
+window.addEventListener("scroll", () => {
+  backToTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+});
 
-  function update() {
-    const diff = target - Date.now();
-    if (diff <= 0) {
-      el.textContent = "Hoje";
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    el.textContent = `${d}d ${h}h ${m}m`;
-  }
-
-  update();
-  setInterval(update, 60000);
-}
-
-/* RACE CARDS */
-function renderRaceCards() {
-  const container = document.getElementById("race-cards");
-  container.innerHTML = "";
-
-  calendar2026.forEach(race => {
-    const card = document.createElement("article");
-    card.className = "race-card";
-
-    card.innerHTML = `
-      <img class="race-image" src="${race.image}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-        <button class="fav-btn">🏁</button>
-      </div>
-
-      <button class="details-toggle">Ver detalhes</button>
-
-      <div class="race-details hidden">
-        <div>FP1: ${fmt(race.sessions.fp1)}</div>
-        <div>FP2: ${fmt(race.sessions.fp2)}</div>
-        <div>FP3: ${fmt(race.sessions.fp3)}</div>
-        <div>Qualifying: ${fmt(race.sessions.qualifying)}</div>
-        <div>Race: ${fmt(race.sessions.race)}</div>
-      </div>
-    `;
-
-    const favBtn = card.querySelector(".fav-btn");
-    favBtn.addEventListener("click", () => {
-      favBtn.classList.toggle("active");
-      card.classList.toggle("fav");
-    });
-
-    const toggle = card.querySelector(".details-toggle");
-    const details = card.querySelector(".race-details");
-    toggle.addEventListener("click", () => {
-      details.classList.toggle("hidden");
-    });
-
-    container.appendChild(card);
-  });
-}
-
-function fmt(v) {
-  return v || "—";
-}
-
-/* BACK TO TOP */
-function setupBackToTop() {
-  const btn = document.getElementById("back-to-top");
-  if (!btn) return;
-
-  window.addEventListener("scroll", () => {
-    btn.classList.toggle("show", window.scrollY > 300);
-  });
-
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
