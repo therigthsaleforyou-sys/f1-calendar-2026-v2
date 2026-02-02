@@ -24,7 +24,7 @@ function renderHero(race) {
   if (!heroTitle || !heroCountdown || !heroImage) return;
 
   heroTitle.textContent = race.name;
-  heroImage.src = race.image; // 🔹 corrige caminho das imagens
+  heroImage.src = race.image; // imagens carregam corretamente
   heroImage.alt = race.name;
 
   startCountdown(race.sessions.race, heroCountdown);
@@ -51,7 +51,8 @@ function renderCards(calendar) {
   const container = document.getElementById("race-cards");
   if (!container) return;
 
-  container.innerHTML = "";
+  container.innerHTML = ""; // limpa antes de renderizar
+
   const storedFavs = JSON.parse(localStorage.getItem("favs") || "[]");
 
   calendar.forEach(race => {
@@ -84,20 +85,21 @@ function renderCards(calendar) {
       </div>
     `;
 
-    /* ===== DROPDOWN ===== */
+    // DROPDOWN robusto
     const toggleBtn = card.querySelector(".details-toggle");
     const details = card.querySelector(".race-details");
-    toggleBtn.onclick = () => {
+    toggleBtn?.addEventListener("click", () => {
+      if (!details) return;
       details.classList.toggle("hidden");
       toggleBtn.textContent = details.classList.contains("hidden")
         ? "Ver detalhes"
         : "Fechar";
-    };
+    });
 
-    /* ===== FAVORITO ===== */
+    // FAVORITO robusto
     const favBtn = card.querySelector(".fav-btn");
     favBtn.style.color = isFav ? "#ffd700" : "";
-    favBtn.onclick = () => {
+    favBtn?.addEventListener("click", () => {
       let favs = JSON.parse(localStorage.getItem("favs") || "[]");
       if(favs.includes(race.id)) {
         favs = favs.filter(id => id !== race.id);
@@ -109,7 +111,7 @@ function renderCards(calendar) {
         favBtn.style.color = "#ffd700";
       }
       localStorage.setItem("favs", JSON.stringify(favs));
-    };
+    });
 
     container.appendChild(card);
   });
@@ -135,11 +137,10 @@ function initBackToTop() {
   btn.onclick = () => window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ================= BOTÃO ATIVO NO HEADER ================= */
+/* ================= HEADER ATIVO ================= */
 function markActiveHeader() {
   const path = window.location.pathname;
-  const navLinks = document.querySelectorAll('nav a');
-  navLinks.forEach(a => {
+  document.querySelectorAll('nav a').forEach(a => {
     if(path.includes(a.getAttribute('href'))) a.classList.add('active');
     else a.classList.remove('active');
   });
