@@ -1,147 +1,106 @@
+// js/main.js
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não encontrado");
-    return;
-  }
+  if (!window.calendar2026 || !Array.isArray(calendar2026)) return;
 
-  const now = new Date();
-  const nextRace =
-    calendar2026.find(r => new Date(r.sessions.race) > now) ||
-    calendar2026[0];
-
-  renderHero(nextRace);
-  renderCards(calendar2026);
+  renderHero();
+  renderCards();
   initBackToTop();
   markActiveHeader();
 });
 
-/* ================= HERO ================= */
-function renderHero(race) {
-  const heroTitle = document.getElementById("hero-title");
-  const heroCountdown = document.getElementById("hero-countdown");
+function renderHero() {
+  const now = new Date();
+  const next = calendar2026.find(r => new Date(r.sessions.race) > now) || calendar2026[0];
+  document.getElementById("hero-title").textContent = next.name;
   const heroImage = document.getElementById("hero-image");
-
-  if (!heroTitle || !heroCountdown || !heroImage) return;
-
-  heroTitle.textContent = race.name;
-  heroImage.src = race.image; // imagens carregam corretamente
-  heroImage.alt = race.name;
-
-  startCountdown(race.sessions.race, heroCountdown);
+  heroImage.src = next.image;
+  heroImage.alt = next.name;
+  startCountdown(next.sessions.race, document.getElementById("hero-countdown"));
 }
 
-/* ================= COUNTDOWN ================= */
 function startCountdown(dateISO, el) {
-  if (!dateISO || !el) { el.textContent = "—"; return; }
+  if (!dateISO) return;
   function update() {
-    const diff = new Date(dateISO).getTime() - Date.now();
-    if (diff <= 0) { el.textContent = "Hoje"; return; }
+    const diff = new Date(dateISO) - Date.now();
+    if (diff <= 0) return void (el.textContent = "Hoje");
     const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    const s = Math.floor((diff / 1000) % 60);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
     el.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
   update();
   setInterval(update, 1000);
 }
 
-/* ================= CARDS ================= */
-function renderCards(calendar) {
+function renderCards() {
   const container = document.getElementById("race-cards");
   if (!container) return;
+  container.innerHTML = "";
+  const stored = JSON.parse(localStorage.getItem("favs") || "[]");
 
-  container.innerHTML = ""; // limpa antes de renderizar
-
-  const storedFavs = JSON.parse(localStorage.getItem("favs") || "[]");
-
-  calendar.forEach(race => {
+  calendar2026.forEach(r => {
     const card = document.createElement("article");
     card.className = "race-card";
 
-    const isFav = storedFavs.includes(race.id);
-    if(isFav) card.classList.add("fav");
+    const fav = stored.includes(r.id);
 
     card.innerHTML = `
       <div class="race-header">
-        <h3 class="race-title">${race.name}</h3>
+        <h3 class="race-title">${r.name}</h3>
         <button class="fav-btn" title="Favorito">🏁</button>
       </div>
       <button class="details-toggle">Ver detalhes</button>
-      <div class="race-details hidden">
-        <strong>Sessões</strong><br>
-        Practice 1: ${fmt(race.sessions.practice1)}<br>
-        Practice 2: ${fmt(race.sessions.practice2)}<br>
-        Practice 3: ${fmt(race.sessions.practice3)}<br>
-        Qualifying: ${fmt(race.sessions.qualifying)}<br>
-        Sprint: ${fmt(race.sessions.sprint)}<br>
-        Race: ${fmt(race.sessions.race)}<br><br>
-        <strong>Resultados 2025</strong><br>
-        Pole: ${race.results2025?.pole || "—"}<br>
-        Fastest Lap: ${race.results2025?.fastestLap || "—"}<br>
-        Podium: ${race.results2025?.podium || "—"}<br>
-        Weather: ${race.results2025?.weather || "—"}<br>
-        Race Time: ${race.results2025?.raceTime || "—"}
-      </div>
+      <div class="race-details hidden"></div>
     `;
 
-    // DROPDOWN robusto
-    const toggleBtn = card.querySelector(".details-toggle");
     const details = card.querySelector(".race-details");
-    toggleBtn?.addEventListener("click", () => {
-      if (!details) return;
-      details.classList.toggle("hidden");
-      toggleBtn.textContent = details.classList.contains("hidden")
-        ? "Ver detalhes"
-        : "Fechar";
-    });
+    details.innerHTML = `
+      <strong>Sessões</strong><br>
+      Practice 1: ${fmt(r.sessions.practice1)}<br>
+      Practice 2: ${fmt(r.sessions.practice2)}<br>
+      Practice 3: ${fmt(r.sessions.practice3)}<br>
+      Qualifying: ${fmt(r.sessions.qualifying)}<br>
+      Sprint: ${fmt(r.sessions.sprint)}<br>
+      Race: ${fmt(r.sessions.race)}<br>
+    `;
 
-    // FAVORITO robusto
+    card.querySelector(".details-toggle").onclick = () => {
+      details.classList.toggle("hidden");
+    };
+
     const favBtn = card.querySelector(".fav-btn");
-    favBtn.style.color = isFav ? "#ffd700" : "";
-    favBtn?.addEventListener("click", () => {
-      let favs = JSON.parse(localStorage.getItem("favs") || "[]");
-      if(favs.includes(race.id)) {
-        favs = favs.filter(id => id !== race.id);
-        card.classList.remove("fav");
-        favBtn.style.color = "";
-      } else {
-        favs.push(race.id);
-        card.classList.add("fav");
-        favBtn.style.color = "#ffd700";
-      }
-      localStorage.setItem("favs", JSON.stringify(favs));
-    });
+    favBtn.style.color = fav ? "#ffd700" : "";
+    favBtn.onclick = () => toggleFav(r.id, card, favBtn);
 
     container.appendChild(card);
   });
 }
 
-/* ================= HELPERS ================= */
+function toggleFav(id, card, btn) {
+  let favs = JSON.parse(localStorage.getItem("favs") || "[]");
+  if (favs.includes(id)) favs = favs.filter(x => x !== id);
+  else favs.push(id);
+  localStorage.setItem("favs", JSON.stringify(favs));
+  btn.style.color = favs.includes(id) ? "#ffd700" : "";
+  card.classList.toggle("fav");
+}
+
 function fmt(dateISO) {
   if (!dateISO) return "—";
-  const d = new Date(dateISO);
-  return d.toLocaleString("pt-PT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
+  return new Date(dateISO).toLocaleString("pt-PT", {
+    day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"
   });
 }
 
-/* ================= BACK TO TOP ================= */
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
-  btn.onclick = () => window.scrollTo({top:0,behavior:"smooth"});
+  btn.onclick = () => window.scrollTo({top:0, behavior:"smooth"});
 }
 
-/* ================= HEADER ATIVO ================= */
 function markActiveHeader() {
-  const path = window.location.pathname;
   document.querySelectorAll('nav a').forEach(a => {
-    if(path.includes(a.getAttribute('href'))) a.classList.add('active');
-    else a.classList.remove('active');
+    a.classList.toggle("active", location.pathname.includes(a.getAttribute("href")));
   });
 }
