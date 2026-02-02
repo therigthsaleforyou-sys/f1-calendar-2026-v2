@@ -1,5 +1,6 @@
 /* css/teams.css */
-/* Página Equipas — mobile-first */
+/* Página Equipas — estado estável */
+/* Mobile-first | visual premium F1 */
 
 /* ================= CONTAINER ================= */
 
@@ -14,10 +15,24 @@
 .team-card {
   border: 2px solid red;
   border-radius: 14px;
-  padding: 12px;
-  margin-bottom: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
   text-align: center;
   background: #000;
+
+  /* Sombra base */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+
+  /* Animação suave */
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* ================= TAP / CLICK EFFECT ================= */
+
+/* Efeito ao tocar (mobile) */
+.team-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* ================= LOGO ================= */
@@ -25,20 +40,19 @@
 .team-card img {
   width: 100%;
   max-width: 220px;
-  margin: 0 auto 10px auto;
+  margin: 0 auto 12px auto;
   display: block;
 
-  /* 🔒 CANTOS ARREDONDADOS IGUAIS À FICHA */
+  /* Cantos arredondados iguais à ficha */
   border-radius: 14px;
 
-  /* evita cortes estranhos */
   object-fit: contain;
 }
 
 /* ================= TEXTOS ================= */
 
 .team-card h3 {
-  margin: 6px 0 4px 0;
+  margin: 6px 0 6px 0;
   font-size: 1.2rem;
   font-weight: 800;
   color: #fff;
@@ -52,4 +66,5 @@
   font-weight: 600;
   color: #ccc;
   text-align: center;
+  line-height: 1.4;
 }
