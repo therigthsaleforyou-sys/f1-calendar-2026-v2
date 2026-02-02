@@ -41,17 +41,7 @@ function startCountdown(dateStr, el) {
     return;
   }
 
-  function parseDate(str) {
-    const [day, mon, time] = str.split(" ");
-    const [h, m] = time.split(":");
-    const months = {
-      Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-      Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
-    };
-    return new Date(2026, months[mon], day, h, m);
-  }
-
-  const target = parseDate(dateStr);
+  const target = new Date(dateStr);
 
   function update() {
     const diff = target - new Date();
@@ -96,12 +86,14 @@ function renderRaceCards() {
       </div>
     `;
 
+    // FAVORITO
     const favBtn = card.querySelector(".fav-btn");
     favBtn.addEventListener("click", () => {
       favBtn.classList.toggle("active");
       card.classList.toggle("favorite");
     });
 
+    // VER DETALHES
     const toggle = card.querySelector(".details-toggle");
     const details = card.querySelector(".race-details");
     toggle.addEventListener("click", () => {
