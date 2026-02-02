@@ -1,0 +1,61 @@
+/* css/teams.css */
+/* Estilos exclusivos da página Equipas */
+/* Mobile-first | Não interfere com style.css */
+
+/* ================= TEAM CARD ================= */
+
+.race-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Logo da equipa */
+.race-card img {
+  width: 120px;
+  height: auto;
+  margin: 14px auto 6px auto;
+  object-fit: contain;
+}
+
+/* Nome da equipa */
+.race-card .race-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 6px 0 8px 0;
+}
+
+/* Bloco dos pilotos */
+.race-card div {
+  width: 100%;
+  padding: 10px 8px 14px 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Destaque do título "Pilotos" */
+.race-card strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* ================= AJUSTES VISUAIS ================= */
+
+/* Mais espaço entre cards */
+#race-cards .race-card {
+  margin-bottom: 18px;
+}
+
+/* Garantir que logos nunca cortam */
+.race-card img {
+  max-width: 70%;
+}
+
+/* ================= FUTURO (DESKTOP) ================= */
+/* preparado, mas sem impacto agora */
+@media (min-width: 768px) {
+  .race-card img {
+    max-width
