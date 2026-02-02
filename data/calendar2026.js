@@ -1,7 +1,8 @@
 // data/calendar2026.js
-// F1 Calendar 2026 + resultados 2025
-// Dados oficiais do site https://www.formula1.com/
-// Mobile-first, compatível com main.js
+// Calendário Fórmula 1 2026
+// Fonte única de dados
+// Horários só serão preenchidos a partir do site oficial da F1
+// Estado canónico — seguro contra regressões
 
 const calendar2026 = [
   {
@@ -14,18 +15,19 @@ const calendar2026 = [
       practice1: "Horário Indisponível",
       practice2: "Horário Indisponível",
       practice3: "Horário Indisponível",
-      qualifying: "2026-03-07T05:00:00Z", // PT Continental
+      qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-03-08T04:00:00Z"        // PT Continental
+      race: "2026-03-08T04:00:00Z" // horário oficial PT
     },
     results2025: {
       pole: "Lando Norris",
-      fastestLap: "Lando Norris — 1:22.167",
-      podium: "Lando Norris / Max Verstappen / George Russell",
-      weather: "Ensolarado, pista seca",
-      raceTime: "1:42:06.304"
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
     }
   },
+
   {
     id: "china",
     country: "China",
@@ -36,20 +38,19 @@ const calendar2026 = [
       practice1: "Horário Indisponível",
       practice2: "Horário Indisponível",
       practice3: "Horário Indisponível",
-      qualifying: "2026-04-12T07:00:00Z", // PT Continental
+      qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-04-13T07:00:00Z"        // PT Continental
+      race: "Horário Indisponível"
     },
     results2025: {
       pole: "Oscar Piastri",
-      sprintPole: "Lewis Hamilton",
-      sprintWinner: "Lewis Hamilton",
-      fastestLap: "Lando Norris — 1:35.454",
-      podium: "Oscar Piastri / Lando Norris / George Russell",
-      weather: "Céu limpo, pista seca",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
       raceTime: "—"
     }
   },
+
   {
     id: "japan",
     country: "Japão",
@@ -60,18 +61,19 @@ const calendar2026 = [
       practice1: "Horário Indisponível",
       practice2: "Horário Indisponível",
       practice3: "Horário Indisponível",
-      qualifying: "2026-09-28T05:00:00Z",
+      qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-09-29T04:00:00Z"
+      race: "Horário Indisponível"
     },
     results2025: {
       pole: "Max Verstappen",
-      fastestLap: "Kimi Antonelli — 1:30.965",
-      podium: "Max Verstappen / Lando Norris / Oscar Piastri",
-      weather: "Parcialmente nublado, pista seca",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
       raceTime: "—"
     }
   },
+
   {
     id: "bahrain",
     country: "Bahrein",
@@ -82,19 +84,19 @@ const calendar2026 = [
       practice1: "Horário Indisponível",
       practice2: "Horário Indisponível",
       practice3: "Horário Indisponível",
-      qualifying: "2026-03-22T16:00:00Z",
+      qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-03-23T15:00:00Z"
+      race: "Horário Indisponível"
     },
     results2025: {
       pole: "Oscar Piastri",
-      fastestLap: "Oscar Piastri — 1:35.140",
-      podium: "Oscar Piastri / George Russell / Lando Norris",
-      weather: "Noite limpa, pista seca",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
       raceTime: "—"
     }
   },
-  // Continuar com os restantes GPs até Abu Dhabi
+
   {
     id: "saudiarabia",
     country: "Arábia Saudita",
@@ -105,9 +107,101 @@ const calendar2026 = [
       practice1: "Horário Indisponível",
       practice2: "Horário Indisponível",
       practice3: "Horário Indisponível",
-      qualifying: "2026-04-18T20:00:00Z",
+      qualifying: "Horário Indisponível",
       sprint: "Horário Indisponível",
-      race: "2026-04-19T20:00:00Z"
+      race: "Horário Indisponível"
+    },
+    results2025: {
+      pole: "—",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
+    }
+  },
+
+  {
+    id: "miami",
+    country: "Estados Unidos",
+    name: "Grande Prémio de Miami",
+    slug: "miami",
+    image: "assets/races/miami.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: {
+      pole: "—",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
+    }
+  },
+
+  {
+    id: "monaco",
+    country: "Mónaco",
+    name: "Grande Prémio de Mónaco",
+    slug: "monaco",
+    image: "assets/races/monaco.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: {
+      pole: "Charles Leclerc",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
+    }
+  },
+
+  {
+    id: "spain",
+    country: "Espanha",
+    name: "Grande Prémio de Espanha",
+    slug: "spain",
+    image: "assets/races/spain.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
+    },
+    results2025: {
+      pole: "—",
+      fastestLap: "—",
+      podium: "—",
+      weather: "—",
+      raceTime: "—"
+    }
+  },
+
+  {
+    id: "canada",
+    country: "Canadá",
+    name: "Grande Prémio do Canadá",
+    slug: "canada",
+    image: "assets/races/canada.jpg",
+    sessions: {
+      practice1: "Horário Indisponível",
+      practice2: "Horário Indisponível",
+      practice3: "Horário Indisponível",
+      qualifying: "Horário Indisponível",
+      sprint: "Horário Indisponível",
+      race: "Horário Indisponível"
     },
     results2025: {
       pole: "—",
@@ -117,8 +211,9 @@ const calendar2026 = [
       raceTime: "—"
     }
   }
-  // ...continuar para todas as 24 corridas seguindo o mesmo formato
+
+  // 👉 restantes GPs seguem exatamente o mesmo padrão
 ];
 
-// Tornar global para main.js
+// Fonte única de verdade
 window.calendar2026 = calendar2026;
