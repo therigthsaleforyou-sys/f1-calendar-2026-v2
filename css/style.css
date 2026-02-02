@@ -1,7 +1,7 @@
 /* css/style.css */
-/* Mobile-first — Estado Canónico */
+/* Mobile-first — estado estável */
+/* Homepage + Equipas com header unificado F1 */
 
-/* ================= GLOBAL ================= */
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -9,29 +9,70 @@ body {
   color: #fff;
 }
 
-/* ================= HEADER ================= */
+/* ================= HEADER / NAV ================= */
+
 header {
-  background: #111;
-  padding: 10px 0;
+  padding: 10px;
 }
 
-header nav {
+.main-nav,
+nav {
   display: flex;
-  justify-content: space-around;
+  gap: 10px;
+  justify-content: center;
 }
 
-header a {
-  color: #fff;
+.main-nav a,
+nav a {
+  flex: 1;
+  text-align: center;
+
+  padding: 10px 0;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+/* Tap / click */
+.main-nav a:active,
+nav a:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 0 2px rgba(255, 42, 42, 0.9),
+    0 0 14px rgba(255, 42, 42, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.6);
+
+  border-color: #ff2a2a;
+}
+
+/* Botão ativo (quando existir .active) */
+.main-nav a.active,
+nav a.active {
+  border-color: #ff2a2a;
+  box-shadow:
+    0 0 0 2px rgba(255, 42, 42, 0.9),
+    0 0 16px rgba(255, 42, 42, 0.7),
+    0 8px 18px rgba(0, 0, 0, 0.7);
 }
 
 /* ================= HERO ================= */
+
 #hero {
   max-width: 420px;
   margin: 0 auto;
   padding: 12px;
-  text-align: center;
 }
 
 #hero-image {
@@ -55,6 +96,7 @@ header a {
 }
 
 /* ================= CARDS ================= */
+
 #race-cards {
   max-width: 420px;
   margin: 0 auto;
@@ -62,23 +104,10 @@ header a {
 }
 
 .race-card {
-  border: 2px solid red;  /* 🔒 vermelho padrão */
+  border: 2px solid red;
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 14px;
-  background: #111;
-
-  /* Animação ao renderizar */
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInUp 0.4s forwards;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .race-card img {
@@ -86,66 +115,25 @@ header a {
   display: block;
 }
 
-/* Título e botão favorito na mesma linha */
-.race-title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-}
-
 .race-title {
   font-size: 1.2rem;
   font-weight: 700;
+  padding: 8px;
   color: #fff;
   text-shadow: 0 2px 6px #000;
-  margin: 0;
 }
 
-/* ================= FAVORITO ================= */
-.fav-btn {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-}
+/* ================= FOOTER ================= */
 
-.race-card.fav {
-  border-color: #ffd700; /* 🔶 amarelo quando favorito */
-}
-
-.race-card.fav .fav-btn {
-  color: #ffd700;
-}
-
-/* ================= DROPDOWN ================= */
-.race-details {
-  padding: 8px;
-  font-size: 0.85rem;
-  line-height: 1.3;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease, opacity 0.35s ease;
-  opacity: 0;
-}
-
-.race-details.show {
-  max-height: 500px; /* suficiente para o conteúdo */
-  opacity: 1;
-}
-
-.details-toggle {
-  width: 100%;
-  background: #222;
-  color: #fff;
-  border: none;
-  padding: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  border-top: 1px solid #333;
+footer {
+  text-align: center;
+  padding: 14px;
+  font-size: 0.75rem;
+  opacity: 0.7;
 }
 
 /* ================= BACK TO TOP ================= */
+
 #back-to-top {
   position: fixed;
   bottom: 12px;
@@ -156,13 +144,4 @@ header a {
   background: #ff2a2a;
   color: #fff;
   font-weight: 700;
-  z-index: 1000;
-}
-
-/* ================= FOOTER ================= */
-footer {
-  text-align: center;
-  padding: 14px;
-  font-size: 0.75rem;
-  opacity: 0.7;
 }
