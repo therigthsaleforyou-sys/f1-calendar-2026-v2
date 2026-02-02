@@ -4,22 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Equipas F1 2026</title>
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/teams.css">
 </head>
 <body>
 
-  <!-- HEADER TEAMS -->
+  <!-- HEADER -->
   <header>
-    <nav>
+    <nav class="main-nav">
       <a href="index.html">Home</a>
       <a href="teams.html" class="active">Equipas</a>
       <a href="#">Race News</a>
     </nav>
   </header>
 
-  <!-- TEAMS CARDS -->
-  <section id="race-cards"></section>
+  <!-- TEAMS -->
+  <section id="teams-cards"></section>
 
   <!-- BACK TO TOP -->
   <button id="back-to-top">Topo</button>
@@ -27,41 +28,6 @@
   <!-- FOOTER -->
   <footer>Calendário F1 - Projeto Independente</footer>
 
-  <script src="data/teams.js"></script>
   <script src="js/teams.js"></script>
-
-  <!-- Glow animado botão ativo -->
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const activeBtn = document.querySelector("header nav a.active");
-    if (!activeBtn) return;
-
-    let growing = true;
-    let intensity = 3;
-
-    function animateGlow() {
-      activeBtn.style.boxShadow = `0 0 ${intensity}px ${intensity}px #ff2a2a, 0 4px 6px rgba(0,0,0,0.6)`;
-
-      if (growing) {
-        intensity += 0.3;
-        if (intensity >= 10) growing = false;
-      } else {
-        intensity -= 0.3;
-        if (intensity <= 3) growing = true;
-      }
-
-      requestAnimationFrame(animateGlow);
-    }
-
-    animateGlow();
-
-    // Back-to-top
-    const btn = document.getElementById("back-to-top");
-    if (btn) {
-      btn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  });
-  </script>
-
 </body>
 </html>
