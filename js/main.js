@@ -35,25 +35,29 @@ function renderHero() {
   startCountdown(nextRace.sessions.race, heroCountdown);
 }
 
+/* COUNTDOWN CORRIGIDO */
 function startCountdown(dateStr, el) {
   if (!dateStr) {
     el.textContent = "Horário indisponível";
     return;
   }
 
+  // Converter string ISO ou “YYYY-MM-DDTHH:MM:SS” para Date PT
   const target = new Date(dateStr);
 
   function update() {
-    const diff = target - new Date();
-    if (diff <= 0) {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff > 0) {
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff / 3600000) % 24);
+      const m = Math.floor((diff / 60000) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      el.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    } else {
       el.textContent = "🏁 A CORRIDA COMEÇOU 🏁";
-      return;
     }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-    el.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
   }
 
   update();
