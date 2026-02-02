@@ -1,169 +1,168 @@
-// js/main.js
-// F1 Calendar 2026 — main.js funcional
-// Mobile-first, compatível com calendar2026.js
-// Estado canónico respeitado: hero fixo, cards dinâmicos, favoritos, dropdown, back-to-top
-// Botão favorito alinhado à direita do título
+/* css/style.css */
+/* Mobile-first — Estado Canónico */
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não encontrado");
-    return;
-  }
-
-  const now = new Date();
-  const nextRace =
-    calendar2026.find(r => new Date(r.sessions.race) > now) ||
-    calendar2026[0];
-
-  renderHero(nextRace);
-  renderCards(calendar2026);
-  initBackToTop();
-});
-
-/* ================= HERO ================= */
-function renderHero(race) {
-  const heroTitle = document.getElementById("hero-title");
-  const heroCountdown = document.getElementById("hero-countdown");
-  const heroImage = document.getElementById("hero-image");
-
-  if (!heroTitle || !heroCountdown || !heroImage) return;
-
-  heroTitle.textContent = race.name;
-  heroImage.src = "assets/heroes/home-hero.jpg";
-  heroImage.alt = "Calendário F1 2026";
-
-  startCountdown(race.sessions.race, heroCountdown);
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #000;
+  color: #fff;
 }
 
-/* ================= COUNTDOWN ================= */
-function startCountdown(dateISO, el) {
-  if (!dateISO || !el) {
-    el.textContent = "—";
-    return;
-  }
+/* ================= HEADER ================= */
+header {
+  background: #111;
+  padding: 10px 0;
+}
 
-  function update() {
-    const diff = new Date(dateISO).getTime() - Date.now();
+header nav {
+  display: flex;
+  justify-content: space-around;
+}
 
-    if (diff <= 0) {
-      el.textContent = "Hoje";
-      return;
-    }
+header a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
 
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    const s = Math.floor((diff / 1000) % 60);
+/* ================= HERO ================= */
+#hero {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 12px;
+  text-align: center;
+}
 
-    el.textContent = `${d}d ${h}h ${m}m ${s}s`;
-  }
+#hero-image {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
 
-  update();
-  setInterval(update, 1000);
+#hero-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+  margin: 0 0 6px 0;
+}
+
+#hero-countdown {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ff2a2a;
 }
 
 /* ================= CARDS ================= */
-function renderCards(calendar) {
-  const container = document.getElementById("race-cards");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const storedFavs = JSON.parse(localStorage.getItem("favs") || "[]");
-
-  calendar.forEach(race => {
-    const card = document.createElement("article");
-    card.className = "race-card";
-
-    const isFav = storedFavs.includes(race.id);
-
-    card.innerHTML = `
-      <div class="race-header">
-        <img src="${race.image}" alt="${race.name}">
-        <div class="race-title-wrapper">
-          <h3 class="race-title">${race.name}</h3>
-          <button class="fav-btn" title="Favorito">🏁</button>
-        </div>
-      </div>
-
-      <button class="details-toggle">Ver detalhes</button>
-
-      <div class="race-details hidden">
-        <strong>Sessões 2026</strong><br>
-        Practice 1: ${fmt(race.sessions.practice1)}<br>
-        Practice 2: ${fmt(race.sessions.practice2)}<br>
-        Practice 3: ${fmt(race.sessions.practice3)}<br>
-        Qualifying: ${fmt(race.sessions.qualifying)}<br>
-        Sprint: ${fmt(race.sessions.sprint)}<br>
-        Race: ${fmt(race.sessions.race)}<br><br>
-
-        <strong>Resultados 2025</strong><br>
-        Pole: ${race.results2025?.pole || "—"}<br>
-        Fastest Lap: ${race.results2025?.fastestLap || "—"}<br>
-        Podium: ${race.results2025?.podium || "—"}<br>
-        Weather: ${race.results2025?.weather || "—"}<br>
-        Race Time: ${race.results2025?.raceTime || "—"}
-      </div>
-    `;
-
-    /* ===== DROPDOWN ===== */
-    const toggleBtn = card.querySelector(".details-toggle");
-    const details = card.querySelector(".race-details");
-
-    toggleBtn.onclick = () => {
-      details.classList.toggle("hidden");
-      toggleBtn.textContent = details.classList.contains("hidden")
-        ? "Ver detalhes"
-        : "Fechar";
-    };
-
-    /* ===== FAVORITO ===== */
-    const favBtn = card.querySelector(".fav-btn");
-
-    if (isFav) {
-      card.classList.add("fav");
-      favBtn.style.color = "#ffd700";
-    }
-
-    favBtn.onclick = () => {
-      let favs = JSON.parse(localStorage.getItem("favs") || "[]");
-
-      if (favs.includes(race.id)) {
-        favs = favs.filter(id => id !== race.id);
-        card.classList.remove("fav");
-        favBtn.style.color = "";
-      } else {
-        favs.push(race.id);
-        card.classList.add("fav");
-        favBtn.style.color = "#ffd700";
-      }
-
-      localStorage.setItem("favs", JSON.stringify(favs));
-    };
-
-    container.appendChild(card);
-  });
+#race-cards {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 10px;
 }
 
-/* ================= HELPERS ================= */
-function fmt(dateISO) {
-  if (!dateISO) return "—";
-  const d = new Date(dateISO);
-  return d.toLocaleString("pt-PT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
+.race-card {
+  border: 2px solid red;  /* 🔒 vermelho padrão */
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: #111;
+
+  /* Animação ao renderizar */
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.4s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.race-card img {
+  width: 100%;
+  display: block;
+}
+
+/* Título e botão favorito na mesma linha */
+.race-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+}
+
+.race-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+  margin: 0;
+}
+
+/* ================= FAVORITO ================= */
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.race-card.fav {
+  border-color: #ffd700; /* 🔶 amarelo quando favorito */
+}
+
+.race-card.fav .fav-btn {
+  color: #ffd700;
+}
+
+/* ================= DROPDOWN ================= */
+.race-details {
+  padding: 8px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+  opacity: 0;
+}
+
+.race-details.show {
+  max-height: 500px; /* suficiente para o conteúdo */
+  opacity: 1;
+}
+
+.details-toggle {
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border-top: 1px solid #333;
 }
 
 /* ================= BACK TO TOP ================= */
-function initBackToTop() {
-  const btn = document.getElementById("back-to-top");
-  if (!btn) return;
+#back-to-top {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  background: #ff2a2a;
+  color: #fff;
+  font-weight: 700;
+  z-index: 1000;
+}
 
-  btn.onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+/* ================= FOOTER ================= */
+footer {
+  text-align: center;
+  padding: 14px;
+  font-size: 0.75rem;
+  opacity: 0.7;
 }
