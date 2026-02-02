@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   markActiveMenu();
   renderHomepage();
+  setupBackToTop();
 });
 
 function markActiveMenu() {
@@ -13,11 +14,11 @@ function markActiveMenu() {
 
 function renderHomepage() {
   if (!window.calendar2026) return;
-
   renderHero();
   renderRaceCards();
 }
 
+/* HERO + COUNTDOWN */
 function renderHero() {
   const heroTitle = document.getElementById("hero-title");
   const heroImage = document.getElementById("hero-image");
@@ -33,14 +34,26 @@ function renderHero() {
   startCountdown(nextRace.sessions.race, heroCountdown);
 }
 
-function startCountdown(dateISO, el) {
-  if (!dateISO) {
+function startCountdown(dateStr, el) {
+  if (!dateStr) {
     el.textContent = "Horário indisponível";
     return;
   }
 
+  function parseDate(str) {
+    const [day, mon, time] = str.split(" ");
+    const [h, m] = time.split(":");
+    const months = {
+      Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+      Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    };
+    return new Date(2026, months[mon], day, h, m);
+  }
+
+  const target = parseDate(dateStr);
+
   function update() {
-    const diff = new Date(dateISO) - Date.now();
+    const diff = target - Date.now();
     if (diff <= 0) {
       el.textContent = "Hoje";
       return;
@@ -55,10 +68,9 @@ function startCountdown(dateISO, el) {
   setInterval(update, 60000);
 }
 
+/* RACE CARDS */
 function renderRaceCards() {
   const container = document.getElementById("race-cards");
-  if (!container) return;
-
   container.innerHTML = "";
 
   calendar2026.forEach(race => {
@@ -66,9 +78,10 @@ function renderRaceCards() {
     card.className = "race-card";
 
     card.innerHTML = `
+      <img class="race-image" src="${race.image}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
-        <button class="fav-btn">★</button>
+        <button class="fav-btn">🏁</button>
       </div>
 
       <button class="details-toggle">Ver detalhes</button>
@@ -82,23 +95,36 @@ function renderRaceCards() {
       </div>
     `;
 
-    const toggle = card.querySelector(".details-toggle");
-    const details = card.querySelector(".race-details");
-
-    toggle.addEventListener("click", () => {
-      details.classList.toggle("hidden");
-    });
-
     const favBtn = card.querySelector(".fav-btn");
     favBtn.addEventListener("click", () => {
       favBtn.classList.toggle("active");
+      card.classList.toggle("fav");
+    });
+
+    const toggle = card.querySelector(".details-toggle");
+    const details = card.querySelector(".race-details");
+    toggle.addEventListener("click", () => {
+      details.classList.toggle("hidden");
     });
 
     container.appendChild(card);
   });
 }
 
-function fmt(value) {
-  if (!value) return "—";
-  return value;
+function fmt(v) {
+  return v || "—";
+}
+
+/* BACK TO TOP */
+function setupBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("show", window.scrollY > 300);
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
