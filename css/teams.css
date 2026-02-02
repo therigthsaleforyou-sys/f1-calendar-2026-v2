@@ -2,11 +2,12 @@
 header nav {
   display: flex;
   justify-content: center;
-  gap: 18px;               /* espaço entre botões */
+  gap: 18px;
   padding: 14px 0;
   background: #111;
 }
 
+/* Botões */
 header nav a {
   display: inline-block;
   padding: 8px 20px;
@@ -16,16 +17,23 @@ header nav a {
   text-decoration: none;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-  transition: all 0.2s ease;
+  transition: all 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  position: relative;
 }
 
+/* Hover: glow vermelho tipo pit-stop */
 header nav a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0,0,0,0.6);
-  background: linear-gradient(145deg, #ff5555, #ff2a2a);
+  box-shadow: 0 0 12px 2px #ff2a2a, 0 6px 10px rgba(0,0,0,0.6);
 }
 
+/* Clique: afundar */
 header nav a:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
   box-shadow: 0 3px 5px rgba(0,0,0,0.5);
+}
+
+/* Botão ativo (Equipas) */
+header nav a.active {
+  box-shadow: 0 0 12px 3px #ff2a2a, 0 4px 6px rgba(0,0,0,0.6);
 }
