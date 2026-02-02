@@ -2,38 +2,37 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+  <title>F1 Calendar 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calendário F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <nav>
-      <a href="#">Home</a>
-      <a href="teams.html">Equipas</a> 
-      <a href="#">Race News</a>
-    </nav>
-  </header>
+<header>
+  <nav>
+    <a href="index.html" class="active">Calendário</a>
+    <a href="teams.html">Equipas</a>
+    <a href="#">Resultados</a>
+  </nav>
+</header>
 
-  <!-- HERO -->
+<main>
+
   <section id="hero">
     <img id="hero-image" src="" alt="">
-    <h1 id="hero-title"></h1>
-    <div id="hero-countdown"></div>
+    <h2 id="hero-title"></h2>
+    <div id="hero-countdown" class="countdown"></div>
   </section>
- 
-  <!-- RACE CARDS -->
+
   <section id="race-cards"></section>
 
-  <!-- BACK TO TOP -->
-  <button id="back-to-top">Topo</button>
+</main>
 
-  <!-- FOOTER -->
-  <footer>Calendário F1 - Projeto Independente</footer>
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
 
-  <script src="data/calendar2026.js"></script>
-  <script src="js/main.js"></script>
+<script src="data/calendar2026.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
