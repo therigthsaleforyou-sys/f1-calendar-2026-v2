@@ -1,5 +1,5 @@
 // Dados base – estrutura estável para homepage
-// Horários mantidos como strings (sem conversões)
+// Datas em formato ISO para funcionamento correto do countdown
 
 const calendar2026 = [
   {
@@ -7,11 +7,11 @@ const calendar2026 = [
     name: "Grande Prémio da Austrália",
     image: "assets/races/australia.jpg",
     sessions: {
-      fp1: "06 Mar 01:30",
-      fp2: "06 Mar 05:00",
-      fp3: "07 Mar 01:30",
-      qualifying: "07 Mar 05:00",
-      race: "08 Mar 04:00"
+      fp1: "2026-03-06T01:30:00Z",
+      fp2: "2026-03-06T05:00:00Z",
+      fp3: "2026-03-07T01:30:00Z",
+      qualifying: "2026-03-07T05:00:00Z",
+      race: "2026-03-08T04:00:00Z"
     }
   },
   {
@@ -19,11 +19,11 @@ const calendar2026 = [
     name: "Grande Prémio da China",
     image: "assets/races/china.jpg",
     sessions: {
-      fp1: "13 Mar 04:30",
-      fp2: "13 Mar 08:00",
-      fp3: "14 Mar 04:30",
-      qualifying: "14 Mar 08:00",
-      race: "15 Mar 07:00"
+      fp1: "2026-03-13T04:30:00Z",
+      fp2: "2026-03-13T08:00:00Z",
+      fp3: "2026-03-14T04:30:00Z",
+      qualifying: "2026-03-14T08:00:00Z",
+      race: "2026-03-15T07:00:00Z"
     }
   },
   {
@@ -31,11 +31,11 @@ const calendar2026 = [
     name: "Grande Prémio do Japão",
     image: "assets/races/japan.jpg",
     sessions: {
-      fp1: "27 Mar 03:30",
-      fp2: "27 Mar 07:00",
-      fp3: "28 Mar 03:30",
-      qualifying: "28 Mar 07:00",
-      race: "29 Mar 06:00"
+      fp1: "2026-03-27T03:30:00Z",
+      fp2: "2026-03-27T07:00:00Z",
+      fp3: "2026-03-28T03:30:00Z",
+      qualifying: "2026-03-28T07:00:00Z",
+      race: "2026-03-29T06:00:00Z"
     }
   }
 ];
