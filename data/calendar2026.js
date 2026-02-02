@@ -1,7 +1,4 @@
 // data/calendar2026.js
-// F1 Calendar 2026 + resultados 2025 integrados
-// Mobile-first, compatível com main.js
-
 const calendar2026 = [
   {
     id: "australia",
