@@ -1,21 +1,19 @@
 // js/teams.js
-// Renderização das equipas — mobile-first
-// Atualizado para compatibilidade com CSS centrado
+// Renderização das 11 equipas oficiais F1 2026
+// Mobile-first, textos centralizados com container .team-info
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.teams2026) return;
+  if (!window.teams2026 || !Array.isArray(window.teams2026)) {
+    console.error("teams2026 não encontrado");
+    return;
+  }
 
-  renderTeams(window.teams2026);
-  initBackToTop();
-});
-
-function renderTeams(teams) {
   const container = document.getElementById("race-cards");
   if (!container) return;
 
   container.innerHTML = "";
 
-  teams.forEach(team => {
+  window.teams2026.forEach(team => {
     const card = document.createElement("article");
     card.className = "race-card";
 
@@ -24,7 +22,7 @@ function renderTeams(teams) {
       <div class="team-info">
         <h3 class="race-title">${team.name}</h3>
         <div class="drivers">
-          <strong>Pilotos</strong>
+          <strong>Pilotos</strong><br>
           ${team.drivers.join("<br>")}
         </div>
       </div>
@@ -32,14 +30,10 @@ function renderTeams(teams) {
 
     container.appendChild(card);
   });
-}
 
-/* ================= BACK TO TOP ================= */
-function initBackToTop() {
+  // Back to top
   const btn = document.getElementById("back-to-top");
-  if (!btn) return;
-
-  btn.onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-}
+  if (btn) {
+    btn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
