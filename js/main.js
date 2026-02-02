@@ -1,8 +1,3 @@
-// js/main.js
-// F1 Calendar 2026 — main.js funcional
-// Mobile-first, compatível com calendar2026.js
-// Estado canónico respeitado: hero fixo, cards dinâmicos, favoritos, dropdown animado, back-to-top
-
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não encontrado");
@@ -17,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHero(nextRace);
   renderCards(calendar2026);
   initBackToTop();
+  markActiveHeader();
 });
 
 /* ================= HERO ================= */
@@ -29,34 +25,23 @@ function renderHero(race) {
 
   heroTitle.textContent = race.name;
   heroImage.src = "assets/heroes/home-hero.jpg";
-  heroImage.alt = "Calendário F1 2026";
+  heroImage.alt = "Calendário Fórmula 1 2026";
 
   startCountdown(race.sessions.race, heroCountdown);
 }
 
 /* ================= COUNTDOWN ================= */
 function startCountdown(dateISO, el) {
-  if (!dateISO || !el) {
-    el.textContent = "—";
-    return;
-  }
-
+  if (!dateISO || !el) { el.textContent = "—"; return; }
   function update() {
     const diff = new Date(dateISO).getTime() - Date.now();
-
-    if (diff <= 0) {
-      el.textContent = "Hoje";
-      return;
-    }
-
+    if (diff <= 0) { el.textContent = "Hoje"; return; }
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff / 3600000) % 24);
     const m = Math.floor((diff / 60000) % 60);
     const s = Math.floor((diff / 1000) % 60);
-
     el.textContent = `${d}d ${h}h ${m}m ${s}s`;
   }
-
   update();
   setInterval(update, 1000);
 }
@@ -75,27 +60,22 @@ function renderCards(calendar) {
     card.className = "race-card";
 
     const isFav = storedFavs.includes(race.id);
+    if(isFav) card.classList.add("fav");
 
     card.innerHTML = `
       <div class="race-header">
-        <img src="${race.image}" alt="${race.name}">
-        <div class="race-title-wrapper">
-          <h3 class="race-title">${race.name}</h3>
-          <button class="fav-btn" title="Favorito">🏁</button>
-        </div>
+        <h3 class="race-title">${race.name}</h3>
+        <button class="fav-btn" title="Favorito">🏁</button>
       </div>
-
       <button class="details-toggle">Ver detalhes</button>
-
       <div class="race-details hidden">
-        <strong>Sessões 2026</strong><br>
+        <strong>Sessões</strong><br>
         Practice 1: ${fmt(race.sessions.practice1)}<br>
         Practice 2: ${fmt(race.sessions.practice2)}<br>
         Practice 3: ${fmt(race.sessions.practice3)}<br>
         Qualifying: ${fmt(race.sessions.qualifying)}<br>
         Sprint: ${fmt(race.sessions.sprint)}<br>
         Race: ${fmt(race.sessions.race)}<br><br>
-
         <strong>Resultados 2025</strong><br>
         Pole: ${race.results2025?.pole || "—"}<br>
         Fastest Lap: ${race.results2025?.fastestLap || "—"}<br>
@@ -105,30 +85,22 @@ function renderCards(calendar) {
       </div>
     `;
 
-    /* ===== DROPDOWN ANIMADO ===== */
+    /* ===== DROPDOWN ===== */
     const toggleBtn = card.querySelector(".details-toggle");
     const details = card.querySelector(".race-details");
-
     toggleBtn.onclick = () => {
-      details.classList.toggle("show");
       details.classList.toggle("hidden");
-      toggleBtn.textContent = details.classList.contains("show")
-        ? "Fechar"
-        : "Ver detalhes";
+      toggleBtn.textContent = details.classList.contains("hidden")
+        ? "Ver detalhes"
+        : "Fechar";
     };
 
     /* ===== FAVORITO ===== */
     const favBtn = card.querySelector(".fav-btn");
-
-    if (isFav) {
-      card.classList.add("fav");
-      favBtn.style.color = "#ffd700";
-    }
-
+    favBtn.style.color = isFav ? "#ffd700" : "";
     favBtn.onclick = () => {
       let favs = JSON.parse(localStorage.getItem("favs") || "[]");
-
-      if (favs.includes(race.id)) {
+      if(favs.includes(race.id)) {
         favs = favs.filter(id => id !== race.id);
         card.classList.remove("fav");
         favBtn.style.color = "";
@@ -137,7 +109,6 @@ function renderCards(calendar) {
         card.classList.add("fav");
         favBtn.style.color = "#ffd700";
       }
-
       localStorage.setItem("favs", JSON.stringify(favs));
     };
 
@@ -162,8 +133,20 @@ function fmt(dateISO) {
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
-
   btn.onclick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top:0, behavior:"smooth" });
   };
+}
+
+/* ================= BOTÃO ATIVO NO HEADER ================= */
+function markActiveHeader() {
+  const path = window.location.pathname;
+  const navLinks = document.querySelectorAll('nav a');
+  navLinks.forEach(a => {
+    if(path.includes(a.getAttribute('href'))) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+  });
 }
