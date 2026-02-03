@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Grande Prémio da China – F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Botão voltar ao calendário */
+    .back-calendar-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 12px;
+      background: #000;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    .back-calendar-btn:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+
+    .back-calendar-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Botão Voltar ao topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    #back-to-top:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+
+    #back-to-top:active {
+      transform: scale(0.96);
+    }
+
+    #back-to-top.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="../index.html">Calendário</a>
+    <a href="../teams.html">Equipas</a>
+    <a href="#">Resultados</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img id="hero-image" src="../assets/races/china.jpg" alt="Grande Prémio da China">
+    <h2 id="hero-title">Grande Prémio da China</h2>
+    <div id="hero-countdown" class="countdown"></div>
+  </section>
+
+  <!-- FICHA DA CORRIDA -->
+  <section id="race-cards">
+    <div class="race-card">
+      <img src="../assets/diagramas/china2d.jpg" alt="Diagrama da pista – China">
+      <div class="race-header">
+        <h3>Grande Prémio da China – 2026</h3>
+        <button class="fav-btn" data-id="china">🏁</button>
+      </div>
+
+      <div class="race-details">
+        <h4>Resultados 2025</h4>
+        <p><strong>Pole:</strong> Max Verstappen – 1:30.500</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:32.200</p>
+        <p><strong>Meteorologia:</strong> Sol, 30°C</p>
+      </div>
+
+      <!-- Botão voltar ao calendário -->
+      <a href="../index.html" class="back-calendar-btn">← Voltar ao calendário</a>
+    </div>
+  </section>
+
+</main>
+
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
+
+<!-- BOTÃO VOLTAR AO TOPO -->
+<button id="back-to-top">Voltar ao topo</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  // Data/hora oficial da corrida China 2026
+  const raceDateISO = "2026-03-15T07:00:00Z";
+
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  startCountdown(raceDateISO);
+
+  /* FAVORITOS */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("china")) {
+    favBtn.classList.add("active");
+  }
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("china")) {
+      favorites.splice(favorites.indexOf("china"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("china");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
+
+  /* BACK TO TOP */
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+
+</body>
+  </html> 
