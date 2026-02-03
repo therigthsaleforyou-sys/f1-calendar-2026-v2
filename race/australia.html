@@ -1,66 +1,66 @@
-<!DOCTYPE html><html lang="pt">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
+  <title>Grande Prémio da Austrália – F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GP da Austrália – F1 2026</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
-<body><header>
+<body>
+
+<header>
   <nav>
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="#">Resultados</a>
   </nav>
-</header><main>  <!-- HERO -->  <section id="hero">
-    <img id="hero-image" src="../assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália">
-    <h2 id="hero-title">Grande Prémio da Austrália</h2>
-    <div id="hero-date" class="countdown">Domingo, 8 de março de 2026</div>
-  </section>  <!-- FICHA DA CORRIDA -->  <section id="race-cards">
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img src="../assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália">
+    <h2>Grande Prémio da Austrália</h2>
+    <div id="hero-countdown" class="countdown"></div>
+  </section>
+
+  <!-- DETALHES DA CORRIDA -->
+  <section id="race-details">
     <div class="race-card">
-      <img src="../assets/races/australia.jpg" alt="Grande Prémio da Austrália">
+      <img src="../assets/races/australia.jpg" alt="Austrália">
       <div class="race-header">
-        <h3>Grande Prémio da Austrália</h3>
-        <button class="fav-btn">🏁</button>
+        <h3>Grande Prémio da Austrália – 2026</h3>
+        <button class="fav-btn" data-id="australia">🏁</button>
       </div>
-      <button class="details-toggle">Ver detalhes</button>
-      <div class="race-details">
-        <p><strong>FP1:</strong> 06/03 – 01:30</p>
-        <p><strong>FP2:</strong> 06/03 – 05:00</p>
-        <p><strong>FP3:</strong> 07/03 – 01:30</p>
-        <p><strong>Qualificação:</strong> 07/03 – 05:00</p>
-        <p><strong>Corrida:</strong> 08/03 – 05:00</p>
-        <a class="race-link" href="../race/australia.html">Ver corrida →</a>
+
+      <button class="details-toggle">Ver horários</button>
+      <div class="race-details hidden">
+        <p><strong>FP1:</strong> 06 Mar 01:30</p>
+        <p><strong>FP2:</strong> 06 Mar 05:00</p>
+        <p><strong>FP3:</strong> 07 Mar 01:30</p>
+        <p><strong>Qualificação:</strong> 07 Mar 05:00</p>
+        <p><strong>Corrida:</strong> 08 Mar 05:00</p>
+        <a href="../index.html">← Voltar ao calendário</a>
       </div>
-    </div>
-  </section>  <!-- RESULTADOS 2025 -->  <section class="race-section">
-    <h3>Resultados – 2025</h3>
-    <div class="results-grid">
-      <div class="result-card">
-        <h4>Pole Position</h4>
-        <p>Max Verstappen</p>
-        <span>1:16.423</span>
-      </div>
-      <div class="result-card">
-        <h4>Pódio</h4>
-        <ol>
-          <li>Verstappen</li>
-          <li>Leclerc</li>
-          <li>Norris</li>
-        </ol>
-      </div>
-      <div class="result-card">
-        <h4>Volta Mais Rápida</h4>
-        <p>Lando Norris</p>
-        <span>1:19.114</span>
-      </div>
-      <div class="result-card">
-        <h4>Meteorologia</h4>
-        <p>☀️ Sol</p>
+
+      <div class="race-results">
+        <h4>Resultados 2025</h4>
+        <p><strong>Pole:</strong> Max Verstappen – 1:22.500</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:25.300</p>
+        <p><strong>Meteorologia:</strong> Sol, 28°C</p>
       </div>
     </div>
-  </section>  <!-- VOLTAR AO CALENDÁRIO -->  <div class="back-link">
-    <a href="../index.html">← Voltar ao calendário</a>
-  </div></main><footer style="text-align:center;padding:20px;opacity:.6">
-  F1 2026 – Projeto não oficial
-</footer></body>
+  </section>
+
+</main>
+
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
+
+<script src="../data/calendar2026-v2.js"></script>
+<script src="../js/main.js"></script>
+</body>
 </html>
