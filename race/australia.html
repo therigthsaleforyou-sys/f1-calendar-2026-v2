@@ -6,14 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* Ajuste ficha corrida para não ficar maior que o hero */
+    /* HERO e FICHA com mesma largura */
+    #hero,
     .race-card {
       max-width: 600px;
       margin: 20px auto;
       padding: 12px;
+      box-sizing: border-box;
     }
 
-    /* Botão Voltar ao topo igual aos do header */
+    #hero img,
+    .race-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+    }
+
+    .race-card h3,
+    .race-card p,
+    .race-card h4 {
+      margin: 6px 0;
+      word-wrap: break-word;
+    }
+
+    /* Botão voltar ao calendário */
+    .back-calendar-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 12px;
+      background: #000;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    .back-calendar-btn:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+
+    .back-calendar-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Botão Voltar ao topo */
     #back-to-top {
       position: fixed;
       bottom: 80px;
@@ -41,30 +82,6 @@
 
     #back-to-top.show {
       display: block;
-    }
-
-    /* Botão voltar ao calendário */
-    .back-calendar-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      margin-top: 12px;
-      background: #000;
-      border: 2px solid #ff0000;
-      border-radius: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      color: #fff;
-      transition: box-shadow 0.2s ease, transform 0.1s ease;
-    }
-
-    .back-calendar-btn:hover {
-      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-    }
-
-    .back-calendar-btn:active {
-      transform: scale(0.96);
     }
   </style>
 </head>
@@ -122,7 +139,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const heroCountdown = document.getElementById("hero-countdown");
 
-  // Definir data/hora oficial da corrida Austrália 2026
+  // Data/hora oficial da corrida Austrália 2026
   const raceDateISO = "2026-03-08T05:00:00Z";
 
   function startCountdown(dateISO) {
