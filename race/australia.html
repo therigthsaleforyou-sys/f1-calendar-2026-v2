@@ -20,8 +20,8 @@
 
   <!-- HERO -->
   <section id="hero">
-    <img src="../assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália">
-    <h2>Grande Prémio da Austrália</h2>
+    <img id="hero-image" src="../assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália">
+    <h2 id="hero-title">Grande Prémio da Austrália</h2>
     <div id="hero-countdown" class="countdown"></div>
   </section>
 
@@ -61,6 +61,45 @@
 </footer>
 
 <script src="../data/calendar2026-v2.js"></script>
-<script src="../js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const heroImage = document.getElementById("hero-image");
+  const heroTitle = document.getElementById("hero-title");
+  const heroCountdown = document.getElementById("hero-countdown");
+
+  const nextRace = window.calendar2026.find(r => r.id === "australia");
+
+  if (nextRace) {
+    heroImage.src = nextRace.heroImage ? nextRace.heroImage : nextRace.cardImage;
+    heroTitle.textContent = nextRace.name;
+
+    function startCountdown(dateISO) {
+      function update() {
+        const now = new Date();
+        const target = new Date(dateISO);
+        const diff = target - now;
+
+        if (diff <= 0) {
+          heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+
+        heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+      }
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    startCountdown(nextRace.sessions.race);
+  }
+});
+</script>
+
 </body>
 </html>
