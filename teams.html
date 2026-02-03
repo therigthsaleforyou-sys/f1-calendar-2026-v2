@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
 
   <style>
-    /* TEAMS */
+    /* TEAMS GRID */
     #teams-cards {
       padding: 12px;
       display: grid;
@@ -30,13 +30,18 @@
       box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
     }
 
+    /* LOGOS – FINAL */
     .team-card img {
-      width: 180px;              /* +50% */
+      width: 270px;          /* +50% novamente */
       max-width: 100%;
-      border-radius: 14px;       /* cantos arredondados */
-      margin-bottom: 12px;
-      background: #000;
-      padding: 6px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+
+      /* sem rebordos / fundos */
+      background: none;
+      padding: 0;
+      border: none;
+      box-shadow: none;
     }
 
     .team-card h3 {
@@ -66,7 +71,7 @@
     <section id="teams-cards"></section>
   </main>
 
-  <!-- BACK TO TOP (igual à homepage) -->
+  <!-- BACK TO TOP (igual homepage) -->
   <button id="back-to-top">Voltar ao topo</button>
 
   <!-- FOOTER -->
@@ -105,7 +110,7 @@
         teamsCards.appendChild(card);
       });
 
-      // Back to top (igual homepage)
+      /* Back to top – igual homepage */
       window.addEventListener("scroll", () => {
         if (window.scrollY > 400) backToTop.classList.add("show");
         else backToTop.classList.remove("show");
