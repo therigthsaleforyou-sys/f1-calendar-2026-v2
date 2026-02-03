@@ -1,132 +1,138 @@
+// js/main.js
+// Homepage – versão estável com hero dinâmico e imagens corretas
+
 document.addEventListener("DOMContentLoaded", () => {
-  markActiveMenu();
-  setupBackToTop();
-
-  // Espera ativa até calendar2026 estar disponível
-  const waitForCalendar = setInterval(() => {
-    if (window.calendar2026 && Array.isArray(calendar2026) && calendar2026.length > 0) {
-      clearInterval(waitForCalendar);
-      renderHomepage();
-    }
-  }, 100);
-});
-
-/* MENU ATIVO */
-function markActiveMenu() {
-  document.querySelectorAll("nav a").forEach(link => {
-    if (location.pathname.endsWith(link.getAttribute("href"))) {
-      link.classList.add("active");
-    }
-  });
-}
-
-/* HOMEPAGE */
-function renderHomepage() {
-  renderHero();
-  renderRaceCards();
-}
-
-/* HERO + COUNTDOWN */
-function renderHero() {
-  const heroTitle = document.getElementById("hero-title");
-  const heroImage = document.getElementById("hero-image");
-  const heroCountdown = document.getElementById("hero-countdown");
-
-  if (!heroTitle || !heroImage || !heroCountdown) return;
-
-  const nextRace = calendar2026[0];
-  if (!nextRace) return;
-
-  heroTitle.textContent = nextRace.name;
-  heroImage.src = nextRace.image;
-  heroImage.alt = nextRace.name;
-
-  startCountdown(nextRace.sessions.race, heroCountdown);
-}
-
-/* COUNTDOWN (CORRIGIDO E ESTÁVEL) */
-function startCountdown(dateStr, el) {
-  if (!dateStr || !el) {
-    el.textContent = "Horário indisponível";
+  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
+    console.error("calendar2026 não carregado");
     return;
   }
 
-  const target = new Date(dateStr);
+  const heroImage = document.getElementById("hero-image");
+  const heroTitle = document.getElementById("hero-title");
+  const heroCountdown = document.getElementById("hero-countdown");
+  const raceCards = document.getElementById("race-cards");
+  const backToTop = document.getElementById("back-to-top");
 
-  function update() {
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  /* =========================
+     HERO – próxima corrida
+  ========================= */
+
+  function getNextRace() {
     const now = new Date();
-    const diff = target - now;
-
-    if (diff > 0) {
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff / 3600000) % 24);
-      const m = Math.floor((diff / 60000) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      el.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
-    } else {
-      el.textContent = "🏁 A CORRIDA COMEÇOU 🏁";
-    }
+    return calendar2026.find(r => new Date(r.sessions.race) > now);
   }
 
-  update();
-  setInterval(update, 1000);
-}
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
 
-/* FICHAS DAS CORRIDAS */
-function renderRaceCards() {
-  const container = document.getElementById("race-cards");
-  if (!container) return;
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada";
+        return;
+      }
 
-  container.innerHTML = "";
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  const nextRace = getNextRace();
+  if (nextRace) {
+    heroImage.src = nextRace.heroImage || nextRace.cardImage;
+    heroTitle.textContent = nextRace.name;
+    startCountdown(nextRace.sessions.race);
+  }
+
+  /* =========================
+     FICHAS DAS CORRIDAS
+  ========================= */
+
+  raceCards.innerHTML = "";
 
   calendar2026.forEach(race => {
+    const isFavorite = favorites.includes(race.id);
+
     const card = document.createElement("div");
     card.className = "race-card";
+    if (isFavorite) card.classList.add("favorite");
 
     card.innerHTML = `
-      <img src="${race.image}" alt="${race.name}">
+      <img src="${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
-        <button class="fav-btn">🏁</button>
+        <button class="fav-btn ${isFavorite ? "active" : ""}" data-id="${race.id}">🏁</button>
       </div>
       <button class="details-toggle">Ver detalhes</button>
       <div class="race-details hidden">
-        <div>FP1: ${race.sessions.fp1}</div>
-        <div>FP2: ${race.sessions.fp2}</div>
-        <div>FP3: ${race.sessions.fp3}</div>
-        <div>Qualifying: ${race.sessions.qualifying}</div>
-        <div>Race: ${race.sessions.race}</div>
+        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
+        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
+        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
+        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
+        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
       </div>
     `;
 
-    // FAVORITO
-    const favBtn = card.querySelector(".fav-btn");
-    favBtn.addEventListener("click", () => {
-      favBtn.classList.toggle("active");
-      card.classList.toggle("favorite");
-    });
-
-    // VER DETALHES
-    const toggle = card.querySelector(".details-toggle");
-    const details = card.querySelector(".race-details");
-    toggle.addEventListener("click", () => {
-      details.classList.toggle("hidden");
-    });
-
-    container.appendChild(card);
+    raceCards.appendChild(card);
   });
-}
 
-/* BOTÃO VOLTAR AO TOPO */
-function setupBackToTop() {
-  const btn = document.getElementById("back-to-top");
-  if (!btn) return;
+  /* =========================
+     FAVORITOS
+  ========================= */
+
+  raceCards.addEventListener("click", e => {
+    if (e.target.classList.contains("fav-btn")) {
+      const id = e.target.dataset.id;
+      const card = e.target.closest(".race-card");
+
+      if (favorites.includes(id)) {
+        favorites.splice(favorites.indexOf(id), 1);
+        e.target.classList.remove("active");
+        card.classList.remove("favorite");
+      } else {
+        favorites.push(id);
+        e.target.classList.add("active");
+        card.classList.add("favorite");
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+  });
+
+  /* =========================
+     VER DETALHES (dropdown)
+  ========================= */
+
+  raceCards.addEventListener("click", e => {
+    if (e.target.classList.contains("details-toggle")) {
+      const details = e.target.nextElementSibling;
+      details.classList.toggle("hidden");
+    }
+  });
+
+  /* =========================
+     BACK TO TOP
+  ========================= */
 
   window.addEventListener("scroll", () => {
-    btn.classList.toggle("show", window.scrollY > 300);
+    if (window.scrollY > 400) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
   });
 
-  btn.addEventListener("click", () => {
+  backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-}
+});
