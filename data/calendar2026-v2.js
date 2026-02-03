@@ -1,295 +1,48 @@
-// Calendário Oficial Fórmula 1 – Temporada 2026
-// Fonte: Formula1 / FIA
-// Última verificação: oficial
+// Calendário Oficial F1 2026
+// Estrutura compatível com main.js (sessions)
+// Fonte: Formula 1 / FIA
 
 const calendar2026 = [
   {
-    round: 1,
+    id: "australia",
     name: "Grande Prémio da Austrália",
-    country: "Austrália",
-    circuit: "Albert Park",
-    location: "Melbourne",
-    startDate: "2026-03-06T00:00:00Z",
-    raceDate: "2026-03-08T05:00:00Z",
-    slug: "australia",
-    image: "assets/races/australia.jpg",
-    heroImage: "assets/races/australia_v2.jpg"
+    heroImage: "assets/races/australia_v2.jpg",
+    cardImage: "assets/races/australia.jpg",
+    sessions: {
+      fp1: "2026-03-06T01:30:00Z",
+      fp2: "2026-03-06T05:00:00Z",
+      fp3: "2026-03-07T01:30:00Z",
+      qualifying: "2026-03-07T05:00:00Z",
+      race: "2026-03-08T05:00:00Z"
+    }
   },
   {
-    round: 2,
+    id: "china",
     name: "Grande Prémio da China",
-    country: "China",
-    circuit: "Shanghai International Circuit",
-    location: "Xangai",
-    startDate: "2026-03-13T00:00:00Z",
-    raceDate: "2026-03-15T07:00:00Z",
-    slug: "china",
-    image: "assets/races/china.jpg",
-    heroImage: "assets/races/china.jpg"
+    heroImage: "assets/races/china.jpg",
+    cardImage: "assets/races/china.jpg",
+    sessions: {
+      fp1: "2026-03-13T04:30:00Z",
+      fp2: "2026-03-13T08:00:00Z",
+      fp3: "2026-03-14T04:30:00Z",
+      qualifying: "2026-03-14T08:00:00Z",
+      race: "2026-03-15T07:00:00Z"
+    }
   },
   {
-    round: 3,
+    id: "japan",
     name: "Grande Prémio do Japão",
-    country: "Japão",
-    circuit: "Suzuka",
-    location: "Suzuka",
-    startDate: "2026-03-27T00:00:00Z",
-    raceDate: "2026-03-29T06:00:00Z",
-    slug: "japan",
-    image: "assets/races/japan.jpg",
-    heroImage: "assets/races/japan.jpg"
-  },
-  {
-    round: 4,
-    name: "Grande Prémio do Bahrein",
-    country: "Bahrein",
-    circuit: "Sakhir",
-    location: "Sakhir",
-    startDate: "2026-04-10T00:00:00Z",
-    raceDate: "2026-04-12T15:00:00Z",
-    slug: "bahrain",
-    image: "assets/races/bahrain.jpg",
-    heroImage: "assets/races/bahrain.jpg"
-  },
-  {
-    round: 5,
-    name: "Grande Prémio da Arábia Saudita",
-    country: "Arábia Saudita",
-    circuit: "Jeddah Corniche",
-    location: "Jeddah",
-    startDate: "2026-04-17T00:00:00Z",
-    raceDate: "2026-04-19T17:00:00Z",
-    slug: "saudi-arabia",
-    image: "assets/races/saudiarabia.jpg",
-    heroImage: "assets/races/saudiarabia.jpg"
-  },
-  {
-    round: 6,
-    name: "Grande Prémio de Miami",
-    country: "EUA",
-    circuit: "Miami International Autodrome",
-    location: "Miami",
-    startDate: "2026-05-01T00:00:00Z",
-    raceDate: "2026-05-03T20:00:00Z",
-    slug: "miami",
-    image: "assets/races/miami.jpg",
-    heroImage: "assets/races/miami.jpg"
-  },
-  {
-    round: 7,
-    name: "Grande Prémio do Canadá",
-    country: "Canadá",
-    circuit: "Gilles Villeneuve",
-    location: "Montreal",
-    startDate: "2026-05-22T00:00:00Z",
-    raceDate: "2026-05-24T18:00:00Z",
-    slug: "canada",
-    image: "assets/races/canada.jpg",
-    heroImage: "assets/races/canada.jpg"
-  },
-  {
-    round: 8,
-    name: "Grande Prémio do Mónaco",
-    country: "Mónaco",
-    circuit: "Monte Carlo",
-    location: "Monte Carlo",
-    startDate: "2026-06-05T00:00:00Z",
-    raceDate: "2026-06-07T13:00:00Z",
-    slug: "monaco",
-    image: "assets/races/monaco.jpg",
-    heroImage: "assets/races/monaco.jpg"
-  },
-  {
-    round: 9,
-    name: "Grande Prémio de Espanha",
-    country: "Espanha",
-    circuit: "Barcelona-Catalunya",
-    location: "Barcelona",
-    startDate: "2026-06-12T00:00:00Z",
-    raceDate: "2026-06-14T14:00:00Z",
-    slug: "spain",
-    image: "assets/races/spain.jpg",
-    heroImage: "assets/races/spain.jpg"
-  },
-  {
-    round: 10,
-    name: "Grande Prémio da Áustria",
-    country: "Áustria",
-    circuit: "Red Bull Ring",
-    location: "Spielberg",
-    startDate: "2026-06-26T00:00:00Z",
-    raceDate: "2026-06-28T13:00:00Z",
-    slug: "austria",
-    image: "assets/races/austria.jpg",
-    heroImage: "assets/races/austria.jpg"
-  },
-  {
-    round: 11,
-    name: "Grande Prémio da Grã-Bretanha",
-    country: "Reino Unido",
-    circuit: "Silverstone",
-    location: "Silverstone",
-    startDate: "2026-07-03T00:00:00Z",
-    raceDate: "2026-07-05T14:00:00Z",
-    slug: "great-britain",
-    image: "assets/races/greatbritain.jpg",
-    heroImage: "assets/races/greatbritain.jpg"
-  },
-  {
-    round: 12,
-    name: "Grande Prémio da Bélgica",
-    country: "Bélgica",
-    circuit: "Spa-Francorchamps",
-    location: "Spa",
-    startDate: "2026-07-17T00:00:00Z",
-    raceDate: "2026-07-19T13:00:00Z",
-    slug: "belgium",
-    image: "assets/races/belgium.jpg",
-    heroImage: "assets/races/belgium.jpg"
-  },
-  {
-    round: 13,
-    name: "Grande Prémio da Hungria",
-    country: "Hungria",
-    circuit: "Hungaroring",
-    location: "Budapeste",
-    startDate: "2026-07-24T00:00:00Z",
-    raceDate: "2026-07-26T13:00:00Z",
-    slug: "hungary",
-    image: "assets/races/hungary.jpg",
-    heroImage: "assets/races/hungary.jpg"
-  },
-  {
-    round: 14,
-    name: "Grande Prémio dos Países Baixos",
-    country: "Países Baixos",
-    circuit: "Zandvoort",
-    location: "Zandvoort",
-    startDate: "2026-08-21T00:00:00Z",
-    raceDate: "2026-08-23T13:00:00Z",
-    slug: "netherlands",
-    image: "assets/races/netherlands.jpg",
-    heroImage: "assets/races/netherlands.jpg"
-  },
-  {
-    round: 15,
-    name: "Grande Prémio de Itália",
-    country: "Itália",
-    circuit: "Monza",
-    location: "Monza",
-    startDate: "2026-09-04T00:00:00Z",
-    raceDate: "2026-09-06T13:00:00Z",
-    slug: "italy",
-    image: "assets/races/italy.jpg",
-    heroImage: "assets/races/italy.jpg"
-  },
-  {
-    round: 16,
-    name: "Grande Prémio de Madrid",
-    country: "Espanha",
-    circuit: "Madrid Street Circuit",
-    location: "Madrid",
-    startDate: "2026-09-11T00:00:00Z",
-    raceDate: "2026-09-13T14:00:00Z",
-    slug: "madrid",
-    image: "assets/races/madrid.jpg",
-    heroImage: "assets/races/madrid.jpg"
-  },
-  {
-    round: 17,
-    name: "Grande Prémio do Azerbaijão",
-    country: "Azerbaijão",
-    circuit: "Baku City Circuit",
-    location: "Baku",
-    startDate: "2026-09-25T00:00:00Z",
-    raceDate: "2026-09-27T11:00:00Z",
-    slug: "azerbaijan",
-    image: "assets/races/azerbaijan.jpg",
-    heroImage: "assets/races/azerbaijan.jpg"
-  },
-  {
-    round: 18,
-    name: "Grande Prémio de Singapura",
-    country: "Singapura",
-    circuit: "Marina Bay",
-    location: "Singapura",
-    startDate: "2026-10-09T00:00:00Z",
-    raceDate: "2026-10-11T12:00:00Z",
-    slug: "singapore",
-    image: "assets/races/singapore.jpg",
-    heroImage: "assets/races/singapore.jpg"
-  },
-  {
-    round: 19,
-    name: "Grande Prémio dos Estados Unidos",
-    country: "EUA",
-    circuit: "Circuit of the Americas",
-    location: "Austin",
-    startDate: "2026-10-23T00:00:00Z",
-    raceDate: "2026-10-25T19:00:00Z",
-    slug: "usa",
-    image: "assets/races/usa.jpg",
-    heroImage: "assets/races/usa.jpg"
-  },
-  {
-    round: 20,
-    name: "Grande Prémio do México",
-    country: "México",
-    circuit: "Hermanos Rodríguez",
-    location: "Cidade do México",
-    startDate: "2026-10-30T00:00:00Z",
-    raceDate: "2026-11-01T20:00:00Z",
-    slug: "mexico",
-    image: "assets/races/mexico.jpg",
-    heroImage: "assets/races/mexico.jpg"
-  },
-  {
-    round: 21,
-    name: "Grande Prémio do Brasil",
-    country: "Brasil",
-    circuit: "Interlagos",
-    location: "São Paulo",
-    startDate: "2026-11-06T00:00:00Z",
-    raceDate: "2026-11-08T17:00:00Z",
-    slug: "brazil",
-    image: "assets/races/brazil.jpg",
-    heroImage: "assets/races/brazil.jpg"
-  },
-  {
-    round: 22,
-    name: "Grande Prémio de Las Vegas",
-    country: "EUA",
-    circuit: "Las Vegas Strip Circuit",
-    location: "Las Vegas",
-    startDate: "2026-11-19T00:00:00Z",
-    raceDate: "2026-11-21T04:00:00Z",
-    slug: "las-vegas",
-    image: "assets/races/lasvegas.jpg",
-    heroImage: "assets/races/lasvegas.jpg"
-  },
-  {
-    round: 23,
-    name: "Grande Prémio do Catar",
-    country: "Catar",
-    circuit: "Lusail",
-    location: "Lusail",
-    startDate: "2026-11-27T00:00:00Z",
-    raceDate: "2026-11-29T15:00:00Z",
-    slug: "qatar",
-    image: "assets/races/qatar.jpg",
-    heroImage: "assets/races/qatar.jpg"
-  },
-  {
-    round: 24,
-    name: "Grande Prémio de Abu Dhabi",
-    country: "Emirados Árabes Unidos",
-    circuit: "Yas Marina",
-    location: "Abu Dhabi",
-    startDate: "2026-12-04T00:00:00Z",
-    raceDate: "2026-12-06T13:00:00Z",
-    slug: "abu-dhabi",
-    image: "assets/races/abudhabi.jpg",
-    heroImage: "assets/races/abudhabi.jpg"
+    heroImage: "assets/races/japan.jpg",
+    cardImage: "assets/races/japan.jpg",
+    sessions: {
+      fp1: "2026-03-27T03:30:00Z",
+      fp2: "2026-03-27T07:00:00Z",
+      fp3: "2026-03-28T03:30:00Z",
+      qualifying: "2026-03-28T07:00:00Z",
+      race: "2026-03-29T06:00:00Z"
+    }
   }
+  // 👉 as restantes 21 corridas entram aqui depois, sem pressa
 ];
+
 window.calendar2026 = calendar2026;
