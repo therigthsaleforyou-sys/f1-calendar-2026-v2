@@ -5,6 +5,13 @@
   <title>Grande Prémio da Austrália – F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Ajuste ficha corrida para não ficar maior que o hero */
+    .race-card {
+      max-width: 600px;
+      margin: 20px auto;
+    }
+  </style>
 </head>
 <body>
 
@@ -34,16 +41,6 @@
         <button class="fav-btn" data-id="australia">🏁</button>
       </div>
 
-      <button class="details-toggle">Ver horários</button>
-      <div class="race-details hidden">
-        <p><strong>FP1:</strong> 06 Mar 01:30</p>
-        <p><strong>FP2:</strong> 06 Mar 05:00</p>
-        <p><strong>FP3:</strong> 07 Mar 01:30</p>
-        <p><strong>Qualificação:</strong> 07 Mar 05:00</p>
-        <p><strong>Corrida:</strong> 08 Mar 05:00</p>
-        <a href="../index.html">← Voltar ao calendário</a>
-      </div>
-
       <div class="race-results">
         <h4>Resultados 2025</h4>
         <p><strong>Pole:</strong> Max Verstappen – 1:22.500</p>
@@ -51,6 +48,8 @@
         <p><strong>Volta mais rápida:</strong> Lando Norris – 1:25.300</p>
         <p><strong>Meteorologia:</strong> Sol, 28°C</p>
       </div>
+
+      <a href="../index.html">← Voltar ao calendário</a>
     </div>
   </section>
 
@@ -98,6 +97,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startCountdown(nextRace.sessions.race);
   }
+
+  /* Favoritos funcionalidade */
+  const favBtn = document.querySelector(".fav-btn");
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  if (favorites.includes("australia")) {
+    favBtn.classList.add("active");
+  }
+
+  favBtn.addEventListener("click", () => {
+    if (favorites.includes("australia")) {
+      favorites.splice(favorites.indexOf("australia"), 1);
+      favBtn.classList.remove("active");
+    } else {
+      favorites.push("australia");
+      favBtn.classList.add("active");
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  });
 });
 </script>
 
