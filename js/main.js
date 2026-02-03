@@ -86,9 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
         <p><strong>Corrida:</strong> ${race.sessions.race}</p>
 
-        <a class="race-link-btn" href="race/${race.id}.html">
-          Ver página da corrida
-        </a>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="race/${race.id}.html">
+            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+          </a>
+        </div>
       </div>
     `;
 
