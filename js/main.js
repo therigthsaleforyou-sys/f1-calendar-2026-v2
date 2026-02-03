@@ -15,52 +15,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-/* =========================
-   HERO – próxima corrida
-========================= */
+  /* =========================
+     HERO – próxima corrida
+  ========================= */
 
-function getNextRace() {
-  const now = new Date();
-  return calendar2026.find(r => new Date(r.sessions.race) > now);
-}
-
-function startCountdown(dateISO) {
-  function update() {
+  function getNextRace() {
     const now = new Date();
-    const target = new Date(dateISO);
-    const diff = target - now;
-
-    if (diff <= 0) {
-      heroCountdown.textContent = "🏁 Corrida terminada";
-      return;
-    }
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    return calendar2026.find(r => new Date(r.sessions.race) > now);
   }
 
-  update();
-  setInterval(update, 1000);
-}
+  function startCountdown(dateISO) {
+    function update() {
+      const now = new Date();
+      const target = new Date(dateISO);
+      const diff = target - now;
 
-const nextRace = getNextRace();
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        return;
+      }
 
-if (nextRace) {
-  const now = new Date();
-  const raceDate = new Date(nextRace.sessions.race);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
 
-  heroImage.src =
-    raceDate > now && nextRace.heroImage
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  const nextRace = getNextRace();
+
+  if (nextRace) {
+    // 👉 lógica FINAL e simples
+    heroImage.src = nextRace.heroImage
       ? nextRace.heroImage
       : nextRace.cardImage;
 
-  heroTitle.textContent = nextRace.name;
-  startCountdown(nextRace.sessions.race);
-}
+    heroTitle.textContent = nextRace.name;
+    startCountdown(nextRace.sessions.race);
+  }
 
   /* =========================
      FICHAS DAS CORRIDAS
