@@ -1,9 +1,9 @@
 // js/main.js
-// Homepage – versão estável com hero dinâmico e imagens corretas
+// Homepage – versão estável com hero dinâmico (mobile-safe)
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
+    console.error("❌ calendar2026 não carregado");
     return;
   }
 
@@ -49,14 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const nextRace = getNextRace();
 
-  if (nextRace) {
-    // 👉 lógica FINAL e simples
-    heroImage.src = nextRace.heroImage
-      ? nextRace.heroImage
-      : nextRace.cardImage;
+  if (nextRace && heroImage) {
+    const now = new Date();
+    const raceDate = new Date(nextRace.sessions.race);
+
+    // 🔑 LÓGICA FINAL DO HERO
+    const heroSrc =
+      raceDate > now && nextRace.heroImage
+        ? nextRace.heroImage
+        : nextRace.cardImage;
+
+    // evita cache agressiva (mobile / GitHub Pages)
+    heroImage.src = "";
+    heroImage.src = heroSrc;
 
     heroTitle.textContent = nextRace.name;
     startCountdown(nextRace.sessions.race);
+
+    console.log("✅ HERO IMAGE:", heroSrc);
   }
 
   /* =========================
@@ -115,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================
-     VER DETALHES (dropdown)
+     VER DETALHES
   ========================= */
 
   raceCards.addEventListener("click", e => {
