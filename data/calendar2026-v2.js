@@ -1,8 +1,7 @@
 // Calendário Oficial F1 2026
-// Estrutura compatível com main.js (sessions)
-// Fonte: Formula 1 / FIA
+// Estrutura compatível com main.js
 
-const calendar2026 = [
+window.calendar2026 = [
   {
     id: "australia",
     name: "Grande Prémio da Austrália",
@@ -19,7 +18,6 @@ const calendar2026 = [
   {
     id: "china",
     name: "Grande Prémio da China",
-    heroImage: "assets/races/china.jpg",
     cardImage: "assets/races/china.jpg",
     sessions: {
       fp1: "2026-03-13T04:30:00Z",
@@ -32,7 +30,6 @@ const calendar2026 = [
   {
     id: "japan",
     name: "Grande Prémio do Japão",
-    heroImage: "assets/races/japan.jpg",
     cardImage: "assets/races/japan.jpg",
     sessions: {
       fp1: "2026-03-27T03:30:00Z",
@@ -42,7 +39,4 @@ const calendar2026 = [
       race: "2026-03-29T06:00:00Z"
     }
   }
-  // 👉 as restantes 21 corridas entram aqui depois, sem pressa
 ];
-
-window.calendar2026 = calendar2026;
