@@ -1,19 +1,20 @@
-// data/calendar2026-v2.js
-// Calendário Oficial F1 2026 – paths corrigidos (HERO + CARDS)
-// Compatível com main.js e mobile
+// Calendário Oficial F1 2026
+// Versão v2 FINAL – 24 corridas
+// Estrutura compatível com main.js
+// Horários aproximados (UTC)
 
-window.calendar2026 = [
+const calendar2026 = [
   {
     id: "australia",
     name: "Grande Prémio da Austrália",
     heroImage: "assets/heroes/australia_v2.jpg",
     cardImage: "assets/races/australia.jpg",
     sessions: {
-      fp1: "2026-03-06 01:30",
-      fp2: "2026-03-06 05:00",
-      fp3: "2026-03-07 01:30",
-      qualifying: "2026-03-07 05:00",
-      race: "2026-03-08 05:00"
+      fp1: "2026-03-06T01:30:00Z",
+      fp2: "2026-03-06T05:00:00Z",
+      fp3: "2026-03-07T01:30:00Z",
+      qualifying: "2026-03-07T05:00:00Z",
+      race: "2026-03-08T05:00:00Z"
     }
   },
   {
@@ -22,11 +23,11 @@ window.calendar2026 = [
     heroImage: "assets/heroes/china.jpg",
     cardImage: "assets/races/china.jpg",
     sessions: {
-      fp1: "2026-03-13 04:30",
-      fp2: "2026-03-13 08:00",
-      fp3: "2026-03-14 04:30",
-      qualifying: "2026-03-14 08:00",
-      race: "2026-03-15 07:00"
+      fp1: "2026-03-13T04:30:00Z",
+      fp2: "2026-03-13T08:00:00Z",
+      fp3: "2026-03-14T04:30:00Z",
+      qualifying: "2026-03-14T08:00:00Z",
+      race: "2026-03-15T07:00:00Z"
     }
   },
   {
@@ -35,11 +36,286 @@ window.calendar2026 = [
     heroImage: "assets/heroes/japan.jpg",
     cardImage: "assets/races/japan.jpg",
     sessions: {
-      fp1: "2026-03-27 03:30",
-      fp2: "2026-03-27 07:00",
-      fp3: "2026-03-28 03:30",
-      qualifying: "2026-03-28 07:00",
-      race: "2026-03-29 06:00"
+      fp1: "2026-03-27T03:30:00Z",
+      fp2: "2026-03-27T07:00:00Z",
+      fp3: "2026-03-28T03:30:00Z",
+      qualifying: "2026-03-28T07:00:00Z",
+      race: "2026-03-29T06:00:00Z"
+    }
+  },
+  {
+    id: "bahrain",
+    name: "Grande Prémio do Bahrein",
+    heroImage: "assets/heroes/bahrain.jpg",
+    cardImage: "assets/races/bahrain.jpg",
+    sessions: {
+      fp1: "2026-04-10T11:00:00Z",
+      fp2: "2026-04-10T15:00:00Z",
+      fp3: "2026-04-11T12:00:00Z",
+      qualifying: "2026-04-11T15:00:00Z",
+      race: "2026-04-12T15:00:00Z"
+    }
+  },
+  {
+    id: "saudi-arabia",
+    name: "Grande Prémio da Arábia Saudita",
+    heroImage: "assets/heroes/saudi_arabia.jpg",
+    cardImage: "assets/races/saudi_arabia.jpg",
+    sessions: {
+      fp1: "2026-04-17T13:30:00Z",
+      fp2: "2026-04-17T17:00:00Z",
+      fp3: "2026-04-18T13:30:00Z",
+      qualifying: "2026-04-18T17:00:00Z",
+      race: "2026-04-19T17:00:00Z"
+    }
+  },
+  {
+    id: "miami",
+    name: "Grande Prémio de Miami",
+    heroImage: "assets/heroes/miami.jpg",
+    cardImage: "assets/races/miami.jpg",
+    sessions: {
+      fp1: "2026-05-01T18:30:00Z",
+      fp2: "2026-05-01T22:00:00Z",
+      fp3: "2026-05-02T17:30:00Z",
+      qualifying: "2026-05-02T21:00:00Z",
+      race: "2026-05-03T20:00:00Z"
+    }
+  },
+  {
+    id: "canada",
+    name: "Grande Prémio do Canadá",
+    heroImage: "assets/heroes/canada.jpg",
+    cardImage: "assets/races/canada.jpg",
+    sessions: {
+      fp1: "2026-05-22T18:30:00Z",
+      fp2: "2026-05-22T22:00:00Z",
+      fp3: "2026-05-23T17:30:00Z",
+      qualifying: "2026-05-23T21:00:00Z",
+      race: "2026-05-24T18:00:00Z"
+    }
+  },
+  {
+    id: "monaco",
+    name: "Grande Prémio do Mónaco",
+    heroImage: "assets/heroes/monaco.jpg",
+    cardImage: "assets/races/monaco.jpg",
+    sessions: {
+      fp1: "2026-06-05T11:30:00Z",
+      fp2: "2026-06-05T15:00:00Z",
+      fp3: "2026-06-06T12:00:00Z",
+      qualifying: "2026-06-06T15:00:00Z",
+      race: "2026-06-07T13:00:00Z"
+    }
+  },
+  {
+    id: "spain",
+    name: "Grande Prémio de Espanha",
+    heroImage: "assets/heroes/spain.jpg",
+    cardImage: "assets/races/spain.jpg",
+    sessions: {
+      fp1: "2026-06-12T11:30:00Z",
+      fp2: "2026-06-12T15:00:00Z",
+      fp3: "2026-06-13T12:00:00Z",
+      qualifying: "2026-06-13T15:00:00Z",
+      race: "2026-06-14T13:00:00Z"
+    }
+  },
+  {
+    id: "austria",
+    name: "Grande Prémio da Áustria",
+    heroImage: "assets/heroes/austria.jpg",
+    cardImage: "assets/races/austria.jpg",
+    sessions: {
+      fp1: "2026-06-26T11:30:00Z",
+      fp2: "2026-06-26T15:00:00Z",
+      fp3: "2026-06-27T12:00:00Z",
+      qualifying: "2026-06-27T15:00:00Z",
+      race: "2026-06-28T13:00:00Z"
+    }
+  },
+  {
+    id: "britain",
+    name: "Grande Prémio da Grã-Bretanha",
+    heroImage: "assets/heroes/britain.jpg",
+    cardImage: "assets/races/britain.jpg",
+    sessions: {
+      fp1: "2026-07-03T12:30:00Z",
+      fp2: "2026-07-03T16:00:00Z",
+      fp3: "2026-07-04T11:30:00Z",
+      qualifying: "2026-07-04T15:00:00Z",
+      race: "2026-07-05T14:00:00Z"
+    }
+  },
+  {
+    id: "hungary",
+    name: "Grande Prémio da Hungria",
+    heroImage: "assets/heroes/hungary.jpg",
+    cardImage: "assets/races/hungary.jpg",
+    sessions: {
+      fp1: "2026-07-24T11:30:00Z",
+      fp2: "2026-07-24T15:00:00Z",
+      fp3: "2026-07-25T12:00:00Z",
+      qualifying: "2026-07-25T15:00:00Z",
+      race: "2026-07-26T13:00:00Z"
+    }
+  },
+  {
+    id: "belgium",
+    name: "Grande Prémio da Bélgica",
+    heroImage: "assets/heroes/belgium.jpg",
+    cardImage: "assets/races/belgium.jpg",
+    sessions: {
+      fp1: "2026-08-21T11:30:00Z",
+      fp2: "2026-08-21T15:00:00Z",
+      fp3: "2026-08-22T12:00:00Z",
+      qualifying: "2026-08-22T15:00:00Z",
+      race: "2026-08-23T13:00:00Z"
+    }
+  },
+  {
+    id: "netherlands",
+    name: "Grande Prémio dos Países Baixos",
+    heroImage: "assets/heroes/netherlands.jpg",
+    cardImage: "assets/races/netherlands.jpg",
+    sessions: {
+      fp1: "2026-08-28T10:30:00Z",
+      fp2: "2026-08-28T14:00:00Z",
+      fp3: "2026-08-29T10:30:00Z",
+      qualifying: "2026-08-29T14:00:00Z",
+      race: "2026-08-30T13:00:00Z"
+    }
+  },
+  {
+    id: "italy",
+    name: "Grande Prémio de Itália",
+    heroImage: "assets/heroes/italy.jpg",
+    cardImage: "assets/races/italy.jpg",
+    sessions: {
+      fp1: "2026-09-04T11:30:00Z",
+      fp2: "2026-09-04T15:00:00Z",
+      fp3: "2026-09-05T12:00:00Z",
+      qualifying: "2026-09-05T15:00:00Z",
+      race: "2026-09-06T13:00:00Z"
+    }
+  },
+  {
+    id: "madrid",
+    name: "Grande Prémio de Madrid",
+    heroImage: "assets/heroes/madrid.jpg",
+    cardImage: "assets/races/madrid.jpg",
+    sessions: {
+      fp1: "2026-09-11T11:30:00Z",
+      fp2: "2026-09-11T15:00:00Z",
+      fp3: "2026-09-12T12:00:00Z",
+      qualifying: "2026-09-12T15:00:00Z",
+      race: "2026-09-13T13:00:00Z"
+    }
+  },
+  {
+    id: "azerbaijan",
+    name: "Grande Prémio do Azerbaijão",
+    heroImage: "assets/heroes/azerbaijan.jpg",
+    cardImage: "assets/races/azerbaijan.jpg",
+    sessions: {
+      fp1: "2026-09-25T08:00:00Z",
+      fp2: "2026-09-25T12:00:00Z",
+      fp3: "2026-09-26T08:00:00Z",
+      qualifying: "2026-09-26T12:00:00Z",
+      race: "2026-09-27T11:00:00Z"
+    }
+  },
+  {
+    id: "singapore",
+    name: "Grande Prémio de Singapura",
+    heroImage: "assets/heroes/singapore.jpg",
+    cardImage: "assets/races/singapore.jpg",
+    sessions: {
+      fp1: "2026-10-02T10:00:00Z",
+      fp2: "2026-10-02T14:00:00Z",
+      fp3: "2026-10-03T10:00:00Z",
+      qualifying: "2026-10-03T14:00:00Z",
+      race: "2026-10-04T12:00:00Z"
+    }
+  },
+  {
+    id: "usa",
+    name: "Grande Prémio dos Estados Unidos",
+    heroImage: "assets/heroes/usa.jpg",
+    cardImage: "assets/races/usa.jpg",
+    sessions: {
+      fp1: "2026-10-16T17:30:00Z",
+      fp2: "2026-10-16T21:00:00Z",
+      fp3: "2026-10-17T18:00:00Z",
+      qualifying: "2026-10-17T22:00:00Z",
+      race: "2026-10-18T20:00:00Z"
+    }
+  },
+  {
+    id: "mexico",
+    name: "Grande Prémio do México",
+    heroImage: "assets/heroes/mexico.jpg",
+    cardImage: "assets/races/mexico.jpg",
+    sessions: {
+      fp1: "2026-10-23T18:30:00Z",
+      fp2: "2026-10-23T22:00:00Z",
+      fp3: "2026-10-24T17:30:00Z",
+      qualifying: "2026-10-24T21:00:00Z",
+      race: "2026-10-25T20:00:00Z"
+    }
+  },
+  {
+    id: "brazil",
+    name: "Grande Prémio do Brasil",
+    heroImage: "assets/heroes/brazil.jpg",
+    cardImage: "assets/races/brazil.jpg",
+    sessions: {
+      fp1: "2026-10-30T14:30:00Z",
+      fp2: "2026-10-30T18:00:00Z",
+      fp3: "2026-10-31T14:30:00Z",
+      qualifying: "2026-10-31T18:00:00Z",
+      race: "2026-11-01T17:00:00Z"
+    }
+  },
+  {
+    id: "las-vegas",
+    name: "Grande Prémio de Las Vegas",
+    heroImage: "assets/heroes/las_vegas.jpg",
+    cardImage: "assets/races/las_vegas.jpg",
+    sessions: {
+      fp1: "2026-11-20T03:00:00Z",
+      fp2: "2026-11-20T07:00:00Z",
+      fp3: "2026-11-21T03:00:00Z",
+      qualifying: "2026-11-21T07:00:00Z",
+      race: "2026-11-22T06:00:00Z"
+    }
+  },
+  {
+    id: "qatar",
+    name: "Grande Prémio do Catar",
+    heroImage: "assets/heroes/qatar.jpg",
+    cardImage: "assets/races/qatar.jpg",
+    sessions: {
+      fp1: "2026-11-27T12:30:00Z",
+      fp2: "2026-11-27T16:00:00Z",
+      fp3: "2026-11-28T13:00:00Z",
+      qualifying: "2026-11-28T16:00:00Z",
+      race: "2026-11-29T15:00:00Z"
+    }
+  },
+  {
+    id: "abu-dhabi",
+    name: "Grande Prémio de Abu Dhabi",
+    heroImage: "assets/heroes/abu_dhabi.jpg",
+    cardImage: "assets/races/abu_dhabi.jpg",
+    sessions: {
+      fp1: "2026-12-04T09:30:00Z",
+      fp2: "2026-12-04T13:00:00Z",
+      fp3: "2026-12-05T10:00:00Z",
+      qualifying: "2026-12-05T13:00:00Z",
+      race: "2026-12-06T13:00:00Z"
     }
   }
 ];
+
+window.calendar2026 = calendar2026;
