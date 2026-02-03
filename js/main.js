@@ -15,44 +15,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  /* =========================
-     HERO – próxima corrida
-  ========================= */
+/* =========================
+   HERO – próxima corrida
+========================= */
 
-  function getNextRace() {
+function getNextRace() {
+  const now = new Date();
+  return calendar2026.find(r => new Date(r.sessions.race) > now);
+}
+
+function startCountdown(dateISO) {
+  function update() {
     const now = new Date();
-    return calendar2026.find(r => new Date(r.sessions.race) > now);
-  }
+    const target = new Date(dateISO);
+    const diff = target - now;
 
-  function startCountdown(dateISO) {
-    function update() {
-      const now = new Date();
-      const target = new Date(dateISO);
-      const diff = target - now;
-
-      if (diff <= 0) {
-        heroCountdown.textContent = "🏁 Corrida terminada";
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-
-      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    if (diff <= 0) {
+      heroCountdown.textContent = "🏁 Corrida terminada";
+      return;
     }
 
-    update();
-    setInterval(update, 1000);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
   }
 
-  const nextRace = getNextRace();
-  if (nextRace) {
-    heroImage.src = nextRace.heroImage || nextRace.cardImage;
-    heroTitle.textContent = nextRace.name;
-    startCountdown(nextRace.sessions.race);
-  }
+  update();
+  setInterval(update, 1000);
+}
+
+const nextRace = getNextRace();
+
+if (nextRace) {
+  const now = new Date();
+  const raceDate = new Date(nextRace.sessions.race);
+
+  heroImage.src =
+    raceDate > now && nextRace.heroImage
+      ? nextRace.heroImage
+      : nextRace.cardImage;
+
+  heroTitle.textContent = nextRace.name;
+  startCountdown(nextRace.sessions.race);
+}
 
   /* =========================
      FICHAS DAS CORRIDAS
