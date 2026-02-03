@@ -6,31 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* HERO e FICHA – largura idêntica à homepage */
-    #hero,
-    .race-card {
-      width: 100%;
-      max-width: 600px; /* mesma largura da homepage */
-      margin: 16px auto;
-      padding: 12px;
-      box-sizing: border-box;
-    }
-
-    #hero img,
-    .race-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 14px;
-    }
-
-    .race-card h3,
-    .race-card p,
-    .race-card h4 {
-      margin: 6px 0;
-      word-wrap: break-word;
-    }
-
+    /* HERO E FICHA já seguem os estilos do style.css da homepage, sem max-width */
     /* Botão voltar ao calendário */
     .back-calendar-btn {
       display: block;
@@ -106,7 +82,7 @@
   </section>
 
   <!-- FICHA DA CORRIDA -->
-  <section id="race-details">
+  <section id="race-cards">
     <div class="race-card">
       <img src="../assets/diagramas/australia2d.jpg" alt="Diagrama da pista – Austrália">
       <div class="race-header">
@@ -114,7 +90,7 @@
         <button class="fav-btn" data-id="australia">🏁</button>
       </div>
 
-      <div class="race-results">
+      <div class="race-details">
         <h4>Resultados 2025</h4>
         <p><strong>Pole:</strong> Max Verstappen – 1:22.500</p>
         <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Charles Leclerc, 3º Sergio Pérez</p>
