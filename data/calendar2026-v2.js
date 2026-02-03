@@ -1,11 +1,12 @@
 // Dados base – formato ISO 8601 para homepage
-// Horários oficiais de 2026
+// Hero dinâmico: Austrália com _v2, resto usa a imagem da corrida
 
 window.calendar2026 = [
   {
     id: "australia",
     name: "Grande Prémio da Austrália",
-    image: "assets/races/australia.jpg",
+    heroImage: "assets/heroes/australia_v2.jpg", // hero destaque
+    cardImage: "assets/races/australia.jpg",     // ficha corrida
     sessions: {
       fp1: "2026-03-06T01:30:00Z",
       fp2: "2026-03-06T05:00:00Z",
@@ -17,7 +18,8 @@ window.calendar2026 = [
   {
     id: "bahrain",
     name: "Grande Prémio do Bahrain",
-    image: "assets/races/bahrain.jpg",
+    heroImage: "assets/races/bahrain.jpg", // hero igual ficha
+    cardImage: "assets/races/bahrain.jpg",
     sessions: {
       fp1: "2026-03-13T13:30:00Z",
       fp2: "2026-03-13T17:00:00Z",
@@ -29,7 +31,8 @@ window.calendar2026 = [
   {
     id: "china",
     name: "Grande Prémio da China",
-    image: "assets/races/china.jpg",
+    heroImage: "assets/races/china.jpg",
+    cardImage: "assets/races/china.jpg",
     sessions: {
       fp1: "2026-03-20T04:30:00Z",
       fp2: "2026-03-20T08:00:00Z",
@@ -41,7 +44,8 @@ window.calendar2026 = [
   {
     id: "japan",
     name: "Grande Prémio do Japão",
-    image: "assets/races/japan.jpg",
+    heroImage: "assets/races/japan.jpg",
+    cardImage: "assets/races/japan.jpg",
     sessions: {
       fp1: "2026-03-27T03:30:00Z",
       fp2: "2026-03-27T07:00:00Z",
@@ -53,7 +57,8 @@ window.calendar2026 = [
   {
     id: "monaco",
     name: "Grande Prémio de Mónaco",
-    image: "assets/races/monaco.jpg",
+    heroImage: "assets/races/monaco.jpg",
+    cardImage: "assets/races/monaco.jpg",
     sessions: {
       fp1: "2026-05-22T09:30:00Z",
       fp2: "2026-05-22T13:00:00Z",
@@ -65,7 +70,8 @@ window.calendar2026 = [
   {
     id: "canada",
     name: "Grande Prémio do Canadá",
-    image: "assets/races/canada.jpg",
+    heroImage: "assets/races/canada.jpg",
+    cardImage: "assets/races/canada.jpg",
     sessions: {
       fp1: "2026-06-05T14:00:00Z",
       fp2: "2026-06-05T17:00:00Z",
@@ -77,7 +83,8 @@ window.calendar2026 = [
   {
     id: "britain",
     name: "Grande Prémio da Grã-Bretanha",
-    image: "assets/races/britain.jpg",
+    heroImage: "assets/races/britain.jpg",
+    cardImage: "assets/races/britain.jpg",
     sessions: {
       fp1: "2026-07-10T11:00:00Z",
       fp2: "2026-07-10T14:00:00Z",
@@ -89,7 +96,8 @@ window.calendar2026 = [
   {
     id: "hungary",
     name: "Grande Prémio da Hungria",
-    image: "assets/races/hungary.jpg",
+    heroImage: "assets/races/hungary.jpg",
+    cardImage: "assets/races/hungary.jpg",
     sessions: {
       fp1: "2026-08-01T10:30:00Z",
       fp2: "2026-08-01T14:00:00Z",
@@ -101,7 +109,8 @@ window.calendar2026 = [
   {
     id: "belgium",
     name: "Grande Prémio da Bélgica",
-    image: "assets/races/belgium.jpg",
+    heroImage: "assets/races/belgium.jpg",
+    cardImage: "assets/races/belgium.jpg",
     sessions: {
       fp1: "2026-08-28T11:00:00Z",
       fp2: "2026-08-28T14:00:00Z",
@@ -113,7 +122,8 @@ window.calendar2026 = [
   {
     id: "italy",
     name: "Grande Prémio de Itália",
-    image: "assets/races/italy.jpg",
+    heroImage: "assets/races/italy.jpg",
+    cardImage: "assets/races/italy.jpg",
     sessions: {
       fp1: "2026-09-05T09:30:00Z",
       fp2: "2026-09-05T13:00:00Z",
@@ -125,7 +135,8 @@ window.calendar2026 = [
   {
     id: "usa",
     name: "Grande Prémio dos EUA",
-    image: "assets/races/usa.jpg",
+    heroImage: "assets/races/usa.jpg",
+    cardImage: "assets/races/usa.jpg",
     sessions: {
       fp1: "2026-10-24T17:00:00Z",
       fp2: "2026-10-24T20:00:00Z",
