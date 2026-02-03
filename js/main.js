@@ -1,5 +1,5 @@
 // js/main.js
-// Homepage – versão completa com hero dinâmico, countdown, favoritos e botões de corrida estilizados
+// Homepage – versão estável com hero dinâmico + fichas clicáveis
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -72,23 +72,37 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isFavorite) card.classList.add("favorite");
 
     card.innerHTML = `
-      <img src="${race.cardImage}" alt="${race.name}">
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+
       <div class="race-header">
         <h3>${race.name}</h3>
+        <button class="fav-btn ${isFavorite ? "active" : ""}" data-id="${race.id}">🏁</button>
       </div>
-      <div class="race-details">
+
+      <div class="race-details hidden">
         <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
         <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
         <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
         <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
         <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-      </div>
-      <div class="race-footer">
-        <a href="${race.id}.html" class="btn-header">Conheça o GP F1 da ${race.name}</a>
+
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="race/${race.id}.html">
+            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+          </a>
+        </div>
       </div>
     `;
 
     raceCards.appendChild(card);
+
+    // 📸 Dropbox ao clicar na imagem
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    img.addEventListener("click", () => {
+      details.classList.toggle("hidden");
+    });
   });
 
   /* =========================
