@@ -292,3 +292,4 @@ const calendar2026 = [
     heroImage: "assets/races/abudhabi.jpg"
   }
 ];
+window.calendar2026-v2 = calendar2026-v2;
