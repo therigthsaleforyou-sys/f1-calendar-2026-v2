@@ -1,214 +1,186 @@
-/* ================= RESET ================= */
-
-* {
+ {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #000;
-  color: #fff;
-  line-height: 1.4;
+  background: #0b0b0b;
+  color: #ffffff;
+  line-height: 1.5;
 }
 
-/* ================= HEADER / NAV ================= */
-
+/* HEADER */
 header {
-  padding: 10px;
+  padding: 12px;
+  background: #000;
+  border-bottom: 2px solid #ff0000;
 }
 
-header nav,
-.main-nav {
+nav {
   display: flex;
   gap: 10px;
-  justify-content: center;
 }
 
-header nav a,
-.main-nav a {
+nav a {
   flex: 1;
   text-align: center;
-  padding: 10px 0;
-
   text-decoration: none;
-  font-weight: 800;
-  font-size: 0.85rem;
   color: #fff;
-
-  background: #000;
-  border: 2px solid red;
+  padding: 10px 0;
+  border: 2px solid #ff0000;
   border-radius: 14px;
-
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    border-color 0.12s ease;
+  font-weight: 700;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-/* Tap / click */
-header nav a:active,
-.main-nav a:active {
-  transform: translateY(2px);
-  box-shadow:
-    0 0 0 2px rgba(255, 42, 42, 0.9),
-    0 0 14px rgba(255, 42, 42, 0.6),
-    0 4px 10px rgba(0, 0, 0, 0.6);
-  border-color: #ff2a2a;
+nav a:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
-/* Botão ativo */
-header nav a.active,
-.main-nav a.active {
-  border-color: #ff2a2a;
-  box-shadow:
-    0 0 0 2px rgba(255, 42, 42, 0.9),
-    0 0 16px rgba(255, 42, 42, 0.7),
-    0 8px 18px rgba(0, 0, 0, 0.7);
+nav a:active {
+  transform: scale(0.96);
 }
 
-/* ================= HERO ================= */
+nav a.active {
+  box-shadow: 0 0 16px rgba(255, 0, 0, 1);
+}
 
+/* HERO */
 #hero {
-  max-width: 420px;
-  margin: 0 auto;
+  margin: 16px;
   padding: 12px;
+  border: 2px solid #ffffff;
+  border-radius: 16px;
   text-align: center;
 }
 
 #hero img {
   width: 100%;
-  border-radius: 18px;
-  margin-bottom: 12px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+  border-radius: 14px;
+  display: block;
 }
 
 #hero h2 {
+  margin: 12px 0 6px;
+}
+
+#hero .countdown {
+  color: #ff0000;
+  font-weight: bold;
   font-size: 1.2rem;
-  font-weight: 900;
-  margin-bottom: 6px;
+  margin-top: 10px;
 }
 
-.countdown {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ff2a2a;
-}
-
-/* ================= RACE CARDS ================= */
-
+/* RACE CARDS */
 #race-cards {
-  max-width: 420px;
-  margin: 0 auto;
   padding: 12px;
 }
 
 .race-card {
-  background: #000;
-  border: 2px solid red;
+  border: 2px solid #ff0000;
   border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 18px;
-  text-align: center;
-
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    border-color 0.12s ease;
+  padding: 12px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #111;
 }
 
-.race-card:active {
-  transform: translateY(2px);
-  border-color: #ff2a2a;
-  box-shadow:
-    0 0 0 2px rgba(255, 42, 42, 0.9),
-    0 0 14px rgba(255, 42, 42, 0.6),
-    0 8px 18px rgba(0, 0, 0, 0.7);
+.race-card.favorite {
+  border-color: gold;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
 }
 
 .race-card img {
   width: 100%;
   border-radius: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-.race-card h3 {
-  font-size: 1.05rem;
-  font-weight: 800;
-  margin-bottom: 6px;
+.race-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.race-card p {
-  font-size: 0.85rem;
-  color: #ccc;
-  margin-bottom: 12px;
+.race-header h3 {
+  margin: 0;
 }
 
-/* ================= BOTÃO DA CORRIDA ================= */
-/* MESMO ESTILO DO HEADER */
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #888;
+}
 
-.race-btn {
+.fav-btn.active {
+  color: #ffd700;
+}
+
+/* BotĆ£o Ver detalhes */
+.details-toggle {
   display: block;
   width: 100%;
-  text-align: center;
-
   padding: 10px 0;
-  text-decoration: none;
-
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #fff;
-
-  background: #000;
-  border: 2px solid red;
+  margin-top: 10px;
+  text-align: center;
+  border: 2px solid #ff0000;
   border-radius: 14px;
-
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-
-  transition:
-    transform 0.12s ease,
-    box-shadow 0.12s ease,
-    border-color 0.12s ease;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-.race-btn:active {
-  transform: translateY(2px);
-  border-color: #ff2a2a;
-  box-shadow:
-    0 0 0 2px rgba(255, 42, 42, 0.9),
-    0 0 14px rgba(255, 42, 42, 0.6),
-    0 4px 10px rgba(0, 0, 0, 0.6);
+.details-toggle:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
-/* ================= BACK TO TOP ================= */
+.details-toggle:active {
+  transform: scale(0.96);
+}
 
+.race-details {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.hidden {
+  display: none;
+}
+
+/* BACK TO TOP ā€“ estilo igual aos botĆµes do header */
 #back-to-top {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
-  padding: 10px 14px;
-
-  font-size: 0.8rem;
-  font-weight: 800;
-
+  bottom: 80px;
+  right: 20px;
+  display: none;
   background: #000;
   color: #fff;
-  border: 2px solid red;
+  border: 2px solid #ff0000;
   border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 999;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
 
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+#back-to-top:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
 
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
+#back-to-top:active {
+  transform: scale(0.96);
 }
 
 #back-to-top.show {
-  opacity: 1;
-  pointer-events: auto;
+  display: block;
 }
