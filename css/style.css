@@ -1,3 +1,4 @@
+/* Reset e box-sizing */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -122,7 +123,7 @@ nav a.active {
   color: #ffd700;
 }
 
-/* BotĆ£o Ver detalhes */
+/* Botão Ver detalhes */
 .details-toggle {
   display: block;
   width: 100%;
@@ -155,7 +156,34 @@ nav a.active {
   display: none;
 }
 
-/* BACK TO TOP ā€“ estilo igual aos botĆµes do header */
+/* Botão das fichas de corrida, centrado e igual ao header/back-to-top */
+.race-link-wrapper {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.race-link-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;       /* fundo igual ao back-to-top */
+  color: #fff;
+  border: 2px solid #ff0000;    /* mesma borda vermelha */
+  border-radius: 14px;           /* mesmo raio */
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.race-link-btn:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+}
+
+.race-link-btn:active {
+  transform: scale(0.96);
+}
+
+/* BACK TO TOP */
 #back-to-top {
   position: fixed;
   bottom: 80px;
