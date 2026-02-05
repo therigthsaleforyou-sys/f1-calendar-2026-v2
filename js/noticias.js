@@ -1,4 +1,4 @@
-// js/noticias.js – Hero dinâmico com Countdown e cards consistentes
+// js/noticias.js – Hero dinâmico com imagem inicial fixa e cards consistentes
 document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
@@ -36,28 +36,35 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // =======================
-  // Atualiza Hero Dinâmico
+  // Atualiza Hero Dinâmico com imagem inicial fixa
   // =======================
   function updateHero() {
     const now = new Date();
-    // Última corrida concluída
-    let lastRace = calendar2026[0]; // default Austrália
+
+    // Início da temporada: hero é australia_v2.jpg até começar a China
+    let heroRace = calendar2026[0]; // default Austrália
     for (let i = 0; i < calendar2026.length; i++) {
-      const raceEnd = new Date(calendar2026[i].date + "T23:59:59");
-      if (raceEnd <= now) {
-        lastRace = calendar2026[i];
+      const raceStart = new Date(calendar2026[i].date + "T00:00:00");
+      if (raceStart <= now) {
+        heroRace = calendar2026[i];
       } else {
         break;
       }
     }
 
-    heroImage.src = lastRace.heroImage;
-    heroTitle.textContent = `Última corrida concluída: ${lastRace.name}`;
-    heroImage.parentElement.href = `#${lastRace.id}`;
+    // Hero começa com australia_v2.jpg até passar para a China
+    if (heroRace.id === "australia") {
+      heroImage.src = calendar2026[0].heroImage; // australia_v2.jpg
+    } else {
+      heroImage.src = heroRace.heroImage;
+    }
+
+    heroTitle.textContent = `Corrida ativa: ${heroRace.name}`;
+    heroImage.parentElement.href = `#${heroRace.id}`;
 
     // Hero clicável → scroll para a card correspondente
     heroImage.onclick = () => {
-      const card = document.getElementById(lastRace.id);
+      const card = document.getElementById(heroRace.id);
       if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
     };
   }
