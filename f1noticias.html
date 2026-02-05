@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias F1 2026</title>
+
+  <!-- CSS base do site -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="teams.html">Equipas</a>
+      <a href="f1noticias.html" class="active">Notícias</a>
+    </nav>
+  </header>
+
+  <!-- HERO NOTÍCIAS -->
+  <section id="hero">
+    <a href="index.html" style="text-decoration: none; color: inherit;">
+      <img src="assets/heroes/f1_generic.jpg" alt="Fórmula 1 Notícias">
+      <h2>Fórmula 1 2026</h2>
+      <p class="countdown">Notícias e vídeos da última corrida</p>
+    </a>
+  </section>
+
+  <!-- NEWS CARDS -->
+  <section id="race-cards">
+
+    <!-- Notícia 1 -->
+    <div class="race-card">
+      <img src="assets/noticias/news1.jpg" alt="Resumo da corrida">
+      <h3>Resumo oficial da última corrida</h3>
+      <p>Highlights, momentos-chave e análises do fim de semana.</p>
+
+      <div class="race-footer">
+        <a
+          class="btn-header"
+          href="https://www.formula1.com"
+          target="_blank"
+          rel="noopener"
+        >
+          Ler notícia
+        </a>
+      </div>
+    </div>
+
+    <!-- Vídeo 1 -->
+    <div class="race-card">
+      <img src="assets/noticias/video1.jpg" alt="Highlights F1">
+      <h3>Highlights oficiais F1</h3>
+      <p>Os melhores momentos da corrida em vídeo.</p>
+
+      <div class="race-footer">
+        <a
+          class="btn-header"
+          href="https://www.youtube.com/@Formula1"
+          target="_blank"
+          rel="noopener"
+        >
+          Ver vídeo
+        </a>
+      </div>
+    </div>
+
+    <!-- Podes duplicar este bloco para mais notícias -->
+  </section>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top">Topo</button>
+
+  <!-- FOOTER -->
+  <footer>Calendário F1 2026 — Projeto Independente</footer>
+
+  <!-- JS apenas para o botão topo -->
+  <script>
+    const backToTop = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        backToTop.classList.add("show");
+      } else {
+        backToTop.classList.remove("show");
+      }
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+
+</body>
+</html>
