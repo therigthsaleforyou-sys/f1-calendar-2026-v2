@@ -1,4 +1,4 @@
-// js/noticias.js – versão completa com hero clicável e lógica de Countdown
+// js/noticias.js – Hero dinâmico com Countdown invisível e Cards
 document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"belgium", name:"Grande Prémio da Bélgica", date:"2026-07-17", heroImage:"assets/races/belgium.jpg"},
     {id:"hungary", name:"Grande Prémio da Hungria", date:"2026-07-24", heroImage:"assets/races/hungary.jpg"},
     {id:"netherlands", name:"Grande Prémio dos Países Baixos", date:"2026-08-21", heroImage:"assets/races/netherlands.jpg"},
-    {id:"italy", name:"Grande Prémio da Itália", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
+    {id:"italy", name:"Grande Prémio de Itália", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
     {id:"spain", name:"Grande Prémio de Madrid", date:"2026-09-11", heroImage:"assets/races/madrid.jpg"},
     {id:"azerbaijan", name:"Grande Prémio do Azerbaijão", date:"2026-09-24", heroImage:"assets/races/azerbaijan.jpg"},
     {id:"singapore", name:"Grande Prémio de Singapura", date:"2026-10-09", heroImage:"assets/races/singapore.jpg"},
@@ -33,35 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // =======================
-  // Atualiza Hero Dinâmico
+  // Atualiza Hero Dinâmico com Countdown
   // =======================
   function updateHero() {
     const now = new Date();
 
-    // Hero inicial sempre Australia_v2.jpg até a China começar
-    let currentRace = calendar2026[0]; 
-    for (let i = 1; i < calendar2026.length; i++) {
-      const raceDate = new Date(calendar2026[i].date);
-      if (raceDate <= now) currentRace = calendar2026[i];
-      else break;
-    }
+    // Determina corrida ativa: última corrida terminada
+    let activeRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
+    if (!activeRace) activeRace = calendar2026[0]; // início temporada
 
-    // Hero Image
-    if (currentRace.id === "australia" && now < new Date(calendar2026[1].date)) {
-      heroImage.src = "assets/heroes/australia_v2.jpg";
-    } else {
-      heroImage.src = currentRace.heroImage;
-    }
+    // Hero
+    heroImage.src = activeRace.id === "australia" ? "assets/heroes/australia_v2.jpg" : activeRace.heroImage;
+    heroTitle.textContent = `Corrida em andamento: ${activeRace.name}`;
 
-    heroTitle.textContent = `Corrida ativa: ${currentRace.name}`;
-
-    // Hero clicável para o card da corrida ativa
-    heroImage.style.cursor = "pointer";
-    heroImage.parentElement.href = `#${currentRace.id}`;
-    heroImage.onclick = () => {
-      const card = document.getElementById(currentRace.id);
-      if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    // Hero clicável → scroll para card da corrida ativa
+    heroImage.parentElement.href = `#${activeRace.id}`;
   }
 
   // =======================
@@ -90,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="race-details hidden">
           <p>${status}</p>
-          <div class="race-footer">
+          <div class="race-footer" style="display:flex;justify-content:center;">
             <a href="index.html" class="race-link-btn">Calendário</a>
           </div>
         </div>
@@ -109,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // =======================
   // Inicialização
   // =======================
-  updateHero();
   generateCards();
-  setInterval(updateHero, 60000); // Atualiza hero a cada minuto
+  updateHero();
+  setInterval(updateHero, 1000); // verifica hero a cada segundo para Countdown
 
   // =======================
   // Back to Top
