@@ -1,13 +1,10 @@
-// js/noticias.js
-// Página f1noticias.html – geração automática dos 24 cards na ordem oficial 2026
-
+// js/noticias.js – versão modular com hero automático atualizado
 document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const raceCards = document.getElementById("race-cards");
   const backToTop = document.getElementById("back-to-top");
 
-  // Calendar oficial 2026
   const calendar2026 = [
     {id:"australia", name:"Grande Prémio da Austrália", date:"2026-03-06", heroImage:"assets/races/australia.jpg"},
     {id:"china", name:"Grande Prémio da China", date:"2026-03-13", heroImage:"assets/races/china.jpg"},
@@ -35,47 +32,56 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"uae", name:"Grande Prémio de Abu Dhabi", date:"2026-12-04", heroImage:"assets/races/uae.jpg"}
   ];
 
-  // Determinar hero: próxima corrida ou última concluída
-  const now = new Date();
+  function updateHero() {
+    const now = new Date();
+    const lastRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
+    const nextRace = calendar2026.find(r => new Date(r.date) > now) || calendar2026[0];
 
-  const lastRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
-  const nextRace = calendar2026.find(r => new Date(r.date) > now) || calendar2026[0];
-
-  if (lastRace) {
-    heroImage.src = lastRace.heroImage;
-    heroTitle.textContent = `Última corrida concluída: ${lastRace.name}`;
-    heroImage.parentElement.href = `#${lastRace.id}`;
-  } else {
-    heroImage.src = "assets/heroes/australia_v2.jpg";
-    heroTitle.textContent = `Próxima corrida: ${nextRace.name}`;
-    heroImage.parentElement.href = `#${nextRace.id}`;
+    if (lastRace) {
+      heroImage.src = lastRace.heroImage;
+      heroTitle.textContent = `Última corrida concluída: ${lastRace.name}`;
+      heroImage.parentElement.href = `#${lastRace.id}`;
+    } else {
+      heroImage.src = "assets/heroes/australia_v2.jpg";
+      heroTitle.textContent = `Próxima corrida: ${nextRace.name}`;
+      heroImage.parentElement.href = `#${nextRace.id}`;
+    }
   }
 
-  // Gerar cards
-  raceCards.innerHTML = "";
-  calendar2026.forEach(race => {
-    const raceDate = new Date(race.date);
-    const status = raceDate <= now
-      ? "Corrida concluída"
-      : "Corrida ainda não se realizou, verificar data no Calendário";
+  function generateCards() {
+    const now = new Date();
+    raceCards.innerHTML = "";
 
-    const card = document.createElement("div");
-    card.className = "race-card";
-    card.id = race.id;
-    card.innerHTML = `
-      <img class="race-image" src="${race.heroImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details">
-        <p>${status}</p>
-        <div class="race-footer">
-          <a href="index.html" class="btn-header">Calendário</a>
+    calendar2026.forEach(race => {
+      const raceDate = new Date(race.date);
+      const status = raceDate <= now
+        ? "Corrida concluída"
+        : "Corrida ainda não se realizou, verificar data no Calendário";
+
+      const card = document.createElement("div");
+      card.className = "race-card";
+      card.id = race.id;
+      card.innerHTML = `
+        <img class="race-image" src="${race.heroImage}" alt="${race.name}">
+        <div class="race-header">
+          <h3>${race.name}</h3>
         </div>
-      </div>
-    `;
-    raceCards.appendChild(card);
-  });
+        <div class="race-details">
+          <p>${status}</p>
+          <div class="race-footer">
+            <a href="index.html" class="btn-header">Calendário</a>
+          </div>
+        </div>
+      `;
+      raceCards.appendChild(card);
+    });
+  }
+
+  updateHero();
+  generateCards();
+
+  // Atualiza hero automaticamente a cada 60s (se quiseres pode reduzir)
+  setInterval(updateHero, 60000);
 
   // Back to top
   window.addEventListener("scroll", () => {
