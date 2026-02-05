@@ -1,4 +1,4 @@
-// js/noticias.js – versão completa com hero dinâmico correto
+// js/noticias.js – versão completa com hero clicável
 document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // =======================
-  // Atualiza Hero Dinâmico
+  // Atualiza Hero Dinâmico e clicável
   // =======================
   function updateHero() {
     const now = new Date();
@@ -45,11 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (now >= raceStart) {
         activeRace = calendar2026[i];
       } else {
-        break; // primeira corrida futura encontrada, interrompe
+        break;
       }
     }
 
-    // Hero especial: primeira corrida da temporada usa australia_v2.jpg até iniciar a China
+    // Hero inicial especial: primeira corrida da temporada usa australia_v2.jpg até iniciar a China
     if (activeRace.id === "australia" && now < new Date(calendar2026[1].date)) {
       heroImage.src = "assets/heroes/australia_v2.jpg";
     } else {
@@ -57,7 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     heroTitle.textContent = `Corrida ativa: ${activeRace.name}`;
-    heroImage.parentElement.href = `#${activeRace.id}`;
+
+    // ✅ Torna o hero clicável para o card da corrida ativa
+    heroImage.style.cursor = "pointer";
+    heroImage.onclick = () => {
+      const card = document.getElementById(activeRace.id);
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
   }
 
   // =======================
