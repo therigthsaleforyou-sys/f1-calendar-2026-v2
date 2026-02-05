@@ -1,6 +1,4 @@
 // js/noticias.js
-// Página Notícias – Hero dinâmico + Dropbox + Back to Top
-
 document.addEventListener("DOMContentLoaded", () => {
 
   const cards = document.querySelectorAll(".race-card");
@@ -9,12 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  let activeCard = cards[0]; // default: Austrália
+  let activeCard = cards[0]; // default Austrália
 
   /* =========================
-     DROPBOX DOS CARDS
+     DROPBOX
   ========================= */
-
   cards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
@@ -26,15 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================
-       LÓGICA DE DATAS DO HERO
+       HERO → DATA DE INÍCIO
     ========================= */
+    const startDateStr = card.dataset.start;
+    if (!startDateStr) return;
 
-    const endDateStr = card.dataset.end;
-    if (!endDateStr) return;
+    const raceStart = new Date(startDateStr + "T00:00:00");
 
-    const raceEnd = new Date(endDateStr + "T23:59:59");
-
-    if (raceEnd <= now) {
+    if (raceStart <= now) {
       activeCard = card;
     }
   });
@@ -42,28 +38,20 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      HERO DINÂMICO
   ========================= */
-
   if (activeCard) {
     const heroImg = activeCard.dataset.image;
 
-    if (heroImg) {
-      heroImage.src = heroImg;
-    }
+    if (heroImg) heroImage.src = heroImg;
 
     hero.style.cursor = "pointer";
-
     hero.addEventListener("click", () => {
-      activeCard.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
   /* =========================
      BACK TO TOP
   ========================= */
-
   if (backToTop) {
     window.addEventListener("scroll", () => {
       backToTop.classList.toggle("show", window.scrollY > 400);
