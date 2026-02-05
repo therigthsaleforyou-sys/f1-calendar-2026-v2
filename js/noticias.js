@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"china", name:"FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026", date:"2026-03-13", heroImage:"assets/races/china.jpg"},
     {id:"japan", name:"FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026", date:"2026-03-27", heroImage:"assets/races/japan.jpg"},
     {id:"bahrain", name:"FORMULA 1 GULF AIR BAHRAIN GRAND PRIX 2026", date:"2026-04-10", heroImage:"assets/races/bahrain.jpg"},
-    {id:"saudiarabia", name:"FORMULA 1 STC SAUDI ARABIAN GRAND PRIX 2026", date:"2026-04-17", heroImage:"assets/races/saudiarabia.jpg"},
+    {id:"saudiarabia", name:"FORMULA 1 STC SAUDI ARABIAN GRAND PRIX 2026", date:"2026-04-17", heroImage:"assets/races/saudi.jpg"},
     {id:"miami", name:"FORMULA 1 CRYPTO.COM MIAMI GRAND PRIX 2026", date:"2026-05-01", heroImage:"assets/races/miami.jpg"},
     {id:"canada", name:"FORMULA 1 LENOVO GRAND PRIX DU CANADA 2026", date:"2026-05-22", heroImage:"assets/races/canada.jpg"},
     {id:"monaco", name:"FORMULA 1 LOUIS VUITTON GRAND PRIX DE MONACO 2026", date:"2026-06-05", heroImage:"assets/races/monaco.jpg"},
