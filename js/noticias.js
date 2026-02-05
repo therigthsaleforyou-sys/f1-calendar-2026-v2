@@ -52,12 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Hero começa com australia_v2.jpg até passar para a China
-    if (heroRace.id === "australia") {
-      heroImage.src = calendar2026[0].heroImage; // australia_v2.jpg
-    } else {
-      heroImage.src = heroRace.heroImage;
-    }
+
+  // Hero começa com australia_v2.jpg até passar para a China
+if (heroRace.id === "australia") {
+  heroImage.src = "assets/heroes/australia_v2.jpg"; // caminho correto
+} else {
+  heroImage.src = heroRace.heroImage;
+}
 
     heroTitle.textContent = `Corrida ativa: ${heroRace.name}`;
     heroImage.parentElement.href = `#${heroRace.id}`;
