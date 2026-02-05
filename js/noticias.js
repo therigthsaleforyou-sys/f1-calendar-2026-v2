@@ -1,4 +1,4 @@
-// js/noticias.js – versão modular com hero automático atualizado
+// js/noticias.js – versão completa com botão formatado e Dropbox
 document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"hungary", name:"Grande Prémio da Hungria", date:"2026-07-24", heroImage:"assets/races/hungary.jpg"},
     {id:"netherlands", name:"Grande Prémio dos Países Baixos", date:"2026-08-21", heroImage:"assets/races/netherlands.jpg"},
     {id:"italy", name:"Grande Prémio da Itália (Monza)", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
-    {id:"spain2", name:"Grande Prémio da Espanha (Madrid)", date:"2026-09-11", heroImage:"assets/races/spain2.jpg"},
     {id:"azerbaijan", name:"Grande Prémio do Azerbaijão", date:"2026-09-24", heroImage:"assets/races/azerbaijan.jpg"},
     {id:"singapore", name:"Grande Prémio de Singapura", date:"2026-10-09", heroImage:"assets/races/singapore.jpg"},
     {id:"usa2", name:"Grande Prémio dos EUA (Austin)", date:"2026-10-23", heroImage:"assets/races/usa2.jpg"},
@@ -32,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"uae", name:"Grande Prémio de Abu Dhabi", date:"2026-12-04", heroImage:"assets/races/uae.jpg"}
   ];
 
+  // =======================
+  // Hero automático
+  // =======================
   function updateHero() {
     const now = new Date();
     const lastRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
@@ -48,6 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // =======================
+  // Gerar cards
+  // =======================
   function generateCards() {
     const now = new Date();
     raceCards.innerHTML = "";
@@ -66,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="race-header">
           <h3>${race.name}</h3>
         </div>
-        <div class="race-details">
+        <div class="race-details hidden">
           <p>${status}</p>
           <div class="race-footer">
             <a href="index.html" class="btn-header">Calendário</a>
@@ -74,16 +79,26 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
       raceCards.appendChild(card);
+
+      // 📸 Dropbox
+      const img = card.querySelector(".race-image");
+      const details = card.querySelector(".race-details");
+      img.addEventListener("click", () => {
+        details.classList.toggle("hidden");
+      });
     });
   }
 
+  // =======================
+  // Inicializar
+  // =======================
   updateHero();
   generateCards();
-
-  // Atualiza hero automaticamente a cada 60s (se quiseres pode reduzir)
   setInterval(updateHero, 60000);
 
+  // =======================
   // Back to top
+  // =======================
   window.addEventListener("scroll", () => {
     if (window.scrollY > 400) backToTop.classList.add("show");
     else backToTop.classList.remove("show");
@@ -92,5 +107,4 @@ document.addEventListener("DOMContentLoaded", () => {
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top:0, behavior:"smooth" });
   });
-
 });
