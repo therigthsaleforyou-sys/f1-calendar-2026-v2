@@ -156,7 +156,7 @@ nav a.active {
   display: none;
 }
 
-/* Botão das fichas de corrida, centrado e igual ao header/back-to-top */
+/* Botão das fichas de corrida (para notícias.html e calendário) */
 .race-link-wrapper {
   text-align: center;
   margin-top: 12px;
