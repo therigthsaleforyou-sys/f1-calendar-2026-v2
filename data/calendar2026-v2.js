@@ -1,13 +1,13 @@
-// CalendÃ¡rio Oficial F1 2026
-// VersÃ£o v2 FINAL â€“ 24 corridas (ORDENADO CORRETAMENTE)
-// Estrutura compatÃ­vel com main.js
-// HorÃ¡rios aproximados (UTC)
+// Calendário Oficial F1 2026
+// Versão v2 FINAL – 24 corridas (ORDENADO CORRETAMENTE)
+// Estrutura compatível com main.js
+// Horários aproximados (UTC)
 
 const calendar2026 = [
 
   {
     id: "australia",
-    name: "Grande PrÃ©mio da AustrÃ¡lia",
+    name: "Grande Prémio da Austrália",
     heroImage: "assets/heroes/australia_v2.jpg",
     cardImage: "assets/races/australia.jpg",
     sessions: {
@@ -21,7 +21,7 @@ const calendar2026 = [
 
   {
     id: "china",
-    name: "Grande PrÃ©mio da China",
+    name: "Grande Prémio da China",
     heroImage: "assets/heroes/china.jpg",
     cardImage: "assets/races/china.jpg",
     sessions: {
@@ -35,7 +35,7 @@ const calendar2026 = [
 
   {
     id: "japan",
-    name: "Grande PrÃ©mio do JapÃ£o",
+    name: "Grande Prémio do Japão",
     heroImage: "assets/heroes/japan.jpg",
     cardImage: "assets/races/japan.jpg",
     sessions: {
@@ -49,7 +49,7 @@ const calendar2026 = [
 
   {
     id: "bahrain",
-    name: "Grande PrÃ©mio do Bahrein",
+    name: "Grande Prémio do Bahrein",
     heroImage: "assets/heroes/bahrain.jpg",
     cardImage: "assets/races/bahrain.jpg",
     sessions: {
@@ -63,7 +63,7 @@ const calendar2026 = [
 
   {
     id: "saudi-arabia",
-    name: "Grande PrÃ©mio da ArÃ¡bia Saudita",
+    name: "Grande Prémio da Arábia Saudita",
     heroImage: "assets/heroes/saudi_arabia.jpg",
     cardImage: "assets/races/saudi_arabia.jpg",
     sessions: {
@@ -77,7 +77,7 @@ const calendar2026 = [
 
   {
     id: "miami",
-    name: "Grande PrÃ©mio de Miami",
+    name: "Grande Prémio de Miami",
     heroImage: "assets/heroes/miami.jpg",
     cardImage: "assets/races/miami.jpg",
     sessions: {
@@ -91,7 +91,7 @@ const calendar2026 = [
 
   {
     id: "canada",
-    name: "Grande PrÃ©mio do CanadÃ¡",
+    name: "Grande Prémio do Canadá",
     heroImage: "assets/heroes/canada.jpg",
     cardImage: "assets/races/canada.jpg",
     sessions: {
@@ -105,7 +105,7 @@ const calendar2026 = [
 
   {
     id: "monaco",
-    name: "Grande PrÃ©mio do MÃ³naco",
+    name: "Grande Prémio do Mónaco",
     heroImage: "assets/heroes/monaco.jpg",
     cardImage: "assets/races/monaco.jpg",
     sessions: {
@@ -119,7 +119,7 @@ const calendar2026 = [
 
   {
     id: "spain",
-    name: "Grande PrÃ©mio de Barcelona-Catalunha",
+    name: "Grande Prémio de Barcelona-Catalunha",
     heroImage: "assets/heroes/spain.jpg",
     cardImage: "assets/races/spain.jpg",
     sessions: {
@@ -133,7 +133,7 @@ const calendar2026 = [
 
   {
     id: "austria",
-    name: "Grande PrÃ©mio da Ãustria",
+    name: "Grande Prémio da Áustria",
     heroImage: "assets/heroes/austria.jpg",
     cardImage: "assets/races/austria.jpg",
     sessions: {
@@ -147,7 +147,7 @@ const calendar2026 = [
 
   {
     id: "britain",
-    name: "Grande PrÃ©mio da GrÃ£-Bretanha",
+    name: "Grande Prémio da Grã-Bretanha",
     heroImage: "assets/heroes/britain.jpg",
     cardImage: "assets/races/britain.jpg",
     sessions: {
@@ -161,7 +161,7 @@ const calendar2026 = [
 
   {
     id: "belgium",
-    name: "Grande PrÃ©mio da BÃ©lgica",
+    name: "Grande Prémio da Bélgica",
     heroImage: "assets/heroes/belgium.jpg",
     cardImage: "assets/races/belgium.jpg",
     sessions: {
@@ -175,7 +175,7 @@ const calendar2026 = [
 
   {
     id: "hungary",
-    name: "Grande PrÃ©mio da Hungria",
+    name: "Grande Prémio da Hungria",
     heroImage: "assets/heroes/hungary.jpg",
     cardImage: "assets/races/hungary.jpg",
     sessions: {
@@ -189,7 +189,7 @@ const calendar2026 = [
 
   {
     id: "netherlands",
-    name: "Grande PrÃ©mio dos PaÃ­ses Baixos",
+    name: "Grande Prémio dos Países Baixos",
     heroImage: "assets/heroes/netherlands.jpg",
     cardImage: "assets/races/netherlands.jpg",
     sessions: {
@@ -203,7 +203,7 @@ const calendar2026 = [
 
   {
     id: "italy",
-    name: "Grande PrÃ©mio de ItÃ¡lia",
+    name: "Grande Prémio de Itália",
     heroImage: "assets/heroes/italy.jpg",
     cardImage: "assets/races/italy.jpg",
     sessions: {
@@ -217,7 +217,7 @@ const calendar2026 = [
 
   {
     id: "madrid",
-    name: "Grande PrÃ©mio de Madrid",
+    name: "Grande Prémio de Madrid",
     heroImage: "assets/heroes/madrid.jpg",
     cardImage: "assets/races/madrid.jpg",
     sessions: {
@@ -231,7 +231,7 @@ const calendar2026 = [
 
   {
     id: "azerbaijan",
-    name: "Grande PrÃ©mio do AzerbaijÃ£o",
+    name: "Grande Prémio do Azerbaijão",
     heroImage: "assets/heroes/azerbaijan.jpg",
     cardImage: "assets/races/azerbaijan.jpg",
     sessions: {
@@ -245,7 +245,7 @@ const calendar2026 = [
 
   {
     id: "singapore",
-    name: "Grande PrÃ©mio de Singapura",
+    name: "Grande Prémio de Singapura",
     heroImage: "assets/heroes/singapore.jpg",
     cardImage: "assets/races/singapore.jpg",
     sessions: {
@@ -259,7 +259,7 @@ const calendar2026 = [
 
   {
     id: "usa",
-    name: "Grande PrÃ©mio dos Estados Unidos",
+    name: "Grande Prémio dos Estados Unidos",
     heroImage: "assets/heroes/usa.jpg",
     cardImage: "assets/races/usa.jpg",
     sessions: {
@@ -273,7 +273,7 @@ const calendar2026 = [
 
   {
     id: "mexico",
-    name: "Grande PrÃ©mio do MÃ©xico",
+    name: "Grande Prémio do México",
     heroImage: "assets/heroes/mexico.jpg",
     cardImage: "assets/races/mexico.jpg",
     sessions: {
@@ -287,7 +287,7 @@ const calendar2026 = [
 
   {
     id: "brazil",
-    name: "Grande PrÃ©mio do Brasil",
+    name: "Grande Prémio do Brasil",
     heroImage: "assets/heroes/brazil.jpg",
     cardImage: "assets/races/brazil.jpg",
     sessions: {
@@ -301,7 +301,7 @@ const calendar2026 = [
 
   {
     id: "las-vegas",
-    name: "Grande PrÃ©mio de Las Vegas",
+    name: "Grande Prémio de Las Vegas",
     heroImage: "assets/heroes/las_vegas.jpg",
     cardImage: "assets/races/las_vegas.jpg",
     sessions: {
@@ -315,7 +315,7 @@ const calendar2026 = [
 
   {
     id: "qatar",
-    name: "Grande PrÃ©mio do Catar",
+    name: "Grande Prémio do Catar",
     heroImage: "assets/heroes/qatar.jpg",
     cardImage: "assets/races/qatar.jpg",
     sessions: {
@@ -329,7 +329,7 @@ const calendar2026 = [
 
   {
     id: "abu-dhabi",
-    name: "Grande PrÃ©mio de Abu Dhabi",
+    name: "Grande Prémio de Abu Dhabi",
     heroImage: "assets/heroes/abu_dhabi.jpg",
     cardImage: "assets/races/abu_dhabi.jpg",
     sessions: {
