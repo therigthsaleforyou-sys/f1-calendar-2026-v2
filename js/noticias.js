@@ -1,5 +1,6 @@
-// js/noticias.js – Hero dinâmico com Countdown invisível e Cards
+// js/noticias.js – versão completa com hero clicável e IDs consistentes
 document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const raceCards = document.getElementById("race-cards");
@@ -20,11 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
     {id:"belgium", name:"Grande Prémio da Bélgica", date:"2026-07-17", heroImage:"assets/races/belgium.jpg"},
     {id:"hungary", name:"Grande Prémio da Hungria", date:"2026-07-24", heroImage:"assets/races/hungary.jpg"},
     {id:"netherlands", name:"Grande Prémio dos Países Baixos", date:"2026-08-21", heroImage:"assets/races/netherlands.jpg"},
-    {id:"italy", name:"Grande Prémio de Itália", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
+    {id:"italy", name:"Grande Prémio da Itália", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
     {id:"spain", name:"Grande Prémio de Madrid", date:"2026-09-11", heroImage:"assets/races/madrid.jpg"},
     {id:"azerbaijan", name:"Grande Prémio do Azerbaijão", date:"2026-09-24", heroImage:"assets/races/azerbaijan.jpg"},
     {id:"singapore", name:"Grande Prémio de Singapura", date:"2026-10-09", heroImage:"assets/races/singapore.jpg"},
-    {id:"usa", name:"Grande Prémio dos Estados Unidos", date:"2026-10-23", heroImage:"assets/races/usa.jpg"},
+    {id:"usa", name:"Grande Prémio dos EUA", date:"2026-10-23", heroImage:"assets/races/usa.jpg"},
     {id:"mexico", name:"Grande Prémio do México", date:"2026-10-30", heroImage:"assets/races/mexico.jpg"},
     {id:"brazil", name:"Grande Prémio do Brasil", date:"2026-11-06", heroImage:"assets/races/brazil.jpg"},
     {id:"lasvegas", name:"Grande Prémio de Las Vegas", date:"2026-11-19", heroImage:"assets/races/lasvegas.jpg"},
@@ -33,21 +34,31 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // =======================
-  // Atualiza Hero Dinâmico com Countdown
+  // Atualiza Hero Dinâmico
   // =======================
   function updateHero() {
     const now = new Date();
 
-    // Determina corrida ativa: última corrida terminada
-    let activeRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
-    if (!activeRace) activeRace = calendar2026[0]; // início temporada
+    // Hero inicial é australia_v2 até o countdown da China zerar
+    let activeRace = calendar2026.find(r => new Date(r.date) > now) || calendar2026[calendar2026.length-1];
+    let heroSrc = "/assets/heroes/australia_v2.jpg";
 
-    // Hero
-    heroImage.src = activeRace.id === "australia" ? "assets/heroes/australia_v2.jpg" : activeRace.heroImage;
-    heroTitle.textContent = `Corrida em andamento: ${activeRace.name}`;
+    // Se já passou a primeira corrida (China ou depois), hero = corrida ativa
+    if (now >= new Date(calendar2026[1].date)) {
+      const lastFinishedRace = [...calendar2026].reverse().find(r => new Date(r.date) <= now);
+      if (lastFinishedRace) heroSrc = lastFinishedRace.heroImage;
+      activeRace = lastFinishedRace;
+    }
+
+    heroImage.src = heroSrc;
+    heroTitle.textContent = `Corrida ativa: ${activeRace.name}`;
 
     // Hero clicável → scroll para card da corrida ativa
-    heroImage.parentElement.href = `#${activeRace.id}`;
+    hero.style.cursor = "pointer";
+    hero.onclick = () => {
+      const card = document.getElementById(activeRace.id);
+      if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
   }
 
   // =======================
@@ -76,38 +87,32 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="race-details hidden">
           <p>${status}</p>
-          <div class="race-footer" style="display:flex;justify-content:center;">
+          <div class="race-footer" style="text-align:center;">
             <a href="index.html" class="race-link-btn">Calendário</a>
           </div>
         </div>
       `;
       raceCards.appendChild(card);
 
-      // 📸 Dropbox
+      // Dropbox
       const img = card.querySelector(".race-image");
       const details = card.querySelector(".race-details");
-      img.addEventListener("click", () => {
-        details.classList.toggle("hidden");
-      });
+      img.addEventListener("click", () => details.classList.toggle("hidden"));
     });
   }
 
   // =======================
   // Inicialização
   // =======================
-  generateCards();
   updateHero();
-  setInterval(updateHero, 1000); // verifica hero a cada segundo para Countdown
+  generateCards();
+  setInterval(updateHero, 1000); // Atualiza a cada segundo para Countdown invisível
 
   // =======================
   // Back to Top
   // =======================
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
-  });
+  backToTop.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
 });
