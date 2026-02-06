@@ -213,21 +213,15 @@ nav a.active {
   display: block;
 }
 
-
 /* =========================
-   F1 NOTÍCIAS – LAYOUT
+   F1 NOTÍCIAS – LARGURA IGUAL À HOMEPAGE
    ========================= */
 
 .cards-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
+  padding: 12px;
 }
 
 .cards-wrapper .race-card {
   width: 100%;
-}
-/* Alinhar visualmente cards com o hero */
-.cards-wrapper {
-  max-width: calc(100% - 32px);
-}
+  }
+
