@@ -3,59 +3,395 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>F1 Notícias 2026</title>
+  <title>Notícias F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-  <!-- =======================
-       Cabeçalho (IGUAL À HOMEPAGE)
-  ======================= -->
-  <header id="header">
-    <nav class="nav">
-      <ul class="nav-menu">
-        <li><a href="index.html">Calendário</a></li>
-        <li><a href="#" >Equipas</a></li>
-        <li><a href="f1noticias.html" class="active">Notícias</a></li>
-      </ul>
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <a href="index.html">Calendário</a>
+      <a href="teams.html">Equipas</a>
+      <a href="f1noticias.html" class="active">Notícias</a>
     </nav>
   </header>
 
-  <!-- =======================
-       Hero Dinâmico
-  ======================= -->
-  <section id="hero-container">
-    <div id="hero">
-      <img
-        id="hero-image"
-        src="assets/heroes/australia_v2.jpg"
-        alt="Corrida ativa"
-      >
-      <div id="hero-title" class="hero-title">
-        Corrida ativa: Grande Prémio da Austrália
-      </div>
-    </div>
+  <!-- HERO -->
+  <section id="hero">
+    <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália 2026">
+    <h2 id="hero-title">Grande Prémio da Austrália 2026</h2>
   </section>
 
-  <!-- =======================
-       Cards das Corridas
-  ======================= -->
-  <main>
-    <section id="race-cards" class="race-cards-container">
-      <!-- gerado pelo noticias.js -->
-    </section>
-  </main>
+  <!-- CARDS DE NOTÍCIAS -->
+  <section id="race-cards">
+    
+    <!-- ROUND 1 – Australia -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/australia.jpg" alt="Australia">
+      <div class="race-header">
+        <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>06 - 08 Mar</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
 
-  <!-- =======================
-       Back to Top
-  ======================= -->
-  <button id="back-to-top" class="back-to-top">↑</button>
+    <!-- ROUND 2 – China -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/china.jpg" alt="China">
+      <div class="race-header">
+        <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>13 - 15 Mar</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
 
-  <!-- =======================
-       JS
-  ======================= -->
+    <!-- ROUND 3 – Japan -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/japan.jpg" alt="Japan">
+      <div class="race-header">
+        <h3>FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>27 - 29 Mar</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 4 – Bahrain -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/bahrain.jpg" alt="Bahrain">
+      <div class="race-header">
+        <h3>FORMULA 1 GULF AIR BAHRAIN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>10 - 12 Apr</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 5 – Saudi Arabia -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/saudi_arabia.jpg" alt="Saudi Arabia">
+      <div class="race-header">
+        <h3>FORMULA 1 STC SAUDI ARABIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>17 - 19 Apr</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 6 – Miami -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/miami.jpg" alt="Miami">
+      <div class="race-header">
+        <h3>FORMULA 1 CRYPTO.COM MIAMI GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>01 - 03 May</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 7 – Canada -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/canada.jpg" alt="Canada">
+      <div class="race-header">
+        <h3>FORMULA 1 LENOVO GRAND PRIX DU CANADA 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>22 - 24 May</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 8 – Monaco -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/monaco.jpg" alt="Monaco">
+      <div class="race-header">
+        <h3>FORMULA 1 LOUIS VUITTON GRAND PRIX DE MONACO 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>05 - 07 Jun</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 9 – Barcelona-Catalunya -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/barcelona.jpg" alt="Barcelona-Catalunya">
+      <div class="race-header">
+        <h3>FORMULA 1 MSC CRUISES GRAN PREMIO DE BARCELONA-CATALUNYA 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>12 - 14 Jun</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 10 – Austria -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/austria.jpg" alt="Austria">
+      <div class="race-header">
+        <h3>FORMULA 1 LENOVO AUSTRIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>26 - 28 Jun</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 11 – Great Britain -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/great_britain.jpg" alt="Great Britain">
+      <div class="race-header">
+        <h3>FORMULA 1 PIRELLI BRITISH GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>03 - 05 Jul</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 12 – Belgium -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/belgium.jpg" alt="Belgium">
+      <div class="race-header">
+        <h3>FORMULA 1 BELGIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>17 - 19 Jul</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 13 – Hungary -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/hungary.jpg" alt="Hungary">
+      <div class="race-header">
+        <h3>FORMULA 1 AWS HUNGARIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>24 - 26 Jul</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 14 – Netherlands -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/netherlands.jpg" alt="Netherlands">
+      <div class="race-header">
+        <h3>FORMULA 1 HEINEKEN DUTCH GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>21 - 23 Aug</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 15 – Italy -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/italy.jpg" alt="Italy">
+      <div class="race-header">
+        <h3>FORMULA 1 PIRELLI GRAN PREMIO D’ITALIA 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>04 - 06 Sep</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 16 – Spain -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/spain.jpg" alt="Spain">
+      <div class="race-header">
+        <h3>FORMULA 1 TAG HEUER GRAN PREMIO DE ESPAÑA 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>11 - 13 Sep</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 17 – Azerbaijan -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/azerbaijan.jpg" alt="Azerbaijan">
+      <div class="race-header">
+        <h3>FORMULA 1 QATAR AIRWAYS AZERBAIJAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>24 - 26 Sep</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 18 – Singapore -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/singapore.jpg" alt="Singapore">
+      <div class="race-header">
+        <h3>FORMULA 1 SINGAPORE AIRLINES SINGAPORE GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>09 - 11 Oct</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 19 – United States -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/united_states.jpg" alt="United States">
+      <div class="race-header">
+        <h3>FORMULA 1 MSC CRUISES UNITED STATES GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>23 - 25 Oct</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 20 – Mexico -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/mexico.jpg" alt="Mexico">
+      <div class="race-header">
+        <h3>FORMULA 1 GRAN PREMIO DE LA CIUDAD DE MÉXICO 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>30 Oct - 01 Nov</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 21 – Brazil -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/brazil.jpg" alt="Brazil">
+      <div class="race-header">
+        <h3>FORMULA 1 MSC CRUISES GRANDE PRÊMIO DE SÃO PAULO 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>06 - 08 Nov</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 22 – Las Vegas -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/las_vegas.jpg" alt="Las Vegas">
+      <div class="race-header">
+        <h3>FORMULA 1 HEINEKEN LAS VEGAS GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>19 - 21 Nov</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 23 – Qatar -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/qatar.jpg" alt="Qatar">
+      <div class="race-header">
+        <h3>FORMULA 1 QATAR AIRWAYS QATAR GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>27 - 29 Nov</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 24 – Abu Dhabi -->
+    <div class="race-card">
+      <img class="race-image" src="assets/races/abu_dhabi.jpg" alt="Abu Dhabi">
+      <div class="race-header">
+        <h3>FORMULA 1 ETIHAD AIRWAYS ABU DHABI GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>04 - 06 Dec</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top">Topo</button>
+
+  <!-- JS -->
   <script src="js/noticias.js"></script>
-
 </body>
 </html>
