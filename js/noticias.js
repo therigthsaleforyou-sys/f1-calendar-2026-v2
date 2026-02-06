@@ -1,88 +1,76 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const now = new Date();
+  const cards = document.querySelectorAll(".race-card:not(.novidades-card)");
   const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
-  const cards = document.querySelectorAll(".race-card");
-  const seasonNewsBox = document.querySelector("#season-news .race-details");
+  const heroTitle = document.getElementById("hero-title");
+  const backToTop = document.getElementById("back-to-top");
+
+  const now = new Date();
+  let activeCard = null;
 
   /* =========================
-     CONTEÚDO NOVIDADES 2026
+     DROPBOX (CARDS)
   ========================= */
-  const seasonNews = [
-    {
-      title: "🔧 Regulamentos Técnicos",
-      text: "Os carros de 2026 serão mais leves, com menos downforce e foco em eficiência aerodinâmica."
-    },
-    {
-      title: "⚡ Unidades de Potência",
-      text: "A componente elétrica passa a ter maior peso, com combustíveis 100% sustentáveis."
-    },
-    {
-      title: "👥 Pilotos e Equipas",
-      text: "Novos talentos entram na grelha e algumas equipas iniciam ciclos totalmente novos."
-    },
-    {
-      title: "📈 Evolução da Temporada",
-      text: "Este painel será atualizado conforme as corridas forem sendo concluídas."
+  document.querySelectorAll(".race-card").forEach(card => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    if (img && details) {
+      img.addEventListener("click", () => {
+        details.classList.toggle("hidden");
+      });
     }
-  ];
-
-  seasonNewsBox.innerHTML = seasonNews.map(item => `
-    <p><strong>${item.title}</strong><br>${item.text}</p>
-  `).join("");
+  });
 
   /* =========================
-     HERO DINÂMICO (NOTÍCIAS)
+     CORRIDA ATIVA (NOTÍCIAS)
+     regra:
+     - Austrália mantém-se até China terminar
+     - muda apenas quando o countdown da PRÓXIMA chegar a zero
   ========================= */
-  let activeCard = cards[1]; // Austrália por defeito
-
   cards.forEach(card => {
     const raceDate = card.dataset.race;
     if (!raceDate) return;
 
-    if (new Date(raceDate + "T00:00:00") <= now) {
+    const raceEnd = new Date(raceDate + "T23:59:59");
+
+    if (raceEnd <= now) {
       activeCard = card;
     }
   });
 
-  heroImage.src = activeCard.dataset.hero;
-  hero.style.cursor = "pointer";
-  hero.onclick = () => {
-    activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  if (!activeCard) {
+    activeCard = cards[0]; // fallback seguro
+  }
 
   /* =========================
-     DROPDOWN COM ANIMAÇÃO
+     HERO DINÂMICO + CLICÁVEL
   ========================= */
-  document.querySelectorAll(".race-card").forEach(card => {
-    const trigger = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
+  if (activeCard) {
+    heroImage.src = activeCard.dataset.hero;
+    heroTitle.textContent = activeCard.dataset.title;
+    hero.style.cursor = "pointer";
 
-    details.style.maxHeight = "0px";
-
-    trigger.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
-
-      document.querySelectorAll(".race-details").forEach(d => {
-        d.classList.add("hidden");
-        d.style.maxHeight = "0px";
+    hero.addEventListener("click", () => {
+      activeCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
       });
-
-      if (!isOpen) {
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
     });
-  });
+  }
 
   /* =========================
      BACK TO TOP
   ========================= */
-  const backToTop = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  if (backToTop) {
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 400);
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 
 });
