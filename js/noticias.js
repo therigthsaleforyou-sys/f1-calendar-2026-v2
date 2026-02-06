@@ -1,70 +1,78 @@
+// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cardsContainer = document.getElementById("race-cards");
+  const cards = document.querySelectorAll(".race-card");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  const hero = document.getElementById("hero");
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  let lastFinishedRace = calendar2026[0]; // Austrália por default
 
-  // =========================
-  // Gerar Cards dinamicamente
-  // =========================
-  calendar2026.forEach(race => {
+  let lastCompletedRace = null;
 
-    const raceDate = new Date(race.sessions.race);
-    if (raceDate <= now) lastFinishedRace = race; // última corrida concluída
+  /* =========================
+     DEFINIR HERO CORRETO
+     Hero = última corrida cujo Countdown terminou
+  ========================= */
+  cards.forEach(card => {
+    const raceId = card.dataset.id;
+    const raceData = window.calendar2026.find(r => r.id === raceId);
+    if (!raceData) return;
 
-    const card = document.createElement("div");
-    card.classList.add("race-card");
-    card.dataset.id = race.id;
-    card.dataset.image = race.heroImage;
-    card.dataset.race = race.sessions.race;
+    const raceEnd = new Date(raceData.sessions.race);
 
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details hidden">
-        <p>Data: ${raceDate.toLocaleDateString("pt-PT", { day:"2-digit", month:"short", year:"numeric" })}</p>
-        <div class="race-link-wrapper">
-          <a class="race-link-btn" href="index.html">Calendário</a>
-        </div>
-      </div>
-    `;
-
-    // Toggle detalhes
-    card.querySelector(".race-image").addEventListener("click", () => {
-      card.querySelector(".race-details").classList.toggle("hidden");
-    });
-
-    cardsContainer.appendChild(card);
+    // Se o Countdown da corrida já passou, marca como última corrida concluída
+    if (now >= raceEnd) {
+      lastCompletedRace = { card, raceData };
+    }
   });
 
-  // =========================
-  // Hero dinâmico
-  // =========================
-  heroImage.src = lastFinishedRace.heroImage;
-  heroTitle.textContent = lastFinishedRace.name;
+  // Se nenhuma corrida terminou ainda, hero = primeira corrida (Austrália)
+  if (!lastCompletedRace) {
+    const firstRace = window.calendar2026[0];
+    heroImage.src = firstRace.heroImage;
+    heroTitle.textContent = firstRace.name + " 2026";
+    lastCompletedRace = { card: cards[0], raceData: firstRace };
+  } else {
+    // Hero = última corrida concluída
+    heroImage.src = lastCompletedRace.raceData.heroImage;
+    heroTitle.textContent = lastCompletedRace.raceData.name + " 2026";
+  }
 
-  hero.style.cursor = "pointer";
-  hero.addEventListener("click", () => {
-    const activeCard = document.querySelector(`.race-card[data-id="${lastFinishedRace.id}"]`);
-    if (activeCard) activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  /* =========================
+     CARDS INTERATIVOS (DROPBOX)
+  ========================= */
+  cards.forEach(card => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    if (img && details) {
+      img.addEventListener("click", () => {
+        details.classList.toggle("hidden");
+      });
+    }
   });
 
-  // =========================
-  // Countdown invisível (para lógica interna)
-  // =========================
-  // Usado apenas para determinar lastFinishedRace, já calculado acima
-  // Pode ser expandido futuramente para mostrar tempos se necessário
+  /* =========================
+     HERO CLICÁVEL
+     Leva ao card da última corrida concluída
+  ========================= */
+  heroImage.style.cursor = "pointer";
+  heroImage.addEventListener("click", () => {
+    if (lastCompletedRace && lastCompletedRace.card) {
+      lastCompletedRace.card.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+  heroTitle.style.cursor = "pointer";
+  heroTitle.addEventListener("click", () => {
+    if (lastCompletedRace && lastCompletedRace.card) {
+      lastCompletedRace.card.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 
-  // =========================
-  // Back to Top
-  // =========================
+  /* =========================
+     BACK TO TOP
+  ========================= */
   if (backToTop) {
     window.addEventListener("scroll", () => {
       backToTop.classList.toggle("show", window.scrollY > 400);
