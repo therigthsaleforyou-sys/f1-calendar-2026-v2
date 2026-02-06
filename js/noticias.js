@@ -7,65 +7,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
+  const now = new Date();
+
+  let activeCard = cards[0];
+  let activeIndex = 0;
+
   /* =========================
-     FUNÇÃO PARA ATUALIZAR HERO
+     DETETAR CORRIDA ATIVA
      ========================= */
-  function updateHero() {
-    const now = new Date();
-    let activeCard = cards[0];
+  cards.forEach((card, index) => {
+    const raceDate = card.dataset.race;
+    if (!raceDate) return;
 
-    // Encontrar a corrida mais recente ou próxima
-    for (let card of cards) {
-      const raceDate = card.dataset.race;
-      if (!raceDate) continue;
-      const raceEnd = new Date(raceDate + "T23:59:59");
-      if (raceEnd <= now) {
-        activeCard = card;
-      } else {
-        break; // a primeira corrida futura
-      }
+    const raceEnd = new Date(raceDate + "T23:59:59");
+
+    if (raceEnd <= now) {
+      activeCard = card;
+      activeIndex = index;
     }
+  });
 
-    // Atualizar imagem
-    if (activeCard && heroImage) {
-      const heroImg = activeCard.dataset.hero;
-      if (heroImg) heroImage.src = heroImg;
+  /* =========================
+     HERO – IMAGEM
+     ========================= */
+  if (activeCard && heroImage) {
+    const heroImg = activeCard.dataset.hero;
+    if (heroImg) heroImage.src = heroImg;
+  }
+
+  /* =========================
+     HERO – TÍTULO CORRIGIDO
+     ========================= */
+  if (heroTitle && activeCard) {
+    const raceDate = activeCard.dataset.race;
+    const raceEnd = new Date(raceDate + "T23:59:59");
+
+    const titleRaw = activeCard.dataset.title || "";
+    const titleBase = titleRaw
+      .replace(/^Grande Prémio da /, "")
+      .replace(/^Grande Prémio do /, "")
+      .replace(/^Grande Prémio de /, "");
+
+    if (now < raceEnd) {
+      heroTitle.textContent = `Grande Prémio da ${titleBase}`;
+    } else {
+      heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
     }
-
-    // Atualizar título
-    if (heroTitle && activeCard) {
-      const raceDate = activeCard.dataset.race;
-      const raceEnd = raceDate ? new Date(raceDate + "T23:59:59") : null;
-
-      const titleBase = activeCard.dataset.title
-        ? activeCard.dataset.title
-            .replace("Grande Prémio da ", "")
-            .replace("Grande Prémio do ", "")
-            .replace("Grande Prémio de ", "")
-        : "corrida";
-
-      if (raceEnd && now < raceEnd) {
-        heroTitle.textContent = `Grande Prémio da ${titleBase}`;
-      } else if (raceEnd) {
-        heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
-      } else {
-        heroTitle.textContent = `Próxima corrida`;
-      }
-    }
-
-    return activeCard;
   }
 
   /* =========================
      HERO CLICÁVEL
      ========================= */
-  function makeHeroClickable(activeCard) {
-    if (hero && activeCard) {
-      hero.style.cursor = "pointer";
-      hero.onclick = () => {
-        activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-      };
-    }
+  if (hero && activeCard) {
+    hero.style.cursor = "pointer";
+    hero.addEventListener("click", () => {
+      activeCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
   }
 
   /* =========================
@@ -98,14 +98,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================
-     ATUALIZA HERO A CADA SEGUNDO
-     ========================= */
-  function refreshHero() {
-    const activeCard = updateHero();
-    makeHeroClickable(activeCard);
-  }
-
-  refreshHero(); // atualização inicial
-  setInterval(refreshHero, 1000); // atualizar a cada segundo
 });
