@@ -36,22 +36,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     HERO – TÍTULO
+     HERO – TÍTULO DINÂMICO
      ========================= */
   if (heroTitle && activeCard) {
     const raceDate = activeCard.dataset.race;
-    const raceEnd = new Date(raceDate + "T23:59:59");
+    const raceEnd = raceDate ? new Date(raceDate + "T23:59:59") : null;
 
-    const titleBase =
-      activeCard.dataset.title
-        ?.replace("Grande Prémio da ", "")
-        ?.replace("Grande Prémio do ", "")
-        ?.replace("Grande Prémio de ", "");
+    const titleBase = activeCard.dataset.title
+      ? activeCard.dataset.title
+          .replace("Grande Prémio da ", "")
+          .replace("Grande Prémio do ", "")
+          .replace("Grande Prémio de ", "")
+      : "corrida"; // fallback caso title esteja vazio
 
-    if (now < raceEnd) {
+    if (raceEnd && now < raceEnd) {
       heroTitle.textContent = `Grande Prémio da ${titleBase}`;
-    } else {
+    } else if (raceEnd) {
       heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
+    } else {
+      heroTitle.textContent = `Próxima corrida`; // fallback se data não existir
     }
   }
 
@@ -76,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const details = card.querySelector(".race-details");
 
     if (img && details) {
-      details.classList.add("hidden");
+      details.classList.add("hidden"); // começa fechada
       img.style.cursor = "pointer";
 
       img.addEventListener("click", () => {
