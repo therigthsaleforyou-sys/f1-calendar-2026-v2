@@ -1,38 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const now = new Date();
+  const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const cards = document.querySelectorAll(".race-card");
-  const seasonNews = document.querySelector("#season-news .race-details");
+  const seasonNewsBox = document.querySelector("#season-news .race-details");
 
   /* =========================
-     CONTEÚDO DINÂMICO F1 2026
+     CONTEÚDO NOVIDADES 2026
   ========================= */
-  const seasonContent = [
+  const seasonNews = [
     {
-      title: "🔧 Novos Regulamentos Técnicos",
-      text: "A temporada 2026 introduz carros mais leves, menor downforce e maior dependência da eficiência elétrica."
+      title: "🔧 Regulamentos Técnicos",
+      text: "Os carros de 2026 serão mais leves, com menos downforce e foco em eficiência aerodinâmica."
     },
     {
       title: "⚡ Unidades de Potência",
-      text: "Motores com maior componente elétrica, combustíveis 100% sustentáveis e remoção do MGU-H."
+      text: "A componente elétrica passa a ter maior peso, com combustíveis 100% sustentáveis."
     },
     {
-      title: "👥 Novos Pilotos e Alinhamentos",
-      text: "A grelha de 2026 apresenta novos talentos vindos da F2 e grandes mudanças em equipas de topo."
+      title: "👥 Pilotos e Equipas",
+      text: "Novos talentos entram na grelha e algumas equipas iniciam ciclos totalmente novos."
     },
     {
-      title: "🏁 Evolução do Mundial",
-      text: "À medida que as corridas se realizam, este painel será atualizado com tendências e destaques."
+      title: "📈 Evolução da Temporada",
+      text: "Este painel será atualizado conforme as corridas forem sendo concluídas."
     }
   ];
 
-  seasonNews.innerHTML = seasonContent.map(item => `
+  seasonNewsBox.innerHTML = seasonNews.map(item => `
     <p><strong>${item.title}</strong><br>${item.text}</p>
   `).join("");
 
   /* =========================
-     HERO DINÂMICO
+     HERO DINÂMICO (NOTÍCIAS)
   ========================= */
   let activeCard = cards[1]; // Austrália por defeito
 
@@ -45,23 +46,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (activeCard) {
-    heroImage.src = activeCard.dataset.hero;
-    document.getElementById("hero").onclick = () => {
-      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
-  }
+  heroImage.src = activeCard.dataset.hero;
+  hero.style.cursor = "pointer";
+  hero.onclick = () => {
+    activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   /* =========================
-     DROPDOWN + ANIMAÇÃO
+     DROPDOWN COM ANIMAÇÃO
   ========================= */
-  document.querySelectorAll(".race-image, .race-header").forEach(el => {
-    el.addEventListener("click", () => {
-      const details = el.closest(".race-card").querySelector(".race-details");
-      details.classList.toggle("hidden");
-      details.style.maxHeight = details.classList.contains("hidden")
-        ? "0px"
-        : details.scrollHeight + "px";
+  document.querySelectorAll(".race-card").forEach(card => {
+    const trigger = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    details.style.maxHeight = "0px";
+
+    trigger.addEventListener("click", () => {
+      const isOpen = !details.classList.contains("hidden");
+
+      document.querySelectorAll(".race-details").forEach(d => {
+        d.classList.add("hidden");
+        d.style.maxHeight = "0px";
+      });
+
+      if (!isOpen) {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
     });
   });
 
