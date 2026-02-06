@@ -1,62 +1,75 @@
 // ===============================
-// F1 Notícias 2026 - noticias.js
+// CONFIG
 // ===============================
 
-// Simulação da corrida ativa
-// (mais tarde pode vir de races.js ou API)
-const corridaAtiva = {
-  nome: "Grande Prémio da Austrália",
-  imagem: "assets/heroes/australia_v2.jpg",
-  link: "https://www.youtube.com/results?search_query=f1+australia+2026"
-};
+// imagem default do hero enquanto só a Austrália terminou
+const DEFAULT_HERO_IMAGE = "assets/heroes/australia_v2.jpg";
 
-// Referências SEGURAS (não recriam DOM)
+// container
+const cardsContainer = document.getElementById("race-cards");
 const heroLink = document.getElementById("hero");
 const heroImage = document.getElementById("hero-image");
 const heroTitle = document.getElementById("hero-title");
 
-// Segurança extra
-if (heroLink && heroImage && heroTitle) {
-  heroImage.src = corridaAtiva.imagem;
-  heroImage.alt = corridaAtiva.nome;
-  heroTitle.textContent = `Corrida ativa: ${corridaAtiva.nome}`;
-  heroLink.href = corridaAtiva.link;
-}
+// ===============================
+// DADOS DAS CORRIDAS
+// (ordem do calendário)
+// ===============================
+const races = [
+  {
+    id: "australia",
+    name: "Grande Prémio da Austrália",
+    cardImage: "assets/races/australia.jpg"
+  },
+  {
+    id: "china",
+    name: "Grande Prémio da China",
+    cardImage: "assets/races/china.jpg"
+  },
+  {
+    id: "japan",
+    name: "Grande Prémio do Japão",
+    cardImage: "assets/races/japan.jpg"
+  },
+  {
+    id: "bahrain",
+    name: "Grande Prémio do Bahrain",
+    cardImage: "assets/races/bahrain.jpg"
+  }
+];
 
 // ===============================
-// Cards de notícias (placeholder)
+// LOGICA DA CORRIDA ATIVA
 // ===============================
-const raceCardsContainer = document.getElementById("race-cards");
 
-if (raceCardsContainer) {
-  // Limpa apenas os cards (seguro)
-  raceCardsContainer.innerHTML = "";
+// regra: o hero é SEMPRE a última corrida terminada
+// por agora só a Austrália terminou
+const activeRace = races[0];
 
-  const card = document.createElement("div");
+// ===============================
+// HERO
+// ===============================
+
+heroImage.src = DEFAULT_HERO_IMAGE;
+heroTitle.textContent = `Corrida ativa: ${activeRace.name}`;
+heroLink.href = `#race-${activeRace.id}`;
+
+// ===============================
+// CARDS
+// ===============================
+
+cardsContainer.innerHTML = "";
+
+races.forEach(race => {
+  const card = document.createElement("article");
   card.className = "race-card";
+  card.id = `race-${race.id}`;
 
   card.innerHTML = `
-    <img src="assets/heroes/australia_v2.jpg" alt="Austrália">
-    <h3>Highlights – GP da Austrália</h3>
-    <a href="https://www.youtube.com/results?search_query=f1+australia+2026" target="_blank">
-      Ver vídeos
-    </a>
+    <img src="${race.cardImage}" alt="${race.name}">
+    <h3>${race.name}</h3>
+    <a href="#" class="calendar-btn">Calendário</a>
   `;
 
-  raceCardsContainer.appendChild(card);
-}
-
-// ===============================
-// Back to Top
-// ===============================
-const backToTop = document.getElementById("back-to-top");
-
-if (backToTop) {
-  window.addEventListener("scroll", () => {
-    backToTop.style.display = window.scrollY > 300 ? "block" : "none";
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
+  cardsContainer.appendChild(card);
+});
