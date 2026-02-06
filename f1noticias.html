@@ -9,7 +9,7 @@
 <body>
 
   <!-- =======================
-       Cabeçalho
+       Cabeçalho (INALTERADO)
   ======================= -->
   <header id="header">
     <nav>
@@ -24,12 +24,19 @@
 
   <!-- =======================
        Hero Dinâmico
+       (estrutura compatível com CSS)
   ======================= -->
   <section id="hero-container">
-    <a id="hero" href="#">
-      <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida">
-      <div id="hero-title" class="hero-title">Corrida ativa: Grande Prémio da Austrália</div>
-    </a>
+    <div id="hero">
+      <img
+        id="hero-image"
+        src="assets/heroes/australia_v2.jpg"
+        alt="Hero Corrida"
+      >
+      <div id="hero-title" class="hero-title">
+        Corrida ativa: Grande Prémio da Austrália
+      </div>
+    </div>
   </section>
 
   <!-- =======================
@@ -37,7 +44,7 @@
   ======================= -->
   <main>
     <section id="race-cards" class="race-cards-container">
-      <!-- Cards gerados pelo noticias.js -->
+      <!-- Gerado exclusivamente pelo noticias.js -->
     </section>
   </main>
 
@@ -47,7 +54,7 @@
   <button id="back-to-top" class="back-to-top">↑</button>
 
   <!-- =======================
-       JS Noticias
+       JS
   ======================= -->
   <script src="js/noticias.js"></script>
 
