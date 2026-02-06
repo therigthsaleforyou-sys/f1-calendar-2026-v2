@@ -7,68 +7,65 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
-  const now = new Date();
-
-  let activeCard = cards[0];
-  let activeIndex = 0;
-
   /* =========================
-     DETETAR CORRIDA ATIVA
+     FUNÇÃO PARA ATUALIZAR HERO
      ========================= */
-  cards.forEach((card, index) => {
-    const raceDate = card.dataset.race;
-    if (!raceDate) return;
+  function updateHero() {
+    const now = new Date();
+    let activeCard = cards[0];
 
-    const raceEnd = new Date(raceDate + "T23:59:59");
-
-    if (raceEnd <= now) {
-      activeCard = card;
-      activeIndex = index;
+    // Encontrar a corrida mais recente ou próxima
+    for (let card of cards) {
+      const raceDate = card.dataset.race;
+      if (!raceDate) continue;
+      const raceEnd = new Date(raceDate + "T23:59:59");
+      if (raceEnd <= now) {
+        activeCard = card;
+      } else {
+        break; // a primeira corrida futura
+      }
     }
-  });
 
-  /* =========================
-     HERO – IMAGEM
-     ========================= */
-  if (activeCard && heroImage) {
-    const heroImg = activeCard.dataset.hero;
-    if (heroImg) heroImage.src = heroImg;
-  }
-
-  /* =========================
-     HERO – TÍTULO DINÂMICO
-     ========================= */
-  if (heroTitle && activeCard) {
-    const raceDate = activeCard.dataset.race;
-    const raceEnd = raceDate ? new Date(raceDate + "T23:59:59") : null;
-
-    const titleBase = activeCard.dataset.title
-      ? activeCard.dataset.title
-          .replace("Grande Prémio da ", "")
-          .replace("Grande Prémio do ", "")
-          .replace("Grande Prémio de ", "")
-      : "corrida"; // fallback caso title esteja vazio
-
-    if (raceEnd && now < raceEnd) {
-      heroTitle.textContent = `Grande Prémio da ${titleBase}`;
-    } else if (raceEnd) {
-      heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
-    } else {
-      heroTitle.textContent = `Próxima corrida`; // fallback se data não existir
+    // Atualizar imagem
+    if (activeCard && heroImage) {
+      const heroImg = activeCard.dataset.hero;
+      if (heroImg) heroImage.src = heroImg;
     }
+
+    // Atualizar título
+    if (heroTitle && activeCard) {
+      const raceDate = activeCard.dataset.race;
+      const raceEnd = raceDate ? new Date(raceDate + "T23:59:59") : null;
+
+      const titleBase = activeCard.dataset.title
+        ? activeCard.dataset.title
+            .replace("Grande Prémio da ", "")
+            .replace("Grande Prémio do ", "")
+            .replace("Grande Prémio de ", "")
+        : "corrida";
+
+      if (raceEnd && now < raceEnd) {
+        heroTitle.textContent = `Grande Prémio da ${titleBase}`;
+      } else if (raceEnd) {
+        heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
+      } else {
+        heroTitle.textContent = `Próxima corrida`;
+      }
+    }
+
+    return activeCard;
   }
 
   /* =========================
      HERO CLICÁVEL
      ========================= */
-  if (hero && activeCard) {
-    hero.style.cursor = "pointer";
-    hero.addEventListener("click", () => {
-      activeCard.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
+  function makeHeroClickable(activeCard) {
+    if (hero && activeCard) {
+      hero.style.cursor = "pointer";
+      hero.onclick = () => {
+        activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+    }
   }
 
   /* =========================
@@ -79,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const details = card.querySelector(".race-details");
 
     if (img && details) {
-      details.classList.add("hidden"); // começa fechada
+      details.classList.add("hidden");
       img.style.cursor = "pointer";
 
       img.addEventListener("click", () => {
@@ -101,4 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* =========================
+     ATUALIZA HERO A CADA SEGUNDO
+     ========================= */
+  function refreshHero() {
+    const activeCard = updateHero();
+    makeHeroClickable(activeCard);
+  }
+
+  refreshHero(); // atualização inicial
+  setInterval(refreshHero, 1000); // atualizar a cada segundo
 });
