@@ -212,3 +212,22 @@ nav a.active {
 #back-to-top.show {
   display: block;
 }
+
+
+/* =========================
+   F1 NOTÍCIAS – LAYOUT
+   ========================= */
+
+.cards-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.cards-wrapper .race-card {
+  width: 100%;
+}
+/* Alinhar visualmente cards com o hero */
+.cards-wrapper {
+  max-width: calc(100% - 32px);
+}
