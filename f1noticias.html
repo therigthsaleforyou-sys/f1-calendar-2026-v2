@@ -5,23 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notícias F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Vídeo responsivo */
-    .race-video {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 ratio */
-      height: 0;
-      overflow: hidden;
-      margin-top: 1rem;
-    }
-    .race-video iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
 </head>
 <body>
 
@@ -41,13 +24,44 @@
   </section>
 
   <!-- CARDS DE NOTÍCIAS -->
-  <section id="race-cards"></section>
+  <section id="race-cards">
+
+    <!-- ROUND 1 – Australia -->
+    <div class="race-card" data-id="australia" data-hero="assets/heroes/australia_v2.jpg" data-title="Grande Prémio da Austrália 2026" data-race="2026-03-08">
+      <img class="race-image" src="assets/races/australia.jpg" alt="Australia">
+      <div class="race-header">
+        <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>06 - 08 Mar</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUND 2 – China -->
+    <div class="race-card" data-id="china" data-hero="assets/heroes/china.jpg" data-title="Grande Prémio da China 2026" data-race="2026-03-15">
+      <img class="race-image" src="assets/races/china.jpg" alt="China">
+      <div class="race-header">
+        <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
+      </div>
+      <div class="race-details hidden">
+        <p>13 - 15 Mar</p>
+        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="index.html">Calendário</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
 
   <!-- BACK TO TOP -->
   <button id="back-to-top">Topo</button>
 
   <!-- JS -->
-  <script src="js/calendar2026.js"></script>
   <script src="js/noticias.js"></script>
 </body>
 </html>
