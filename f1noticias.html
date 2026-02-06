@@ -2,13 +2,13 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>F1 2026 | Notícias</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
+<!-- HEADER -->
 <header>
   <nav>
     <a href="index.html">Calendário</a>
@@ -19,50 +19,57 @@
 
 <!-- HERO -->
 <section id="hero">
-  <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero">
+  <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Grande Prémio da Austrália 2026">
+  <h2 id="hero-title">Grande Prémio da Austrália 2026</h2>
 </section>
 
-<main class="cards-wrapper">
+<!-- CONTAINER DOS CARDS -->
+<section id="race-cards" class="cards-wrapper">
 
-  <!-- CARD NOVIDADES DA TEMPORADA -->
-  <div class="race-card news-card" id="season-news">
+  <!-- CARD NOVIDADES (INDEPENDENTE) -->
+  <div class="race-card novidades-card">
     <img class="race-image" src="assets/races/novidades.jpg" alt="Novidades F1 2026">
     <div class="race-header">
-      <h3>NOVIDADES DA TEMPORADA F1 2026</h3>
+      <h3>Novidades Fórmula 1 – Temporada 2026</h3>
     </div>
     <div class="race-details hidden">
-      <!-- conteúdo dinâmico -->
+      <p><strong>Novos Regulamentos:</strong> carros mais leves, aerodinâmica simplificada e foco maior em corridas próximas.</p>
+      <p><strong>Novos Pilotos:</strong> entrada de jovens talentos e possível regresso de nomes experientes.</p>
+      <p><strong>Novas Equipas:</strong> novas estruturas no paddock com foco em sustentabilidade.</p>
     </div>
   </div>
 
   <!-- AUSTRÁLIA -->
-  <div class="race-card" data-id="australia" data-hero="assets/heroes/australia_v2.jpg" data-race="2026-03-08">
+  <div class="race-card" data-id="australia" data-hero="assets/heroes/australia_v2.jpg" data-title="Grande Prémio da Austrália 2026" data-race="2026-03-08">
     <img class="race-image" src="assets/races/australia.jpg" alt="Australia">
     <div class="race-header">
-      <h3>FORMULA 1 AUSTRALIAN GRAND PRIX 2026</h3>
+      <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
     </div>
     <div class="race-details hidden">
-      <p>06 – 08 Março</p>
-      <p>Notícias da corrida serão apresentadas após a sua realização.</p>
+      <p>06 – 08 Mar</p>
+      <p>A F1 inicia uma nova era técnica em Melbourne, com grande expectativa sobre o comportamento dos novos carros.</p>
     </div>
   </div>
 
   <!-- CHINA -->
-  <div class="race-card" data-id="china" data-hero="assets/heroes/china.jpg" data-race="2026-03-15">
+  <div class="race-card" data-id="china" data-hero="assets/heroes/china.jpg" data-title="Grande Prémio da China 2026" data-race="2026-03-15">
     <img class="race-image" src="assets/races/china.jpg" alt="China">
     <div class="race-header">
-      <h3>FORMULA 1 CHINESE GRAND PRIX 2026</h3>
+      <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
     </div>
     <div class="race-details hidden">
-      <p>13 – 15 Março</p>
-      <p>Corrida ainda não realizada.</p>
+      <p>13 – 15 Mar</p>
+      <p>Xangai será o primeiro grande teste real às novas regras, num circuito exigente para pneus e aerodinâmica.</p>
     </div>
   </div>
 
-</main>
+</section>
 
-<button id="back-to-top">↑</button>
+<!-- BACK TO TOP -->
+<button id="back-to-top">Topo</button>
 
+<!-- JS -->
 <script src="js/noticias.js"></script>
+
 </body>
 </html>
