@@ -1,122 +1,117 @@
+
+// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const raceCardsContainer = document.getElementById("race-cards");
+  const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
+  const cards = document.querySelectorAll(".race-card");
 
   const now = new Date();
-  let activeRace = calendar2026[0]; // default Austrália
+  let activeRaceIndex = 0; // default Austrália
 
-  // Cria os cards dinamicamente
-  calendar2026.forEach(race => {
-
-    // Card principal
-    const card = document.createElement("div");
-    card.classList.add("race-card");
-    card.dataset.id = race.id;
-
-    // Imagem
-    const img = document.createElement("img");
-    img.classList.add("race-image");
-    img.src = race.cardImage;
-    img.alt = race.name;
-    card.appendChild(img);
-
-    // Header
-    const header = document.createElement("div");
-    header.classList.add("race-header");
-    header.innerHTML = `<h3>${race.name}</h3>`;
-    card.appendChild(header);
-
-    // Detalhes dropbox
-    const details = document.createElement("div");
-    details.classList.add("race-details", "hidden");
-    details.innerHTML = `
-      <p>Data da corrida: ${race.sessions.race.slice(0,10)}</p>
-      <p>Notícias da corrida:</p>
-      <ul class="race-news"></ul>
-    `;
-    card.appendChild(details);
-
-    // Adiciona notícias (só para as 2-3 primeiras corridas de teste)
-    if (race.id === "australia") {
-      race.news = [
-        { title: "Vitória de Verstappen em Melbourne", link: "#" },
-        { title: "Ferrari surpreende no treino", link: "#" }
-      ];
-    } else if (race.id === "china") {
-      race.news = [
-        { title: "Primeiros pontos de Leclerc", link: "#" },
-        { title: "Mercedes luta com pneus", link: "#" }
-      ];
-    } else if (race.id === "japan") {
-      race.news = [
-        { title: "GP do Japão: treino livre emocionante", link: "#" }
-      ];
+  /* =========================
+     NOTÍCIAS E VÍDEOS
+  ========================= */
+  const raceNews = [
+    {
+      id: "australia",
+      news: [
+        "Primeira corrida do ano emocionante, com várias ultrapassagens.",
+        "Hamilton lidera o campeonato após vitória em Melbourne."
+      ],
+      video: "https://www.youtube.com/embed/VIDEO_ID_AUS" // substituir VIDEO_ID_AUS
+    },
+    {
+      id: "china",
+      news: [
+        "Grande corrida em Xangai, com chuva e estratégia crucial.",
+        "Red Bull vence com Verstappen em destaque."
+      ],
+      video: "https://www.youtube.com/embed/VIDEO_ID_CHN" // substituir VIDEO_ID_CHN
     }
+  ];
 
-    // Renderiza notícias
-    if (race.news) {
-      const ul = details.querySelector(".race-news");
-      race.news.forEach(item => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = item.link;
-        a.textContent = item.title;
-        li.appendChild(a);
-        ul.appendChild(li);
+  /* =========================
+     PREPARAR CARDS
+  ========================= */
+  cards.forEach((card, index) => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    // Clicar na imagem do card para mostrar/esconder detalhes
+    if (img && details) {
+      img.addEventListener("click", () => {
+        details.classList.toggle("hidden");
       });
     }
 
-    // Adiciona vídeo de teste (somente para as mesmas corridas)
-    if (race.id === "australia") {
-      const videoDiv = document.createElement("div");
-      videoDiv.classList.add("race-video");
-      videoDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/VIDEO_ID1" title="YouTube video" frameborder="0" allowfullscreen></iframe>`;
-      details.appendChild(videoDiv);
-    } else if (race.id === "china") {
-      const videoDiv = document.createElement("div");
-      videoDiv.classList.add("race-video");
-      videoDiv.innerHTML = `<iframe src="https://www.youtube.com/embed/VIDEO_ID2" title="YouTube video" frameborder="0" allowfullscreen></iframe>`;
-      details.appendChild(videoDiv);
+    // Preencher notícias e vídeo
+    const newsData = raceNews.find(r => r.id === card.dataset.id);
+    if (newsData && details) {
+      const newsContainer = document.createElement("div");
+      newsContainer.classList.add("race-news");
+
+      newsData.news.forEach(item => {
+        const p = document.createElement("p");
+        p.textContent = item;
+        newsContainer.appendChild(p);
+      });
+
+      // Adicionar vídeo
+      if (newsData.video) {
+        const iframe = document.createElement("iframe");
+        iframe.src = newsData.video;
+        iframe.width = "100%";
+        iframe.height = "200";
+        iframe.frameBorder = "0";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        newsContainer.appendChild(iframe);
+      }
+
+      details.appendChild(newsContainer);
     }
 
-    // DropBox toggle
-    img.addEventListener("click", () => {
-      details.classList.toggle("hidden");
+    // Determinar corrida ativa com base na data da corrida
+    const raceDateStr = card.dataset.race;
+    if (raceDateStr) {
+      const raceDate = new Date(raceDateStr + "T00:00:00Z");
+      if (raceDate <= now) {
+        activeRaceIndex = index;
+      }
+    }
+  });
+
+  /* =========================
+     HERO DINÂMICO
+  ========================= */
+  const activeCard = cards[activeRaceIndex];
+  if (activeCard) {
+    const heroImg = activeCard.dataset.hero;
+    const heroTitleText = activeCard.dataset.title;
+
+    if (heroImg) heroImage.src = heroImg;
+    if (heroTitleText) heroTitle.textContent = heroTitleText;
+
+    hero.style.cursor = "pointer";
+    hero.addEventListener("click", () => {
+      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+  }
 
-    raceCardsContainer.appendChild(card);
-
-    // Define a corrida ativa baseada no race.end (aqui simplificado: usa race)
-    const raceEnd = new Date(race.sessions.race);
-    if (raceEnd <= now) activeRace = race;
-  });
-
-  // Atualiza hero
-  heroImage.src = activeRace.heroImage;
-  heroTitle.textContent = activeRace.name;
-
-  heroImage.style.cursor = "pointer";
-  heroTitle.style.cursor = "pointer";
-  heroImage.addEventListener("click", () => {
-    const card = document.querySelector(`.race-card[data-id="${activeRace.id}"]`);
-    if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-  heroTitle.addEventListener("click", () => {
-    const card = document.querySelector(`.race-card[data-id="${activeRace.id}"]`);
-    if (card) card.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  // Back to top
+  /* =========================
+     BACK TO TOP
+  ========================= */
   if (backToTop) {
     window.addEventListener("scroll", () => {
       backToTop.classList.toggle("show", window.scrollY > 400);
     });
+
     backToTop.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
-
 });
