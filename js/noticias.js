@@ -1,117 +1,77 @@
-
-// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const hero = document.getElementById("hero");
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-  const backToTop = document.getElementById("back-to-top");
-  const cards = document.querySelectorAll(".race-card");
-
   const now = new Date();
-  let activeRaceIndex = 0; // default Austrália
+  const heroImage = document.getElementById("hero-image");
+  const cards = document.querySelectorAll(".race-card");
+  const seasonNews = document.querySelector("#season-news .race-details");
 
   /* =========================
-     NOTÍCIAS E VÍDEOS
+     CONTEÚDO DINÂMICO F1 2026
   ========================= */
-  const raceNews = [
+  const seasonContent = [
     {
-      id: "australia",
-      news: [
-        "Primeira corrida do ano emocionante, com várias ultrapassagens.",
-        "Hamilton lidera o campeonato após vitória em Melbourne."
-      ],
-      video: "https://www.youtube.com/embed/VIDEO_ID_AUS" // substituir VIDEO_ID_AUS
+      title: "🔧 Novos Regulamentos Técnicos",
+      text: "A temporada 2026 introduz carros mais leves, menor downforce e maior dependência da eficiência elétrica."
     },
     {
-      id: "china",
-      news: [
-        "Grande corrida em Xangai, com chuva e estratégia crucial.",
-        "Red Bull vence com Verstappen em destaque."
-      ],
-      video: "https://www.youtube.com/embed/VIDEO_ID_CHN" // substituir VIDEO_ID_CHN
+      title: "⚡ Unidades de Potência",
+      text: "Motores com maior componente elétrica, combustíveis 100% sustentáveis e remoção do MGU-H."
+    },
+    {
+      title: "👥 Novos Pilotos e Alinhamentos",
+      text: "A grelha de 2026 apresenta novos talentos vindos da F2 e grandes mudanças em equipas de topo."
+    },
+    {
+      title: "🏁 Evolução do Mundial",
+      text: "À medida que as corridas se realizam, este painel será atualizado com tendências e destaques."
     }
   ];
 
-  /* =========================
-     PREPARAR CARDS
-  ========================= */
-  cards.forEach((card, index) => {
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-
-    // Clicar na imagem do card para mostrar/esconder detalhes
-    if (img && details) {
-      img.addEventListener("click", () => {
-        details.classList.toggle("hidden");
-      });
-    }
-
-    // Preencher notícias e vídeo
-    const newsData = raceNews.find(r => r.id === card.dataset.id);
-    if (newsData && details) {
-      const newsContainer = document.createElement("div");
-      newsContainer.classList.add("race-news");
-
-      newsData.news.forEach(item => {
-        const p = document.createElement("p");
-        p.textContent = item;
-        newsContainer.appendChild(p);
-      });
-
-      // Adicionar vídeo
-      if (newsData.video) {
-        const iframe = document.createElement("iframe");
-        iframe.src = newsData.video;
-        iframe.width = "100%";
-        iframe.height = "200";
-        iframe.frameBorder = "0";
-        iframe.allow =
-          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        newsContainer.appendChild(iframe);
-      }
-
-      details.appendChild(newsContainer);
-    }
-
-    // Determinar corrida ativa com base na data da corrida
-    const raceDateStr = card.dataset.race;
-    if (raceDateStr) {
-      const raceDate = new Date(raceDateStr + "T00:00:00Z");
-      if (raceDate <= now) {
-        activeRaceIndex = index;
-      }
-    }
-  });
+  seasonNews.innerHTML = seasonContent.map(item => `
+    <p><strong>${item.title}</strong><br>${item.text}</p>
+  `).join("");
 
   /* =========================
      HERO DINÂMICO
   ========================= */
-  const activeCard = cards[activeRaceIndex];
+  let activeCard = cards[1]; // Austrália por defeito
+
+  cards.forEach(card => {
+    const raceDate = card.dataset.race;
+    if (!raceDate) return;
+
+    if (new Date(raceDate + "T00:00:00") <= now) {
+      activeCard = card;
+    }
+  });
+
   if (activeCard) {
-    const heroImg = activeCard.dataset.hero;
-    const heroTitleText = activeCard.dataset.title;
-
-    if (heroImg) heroImage.src = heroImg;
-    if (heroTitleText) heroTitle.textContent = heroTitleText;
-
-    hero.style.cursor = "pointer";
-    hero.addEventListener("click", () => {
+    heroImage.src = activeCard.dataset.hero;
+    document.getElementById("hero").onclick = () => {
       activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
+    };
   }
+
+  /* =========================
+     DROPDOWN + ANIMAÇÃO
+  ========================= */
+  document.querySelectorAll(".race-image, .race-header").forEach(el => {
+    el.addEventListener("click", () => {
+      const details = el.closest(".race-card").querySelector(".race-details");
+      details.classList.toggle("hidden");
+      details.style.maxHeight = details.classList.contains("hidden")
+        ? "0px"
+        : details.scrollHeight + "px";
+    });
+  });
 
   /* =========================
      BACK TO TOP
   ========================= */
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
 });
