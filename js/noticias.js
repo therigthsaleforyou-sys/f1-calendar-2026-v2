@@ -1,35 +1,21 @@
+// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cards = document.querySelectorAll(".race-card:not(.novidades-card)");
+  const cards = Array.from(document.querySelectorAll(".race-card"));
   const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  let activeCard = null;
+
+  let activeCard = cards[0];
+  let activeIndex = 0;
 
   /* =========================
-     DROPBOX (CARDS)
-  ========================= */
-  document.querySelectorAll(".race-card").forEach(card => {
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-
-    if (img && details) {
-      img.addEventListener("click", () => {
-        details.classList.toggle("hidden");
-      });
-    }
-  });
-
-  /* =========================
-     CORRIDA ATIVA (NOTÍCIAS)
-     regra:
-     - Austrália mantém-se até China terminar
-     - muda apenas quando o countdown da PRÓXIMA chegar a zero
-  ========================= */
-  cards.forEach(card => {
+     DETETAR CORRIDA ATIVA
+     ========================= */
+  cards.forEach((card, index) => {
     const raceDate = card.dataset.race;
     if (!raceDate) return;
 
@@ -37,21 +23,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (raceEnd <= now) {
       activeCard = card;
+      activeIndex = index;
     }
   });
 
-  if (!activeCard) {
-    activeCard = cards[0]; // fallback seguro
+  /* =========================
+     HERO – IMAGEM
+     ========================= */
+  if (activeCard && heroImage) {
+    const heroImg = activeCard.dataset.hero;
+    if (heroImg) heroImage.src = heroImg;
   }
 
   /* =========================
-     HERO DINÂMICO + CLICÁVEL
-  ========================= */
-  if (activeCard) {
-    heroImage.src = activeCard.dataset.hero;
-    heroTitle.textContent = activeCard.dataset.title;
-    hero.style.cursor = "pointer";
+     HERO – TÍTULO
+     ========================= */
+  if (heroTitle && activeCard) {
+    const raceDate = activeCard.dataset.race;
+    const raceEnd = new Date(raceDate + "T23:59:59");
 
+    const titleBase =
+      activeCard.dataset.title
+        ?.replace("Grande Prémio da ", "")
+        ?.replace("Grande Prémio do ", "")
+        ?.replace("Grande Prémio de ", "");
+
+    if (now < raceEnd) {
+      heroTitle.textContent = `Grande Prémio da ${titleBase}`;
+    } else {
+      heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
+    }
+  }
+
+  /* =========================
+     HERO CLICÁVEL
+     ========================= */
+  if (hero && activeCard) {
+    hero.style.cursor = "pointer";
     hero.addEventListener("click", () => {
       activeCard.scrollIntoView({
         behavior: "smooth",
@@ -61,8 +69,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
+     DROPBOX DOS CARDS
+     ========================= */
+  cards.forEach(card => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    if (img && details) {
+      details.classList.add("hidden");
+      img.style.cursor = "pointer";
+
+      img.addEventListener("click", () => {
+        details.classList.toggle("hidden");
+      });
+    }
+  });
+
+  /* =========================
      BACK TO TOP
-  ========================= */
+     ========================= */
   if (backToTop) {
     window.addEventListener("scroll", () => {
       backToTop.classList.toggle("show", window.scrollY > 400);
