@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notícias F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Ajustes rápidos para botão no fundo do card e vídeo responsivo */
+    .race-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .race-link-wrapper {
+      margin-top: auto; /* empurra botão para baixo */
+      text-align: center;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .race-details.hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -34,7 +61,11 @@
       </div>
       <div class="race-details hidden">
         <p>06 - 08 Mar</p>
-        <p>corrida ainda não se realizou, verificar data na Homepage</p>
+        <p>Corrida concluída / Notícias disponíveis.</p>
+        <video controls>
+          <source src="assets/videos/australia_race.mp4" type="video/mp4">
+          O teu navegador não suporta vídeos HTML5.
+        </video>
         <div class="race-link-wrapper">
           <a class="race-link-btn" href="index.html">Calendário</a>
         </div>
