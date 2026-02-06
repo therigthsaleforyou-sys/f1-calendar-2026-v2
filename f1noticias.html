@@ -6,7 +6,8 @@
   <title>Notícias F1 2026</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Ajustes para os cards */
+    /* Ajustes para os cards e detalhes */
+    .news-intro-card,
     .race-card {
       display: flex;
       flex-direction: column;
@@ -18,10 +19,19 @@
       margin-bottom: 2rem;
       cursor: pointer;
     }
-    .race-details.hidden {
+    .news-intro-card img,
+    .race-card img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+    }
+    .card-details.hidden {
       display: none;
     }
-    .race-header h3 {
+    .card-details p {
+      margin: 0.6rem 0;
+    }
+    .card-header h3 {
       margin: 0.5rem 0;
     }
   </style>
@@ -43,10 +53,30 @@
     <h2 id="hero-title">Grande Prémio da Austrália 2026</h2>
   </section>
 
+  <!-- INTRO DE NOVIDADES -->
+  <section id="intro-news">
+
+    <div class="news-intro-card" id="season-news-card">
+      <img src="assets/races/novidades.jpg" alt="Novidades F1 2026">
+      <div class="card-header">
+        <h3>Novidades da Temporada 2026</h3>
+      </div>
+      <div class="card-details hidden">
+        <p><strong>🔎 Novos Regulamentos:</strong>  
+           Em 2026 há alterações no design aerodinâmico, redução de downforce e novos limites de orçamento.</p>
+        <p><strong>🚗 Novos Pilotos na F1:</strong>  
+           Os jovens talentos subiram dos campeonatos de Fórmula 2 e Formula E com resultados impressionantes nas sessões de teste.</p>
+        <p><strong>🏁 Novas Equipas / Mudanças:</strong>  
+           Reforços nas equipas tradicionais e algumas equipas B que passaram a ter mais apoio técnico.</p>
+      </div>
+    </div>
+
+  </section>
+
   <!-- CARDS DE NOTÍCIAS -->
   <section id="race-cards">
 
-    <!-- ROUND 1 – Australia -->
+    <!-- ROUND 1 – Austrália -->
     <div class="race-card" data-id="australia" data-hero="assets/heroes/australia_v2.jpg" data-title="Grande Prémio da Austrália 2026" data-race="2026-03-08">
       <img class="race-image" src="assets/races/australia.jpg" alt="Australia">
       <div class="race-header">
