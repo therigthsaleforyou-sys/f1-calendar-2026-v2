@@ -7,136 +7,49 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- HERO -->
-  <section id="hero-section">
-    <a id="hero" href="#australia">
-      <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero F1">
-      <h2 id="hero-title">Corrida em andamento: Grande Prémio da Austrália</h2>
+
+  <!-- =======================
+       Cabeçalho
+  ======================= -->
+  <header id="header">
+    <nav>
+      <ul class="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="f1noticias.html" class="active">Notícias</a></li>
+        <li><a href="#">Equipes</a></li>
+        <li><a href="#">Pilotos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- =======================
+       Hero Dinâmico
+  ======================= -->
+  <section id="hero-container">
+    <a id="hero" href="#">
+      <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida">
+      <div id="hero-title" class="hero-title">Corrida ativa: Grande Prémio da Austrália</div>
     </a>
   </section>
 
-  <!-- CARDS -->
-  <section id="race-cards" class="cards-container">
-    <!-- Cards serão gerados via JS -->
-  </section>
+  <!-- =======================
+       Cards das Corridas
+  ======================= -->
+  <main>
+    <section id="race-cards" class="race-cards-container">
+      <!-- Cards gerados pelo noticias.js -->
+    </section>
+  </main>
 
-  <!-- Back to Top -->
-  <button id="back-to-top">⬆ Top</button>
+  <!-- =======================
+       Back to Top
+  ======================= -->
+  <button id="back-to-top" class="back-to-top">↑</button>
 
-  <script>
-    // js/noticias.js – Hero dinâmico + Cards + Back to Top
-    document.addEventListener("DOMContentLoaded", () => {
-      const hero = document.getElementById("hero");
-      const heroImage = document.getElementById("hero-image");
-      const heroTitle = document.getElementById("hero-title");
-      const raceCards = document.getElementById("race-cards");
-      const backToTop = document.getElementById("back-to-top");
+  <!-- =======================
+       JS Noticias
+  ======================= -->
+  <script src="js/noticias.js"></script>
 
-      const calendar2026 = [
-        {id:"australia", name:"Grande Prémio da Austrália", date:"2026-03-06", heroImage:"assets/races/australia.jpg"},
-        {id:"china", name:"Grande Prémio da China", date:"2026-03-13", heroImage:"assets/races/china.jpg"},
-        {id:"japan", name:"Grande Prémio do Japão", date:"2026-03-27", heroImage:"assets/races/japan.jpg"},
-        {id:"bahrain", name:"Grande Prémio do Bahrain", date:"2026-04-10", heroImage:"assets/races/bahrain.jpg"},
-        {id:"saudiarabia", name:"Grande Prémio da Arábia Saudita", date:"2026-04-17", heroImage:"assets/races/saudi_arabia.jpg"},
-        {id:"miami", name:"Grande Prémio de Miami", date:"2026-05-01", heroImage:"assets/races/miami.jpg"},
-        {id:"canada", name:"Grande Prémio do Canadá", date:"2026-05-22", heroImage:"assets/races/canada.jpg"},
-        {id:"monaco", name:"Grande Prémio de Mónaco", date:"2026-06-05", heroImage:"assets/races/monaco.jpg"},
-        {id:"barcelona", name:"Grande Prémio de Barcelona-Catalunya", date:"2026-06-12", heroImage:"assets/races/spain.jpg"},
-        {id:"austria", name:"Grande Prémio da Áustria", date:"2026-06-26", heroImage:"assets/races/austria.jpg"},
-        {id:"britain", name:"Grande Prémio da Grã-Bretanha", date:"2026-07-03", heroImage:"assets/races/britain.jpg"},
-        {id:"belgium", name:"Grande Prémio da Bélgica", date:"2026-07-17", heroImage:"assets/races/belgium.jpg"},
-        {id:"hungary", name:"Grande Prémio da Hungria", date:"2026-07-24", heroImage:"assets/races/hungary.jpg"},
-        {id:"netherlands", name:"Grande Prémio dos Países Baixos", date:"2026-08-21", heroImage:"assets/races/netherlands.jpg"},
-        {id:"italy", name:"Grande Prémio de Itália", date:"2026-09-04", heroImage:"assets/races/italy.jpg"},
-        {id:"spain", name:"Grande Prémio de Madrid", date:"2026-09-11", heroImage:"assets/races/madrid.jpg"},
-        {id:"azerbaijan", name:"Grande Prémio do Azerbaijão", date:"2026-09-24", heroImage:"assets/races/azerbaijan.jpg"},
-        {id:"singapore", name:"Grande Prémio de Singapura", date:"2026-10-09", heroImage:"assets/races/singapore.jpg"},
-        {id:"usa", name:"Grande Prémio dos EUA", date:"2026-10-23", heroImage:"assets/races/usa.jpg"},
-        {id:"mexico", name:"Grande Prémio do México", date:"2026-10-30", heroImage:"assets/races/mexico.jpg"},
-        {id:"brazil", name:"Grande Prémio do Brasil", date:"2026-11-06", heroImage:"assets/races/brazil.jpg"},
-        {id:"lasvegas", name:"Grande Prémio de Las Vegas", date:"2026-11-19", heroImage:"assets/races/lasvegas.jpg"},
-        {id:"qatar", name:"Grande Prémio do Qatar", date:"2026-11-27", heroImage:"assets/races/qatar.jpg"},
-        {id:"abudhabi", name:"Grande Prémio de Abu Dhabi", date:"2026-12-04", heroImage:"assets/races/abudhabi.jpg"}
-      ];
-
-      // =======================
-      // Inicial Hero
-      // =======================
-      heroImage.src = "assets/heroes/australia_v2.jpg";
-      heroTitle.textContent = "Corrida em andamento: Grande Prémio da Austrália";
-      hero.href = "#australia";
-
-      // =======================
-      // Gerar Cards
-      // =======================
-      function generateCards() {
-        const now = new Date();
-        raceCards.innerHTML = "";
-
-        calendar2026.forEach(race => {
-          const raceDate = new Date(race.date);
-          const status = raceDate <= now
-            ? "Corrida concluída"
-            : "Corrida ainda não se realizou, verificar data no Calendário";
-
-          const card = document.createElement("div");
-          card.className = "race-card";
-          card.id = race.id;
-          card.dataset.image = race.heroImage;
-          card.dataset.end = race.date;
-
-          card.innerHTML = `
-            <img class="race-image" src="${race.heroImage}" alt="${race.name}">
-            <div class="race-header">
-              <h3>${race.name}</h3>
-            </div>
-            <div class="race-details hidden">
-              <p>${status}</p>
-              <div class="race-footer">
-                <a href="index.html" class="race-link-btn">Calendário</a>
-              </div>
-            </div>
-          `;
-          raceCards.appendChild(card);
-
-          // 📸 Dropbox
-          const img = card.querySelector(".race-image");
-          const details = card.querySelector(".race-details");
-          img.addEventListener("click", () => {
-            details.classList.toggle("hidden");
-          });
-        });
-      }
-
-      // =======================
-      // Atualiza Hero dinâmico
-      // =======================
-      function updateHero() {
-        const now = new Date();
-        // encontra a corrida que acabou mais recentemente
-        let lastFinished = [...calendar2026].filter(r => new Date(r.date) <= now).pop() || calendar2026[0];
-
-        // hero clicável vai para card da corrida ativa
-        heroImage.src = lastFinished.id === "australia" ? "assets/heroes/australia_v2.jpg" : lastFinished.heroImage;
-        heroTitle.textContent = "Corrida em andamento: " + lastFinished.name;
-        hero.href = "#" + lastFinished.id;
-      }
-
-      generateCards();
-      updateHero();
-      setInterval(updateHero, 1000); // atualiza hero a cada segundo (para countdown futuro)
-
-      // =======================
-      // Back to Top
-      // =======================
-      window.addEventListener("scroll", () => {
-        backToTop.classList.toggle("show", window.scrollY > 400);
-      });
-
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({ top:0, behavior:"smooth" });
-      });
-    });
-  </script>
 </body>
 </html>
