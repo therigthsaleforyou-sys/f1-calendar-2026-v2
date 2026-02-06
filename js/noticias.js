@@ -1,73 +1,60 @@
-// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
   const cards = document.querySelectorAll(".race-card");
+  const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-
-  let lastCompletedRace = null;
+  let activeCard = cards[0]; // padrão Austrália
 
   /* =========================
-     DEFINIR HERO CORRETO
-     Hero = última corrida cujo Countdown terminou
+     DROPDOWN CARD
   ========================= */
   cards.forEach(card => {
-    const raceId = card.dataset.id;
-    const raceData = window.calendar2026.find(r => r.id === raceId);
-    if (!raceData) return;
-
-    const raceEnd = new Date(raceData.sessions.race);
-
-    // Se o Countdown da corrida já passou, marca como última corrida concluída
-    if (now >= raceEnd) {
-      lastCompletedRace = { card, raceData };
-    }
+    const details = card.querySelector(".race-details");
+    card.addEventListener("click", () => {
+      details.classList.toggle("hidden");
+    });
   });
 
-  // Se nenhuma corrida terminou ainda, hero = primeira corrida (Austrália)
-  if (!lastCompletedRace) {
-    const firstRace = window.calendar2026[0];
-    heroImage.src = firstRace.heroImage;
-    heroTitle.textContent = firstRace.name + " 2026";
-    lastCompletedRace = { card: cards[0], raceData: firstRace };
-  } else {
-    // Hero = última corrida concluída
-    heroImage.src = lastCompletedRace.raceData.heroImage;
-    heroTitle.textContent = lastCompletedRace.raceData.name + " 2026";
+  /* =========================
+     HERO DINÂMICO COM BASE NO RACE DATE
+     Countdown invisível
+  ========================= */
+  function updateActiveCard() {
+    const now = new Date();
+    let lastFinished = cards[0];
+
+    cards.forEach(card => {
+      const startStr = card.dataset.start;
+      if (!startStr) return;
+
+      const raceDate = new Date(startStr + "T00:00:00");
+      if (now >= raceDate) {
+        lastFinished = card;
+      }
+    });
+
+    activeCard = lastFinished;
+
+    // Atualiza hero
+    const imgSrc = activeCard.dataset.image;
+    const title = activeCard.querySelector(".race-header h3").innerText;
+
+    heroImage.src = imgSrc;
+    heroTitle.textContent = title;
   }
 
-  /* =========================
-     CARDS INTERATIVOS (DROPBOX)
-  ========================= */
-  cards.forEach(card => {
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-
-    if (img && details) {
-      img.addEventListener("click", () => {
-        details.classList.toggle("hidden");
-      });
-    }
-  });
+  updateActiveCard();
 
   /* =========================
-     HERO CLICÁVEL
-     Leva ao card da última corrida concluída
+     HERO CLICÁVEL PARA SCROLL
   ========================= */
-  heroImage.style.cursor = "pointer";
-  heroImage.addEventListener("click", () => {
-    if (lastCompletedRace && lastCompletedRace.card) {
-      lastCompletedRace.card.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  });
-  heroTitle.style.cursor = "pointer";
-  heroTitle.addEventListener("click", () => {
-    if (lastCompletedRace && lastCompletedRace.card) {
-      lastCompletedRace.card.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  hero.style.cursor = "pointer";
+  hero.addEventListener("click", () => {
+    activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   /* =========================
@@ -82,4 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+
+  /* =========================
+     ATUALIZAÇÃO AUTOMÁTICA A CADA MINUTO
+  ========================= */
+  setInterval(updateActiveCard, 60000);
+
 });
