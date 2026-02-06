@@ -8,55 +8,50 @@
 </head>
 <body>
 
-  <!-- =======================
-       Cabeçalho (INALTERADO)
-  ======================= -->
-  <header id="header">
-    <nav>
+<!-- =======================
+     CABEÇALHO
+======================= -->
+<header class="header">
+  <div class="header-container">
+    <nav class="nav">
+      <a href="index.html" class="logo">F1 2026</a>
       <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Calendário</a></li>
+        <li><a href="#">Equipas</a></li>
         <li><a href="f1noticias.html" class="active">Notícias</a></li>
-        <li><a href="#">Equipes</a></li>
-        <li><a href="#">Pilotos</a></li>
       </ul>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <!-- =======================
-       Hero Dinâmico
-       (estrutura compatível com CSS)
-  ======================= -->
-  <section id="hero-container">
-    <div id="hero">
-      <img
-        id="hero-image"
-        src="assets/heroes/australia_v2.jpg"
-        alt="Hero Corrida"
-      >
-      <div id="hero-title" class="hero-title">
-        Corrida ativa: Grande Prémio da Austrália
-      </div>
+<!-- =======================
+     HERO
+======================= -->
+<section class="hero-wrapper">
+  <!-- hero é clicável -->
+  <a id="hero-link" href="#race-australia" class="hero">
+    <img
+      src="assets/heroes/australia_v2.jpg"
+      alt="Grande Prémio da Austrália"
+      class="hero-image"
+    >
+    <div class="hero-title">
+      Corrida ativa: Grande Prémio da Austrália
     </div>
+  </a>
+</section>
+
+<!-- =======================
+     CARDS
+======================= -->
+<main class="main-content">
+  <section id="race-cards" class="race-cards-container">
+    <!-- gerado pelo noticias.js -->
   </section>
+</main>
 
-  <!-- =======================
-       Cards das Corridas
-  ======================= -->
-  <main>
-    <section id="race-cards" class="race-cards-container">
-      <!-- Gerado exclusivamente pelo noticias.js -->
-    </section>
-  </main>
+<button id="back-to-top" class="back-to-top">↑</button>
 
-  <!-- =======================
-       Back to Top
-  ======================= -->
-  <button id="back-to-top" class="back-to-top">↑</button>
-
-  <!-- =======================
-       JS
-  ======================= -->
-  <script src="js/noticias.js"></script>
-
+<script src="js/noticias.js"></script>
 </body>
 </html>
