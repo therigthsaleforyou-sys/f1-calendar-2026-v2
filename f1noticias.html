@@ -6,34 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Transições rápidas */
-    .race-details {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.4s ease;
-    }
-    .race-details.open {
-      /* max-height será definido via JS dinamicamente */
-    }
+    /* ================= ESTILOS RÁPIDOS ================= */
+    .race-details { overflow: hidden; transition: max-height 0.4s ease; }
     #back-to-top {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      display: none;
-      background: #000;
-      color: #fff;
-      border: 2px solid #ff0000;
-      border-radius: 14px;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      z-index: 999;
+      position: fixed; bottom: 80px; right: 20px; display: none;
+      background: #000; color: #fff; border: 2px solid #ff0000; border-radius: 14px;
+      padding: 10px 16px; font-weight: 700; font-size: 16px; cursor: pointer; z-index: 999;
       transition: box-shadow 0.2s ease, transform 0.1s ease;
     }
     #back-to-top.show { display: block; }
     #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
     #back-to-top:active { transform: scale(0.96); }
+    .race-image { cursor: pointer; border-radius: 8px; }
+    .news-video iframe { border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -49,8 +34,8 @@
 
 <!-- ================= HERO ================= -->
 <section id="hero">
-  <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida" style="width:100%; border-radius:14px;">
-  <h2 id="hero-title">Grande Prémio da Austrália</h2>
+  <img id="hero-image" src="" alt="Hero Corrida" style="width:100%; border-radius:14px;">
+  <h2 id="hero-title"></h2>
 </section>
 
 <!-- ================= CARDS ================= -->
@@ -62,7 +47,7 @@
     <div class="race-header">
       <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
     </div>
-    <div class="race-details">
+    <div class="race-details hidden" style="max-height:0;">
       <p><strong>Regulamentos 2026</strong></p>
       <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
 
@@ -73,7 +58,7 @@
       <p>Reestruturações técnicas e novas parcerias estratégicas.</p>
 
       <!-- Vídeo Dailymotion -->
-      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
+      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; overflow:hidden;">
         <iframe
           src="https://www.dailymotion.com/embed/video/x9yluvm?api=postMessage"
           style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
@@ -90,7 +75,7 @@
     <div class="race-header">
       <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
     </div>
-    <div class="race-details">
+    <div class="race-details hidden">
       <p>06 - 08 Mar</p>
       <p>Primeira corrida da nova era técnica da Fórmula 1.</p>
     </div>
@@ -102,7 +87,7 @@
     <div class="race-header">
       <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
     </div>
-    <div class="race-details">
+    <div class="race-details hidden">
       <p>13 - 15 Mar</p>
       <p>Segunda corrida da temporada, foco nos novos regulamentos.</p>
     </div>
@@ -114,80 +99,84 @@
 <button id="back-to-top">Voltar ao topo</button>
 
 <!-- ================= SCRIPTS ================= -->
+<script src="js/noticias.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= CARD NOVIDADES ================= */
+  // ================= CARDS DE NOVIDADES =================
   const novidadesCard = document.querySelector(".novidades-card");
   if (novidadesCard) {
     const imgN = novidadesCard.querySelector(".race-image");
     const detailsN = novidadesCard.querySelector(".race-details");
     const iframe = detailsN.querySelector("iframe");
 
-    imgN.style.cursor = "pointer";
-
     imgN.addEventListener("click", () => {
-      const isOpen = detailsN.classList.contains("open");
+      const isOpen = !detailsN.classList.contains("hidden");
 
       if (isOpen) {
-        // parar vídeo
+        // pausar vídeo
         if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
-
-        // fechar
         detailsN.style.maxHeight = "0";
-        detailsN.classList.remove("open");
+        setTimeout(() => detailsN.classList.add("hidden"), 400);
       } else {
-        detailsN.classList.add("open");
+        detailsN.classList.remove("hidden");
         detailsN.style.maxHeight = detailsN.scrollHeight + "px";
       }
     });
+
+    if (detailsN.classList.contains("hidden")) detailsN.style.maxHeight = "0";
   }
 
-  /* ================= CARDS DE CORRIDAS ================= */
+  // ================= CARDS DE CORRIDAS =================
   const raceCards = document.querySelectorAll(".race-card:not(.novidades-card)");
-
   raceCards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
-    img.style.cursor = "pointer";
-
     img.addEventListener("click", () => {
-      const isOpen = details.classList.contains("open");
+      const isOpen = !details.classList.contains("hidden");
 
       if (isOpen) {
         details.style.maxHeight = "0";
-        details.classList.remove("open");
+        setTimeout(() => details.classList.add("hidden"), 400);
       } else {
-        details.classList.add("open");
+        details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
+
+    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
   });
 
-  /* ================= HERO CLICK ================= */
+  // ================= HERO DINÂMICO =================
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  heroImage.style.cursor = "pointer";
+
+  function updateHero() {
+    const today = new Date();
+    let activeCard = raceCards[0]; // default para primeira corrida
+    raceCards.forEach(card => {
+      const raceDate = new Date(card.dataset.race);
+      if (today >= raceDate) activeCard = card;
+    });
+
+    heroImage.src = activeCard.dataset.hero;
+    heroTitle.textContent = activeCard.querySelector(".race-header h3").textContent;
+  }
+
+  updateHero();
 
   heroImage.addEventListener("click", () => {
-    const card = document.querySelector(`.race-card[data-id="australia"]`);
-    if (!card) return;
-
-    const details = card.querySelector(".race-details");
-    if (!details.classList.contains("open")) {
-      details.classList.add("open");
+    const activeCard = raceCards[0];
+    const details = activeCard.querySelector(".race-details");
+    if (details.classList.contains("hidden")) {
+      details.classList.remove("hidden");
       details.style.maxHeight = details.scrollHeight + "px";
     }
-
-    // atualizar hero
-    heroTitle.textContent = "Grande Prémio da Austrália";
-    heroImage.src = card.dataset.hero;
-
-    card.scrollIntoView({ behavior: "smooth", block: "start" });
+    activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  /* ================= BACK TO TOP ================= */
+  // ================= BACK TO TOP =================
   const backToTop = document.getElementById("back-to-top");
   window.addEventListener("scroll", () => {
     backToTop.classList.toggle("show", window.scrollY > 400);
