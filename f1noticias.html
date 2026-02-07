@@ -36,8 +36,8 @@
     <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
   </div>
 
-  <!-- CONTEÚDO OCULTO -->
-  <div class="race-details hidden">
+  <!-- CONTEÚDO OCULTO COM TRANSIÇÃO -->
+  <div class="race-details hidden" style="max-height:0; overflow:hidden; transition: max-height 0.4s ease;">
 
     <p><strong>Regulamentos 2026</strong></p>
     <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
@@ -77,6 +77,48 @@
 
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".race-card");
+
+  cards.forEach(card => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    if (!img || !details) return;
+
+    img.style.cursor = "pointer";
+
+    img.addEventListener("click", () => {
+      const isClosing = !details.classList.contains("hidden");
+
+      // FECHAR → parar vídeo Dailymotion
+      if (isClosing) {
+        const iframe = details.querySelector("iframe");
+        if (iframe) {
+          iframe.contentWindow.postMessage(
+            JSON.stringify({ method: "pause" }),
+            "*"
+          );
+        }
+        // fechar com transição
+        details.style.maxHeight = "0";
+        setTimeout(() => details.classList.add("hidden"), 400);
+      } else {
+        // abrir com transição
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    });
+
+    // Ajuste inicial caso escondido
+    if (details.classList.contains("hidden")) {
+      details.style.maxHeight = "0";
+    }
+  });
+});
+</script>
 
   <!-- ================= RACE CARDS ================= -->
 
