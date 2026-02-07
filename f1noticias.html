@@ -80,9 +80,10 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".race-card");
+  // Apenas cards de corridas (excluindo novidades)
+  const raceCards = document.querySelectorAll(".race-card:not(.novidades-card)");
 
-  cards.forEach(card => {
+  raceCards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
@@ -93,26 +94,18 @@ document.addEventListener("DOMContentLoaded", () => {
     img.addEventListener("click", () => {
       const isClosing = !details.classList.contains("hidden");
 
-      // FECHAR → parar vídeo Dailymotion
       if (isClosing) {
-        const iframe = details.querySelector("iframe");
-        if (iframe) {
-          iframe.contentWindow.postMessage(
-            JSON.stringify({ method: "pause" }),
-            "*"
-          );
-        }
-        // fechar com transição
+        // fechar
         details.style.maxHeight = "0";
         setTimeout(() => details.classList.add("hidden"), 400);
       } else {
-        // abrir com transição
+        // abrir
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
 
-    // Ajuste inicial caso escondido
+    // Ajuste inicial
     if (details.classList.contains("hidden")) {
       details.style.maxHeight = "0";
     }
