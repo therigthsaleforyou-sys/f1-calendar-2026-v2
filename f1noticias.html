@@ -5,232 +5,173 @@
   <title>F1 Notícias 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Ajustes para transição e layout dos cards */
-    .race-details {
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-    .news-video small {
-      display: block;
-      text-align: right;
-      margin-top: 4px;
-      font-size: 12px;
-      color: #555;
-    }
-    #back-to-top {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      display: none;
-      background: #000;
-      color: #fff;
-      border-radius: 14px;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      z-index: 999;
-    }
-    #back-to-top.show { display: block; }
-  </style>
 </head>
+
 <body>
 
 <!-- ================= HEADER ================= -->
 <header class="main-header">
   <nav class="nav">
     <a href="index.html">Calendário</a>
-    <a href="#">Equipas</a>
+    <a href="teams.html">Equipas</a>
     <a href="f1noticias.html" class="active">Notícias</a>
   </nav>
 </header>
 
 <!-- ================= HERO ================= -->
 <section id="hero">
-  <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida" style="width:100%; border-radius:14px;">
+  <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida">
   <h2 id="hero-title">Grande Prémio da Austrália</h2>
 </section>
 
 <!-- ================= CARDS ================= -->
 <section class="cards-wrapper">
 
-  <!-- ===== NOVIDADES 2026 ===== -->
+  <!-- ===== NOVIDADES ===== -->
   <div class="race-card novidades-card">
     <img class="race-image" src="assets/races/novidades.jpg" alt="Novidades 2026">
     <div class="race-header">
       <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
     </div>
-    <div class="race-details hidden" style="max-height:0;">
+
+    <div class="race-details hidden">
       <p><strong>Regulamentos 2026</strong></p>
       <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
 
-      <p><strong>Novos Pilotos</strong></p>
-      <p>Entrada de novos rookies e mudanças importantes no mercado de pilotos.</p>
+      <p><strong>Vídeo</strong></p>
 
-      <p><strong>Novas Equipas</strong></p>
-      <p>Reestruturações técnicas e novas parcerias estratégicas.</p>
-
-      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
+      <div style="
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+        margin-top: 12px;
+        border-radius: 14px;
+        overflow: hidden;
+      ">
         <iframe
-          src="https://www.dailymotion.com/embed/video/x9yluvm?api=postMessage"
-          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          src="https://www.dailymotion.com/embed/video/x9yluvm"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
           allow="autoplay; fullscreen; picture-in-picture"
           allowfullscreen>
         </iframe>
-        <small>* toca 2 vezes no vídeo para pausa ou silêncio</small>
       </div>
+
+      <p style="font-size:12px;text-align:right;opacity:.6">
+        * toca 2 vezes no vídeo para pausa ou silêncio
+      </p>
     </div>
   </div>
 
-  <!-- ROUND 1 – AUSTRÁLIA -->
-  <div class="race-card" data-id="australia" data-hero="assets/heroes/australia_v2.jpg" data-race="2026-03-08">
-    <img class="race-image" src="assets/races/australia.jpg" alt="Australia">
+  <!-- ===== AUSTRÁLIA ===== -->
+  <div class="race-card" data-id="australia" data-date="2026-03-08T05:00:00Z">
+    <img class="race-image" src="assets/races/australia.jpg" alt="Austrália">
     <div class="race-header">
       <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
     </div>
     <div class="race-details hidden">
-      <p>06 - 08 Mar</p>
+      <p>06 – 08 Março</p>
       <p>Primeira corrida da nova era técnica da Fórmula 1.</p>
-      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
-        <iframe
-          src="https://www.dailymotion.com/embed/video/x9yluvm"
-          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <small>* toca 2 vezes no vídeo para pausa ou silêncio</small>
-      </div>
     </div>
   </div>
 
-  <!-- ROUND 2 – CHINA -->
-  <div class="race-card" data-id="china" data-hero="assets/heroes/china_v2.jpg" data-race="2026-03-15">
+  <!-- ===== CHINA ===== -->
+  <div class="race-card" data-id="china" data-date="2026-03-15T07:00:00Z">
     <img class="race-image" src="assets/races/china.jpg" alt="China">
     <div class="race-header">
       <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
     </div>
     <div class="race-details hidden">
-      <p>13 - 15 Mar</p>
-      <p>Segunda corrida da temporada, foco nos novos regulamentos.</p>
-      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
-        <iframe
-          src="https://www.dailymotion.com/embed/video/x9yluvm"
-          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <small>* toca 2 vezes no vídeo para pausa ou silêncio</small>
-      </div>
+      <p>13 – 15 Março</p>
+      <p>Segunda corrida da temporada.</p>
     </div>
+  </div>
+  <!-- ROUND 3 – JAPÃO -->
+<div class="race-card" data-id="japao" data-hero="assets/heroes/japao_v2.jpg" data-race="2026-03-29">
+  <img class="race-image" src="assets/races/japao.jpg" alt="Japão">
+  
+  <div class="race-header">
+    <h3>FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026</h3>
   </div>
 
-  <!-- ROUND 3 – JAPÃO -->
-  <div class="race-card" data-id="japan" data-hero="assets/heroes/japan_v2.jpg" data-race="2026-03-29">
-    <img class="race-image" src="assets/races/japan.jpg" alt="Japão">
-    <div class="race-header">
-      <h3>FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026</h3>
+  <div class="race-details hidden">
+    <p>27 - 29 Mar</p>
+    <p>Terceira corrida da temporada 2026, destaque para a adaptação dos novos regulamentos.</p>
+
+    <!-- Vídeo Dailymotion -->
+    <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
+      <iframe
+        src="https://www.dailymotion.com/embed/video/x9hiqdy" 
+        style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
-    <div class="race-details hidden">
-      <p>27 - 29 Mar</p>
-      <p>Terceira corrida da temporada, foco em ajustes técnicos.</p>
-      <div class="news-video" style="position:relative; width:100%; padding-top:56.25%; margin-top:12px; border-radius:14px; overflow:hidden;">
-        <iframe
-          src="https://www.dailymotion.com/embed/video/x9hiqdy"
-          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-        <small>* toca 2 vezes no vídeo para pausa ou silêncio</small>
-      </div>
-    </div>
+
+    <p style="font-size:0.8em; text-align:right; margin-top:6px;">* toca 2 vezes no vídeo para pausa ou silêncio</p>
   </div>
+</div>
+
 
 </section>
 
-<!-- ================= BACK TO TOP ================= -->
-<button id="back-to-top">Voltar ao topo</button>
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
 
-<!-- ================= SCRIPTS ================= -->
-<script src="js/noticias.js"></script>
+<!-- ================= JS ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= CARD NOVIDADES ================= */
-  const novidadesCard = document.querySelector(".novidades-card");
-  if (novidadesCard) {
-    const imgN = novidadesCard.querySelector(".race-image");
-    const detailsN = novidadesCard.querySelector(".race-details");
-
-    imgN.style.cursor = "pointer";
-
-    imgN.addEventListener("click", () => {
-      const isOpen = !detailsN.classList.contains("hidden");
-
-      if (isOpen) {
-        detailsN.style.maxHeight = "0";
-        setTimeout(() => detailsN.classList.add("hidden"), 400);
-      } else {
-        detailsN.classList.remove("hidden");
-        detailsN.style.maxHeight = detailsN.scrollHeight + "px";
-      }
-    });
-
-    if (detailsN.classList.contains("hidden")) detailsN.style.maxHeight = "0";
-  }
-
-  /* ================= CARDS DE CORRIDAS ================= */
-  const raceCards = document.querySelectorAll(".race-card:not(.novidades-card)");
-
-  raceCards.forEach(card => {
+  /* ================= DROPDOWNS ================= */
+  document.querySelectorAll(".race-card").forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
-
     if (!img || !details) return;
 
     img.style.cursor = "pointer";
 
     img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
-
-      if (isOpen) {
-        details.style.maxHeight = "0";
-        setTimeout(() => details.classList.add("hidden"), 400);
-      } else {
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
+      const open = !details.classList.contains("hidden");
+      details.classList.toggle("hidden", open);
     });
-
-    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
   });
+
+  /* ================= HERO LÓGICA ================= */
+  const races = [
+    {
+      id: "australia",
+      title: "Grande Prémio da Austrália",
+      hero: "assets/heroes/australia_v2.jpg",
+      date: "2026-03-08T05:00:00Z"
+    },
+    {
+      id: "china",
+      title: "Grande Prémio da China",
+      hero: "assets/heroes/china_v2.jpg",
+      date: "2026-03-15T07:00:00Z"
+    }
+  ];
+
+  let activeRace = races[0]; // AUSTRÁLIA por defeito
+  const now = new Date();
+
+  races.forEach(race => {
+    if (now >= new Date(race.date)) {
+      activeRace = race;
+    }
+  });
+
+  document.getElementById("hero-image").src = activeRace.hero;
+  document.getElementById("hero-title").textContent = activeRace.title;
 
   /* ================= HERO CLICK ================= */
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-
-  heroImage.style.cursor = "pointer";
-  heroImage.addEventListener("click", () => {
-    const activeCard = document.querySelector(`.race-card[data-id="australia"]`);
-    if (!activeCard) return;
-    const details = activeCard.querySelector(".race-details");
-    if (!details) return;
-
-    if (details.classList.contains("hidden")) {
-      details.classList.remove("hidden");
-      details.style.maxHeight = details.scrollHeight + "px";
+  document.getElementById("hero-image").addEventListener("click", () => {
+    const card = document.querySelector(`.race-card[data-id="${activeRace.id}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+      const details = card.querySelector(".race-details");
+      if (details) details.classList.remove("hidden");
     }
-
-    activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  /* ================= BACK TO TOP ================= */
-  const backToTop = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
   });
 
 });
