@@ -376,5 +376,70 @@
 <!-- ================= SCRIPTS ================= -->
 <script src="js/noticias.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  /* =======================================
+     CARD NOVIDADES – abrir/fechar e parar vídeo
+     ======================================= */
+  const novidadesCard = document.querySelector(".novidades-card");
+  if (novidadesCard) {
+    const img = novidadesCard.querySelector(".race-image");
+    const details = novidadesCard.querySelector(".race-details");
+    const iframe = details.querySelector("iframe");
+
+    img.style.cursor = "pointer";
+
+    img.addEventListener("click", () => {
+      const isClosing = !details.classList.contains("hidden");
+
+      if (isClosing) {
+        // parar vídeo
+        if (iframe) {
+          iframe.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
+        }
+        // fechar
+        details.style.maxHeight = "0";
+        setTimeout(() => details.classList.add("hidden"), 400);
+      } else {
+        // abrir
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    });
+
+    // ajuste inicial
+    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+  }
+
+  /* =======================================
+     CARDS DE CORRIDAS – dropbox normal
+     ======================================= */
+  const raceCards = document.querySelectorAll(".race-card:not(.novidades-card)");
+
+  raceCards.forEach(card => {
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+
+    if (!img || !details) return;
+
+    img.style.cursor = "pointer";
+
+    img.addEventListener("click", () => {
+      const isClosing = !details.classList.contains("hidden");
+
+      if (isClosing) {
+        details.style.maxHeight = "0";
+        setTimeout(() => details.classList.add("hidden"), 400);
+      } else {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    });
+
+    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+  });
+});
+      </script>
+
 </body>
 </html>
