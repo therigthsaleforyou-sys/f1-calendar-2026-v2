@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const raceEnd = new Date(raceDate + "T23:59:59");
 
+    // A corrida ativa é a última cujo final ainda não passou
     if (raceEnd <= now) {
       activeCard = card;
       activeIndex = index;
@@ -36,22 +37,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================
-     HERO – TÍTULO CORRIGIDO
+     HERO – TÍTULO
      ========================= */
   if (heroTitle && activeCard) {
     const raceDate = activeCard.dataset.race;
     const raceEnd = new Date(raceDate + "T23:59:59");
 
-    const titleRaw = activeCard.dataset.title || "";
-    const titleBase = titleRaw
-      .replace(/^Grande Prémio da /, "")
-      .replace(/^Grande Prémio do /, "")
-      .replace(/^Grande Prémio de /, "");
+    const fullTitle = activeCard.dataset.title; // Título completo
 
     if (now < raceEnd) {
-      heroTitle.textContent = `Grande Prémio da ${titleBase}`;
+      // Corrida ainda não começou / em contagem regressiva
+      heroTitle.textContent = fullTitle;
     } else {
-      heroTitle.textContent = `Acompanhe o pós Grande Prémio da ${titleBase}`;
+      // Corrida terminou
+      heroTitle.textContent = `Acompanhe o pós ${fullTitle}`;
     }
   }
 
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const details = card.querySelector(".race-details");
 
     if (img && details) {
-      details.classList.add("hidden");
+      details.classList.add("hidden"); // fechado ao carregar
       img.style.cursor = "pointer";
 
       img.addEventListener("click", () => {
