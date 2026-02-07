@@ -6,10 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Ajustes rápidos para transições e back-to-top */
+    /* Transições rápidas */
     .race-details {
       overflow: hidden;
+      max-height: 0;
       transition: max-height 0.4s ease;
+    }
+    .race-details.open {
+      /* max-height será definido via JS dinamicamente */
     }
     #back-to-top {
       position: fixed;
@@ -58,7 +62,7 @@
     <div class="race-header">
       <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
     </div>
-    <div class="race-details hidden" style="max-height:0;">
+    <div class="race-details">
       <p><strong>Regulamentos 2026</strong></p>
       <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
 
@@ -86,7 +90,7 @@
     <div class="race-header">
       <h3>FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026</h3>
     </div>
-    <div class="race-details hidden">
+    <div class="race-details">
       <p>06 - 08 Mar</p>
       <p>Primeira corrida da nova era técnica da Fórmula 1.</p>
     </div>
@@ -98,7 +102,7 @@
     <div class="race-header">
       <h3>FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026</h3>
     </div>
-    <div class="race-details hidden">
+    <div class="race-details">
       <p>13 - 15 Mar</p>
       <p>Segunda corrida da temporada, foco nos novos regulamentos.</p>
     </div>
@@ -110,7 +114,6 @@
 <button id="back-to-top">Voltar ao topo</button>
 
 <!-- ================= SCRIPTS ================= -->
-<script src="js/noticias.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -124,28 +127,20 @@ document.addEventListener("DOMContentLoaded", () => {
     imgN.style.cursor = "pointer";
 
     imgN.addEventListener("click", () => {
-      const isOpen = !detailsN.classList.contains("hidden");
+      const isOpen = detailsN.classList.contains("open");
 
       if (isOpen) {
+        // parar vídeo
+        if (iframe) iframe.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
+
         // fechar
         detailsN.style.maxHeight = "0";
-        setTimeout(() => detailsN.classList.add("hidden"), 400);
-
-        // pausar vídeo Dailymotion
-        if (iframe) {
-          setTimeout(() => {
-            iframe.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
-          }, 200);
-        }
-
+        detailsN.classList.remove("open");
       } else {
-        // abrir
-        detailsN.classList.remove("hidden");
+        detailsN.classList.add("open");
         detailsN.style.maxHeight = detailsN.scrollHeight + "px";
       }
     });
-
-    if (detailsN.classList.contains("hidden")) detailsN.style.maxHeight = "0";
   }
 
   /* ================= CARDS DE CORRIDAS ================= */
@@ -155,38 +150,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
-    if (!img || !details) return;
-
     img.style.cursor = "pointer";
 
     img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
+      const isOpen = details.classList.contains("open");
 
       if (isOpen) {
         details.style.maxHeight = "0";
-        setTimeout(() => details.classList.add("hidden"), 400);
+        details.classList.remove("open");
       } else {
-        details.classList.remove("hidden");
+        details.classList.add("open");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
-
-    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
   });
 
   /* ================= HERO CLICK ================= */
   const heroImage = document.getElementById("hero-image");
+  const heroTitle = document.getElementById("hero-title");
   heroImage.style.cursor = "pointer";
+
   heroImage.addEventListener("click", () => {
     const card = document.querySelector(`.race-card[data-id="australia"]`);
     if (!card) return;
-    const details = card.querySelector(".race-details");
-    if (!details) return;
 
-    if (details.classList.contains("hidden")) {
-      details.classList.remove("hidden");
+    const details = card.querySelector(".race-details");
+    if (!details.classList.contains("open")) {
+      details.classList.add("open");
       details.style.maxHeight = details.scrollHeight + "px";
     }
+
+    // atualizar hero
+    heroTitle.textContent = "Grande Prémio da Austrália";
+    heroImage.src = card.dataset.hero;
 
     card.scrollIntoView({ behavior: "smooth", block: "start" });
   });
