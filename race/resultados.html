@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Botão voltar ao calendário / notícias */
+    .back-news-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 12px;
+      background: #000;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
 
+    .back-news-btn:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+
+    .back-news-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Botão Voltar ao topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+
+    #back-to-top:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+
+    #back-to-top:active {
+      transform: scale(0.96);
+    }
+
+    #back-to-top.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="../index.html">Calendário</a>
+    <a href="../teams.html">Equipas</a>
+    <a href="../f1noticias.html">Notícias</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
+    <h2 id="hero-title">Grande Prémio da Austrália</h2>
+  </section>
+
+  <!-- BLOCO DE CORRIDAS -->
+  <section id="race-results">
+
+    <!-- LOOP: 24 CORRIDAS -->
+    <!-- ROUND 1 – Austrália -->
+    <div class="race-card" data-id="australia">
+      <img src="../assets/diagramas/australia2d.jpg" alt="Diagrama da pista – Austrália">
+      <div class="race-header">
+        <h3>Grande Prémio da Austrália – 2026</h3>
+        <button class="fav-btn" data-id="australia">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 2 – China -->
+    <div class="race-card" data-id="china">
+      <img src="../assets/diagramas/china2d.jpg" alt="Diagrama da pista – China">
+      <div class="race-header">
+        <h3>Grande Prémio da China – 2026</h3>
+        <button class="fav-btn" data-id="china">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 3 – Japão -->
+    <div class="race-card" data-id="japan">
+      <img src="../assets/diagramas/japan2d.jpg" alt="Diagrama da pista – Japão">
+      <div class="race-header">
+        <h3>Grande Prémio do Japão – 2026</h3>
+        <button class="fav-btn" data-id="japan">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 4 – Bahrain -->
+    <div class="race-card" data-id="bahrain">
+      <img src="../assets/diagramas/bahrain2d.jpg" alt="Diagrama da pista – Bahrain">
+      <div class="race-header">
+        <h3>Grande Prémio do Bahrain – 2026</h3>
+        <button class="fav-btn" data-id="bahrain">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 5 – Saudi Arabia -->
+    <div class="race-card" data-id="saudi-arabia">
+      <img src="../assets/diagramas/saudi-arabia2d.jpg" alt="Diagrama da pista – Saudi Arabia">
+      <div class="race-header">
+        <h3>Grande Prémio da Arábia Saudita – 2026</h3>
+        <button class="fav-btn" data-id="saudi-arabia">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 6 – Miami -->
+    <div class="race-card" data-id="miami">
+      <img src="../assets/diagramas/miami2d.jpg" alt="Diagrama da pista – Miami">
+      <div class="race-header">
+        <h3>Grande Prémio de Miami – 2026</h3>
+        <button class="fav-btn" data-id="miami">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 7 – Canada -->
+    <div class="race-card" data-id="canada">
+      <img src="../assets/diagramas/canada2d.jpg" alt="Diagrama da pista – Canadá">
+      <div class="race-header">
+        <h3>Grande Prémio do Canadá – 2026</h3>
+        <button class="fav-btn" data-id="canada">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 8 – Monaco -->
+    <div class="race-card" data-id="monaco">
+      <img src="../assets/diagramas/monaco2d.jpg" alt="Diagrama da pista – Mónaco">
+      <div class="race-header">
+        <h3>Grande Prémio de Mónaco – 2026</h3>
+        <button class="fav-btn" data-id="monaco">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ROUND 9 – Barcelona-Catalunya -->
+    <div class="race-card" data-id="barcelona">
+      <img src="../assets/diagramas/barcelona2d.jpg" alt="Diagrama da pista – Barcelona-Catalunya">
+      <div class="race-header">
+        <h3>Grande Prémio de Espanha – 2026</h3>
+        <button class="fav-btn" data-id="barcelona">🏁</button>
+      </div>
+      <div class="race-details">
+        <h4>Resultados 2026</h4>
+        <p><strong>Pole:</strong> –</p>
+        <p><strong>Pódio:</strong> –</p>
+        <p><strong>Volta mais rápida:</strong> –</p>
+        <p><strong>Meteorologia:</strong> –</p>
+      </div>
+    </div>
+
+    <!-- ... restante até ROUND 24 -->
+    
+  </section>
+
+</main>
+
+<footer style="text-align:center;padding:20px;opacity:.6">
+  F1 2026
+</footer>
+
+<button id="back-to-top">Voltar ao topo</button>
+
+<script src="js/resultados.js"></script>
+</body>
+</html>
