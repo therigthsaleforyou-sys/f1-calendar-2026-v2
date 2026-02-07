@@ -28,55 +28,23 @@
 <!-- ================= CARDS ================= -->
 <section class="cards-wrapper">
 
-<!-- ===== NOVIDADES 2026 ===== -->
-<div class="race-card novidades-card">
-  <img class="race-image" src="assets/races/novidades.jpg" alt="Novidades 2026">
-
-  <div class="race-header">
-    <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
-  </div>
-
-  <!-- CONTEÚDO OCULTO COM TRANSIÇÃO -->
-  <div class="race-details hidden" style="max-height:0; overflow:hidden; transition: max-height 0.4s ease;">
-
-    <p><strong>Regulamentos 2026</strong></p>
-    <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
-
-    <p><strong>Novos Pilotos</strong></p>
-    <p>Entrada de novos rookies e mudanças importantes no mercado de pilotos.</p>
-
-    <p><strong>Novas Equipas</strong></p>
-    <p>Reestruturações técnicas e novas parcerias estratégicas.</p>
-
-    <!-- VÍDEO DAILYMOTION -->
-    <div
-      class="news-video"
-      style="
-        position: relative;
-        width: 100%;
-        padding-top: 56.25%;
-        margin-top: 12px;
-        border-radius: 14px;
-        overflow: hidden;
-      "
-    >
-      <iframe
-        src="https://www.dailymotion.com/embed/video/x9yluvm?api=postMessage"
-        style="
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: 0;
-        "
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+  <!-- ===== NOVIDADES 2026 ===== -->
+  <div class="race-card novidades-card">
+    <img class="race-image" src="assets/races/novidades.jpg" alt="Novidades 2026">
+    <div class="race-header">
+      <h3>NOVIDADES FORMULA 1 – TEMPORADA 2026</h3>
     </div>
+    <div class="race-details hidden">
+      <p><strong>Regulamentos 2026</strong></p>
+      <p>Carros mais leves, aerodinâmica simplificada e maior foco em eficiência energética.</p>
 
+      <p><strong>Novos Pilotos</strong></p>
+      <p>Entrada de novos rookies e mudanças importantes no mercado de pilotos.</p>
+
+      <p><strong>Novas Equipas</strong></p>
+      <p>Reestruturações técnicas e novas parcerias estratégicas.</p>
+    </div>
   </div>
-</div>
 
   <!-- ================= RACE CARDS ================= -->
 
@@ -375,71 +343,6 @@
 
 <!-- ================= SCRIPTS ================= -->
 <script src="js/noticias.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  /* =======================================
-     CARD NOVIDADES – abrir/fechar e parar vídeo
-     ======================================= */
-  const novidadesCard = document.querySelector(".novidades-card");
-  if (novidadesCard) {
-    const img = novidadesCard.querySelector(".race-image");
-    const details = novidadesCard.querySelector(".race-details");
-    const iframe = details.querySelector("iframe");
-
-    img.style.cursor = "pointer";
-
-    img.addEventListener("click", () => {
-      const isClosing = !details.classList.contains("hidden");
-
-      if (isClosing) {
-        // parar vídeo
-        if (iframe) {
-          iframe.contentWindow.postMessage(JSON.stringify({ method: "pause" }), "*");
-        }
-        // fechar
-        details.style.maxHeight = "0";
-        setTimeout(() => details.classList.add("hidden"), 400);
-      } else {
-        // abrir
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
-    });
-
-    // ajuste inicial
-    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
-  }
-
-  /* =======================================
-     CARDS DE CORRIDAS – dropbox normal
-     ======================================= */
-  const raceCards = document.querySelectorAll(".race-card:not(.novidades-card)");
-
-  raceCards.forEach(card => {
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-
-    if (!img || !details) return;
-
-    img.style.cursor = "pointer";
-
-    img.addEventListener("click", () => {
-      const isClosing = !details.classList.contains("hidden");
-
-      if (isClosing) {
-        details.style.maxHeight = "0";
-        setTimeout(() => details.classList.add("hidden"), 400);
-      } else {
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
-    });
-
-    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
-  });
-});
-      </script>
 
 </body>
 </html>
