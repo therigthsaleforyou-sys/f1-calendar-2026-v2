@@ -4,26 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 Notícias 2026</title>
+
+  <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- HERO -->
+  <!-- ================= HEADER ================= -->
+  <header class="main-header">
+    <nav class="nav">
+      <a href="index.html">Calendário</a>
+      <a href="teams.html">Equipas</a>
+      <a href="f1noticias.html" class="active">Notícias</a>
+      <a href="race/resultados.html">Resultados</a>
+    </nav>
+  </header>
+
+  <!-- ================= HERO ================= -->
   <section id="hero">
     <img id="hero-image" src="" alt="Hero Corrida">
     <h2 id="hero-title"></h2>
   </section>
 
-  <!-- CARDS DAS CORRIDAS -->
-  <section id="race-cards-wrapper">
-    <div id="race-cards"></div>
+  <!-- ================= NOVIDADES ================= -->
+  <section id="novidades">
+    <!-- Conteúdo gerado pelo noticias.js -->
   </section>
 
-  <!-- BACK TO TOP -->
+  <!-- ================= CARDS DAS CORRIDAS ================= -->
+  <section id="race-cards-wrapper">
+    <div id="race-cards">
+      <!-- Cards gerados dinamicamente -->
+    </div>
+  </section>
+
+  <!-- ================= BACK TO TOP ================= -->
   <button id="back-to-top">↑</button>
 
-  <!-- SCRIPTS -->
+  <!-- ================= SCRIPTS ================= -->
+  <!-- DADOS -->
   <script src="data/calendar2026-v2.js?v=3"></script>
+
+  <!-- LÓGICA DA PÁGINA -->
   <script src="js/noticias.js?v=1"></script>
+
 </body>
 </html>
