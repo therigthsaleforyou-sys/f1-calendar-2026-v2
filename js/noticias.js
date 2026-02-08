@@ -1,100 +1,94 @@
 // js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cards = Array.from(document.querySelectorAll(".race-card"));
-  const hero = document.getElementById("hero");
+  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
+    console.error("calendar2026 não carregado");
+    return;
+  }
+
+  const raceCardsContainer = document.getElementById("race-cards");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
 
-  let activeCard = cards[0];
-  let activeIndex = 0;
+  // ================= HERO – próxima corrida =================
+  let nextRace = calendar2026.find(r => new Date(r.sessions.race) > now) || calendar2026[0];
 
-  /* =========================
-     DETETAR CORRIDA ATIVA
-     ========================= */
-  cards.forEach((card, index) => {
-    const raceDate = card.dataset.race;
-    if (!raceDate) return;
+  heroImage.src = nextRace.heroImage;
+  heroTitle.textContent = nextRace.name;
 
-    const raceEnd = new Date(raceDate + "T23:59:59");
-
-    // A corrida ativa é a última cujo final ainda não passou
-    if (raceEnd <= now) {
-      activeCard = card;
-      activeIndex = index;
+  // Hero clicável: scroll para o card
+  heroImage.addEventListener("click", () => {
+    const card = document.querySelector(`.race-card[data-id="${nextRace.id}"]`);
+    if(card){
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+      const details = card.querySelector(".race-details");
+      if(details){
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
     }
   });
 
-  /* =========================
-     HERO – IMAGEM
-     ========================= */
-  if (activeCard && heroImage) {
-    const heroImg = activeCard.dataset.hero;
-    if (heroImg) heroImage.src = heroImg;
-  }
+  // ================= CARDS DAS CORRIDAS =================
+  raceCardsContainer.innerHTML = "";
 
-  /* =========================
-     HERO – TÍTULO
-     ========================= */
-  if (heroTitle && activeCard) {
-    const raceDate = activeCard.dataset.race;
-    const raceEnd = new Date(raceDate + "T23:59:59");
+  calendar2026.forEach(race => {
+    const card = document.createElement("div");
+    card.className = "race-card";
+    card.dataset.id = race.id;
 
-    const fullTitle = activeCard.dataset.title; // Título completo
+    card.innerHTML = `
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+      <div class="race-header">
+        <h3>${race.name}</h3>
+      </div>
+      <div class="race-details hidden">
+        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
+        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
+        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
+        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
+        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="race/${race.id}.html">
+            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+          </a>
+        </div>
+      </div>
+    `;
 
-    if (now < raceEnd) {
-      // Corrida ainda não começou / em contagem regressiva
-      heroTitle.textContent = fullTitle;
-    } else {
-      // Corrida terminou
-      heroTitle.textContent = `Acompanhe o pós ${fullTitle}`;
-    }
-  }
+    raceCardsContainer.appendChild(card);
 
-  /* =========================
-     HERO CLICÁVEL
-     ========================= */
-  if (hero && activeCard) {
-    hero.style.cursor = "pointer";
-    hero.addEventListener("click", () => {
-      activeCard.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-  }
-
-  /* =========================
-     DROPBOX DOS CARDS
-     ========================= */
-  cards.forEach(card => {
+    // Dropdown click
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
-    if (img && details) {
-      details.classList.add("hidden"); // fechado ao carregar
+    if(img && details){
       img.style.cursor = "pointer";
+      details.style.maxHeight = "0";
 
       img.addEventListener("click", () => {
-        details.classList.toggle("hidden");
+        const open = !details.classList.contains("hidden");
+        if(open){
+          details.style.maxHeight = "0";
+          setTimeout(()=>details.classList.add("hidden"), 400);
+        } else {
+          details.classList.remove("hidden");
+          details.style.maxHeight = details.scrollHeight + "px";
+        }
       });
     }
   });
 
-  /* =========================
-     BACK TO TOP
-     ========================= */
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
+  // ================= BACK TO TOP =================
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
 
 });
