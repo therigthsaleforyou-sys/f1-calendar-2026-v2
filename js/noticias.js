@@ -1,59 +1,88 @@
+// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
-
-  const raceCardsContainer = document.getElementById("race-cards");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
+  const heroCountdown = document.getElementById("hero-countdown");
+  const raceCards = Array.from(document.querySelectorAll(".race-card"));
   const backToTop = document.getElementById("back-to-top");
 
-  const now = new Date();
-  let activeRaceCard = null;
+  /* =========================
+     HERO – Corridas e Contador
+  ========================= */
+  const races = window.calendar2026 || [];
 
-  // GERAR CARDS DAS CORRIDAS
-  calendar2026.forEach(race => {
-    const card = document.createElement("div");
-    card.className = "race-card";
-    card.dataset.id = race.id;
-    card.dataset.hero = race.heroImage;
-    card.dataset.title = race.name;
-    card.dataset.race = race.sessions.race;
+  // Primeira corrida fixa para o hero
+  heroImage.src = "assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
 
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details hidden">
-        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-        <div class="race-link-wrapper">
-          <a class="race-link-btn" href="race/${race.id}.html">
-            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
-          </a>
-        </div>
-      </div>
-    `;
-    raceCardsContainer.appendChild(card);
+  function getActiveRace() {
+    const now = new Date();
+    return races.find(r => new Date(r.sessions.race) > now) || races[races.length - 1];
+  }
 
-    // DETECTAR CORRIDA ATIVA
-    const raceEnd = new Date(race.sessions.race + "T23:59:59");
-    if (!activeRaceCard || (raceEnd >= now && new Date(race.sessions.race) <= now)) {
-      activeRaceCard = card;
+  function startHeroCountdown(race) {
+    heroCountdown.style.display = "block";
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(race.sessions.race);
+      const diff = target - now;
+
+      if (diff <= 0) {
+        // Quando o countdown termina, muda hero para a corrida ativa
+        heroImage.src = race.heroImage || race.cardImage;
+        heroTitle.textContent = race.name;
+        heroCountdown.style.display = "none";
+        clearInterval(interval);
+      } else {
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+      }
     }
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+  }
 
-    // DROPDOWN SUAVE
+  const activeRace = getActiveRace();
+  if (activeRace) startHeroCountdown(activeRace);
+
+  // Hero clicável leva ao card da corrida ativa
+  heroImage.style.cursor = "pointer";
+  heroImage.addEventListener("click", () => {
+    const card = raceCards.find(c => c.dataset.id === activeRace?.id);
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+      const details = card.querySelector(".race-details");
+      if (details) {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    }
+  });
+
+  /* =========================
+     CARDS – Abrir/Fechar Suave
+  ========================= */
+  raceCards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
+    if (!img || !details) return;
+
+    details.classList.add("hidden");
+    details.style.maxHeight = "0";
     img.style.cursor = "pointer";
-    if(details.classList.contains("hidden")) details.style.maxHeight = "0";
 
     img.addEventListener("click", () => {
-      const open = !details.classList.contains("hidden");
-      if(open){
-        details.style.maxHeight = "0";
-        setTimeout(()=>details.classList.add("hidden"),400);
+      const isOpen = !details.classList.contains("hidden");
+
+      if (isOpen) {
+        details.style.maxHeight = details.scrollHeight + "px"; // garante transição
+        requestAnimationFrame(() => {
+          details.style.maxHeight = "0";
+        });
+        setTimeout(() => details.classList.add("hidden"), 400);
       } else {
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
@@ -61,52 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // HERO DINÂMICO
-  if(activeRaceCard){
-    heroImage.src = "assets/heroes/australia_v2.jpg"; // imagem fixa da primeira corrida
-    heroTitle.textContent = activeRaceCard.dataset.title;
-
-    // Click no hero scroll para corrida ativa
-    heroImage.addEventListener("click", () => {
-      activeRaceCard.scrollIntoView({ behavior: "smooth", block: "start" });
-      const details = activeRaceCard.querySelector(".race-details");
-      if(details){
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
-    });
-
-    // COUNTDOWN HERÓI -> quando chegar a 0, trocar hero para a corrida ativa
-    const raceDate = new Date(activeRaceCard.dataset.race);
-    const countdownEl = document.createElement("div");
-    countdownEl.className = "countdown";
-    heroTitle.parentNode.insertBefore(countdownEl, heroTitle.nextSibling);
-
-    function updateCountdown(){
-      const diff = raceDate - new Date();
-      if(diff <= 0){
-        heroImage.src = activeRaceCard.dataset.hero;
-        countdownEl.textContent = "🏁 Corrida ativa!";
-      } else {
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff/(1000*60*60)) %24);
-        const m = Math.floor((diff/(1000*60)) %60);
-        const s = Math.floor((diff/1000) %60);
-        countdownEl.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
-      }
-    }
-    updateCountdown();
-    setInterval(updateCountdown,1000);
-  }
-
-  // BACK TO TOP
-  if(backToTop){
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top:0, behavior:"smooth" });
-    });
-  }
-
+  /* =========================
+     BACK TO TOP
+  ========================= */
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
