@@ -1,105 +1,167 @@
-// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
-  const cards = Array.from(document.querySelectorAll(".race-card"));
+  const raceCardsContainer = document.getElementById("race-cards");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  const backToTop = document.getElementById("back-to-top");
   const heroCountdown = document.getElementById("hero-countdown");
+  const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  let activeCard = cards[0];
-  let activeIndex = 0;
 
-  /* =========================
-     DETETAR CORRIDA ATIVA
-  ========================= */
-  cards.forEach((card, index) => {
-    const raceDate = card.dataset.race;
-    if (!raceDate) return;
+  // =========================
+  // Card de novidades
+  // =========================
+  const novidadesCard = raceCardsContainer.querySelector(".race-card");
 
-    const raceEnd = new Date(raceDate + "T23:59:59");
-    if (raceEnd <= now) {
-      activeCard = card;
-      activeIndex = index;
+  if(novidadesCard){
+    const details = novidadesCard.querySelector(".race-details");
+
+    const videoWrapper = document.createElement("div");
+    videoWrapper.className = "race-video-wrapper";
+
+    const video = document.createElement("video");
+    video.setAttribute("controls", "");
+    video.setAttribute("width", "100%");
+    video.setAttribute("poster", "assets/news/novidades.jpg");
+
+    const source = document.createElement("source");
+    source.setAttribute("src", "assets/news/novidade1.mp4");
+    source.setAttribute("type", "video/mp4");
+
+    video.appendChild(source);
+    videoWrapper.appendChild(video);
+
+    // Insere o vídeo acima do botão/link (se existir)
+    const linkWrapper = details.querySelector(".race-link-wrapper");
+    if(linkWrapper){
+      details.insertBefore(videoWrapper, linkWrapper);
+    } else {
+      details.appendChild(videoWrapper);
+    }
+
+    // Inicialmente fechado
+    details.classList.add("hidden");
+    details.style.maxHeight = "0";
+
+    const img = novidadesCard.querySelector(".race-image");
+    if(img){
+      img.style.cursor = "pointer";
+      img.addEventListener("click", () => {
+        const open = !details.classList.contains("hidden");
+        if(open){
+          details.style.maxHeight = "0";
+          setTimeout(()=>details.classList.add("hidden"), 400);
+        } else {
+          details.classList.remove("hidden");
+          details.style.maxHeight = details.scrollHeight + "px";
+        }
+      });
+    }
+  }
+
+  // =========================
+  // Cards das corridas do calendário
+  // =========================
+  calendar2026.forEach(race => {
+    const card = document.createElement("div");
+    card.className = "race-card";
+
+    card.innerHTML = `
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+      <div class="race-header">
+        <h3>${race.name}</h3>
+      </div>
+      <div class="race-details hidden">
+        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
+        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
+        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
+        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
+        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="race/${race.id}.html">
+            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+          </a>
+        </div>
+      </div>
+    `;
+
+    // Vídeo (se definido no objeto race)
+    if(race.video){
+      const details = card.querySelector(".race-details");
+      const videoWrapper = document.createElement("div");
+      videoWrapper.className = "race-video-wrapper";
+
+      const video = document.createElement("video");
+      video.setAttribute("controls", "");
+      video.setAttribute("width", "100%");
+      video.setAttribute("poster", race.cardImage);
+
+      const source = document.createElement("source");
+      source.setAttribute("src", race.video);
+      source.setAttribute("type", "video/mp4");
+
+      video.appendChild(source);
+      videoWrapper.appendChild(video);
+
+      const linkWrapper = details.querySelector(".race-link-wrapper");
+      if(linkWrapper){
+        details.insertBefore(videoWrapper, linkWrapper);
+      } else {
+        details.appendChild(videoWrapper);
+      }
+    }
+
+    raceCardsContainer.appendChild(card);
+
+    // Abrir/fechar suavemente
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+    if(img && details){
+      img.style.cursor = "pointer";
+      details.classList.add("hidden");
+      details.style.maxHeight = "0";
+
+      img.addEventListener("click", () => {
+        const open = !details.classList.contains("hidden");
+        if(open){
+          details.style.maxHeight = "0";
+          setTimeout(()=>details.classList.add("hidden"), 400);
+        } else {
+          details.classList.remove("hidden");
+          details.style.maxHeight = details.scrollHeight + "px";
+        }
+      });
     }
   });
 
-  /* =========================
-     HERO – IMAGEM
-  ========================= */
-  if (activeCard && heroImage) {
-    const heroImg = activeCard.dataset.hero || heroImage.src;
-    heroImage.src = heroImg;
-  }
+  // =========================
+  // HERO – primeira corrida sempre Austrália
+  // =========================
+  heroImage.src = "assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
+  heroCountdown.style.display = "none"; // invisível
 
-  /* =========================
-     HERO – TÍTULO
-  ========================= */
-  if (heroTitle && activeCard) {
-    const fullTitle = activeCard.dataset.title || activeCard.querySelector(".race-header h3").textContent;
-    heroTitle.textContent = fullTitle;
-  }
-
-  /* =========================
-     HERO CLICÁVEL
-  ========================= */
-  if (activeCard && heroImage) {
-    heroImage.style.cursor = "pointer";
-    heroImage.addEventListener("click", () => {
-      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  // =========================
+  // HERO clicável – rola para o card ativo (primeira corrida Austrália)
+  // =========================
+  heroImage.addEventListener("click", () => {
+    const activeCard = raceCardsContainer.querySelector(`.race-card img[alt="Grande Prémio da Austrália"]`)?.closest(".race-card");
+    if(activeCard){
+      activeCard.scrollIntoView({behavior:"smooth", block:"start"});
       const details = activeCard.querySelector(".race-details");
-      if (details) {
+      if(details){
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
-    });
-  }
-
-  /* =========================
-     DROPBOX DOS CARDS (efeito suave)
-  ========================= */
-  cards.forEach(card => {
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-    if (!img || !details) return;
-
-    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
-    img.style.cursor = "pointer";
-
-    img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
-
-      if (isOpen) {
-        // fechar com animação
-        details.style.maxHeight = details.scrollHeight + "px"; // garante altura inicial
-        setTimeout(() => {
-          details.style.transition = "max-height 0.4s ease";
-          details.style.maxHeight = "0";
-        }, 10);
-        setTimeout(() => {
-          details.classList.add("hidden");
-          details.style.transition = "";
-        }, 410);
-      } else {
-        details.classList.remove("hidden");
-        details.style.transition = "max-height 0.4s ease";
-        details.style.maxHeight = details.scrollHeight + "px";
-        setTimeout(() => {
-          details.style.transition = "";
-        }, 410);
-      }
-    });
+    }
   });
 
-  /* =========================
-     BACK TO TOP
-  ========================= */
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
+  // =========================
+  // BACK TO TOP
+  // =========================
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
 });
