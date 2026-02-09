@@ -1,5 +1,5 @@
 // js/main.js
-// Homepage – versão estável com hero dinâmico + fichas clicáveis
+// Homepage – versão estável com hero dinâmico + fichas clicáveis + efeito cards igual a notícias
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -19,12 +19,16 @@ document.addEventListener("DOMContentLoaded", () => {
      HERO – próxima corrida
   ========================= */
 
+  // Hero começa sempre com Austrália
+  heroImage.src = "assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
+
   function getNextRace() {
     const now = new Date();
     return calendar2026.find(r => new Date(r.sessions.race) > now);
   }
 
-  function startCountdown(dateISO) {
+  function startCountdown(dateISO, race) {
     function update() {
       const now = new Date();
       const target = new Date(dateISO);
@@ -32,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (diff <= 0) {
         heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        // Quando o countdown chega a zero, atualiza o hero para a corrida ativa
+        heroImage.src = race.heroImage ? race.heroImage : race.cardImage;
+        heroTitle.textContent = race.name;
         return;
       }
 
@@ -48,15 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const nextRace = getNextRace();
-
-  if (nextRace) {
-    heroImage.src = nextRace.heroImage
-      ? nextRace.heroImage
-      : nextRace.cardImage;
-
-    heroTitle.textContent = nextRace.name;
-    startCountdown(nextRace.sessions.race);
-  }
+  if (nextRace) startCountdown(nextRace.sessions.race, nextRace);
 
   /* =========================
      FICHAS DAS CORRIDAS
@@ -96,12 +95,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     raceCards.appendChild(card);
 
-    // 📸 Dropbox ao clicar na imagem
+    // 📸 Efeito de abrir/fechar igual ao f1noticias
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
     img.addEventListener("click", () => {
-      details.classList.toggle("hidden");
+      const isOpen = !details.classList.contains("hidden");
+
+      // Fecha todos os cards primeiro
+      document.querySelectorAll(".race-details").forEach(d => {
+        d.style.maxHeight = "0";
+        d.classList.add("hidden");
+      });
+
+      if (!isOpen) {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
     });
   });
 
@@ -133,11 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================= */
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) {
-      backToTop.classList.add("show");
-    } else {
-      backToTop.classList.remove("show");
-    }
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
 
   backToTop.addEventListener("click", () => {
