@@ -85,7 +85,6 @@ nav a.active {
   border-radius: 16px;
   padding: 12px;
   margin-bottom: 20px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   background: #111;
 }
 
@@ -123,30 +122,6 @@ nav a.active {
   color: #ffd700;
 }
 
-/* Botão Ver detalhes */
-.details-toggle {
-  display: block;
-  width: 100%;
-  padding: 10px 0;
-  margin-top: 10px;
-  text-align: center;
-  border: 2px solid #ff0000;
-  border-radius: 14px;
-  background: #000;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-}
-
-.details-toggle:hover {
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-}
-
-.details-toggle:active {
-  transform: scale(0.96);
-}
-
 .race-details {
   margin-top: 10px;
   line-height: 1.6;
@@ -156,7 +131,7 @@ nav a.active {
   display: none;
 }
 
-/* Botão das fichas de corrida (para notícias.html e calendário) */
+/* Botão das fichas de corrida */
 .race-link-wrapper {
   text-align: center;
   margin-top: 12px;
@@ -165,10 +140,10 @@ nav a.active {
 .race-link-btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #000;       /* fundo igual ao back-to-top */
+  background-color: #000;
   color: #fff;
-  border: 2px solid #ff0000;    /* mesma borda vermelha */
-  border-radius: 14px;           /* mesmo raio */
+  border: 2px solid #ff0000;
+  border-radius: 14px;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
@@ -198,19 +173,31 @@ nav a.active {
   font-size: 16px;
   cursor: pointer;
   z-index: 999;
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-}
-
-#back-to-top:hover {
-  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-}
-
-#back-to-top:active {
-  transform: scale(0.96);
 }
 
 #back-to-top.show {
   display: block;
+}
+
+/* =========================
+   VÍDEOS NOS CARDS
+   ========================= */
+
+.video-wrapper {
+  margin-top: 12px;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* =========================
@@ -223,5 +210,4 @@ nav a.active {
 
 .cards-wrapper .race-card {
   width: 100%;
-  }
-
+}
