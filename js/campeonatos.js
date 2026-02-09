@@ -7,45 +7,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const pilotsTable = document.getElementById("pilots-standings");
   const constructorsTable = document.getElementById("constructors-standings");
 
-  // ===== Campeonatos =====
-  // Pilotos
+  // ===== Campeonato de Pilotos =====
   const pilotPoints = {};
   calendar2026.forEach(race => {
-    const results = race.results2026?.podium || [];
-    results.forEach((driver, index) => {
-      if (!pilotPoints[driver]) pilotPoints[driver] = 0;
-      // Pontos simplificados F1 2026
-      const points = [25, 18, 15][index] || 0;
-      pilotPoints[driver] += points;
+    const podium = race.results2026?.podium || [];
+    podium.forEach((driver, index) => {
+      if (!pilotPoints[driver]) pilotPoints[driver] = { points:0, team: race.results2026?.teams?.[driver] || "—" };
+      const points = [25,18,15][index] || 0;
+      pilotPoints[driver].points += points;
     });
   });
 
-  const sortedPilots = Object.entries(pilotPoints)
-    .sort((a, b) => b[1] - a[1]);
+  const sortedPilots = Object.entries(pilotPoints).sort((a,b) => b[1].points - a[1].points);
 
-  sortedPilots.forEach(([driver, points], i) => {
-    const race = calendar2026.find(r => r.results2026?.podium.includes(driver));
-    const team = race?.results2026?.teams?.[driver] || "—";
+  sortedPilots.forEach(([driver, data], i) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${i+1}</td><td>${driver}</td><td>${team}</td><td>${points}</td>`;
+    tr.innerHTML = `<td>${i+1}</td><td>${driver}</td><td>${data.team}</td><td>${data.points}</td>`;
     pilotsTable.appendChild(tr);
   });
 
-  // Construtores
+  // ===== Campeonato de Construtores =====
   const constructorPoints = {};
   calendar2026.forEach(race => {
-    const results = race.results2026?.podium || [];
-    results.forEach((driver, index) => {
+    const podium = race.results2026?.podium || [];
+    podium.forEach((driver, index) => {
       const team = race.results2026?.teams?.[driver];
       if (!team) return;
       if (!constructorPoints[team]) constructorPoints[team] = 0;
-      const points = [25, 18, 15][index] || 0;
+      const points = [25,18,15][index] || 0;
       constructorPoints[team] += points;
     });
   });
 
-  const sortedConstructors = Object.entries(constructorPoints)
-    .sort((a,b) => b[1] - a[1]);
+  const sortedConstructors = Object.entries(constructorPoints).sort((a,b) => b[1]-a[1]);
 
   sortedConstructors.forEach(([team, points], i) => {
     const tr = document.createElement("tr");
@@ -61,6 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior: "smooth" });
+    window.scrollTo({ top:0, behavior:"smooth" });
   });
 });
