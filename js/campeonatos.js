@@ -1,60 +1,99 @@
+// js/campeonatos.js
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
+  // ✅ Estrutura mínima: apenas Austrália
+  const finishedRaces = calendar2026.filter(
+    r => r.results2026?.race?.length
+  );
+
+  // Pilotos
+  const drivers = {};
+  finishedRaces.forEach(race => {
+    race.results2026.race.forEach(r => {
+      if (!drivers[r.driver]) {
+        drivers[r.driver] = { name: r.driver, points: 0, team: r.team };
+      }
+      drivers[r.driver].points += r.points;
+    });
+  });
+
+  const standingsDrivers = Object.values(drivers).sort((a, b) => b.points - a.points);
+
+  // Construtores
+  const constructors = {};
+  finishedRaces.forEach(race => {
+    race.results2026.race.forEach(r => {
+      if (!constructors[r.team]) constructors[r.team] = { name: r.team, points: 0 };
+      constructors[r.team].points += r.points;
+    });
+  });
+
+  const standingsConstructors = Object.values(constructors).sort((a, b) => b.points - a.points);
+
+  // Guardar posições anteriores para animação
+  const prevDrivers = JSON.parse(localStorage.getItem("prevDrivers") || "[]");
+  const prevConstructors = JSON.parse(localStorage.getItem("prevConstructors") || "[]");
+
+  // Contêiner da página
+  const main = document.querySelector("main");
+  main.innerHTML = "";
+
+  // Função para criar tabela estilo card
+  function createTableCard(title, standings, type = "drivers") {
+    const card = document.createElement("div");
+    card.className = "race-card"; // Reaproveitando estilos dos cards
+    card.style.marginBottom = "16px";
+
+    const header = document.createElement("h3");
+    header.textContent = title;
+    header.style.textAlign = "center";
+    header.style.marginBottom = "10px";
+    card.appendChild(header);
+
+    const table = document.createElement("table");
+    table.style.width = "100%";
+    table.style.borderCollapse = "collapse";
+
+    standings.forEach((d, i) => {
+      const row = document.createElement("tr");
+      row.style.borderTop = "1px solid #fff";
+
+      // Colunas
+      const tdPos = document.createElement("td");
+      tdPos.textContent = i + 1;
+      tdPos.style.padding = "6px";
+      tdPos.style.fontWeight = "700";
+
+      const tdName = document.createElement("td");
+      tdName.textContent = d.name;
+      tdName.style.padding = "6px";
+
+      const tdPoints = document.createElement("td");
+      tdPoints.textContent = finishedRaces.length ? d.points : "—";
+      tdPoints.style.padding = "6px";
+      tdPoints.style.textAlign = "right";
+
+      row.appendChild(tdPos);
+      row.appendChild(tdName);
+      row.appendChild(tdPoints);
+
+      // Animação de subida/descida
+      const prev = type === "drivers" ? prevDrivers : prevConstructors;
+      if (prev[i]?.name !== d.name) {
+        row.classList.add("changed");
+      }
+
+      table.appendChild(row);
+    });
+
+    card.appendChild(table);
+    main.appendChild(card);
   }
 
-  const pilotsTable = document.getElementById("pilots-standings");
-  const constructorsTable = document.getElementById("constructors-standings");
+  // Criar cartões
+  createTableCard("Campeonato de Pilotos 2026", standingsDrivers, "drivers");
+  createTableCard("Campeonato de Construtores 2026", standingsConstructors, "constructors");
 
-  // ===== Campeonato de Pilotos =====
-  const pilotPoints = {};
-  calendar2026.forEach(race => {
-    const podium = race.results2026?.podium || [];
-    podium.forEach((driver, index) => {
-      if (!pilotPoints[driver]) pilotPoints[driver] = { points:0, team: race.results2026?.teams?.[driver] || "—" };
-      const points = [25,18,15][index] || 0;
-      pilotPoints[driver].points += points;
-    });
-  });
-
-  const sortedPilots = Object.entries(pilotPoints).sort((a,b) => b[1].points - a[1].points);
-
-  sortedPilots.forEach(([driver, data], i) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${i+1}</td><td>${driver}</td><td>${data.team}</td><td>${data.points}</td>`;
-    pilotsTable.appendChild(tr);
-  });
-
-  // ===== Campeonato de Construtores =====
-  const constructorPoints = {};
-  calendar2026.forEach(race => {
-    const podium = race.results2026?.podium || [];
-    podium.forEach((driver, index) => {
-      const team = race.results2026?.teams?.[driver];
-      if (!team) return;
-      if (!constructorPoints[team]) constructorPoints[team] = 0;
-      const points = [25,18,15][index] || 0;
-      constructorPoints[team] += points;
-    });
-  });
-
-  const sortedConstructors = Object.entries(constructorPoints).sort((a,b) => b[1]-a[1]);
-
-  sortedConstructors.forEach(([team, points], i) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${i+1}</td><td>${team}</td><td>${points}</td>`;
-    constructorsTable.appendChild(tr);
-  });
-
-  // ===== Back to Top =====
-  const backToTop = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
-  });
+  // Salvar posições para próxima vez
+  localStorage.setItem("prevDrivers", JSON.stringify(standingsDrivers));
+  localStorage.setItem("prevConstructors", JSON.stringify(standingsConstructors));
 });
