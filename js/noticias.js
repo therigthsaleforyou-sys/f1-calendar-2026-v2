@@ -1,58 +1,61 @@
 // js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const raceCardsContainer = document.getElementById("race-cards");
+  const cardsContainer = document.getElementById("race-cards");
+  const cards = Array.from(document.querySelectorAll(".race-card"));
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const heroCountdown = document.getElementById("hero-countdown");
   const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  let activeCard = cards[0]; // Novidades
+  let activeIndex = 0;
 
   // =========================
-  // GERAR CARDS DAS CORRIDAS
+  // DETETAR CORRIDA ATIVA
   // =========================
+  cards.forEach((card, index) => {
+    const raceDate = card.dataset.race;
+    if (!raceDate) return;
 
-  raceCardsContainer.innerHTML = "";
+    const raceEnd = new Date(raceDate + "T23:59:59");
 
-  // Primeiro card: Novidades
-  const novidadesCard = document.createElement("div");
-  novidadesCard.className = "race-card";
+    if (raceEnd >= now) {
+      activeCard = card;
+      activeIndex = index;
+    }
+  });
 
-  novidadesCard.innerHTML = `
-    <img class="race-image" src="assets/news/novidades.jpg" alt="Novidades F1">
-    <div class="race-header">
-      <h3>Novidades F1 2026</h3>
-    </div>
-    <div class="race-details hidden">
-      <p>Fique por dentro das últimas notícias e vídeos da temporada 2026 da F1!</p>
-      <div class="video-wrapper">
-        <iframe data-src="https://www.youtube.com/embed/SEU_VIDEO_AQUI" 
-                width="100%" height="315" 
-                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  `;
-  raceCardsContainer.appendChild(novidadesCard);
+  // =========================
+  // ADICIONAR VIDEOS
+  // =========================
+  // Card Novidades
+  const novidadesCard = cardsContainer.querySelector(".race-card:first-child");
+  if(novidadesCard){
+    const iframe = document.createElement("iframe");
+    iframe.width = "100%";
+    iframe.height = "315";
+    iframe.frameBorder = "0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    iframe.dataset.src = "https://www.youtube.com/embed/7N8e8hA-rmY";
+    novidadesCard.querySelector(".race-details").prepend(iframe);
+  }
 
-  // Outros cards a partir do calendar2026
-  if (window.calendar2026 && Array.isArray(calendar2026)) {
+  // Outros cards (do calendar2026)
+  if(window.calendar2026 && Array.isArray(window.calendar2026)){
     calendar2026.forEach(race => {
-      const isFavorite = favorites.includes(race.id);
-
       const card = document.createElement("div");
       card.className = "race-card";
-      if(isFavorite) card.classList.add("favorite");
       card.dataset.id = race.id;
+      card.dataset.title = race.name;
+      card.dataset.race = race.sessions.race;
 
       card.innerHTML = `
         <img class="race-image" src="${race.cardImage}" alt="${race.name}">
         <div class="race-header">
           <h3>${race.name}</h3>
-          <button class="fav-btn ${isFavorite ? "active" : ""}" data-id="${race.id}">🏁</button>
         </div>
         <div class="race-details hidden">
           <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
@@ -60,13 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
           <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
           <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-          <div class="video-wrapper">
-            <iframe data-src="https://www.youtube.com/embed/SEU_VIDEO_AQUI" 
-                    width="100%" height="315" 
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-            </iframe>
-          </div>
           <div class="race-link-wrapper">
             <a class="race-link-btn" href="race/${race.id}.html">
               Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
@@ -74,70 +70,65 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
-      raceCardsContainer.appendChild(card);
+
+      // Adicionar vídeo só para Austrália
+      if(race.id === "australia"){
+        const iframe = document.createElement("iframe");
+        iframe.width = "100%";
+        iframe.height = "315";
+        iframe.frameBorder = "0";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.dataset.src = "https://www.youtube.com/embed/md9-jG4RzXs";
+        card.querySelector(".race-details").prepend(iframe);
+      }
+
+      cardsContainer.appendChild(card);
+      cards.push(card);
     });
   }
 
   // =========================
-  // ABRIR / FECHAR CARDS + VIDEOS
+  // HERO
   // =========================
-  const allCards = Array.from(document.querySelectorAll(".race-card"));
+  if(activeCard && heroImage && heroTitle){
+    heroImage.src = activeCard.dataset.hero || "assets/heroes/australia_v2.jpg";
+    heroTitle.textContent = activeCard.dataset.title || activeCard.querySelector("h3").textContent;
+  }
 
-  allCards.forEach(card => {
+  // =========================
+  // CARDS – DROPBOX
+  // =========================
+  cards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
-    const iframe = details ? details.querySelector("iframe") : null;
+    const iframe = details.querySelector("iframe");
 
-    if(img && details){
-      details.classList.add("hidden");
-      details.style.maxHeight = "0";
-      img.style.cursor = "pointer";
+    if(!img || !details) return;
 
-      img.addEventListener("click", () => {
-        const isOpen = !details.classList.contains("hidden");
+    details.classList.add("hidden");
+    details.style.maxHeight = "0";
+    img.style.cursor = "pointer";
 
-        if(isOpen){
-          details.style.maxHeight = "0";
-          setTimeout(() => {
-            details.classList.add("hidden");
-            if(iframe) iframe.src = ""; // pausa o vídeo
-          }, 400);
-        } else {
-          details.classList.remove("hidden");
-          details.style.maxHeight = details.scrollHeight + "px";
-          if(iframe) iframe.src = iframe.dataset.src; // começa o vídeo
-        }
-      });
-    }
-  });
+    img.addEventListener("click", () => {
+      const isOpen = !details.classList.contains("hidden");
 
-  // =========================
-  // FAVORITOS
-  // =========================
-  raceCardsContainer.addEventListener("click", e => {
-    if(e.target.classList.contains("fav-btn")){
-      const id = e.target.dataset.id;
-      const card = e.target.closest(".race-card");
-
-      if(favorites.includes(id)){
-        favorites.splice(favorites.indexOf(id),1);
-        e.target.classList.remove("active");
-        card.classList.remove("favorite");
+      if(isOpen){
+        // Fechar com animação suave
+        details.style.maxHeight = "0";
+        setTimeout(()=>{
+          details.classList.add("hidden");
+          // Pausar vídeo
+          if(iframe) iframe.src = iframe.dataset.src;
+        },400);
       } else {
-        favorites.push(id);
-        e.target.classList.add("active");
-        card.classList.add("favorite");
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+        // Ativar autoplay do vídeo
+        if(iframe) iframe.src = iframe.dataset.src + "?autoplay=1";
       }
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    }
+    });
   });
-
-  // =========================
-  // HERO FIXO + COUNTDOWN INVISÍVEL
-  // =========================
-  heroImage.src = "assets/heroes/australia_v2.jpg"; // primeira corrida sempre Austrália
-  heroTitle.textContent = "Grande Prémio da Austrália";
-  heroCountdown.style.display = "none";
 
   // =========================
   // BACK TO TOP
@@ -147,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
       backToTop.classList.toggle("show", window.scrollY > 400);
     });
     backToTop.addEventListener("click", () => {
-      window.scrollTo({top:0, behavior:"smooth"});
+      window.scrollTo({ top:0, behavior:"smooth" });
     });
   }
 
