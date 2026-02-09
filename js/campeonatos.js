@@ -1,77 +1,66 @@
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
+// Dados mínimos apenas Austrália
+const calendar2026 = [
+  {
+    id: "australia",
+    name: "Grande Prémio da Austrália",
+    results2026: {
+      race: [
+        { driver: "Max Verstappen", team: "Red Bull", position: 1, points: 25 },
+        { driver: "Lando Norris", team: "McLaren", position: 2, points: 18 },
+        { driver: "Charles Leclerc", team: "Ferrari", position: 3, points: 15 }
+      ]
+    }
   }
+];
 
-  // =========================
-  // FILTRAR RACES FINALIZADAS (somente Austrália)
-  // =========================
-  const finishedRaces = calendar2026.filter(
-    r => r.id === "australia" && r.results2026?.race?.length
-  );
+// ================= Pilotos =================
+const finishedRaces = calendar2026.filter(r => r.results2026?.race?.length);
 
-  // =========================
-  // CAMPEONATO PILOTOS
-  // =========================
-  const drivers = {};
-  finishedRaces.forEach(race => {
-    race.results2026.race.forEach(p => {
-      if (!drivers[p.driver]) drivers[p.driver] = { name: p.driver, points: 0 };
-      drivers[p.driver].points += p.points;
-    });
+const drivers = {};
+finishedRaces.forEach(race => {
+  race.results2026.race.forEach(r => {
+    if (!drivers[r.driver]) {
+      drivers[r.driver] = { name: r.driver, points: 0 };
+    }
+    drivers[r.driver].points += r.points;
   });
+});
 
-  const driverStandings = Object.values(drivers)
-    .sort((a, b) => b.points - a.points);
+const driverStandings = Object.values(drivers)
+  .sort((a, b) => b.points - a.points);
 
-  const prevDrivers = JSON.parse(localStorage.getItem("prevDrivers") || "[]");
-  const tbodyDrivers = document.getElementById("drivers-standings");
-  tbodyDrivers.innerHTML = "";
+const tbodyDrivers = document.querySelector("#drivers-champ tbody");
+driverStandings.forEach((d, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td>${i + 1}</td>
+    <td>${d.name}</td>
+    <td>${finishedRaces.length ? d.points : "—"}</td>
+  `;
+  tbodyDrivers.appendChild(tr);
+});
 
-  driverStandings.forEach((d, i) => {
-    const row = document.createElement("tr");
-    if (prevDrivers[i]?.name !== d.name) row.classList.add("changed");
-    const tdPos = document.createElement("td"); tdPos.textContent = i + 1;
-    const tdName = document.createElement("td"); tdName.textContent = d.name;
-    const tdPoints = document.createElement("td"); 
-    tdPoints.textContent = finishedRaces.length ? d.points : "—";
-
-    row.append(tdPos, tdName, tdPoints);
-    tbodyDrivers.appendChild(row);
+// ================= Construtores =================
+const constructors = {};
+finishedRaces.forEach(race => {
+  race.results2026.race.forEach(r => {
+    if (!constructors[r.team]) {
+      constructors[r.team] = { name: r.team, points: 0 };
+    }
+    constructors[r.team].points += r.points;
   });
+});
 
-  localStorage.setItem("prevDrivers", JSON.stringify(driverStandings));
+const constructorStandings = Object.values(constructors)
+  .sort((a, b) => b.points - a.points);
 
-  // =========================
-  // CAMPEONATO CONSTRUTORES
-  // =========================
-  const teams = {};
-  finishedRaces.forEach(race => {
-    race.results2026.race.forEach(p => {
-      if (!teams[p.team]) teams[p.team] = { name: p.team, points: 0 };
-      teams[p.team].points += p.points;
-    });
-  });
-
-  const teamStandings = Object.values(teams)
-    .sort((a, b) => b.points - a.points);
-
-  const prevTeams = JSON.parse(localStorage.getItem("prevTeams") || "[]");
-  const tbodyTeams = document.getElementById("teams-standings");
-  tbodyTeams.innerHTML = "";
-
-  teamStandings.forEach((t, i) => {
-    const row = document.createElement("tr");
-    if (prevTeams[i]?.name !== t.name) row.classList.add("changed");
-    const tdPos = document.createElement("td"); tdPos.textContent = i + 1;
-    const tdName = document.createElement("td"); tdName.textContent = t.name;
-    const tdPoints = document.createElement("td"); 
-    tdPoints.textContent = finishedRaces.length ? t.points : "—";
-
-    row.append(tdPos, tdName, tdPoints);
-    tbodyTeams.appendChild(row);
-  });
-
-  localStorage.setItem("prevTeams", JSON.stringify(teamStandings));
+const tbodyConstructors = document.querySelector("#constructors-champ tbody");
+constructorStandings.forEach((c, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td>${i + 1}</td>
+    <td>${c.name}</td>
+    <td>${finishedRaces.length ? c.points : "—"}</td>
+  `;
+  tbodyConstructors.appendChild(tr);
 });
