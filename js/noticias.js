@@ -1,113 +1,88 @@
 // js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cards = Array.from(document.querySelectorAll(".race-card"));
-  const hero = document.getElementById("hero");
+  const cards = document.querySelectorAll(".race-card");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
-  const now = new Date();
-
-  let activeCard = cards[0];
-  let activeIndex = 0;
-
   /* =========================
-     DETETAR CORRIDA ATIVA
-  ========================= */
-  cards.forEach((card, index) => {
-    const raceDate = card.dataset.race;
-    if (!raceDate) return;
+     HERO — REGRA DO COUNTDOWN
+     ========================= */
 
-    const raceEnd = new Date(raceDate + "T23:59:59");
+  // Hero começa SEMPRE na Austrália
+  heroImage.src = "assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
 
-    if (raceEnd <= now) {
-      activeCard = card;
-      activeIndex = index;
-    }
-  });
+  const races = Array.from(cards).map(card => ({
+    card,
+    date: new Date(card.dataset.race + "T00:00:00"),
+    hero: card.dataset.hero,
+    title: card.dataset.title
+  }));
 
-  /* =========================
-     HERO – IMAGEM E TÍTULO
-  ========================= */
-  if (activeCard && heroImage) {
-    const heroImg = activeCard.dataset.hero;
-    if (heroImg) heroImage.src = heroImg;
-  }
+  function updateHeroByCountdown() {
+    const now = new Date();
 
-  if (heroTitle && activeCard) {
-    const raceDate = activeCard.dataset.race;
-    const raceEnd = new Date(raceDate + "T23:59:59");
-    const fullTitle = activeCard.dataset.title;
-
-    if (now < raceEnd) {
-      heroTitle.textContent = fullTitle;
-    } else {
-      heroTitle.textContent = `Acompanhe o pós ${fullTitle}`;
-    }
-  }
-
-  /* =========================
-     HERO CLICÁVEL
-  ========================= */
-  if (hero && activeCard) {
-    hero.style.cursor = "pointer";
-    hero.addEventListener("click", () => {
-      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-      const details = activeCard.querySelector(".race-details");
-      if(details) {
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
+    for (let i = 0; i < races.length; i++) {
+      if (now >= races[i].date) {
+        heroImage.src = races[i].hero;
+        heroTitle.textContent = races[i].title;
       }
-    });
+    }
   }
 
+  updateHeroByCountdown();
+  setInterval(updateHeroByCountdown, 1000);
+
   /* =========================
-     DROPBOX DOS CARDS (TRANSIÇÃO SUAVE)
-  ========================= */
+     DROPBOX DOS CARDS (FIX FINAL)
+     ========================= */
+
   cards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
     if (!img || !details) return;
 
-    details.classList.add("hidden"); // fechado ao carregar
     details.style.maxHeight = "0";
+    details.style.overflow = "hidden";
+    details.style.transition = "max-height 0.4s ease";
+
     img.style.cursor = "pointer";
 
     img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
+      const isOpen = details.style.maxHeight !== "0px";
 
       if (isOpen) {
-        // FECHAR
-        details.style.maxHeight = details.scrollHeight + "px"; // garante altura atual
-        details.offsetHeight; // força reflow para a transição
         details.style.maxHeight = "0";
-
-        details.addEventListener('transitionend', function handler() {
-          details.classList.add("hidden");
-          details.removeEventListener('transitionend', handler);
-        });
-
       } else {
-        // ABRIR
-        details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
   });
 
   /* =========================
-     BACK TO TOP
-  ========================= */
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
+     HERO CLICK → SCROLL
+     ========================= */
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
+  heroImage.addEventListener("click", () => {
+    const firstOpenCard = document.querySelector(".race-card");
+    if (firstOpenCard) {
+      firstOpenCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  /* =========================
+     BACK TO TOP
+     ========================= */
+
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
 });
