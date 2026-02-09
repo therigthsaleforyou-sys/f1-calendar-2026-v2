@@ -8,15 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroTitle = document.getElementById("hero-title");
   const raceResults = document.getElementById("race-results");
   const backToTop = document.getElementById("back-to-top");
-
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  // HERO da corrida ativa (Austrália neste caso)
-  const activeRace = calendar2026.find(r => r.id === "australia");
-  heroImage.src = activeRace.heroImage || "../assets/races/australia.jpg";
+  // Hero da corrida ativa
+  const activeRace = calendar2026[0];
+  heroImage.src = activeRace.heroImage || activeRace.cardImage;
   heroTitle.textContent = `Resultados: ${activeRace.name}`;
 
-  // FUNÇÃO PARA CRIAR CARD
+  // Função para criar cards
   function createRaceCard(race) {
     const card = document.createElement("div");
     card.className = "race-card";
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (favorites.includes(race.id)) card.classList.add("favorite");
 
     card.innerHTML = `
-      <img class="race-image" src="../assets/diagramas/australia2d.jpg" alt="Diagrama da pista – ${race.name}">
+      <img class="race-image" src="${race.cardImage}" alt="Diagrama da pista – ${race.name}">
       <div class="race-header">
         <h3>${race.name} – 2026</h3>
         <button class="fav-btn" data-id="${race.id}">🏁</button>
@@ -33,28 +32,26 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="race-details hidden">
         <h4>Resultados 2026</h4>
         ${race.results2026.race.map(r => `
-          <p><strong>${r.position}º</strong> ${r.driver} – ${r.team} – ${r.points} pts</p>
-        `).join("")}
+          <p><strong>${r.position}º:</strong> ${r.driver} – ${r.team} – ${r.points} pts</p>
+        `).join('')}
       </div>
     `;
 
-    // Abrir detalhes ao clicar na imagem
+    // Detalhes ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     img.addEventListener("click", () => {
-      if (details.classList.contains("hidden")) {
-        details.classList.remove("hidden");
-      } else {
-        details.classList.add("hidden");
-      }
+      details.classList.toggle("hidden");
     });
 
     return card;
   }
 
-  // Gerar card da Austrália
+  // Gerar cards
   raceResults.innerHTML = "";
-  raceResults.appendChild(createRaceCard(activeRace));
+  calendar2026.forEach(race => {
+    raceResults.appendChild(createRaceCard(race));
+  });
 
   // Favoritos
   raceResults.addEventListener("click", e => {
