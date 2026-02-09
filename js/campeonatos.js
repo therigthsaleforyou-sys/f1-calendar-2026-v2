@@ -1,66 +1,77 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <title>Campeonato F1 2026 – Austrália</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
+    console.error("calendar2026 não carregado");
+    return;
+  }
 
-<header class="main-header">
-  <nav class="nav">
-    <a href="../index.html">Calendário</a>
-    <a href="../teams.html">Equipas</a>
-    <a href="../f1noticias.html">Notícias</a>
-  </nav>
-</header>
+  // =========================
+  // FILTRAR RACES FINALIZADAS (somente Austrália)
+  // =========================
+  const finishedRaces = calendar2026.filter(
+    r => r.id === "australia" && r.results2026?.race?.length
+  );
 
-<main>
-  <section class="championship-wrapper">
+  // =========================
+  // CAMPEONATO PILOTOS
+  // =========================
+  const drivers = {};
+  finishedRaces.forEach(race => {
+    race.results2026.race.forEach(p => {
+      if (!drivers[p.driver]) drivers[p.driver] = { name: p.driver, points: 0 };
+      drivers[p.driver].points += p.points;
+    });
+  });
 
-    <!-- TABELA PILOTOS -->
-    <div class="championship-card">
-      <h3>Campeonato de Pilotos – Austrália</h3>
-      <table class="championship-table">
-        <thead>
-          <tr>
-            <th>Pos</th>
-            <th>Piloto</th>
-            <th>Pontos</th>
-          </tr>
-        </thead>
-        <tbody id="drivers-standings">
-          <!-- Preenchido pelo JS -->
-        </tbody>
-      </table>
-      <a href="../index.html" class="back-calendar-btn">← Voltar ao calendário</a>
-    </div>
+  const driverStandings = Object.values(drivers)
+    .sort((a, b) => b.points - a.points);
 
-    <!-- TABELA CONSTRUTORES -->
-    <div class="championship-card">
-      <h3>Campeonato de Construtores – Austrália</h3>
-      <table class="championship-table">
-        <thead>
-          <tr>
-            <th>Pos</th>
-            <th>Construtor</th>
-            <th>Pontos</th>
-          </tr>
-        </thead>
-        <tbody id="teams-standings">
-          <!-- Preenchido pelo JS -->
-        </tbody>
-      </table>
-    </div>
+  const prevDrivers = JSON.parse(localStorage.getItem("prevDrivers") || "[]");
+  const tbodyDrivers = document.getElementById("drivers-standings");
+  tbodyDrivers.innerHTML = "";
 
-  </section>
-</main>
+  driverStandings.forEach((d, i) => {
+    const row = document.createElement("tr");
+    if (prevDrivers[i]?.name !== d.name) row.classList.add("changed");
+    const tdPos = document.createElement("td"); tdPos.textContent = i + 1;
+    const tdName = document.createElement("td"); tdName.textContent = d.name;
+    const tdPoints = document.createElement("td"); 
+    tdPoints.textContent = finishedRaces.length ? d.points : "—";
 
-<footer style="text-align:center;padding:20px;opacity:.6">
-  F1 2026
-</footer>
+    row.append(tdPos, tdName, tdPoints);
+    tbodyDrivers.appendChild(row);
+  });
 
-<script src="campeonatos.js"></script>
-</body>
-</html>
+  localStorage.setItem("prevDrivers", JSON.stringify(driverStandings));
+
+  // =========================
+  // CAMPEONATO CONSTRUTORES
+  // =========================
+  const teams = {};
+  finishedRaces.forEach(race => {
+    race.results2026.race.forEach(p => {
+      if (!teams[p.team]) teams[p.team] = { name: p.team, points: 0 };
+      teams[p.team].points += p.points;
+    });
+  });
+
+  const teamStandings = Object.values(teams)
+    .sort((a, b) => b.points - a.points);
+
+  const prevTeams = JSON.parse(localStorage.getItem("prevTeams") || "[]");
+  const tbodyTeams = document.getElementById("teams-standings");
+  tbodyTeams.innerHTML = "";
+
+  teamStandings.forEach((t, i) => {
+    const row = document.createElement("tr");
+    if (prevTeams[i]?.name !== t.name) row.classList.add("changed");
+    const tdPos = document.createElement("td"); tdPos.textContent = i + 1;
+    const tdName = document.createElement("td"); tdName.textContent = t.name;
+    const tdPoints = document.createElement("td"); 
+    tdPoints.textContent = finishedRaces.length ? t.points : "—";
+
+    row.append(tdPos, tdName, tdPoints);
+    tbodyTeams.appendChild(row);
+  });
+
+  localStorage.setItem("prevTeams", JSON.stringify(teamStandings));
+});
