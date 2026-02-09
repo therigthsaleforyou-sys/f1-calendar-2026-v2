@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* HERO E FICHA já seguem os estilos do style.css da homepage, sem max-width */
-    /* Botão voltar ao calendário */
+    /* Botão Ver Resultados */
     .back-calendar-btn {
       display: block;
       width: 100%;
@@ -22,14 +21,8 @@
       color: #fff;
       transition: box-shadow 0.2s ease, transform 0.1s ease;
     }
-
-    .back-calendar-btn:hover {
-      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-    }
-
-    .back-calendar-btn:active {
-      transform: scale(0.96);
-    }
+    .back-calendar-btn:hover { box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); }
+    .back-calendar-btn:active { transform: scale(0.96); }
 
     /* Botão Voltar ao topo */
     #back-to-top {
@@ -48,18 +41,9 @@
       z-index: 999;
       transition: box-shadow 0.2s ease, transform 0.1s ease;
     }
-
-    #back-to-top:hover {
-      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-    }
-
-    #back-to-top:active {
-      transform: scale(0.96);
-    }
-
-    #back-to-top.show {
-      display: block;
-    }
+    #back-to-top:hover { box-shadow: 0 0 12px rgba(255, 0, 0, 0.8); }
+    #back-to-top:active { transform: scale(0.96); }
+    #back-to-top.show { display: block; }
   </style>
 </head>
 <body>
@@ -100,8 +84,8 @@
         <p><strong>Meteorologia:</strong> Sol, 28°C</p>
       </div>
 
-      <!-- Botão voltar ao calendário -->
-      <a href="../index.html" class="back-calendar-btn">← Voltar ao calendário</a>
+      <!-- Botão para resultados -->
+      <a href="resultados.html#australia" class="back-calendar-btn">🏁 Ver Resultados</a>
     </div>
   </section>
 
@@ -150,9 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const favBtn = document.querySelector(".fav-btn");
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  if (favorites.includes("australia")) {
-    favBtn.classList.add("active");
-  }
+  if (favorites.includes("australia")) favBtn.classList.add("active");
 
   favBtn.addEventListener("click", () => {
     if (favorites.includes("australia")) {
@@ -168,11 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* BACK TO TOP */
   const backToTop = document.getElementById("back-to-top");
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) {
-      backToTop.classList.add("show");
-    } else {
-      backToTop.classList.remove("show");
-    }
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
   });
 
   backToTop.addEventListener("click", () => {
