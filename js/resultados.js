@@ -1,61 +1,59 @@
 // js/resultados.js
-// Página Resultados – versão mínima, estável e segura
+// Página Resultados – JS comportamental (seguro, isolado)
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
-
-  const raceCards = document.getElementById("race-cards");
+  const cards = document.querySelectorAll(".race-card");
   const backToTop = document.getElementById("back-to-top");
 
-  if (!raceCards) {
-    console.error("Elemento #race-cards não encontrado");
-    return;
-  }
+  /* =========================
+     ABRIR / FECHAR RESULTADOS
+  ========================= */
 
-  raceCards.innerHTML = "";
-
-  const now = new Date();
-
-  calendar2026.forEach(race => {
-    const raceDate = new Date(race.sessions.race);
-    const isFinished = raceDate < now;
-
-    const card = document.createElement("div");
-    card.className = "race-card";
-
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-
-      <div class="race-details hidden">
-        <p><strong>Data da corrida:</strong> ${raceDate.toLocaleString("pt-PT")}</p>
-        <p>
-          <strong>Estado:</strong>
-          ${isFinished ? "🏁 Resultado disponível" : "⏳ Ainda não disputada"}
-        </p>
-
-        ${
-          isFinished
-            ? `<p>Resultados detalhados serão adicionados em breve.</p>`
-            : `<p>Volte após a corrida para ver os resultados.</p>`
-        }
-      </div>
-    `;
-
-    raceCards.appendChild(card);
-
-    // Abrir / fechar detalhes ao clicar na imagem
-    const img = card.querySelector(".race-image");
+  cards.forEach(card => {
+    const img = card.querySelector("img");
+    const header = card.querySelector(".race-header");
     const details = card.querySelector(".race-details");
 
-    img.addEventListener("click", () => {
+    // estado inicial: fechado
+    details.classList.add("hidden");
+
+    const toggle = () => {
       details.classList.toggle("hidden");
+    };
+
+    img.addEventListener("click", toggle);
+    header.addEventListener("click", toggle);
+  });
+
+  /* =========================
+     FAVORITOS (reuse)
+  ========================= */
+
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+  cards.forEach(card => {
+    const btn = card.querySelector(".fav-btn");
+    const id = btn.dataset.id;
+
+    if (favorites.includes(id)) {
+      card.classList.add("favorite");
+      btn.classList.add("active");
+    }
+
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+
+      if (favorites.includes(id)) {
+        favorites.splice(favorites.indexOf(id), 1);
+        card.classList.remove("favorite");
+        btn.classList.remove("active");
+      } else {
+        favorites.push(id);
+        card.classList.add("favorite");
+        btn.classList.add("active");
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(favorites));
     });
   });
 
@@ -63,17 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
      BACK TO TOP
   ========================= */
 
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 400) {
-        backToTop.classList.add("show");
-      } else {
-        backToTop.classList.remove("show");
-      }
-    });
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
+  });
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
