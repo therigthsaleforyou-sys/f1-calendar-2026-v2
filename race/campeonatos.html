@@ -2,128 +2,65 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Campeonatos F1 2026</title>
+  <title>Campeonato F1 2026 – Austrália</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    /* Cards idênticos aos da homepage */
-    .championship-card {
-      background: #111;
-      border: 2px solid #ff0000;
-      border-radius: 14px;
-      max-width: 420px;
-      margin: 16px auto;
-      padding: 16px;
-      box-shadow: 0 0 12px rgba(255,0,0,0.4);
-    }
-
-    .championship-card h2 {
-      text-align: center;
-      margin-bottom: 12px;
-      font-size: 1.2rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    th, td {
-      border: 1px solid #444;
-      padding: 6px;
-    }
-
-    th {
-      background: #222;
-      font-weight: 700;
-    }
-
-    tr:nth-child(even) { background: #1a1a1a; }
-
-    /* Back to top */
-    #back-to-top {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      display: none;
-      background: #000;
-      color: #fff;
-      border: 2px solid #ff0000;
-      border-radius: 14px;
-      padding: 10px 16px;
-      font-weight: 700;
-      font-size: 16px;
-      cursor: pointer;
-      z-index: 999;
-      transition: box-shadow 0.2s ease, transform 0.1s ease;
-    }
-
-    #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
-    #back-to-top:active { transform: scale(0.96); }
-    #back-to-top.show { display: block; }
-  </style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
 <header class="main-header">
   <nav class="nav">
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="../race/resultados.html">Resultados</a>
   </nav>
 </header>
 
 <main>
+  <section class="championship-wrapper">
 
-  <!-- CARD CAMPEONATO DE PILOTOS -->
-  <section class="championship-card">
-    <h2>Campeonato de Pilotos 2026</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Posição</th>
-          <th>Piloto</th>
-          <th>Equipa</th>
-          <th>Pontos</th>
-        </tr>
-      </thead>
-      <tbody id="pilots-standings">
-        <!-- JS preenche -->
-      </tbody>
-    </table>
+    <!-- TABELA PILOTOS -->
+    <div class="championship-card">
+      <h3>Campeonato de Pilotos – Austrália</h3>
+      <table class="championship-table">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Piloto</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody id="drivers-standings">
+          <!-- Preenchido pelo JS -->
+        </tbody>
+      </table>
+      <a href="../index.html" class="back-calendar-btn">← Voltar ao calendário</a>
+    </div>
+
+    <!-- TABELA CONSTRUTORES -->
+    <div class="championship-card">
+      <h3>Campeonato de Construtores – Austrália</h3>
+      <table class="championship-table">
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Construtor</th>
+            <th>Pontos</th>
+          </tr>
+        </thead>
+        <tbody id="teams-standings">
+          <!-- Preenchido pelo JS -->
+        </tbody>
+      </table>
+    </div>
+
   </section>
-
-  <!-- CARD CAMPEONATO DE CONSTRUTORES -->
-  <section class="championship-card">
-    <h2>Campeonato de Construtores 2026</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Posição</th>
-          <th>Equipa</th>
-          <th>Pontos</th>
-        </tr>
-      </thead>
-      <tbody id="constructors-standings">
-        <!-- JS preenche -->
-      </tbody>
-    </table>
-  </section>
-
 </main>
 
 <footer style="text-align:center;padding:20px;opacity:.6">
   F1 2026
 </footer>
 
-<!-- BOTÃO VOLTAR AO TOPO -->
-<button id="back-to-top">Voltar ao topo</button>
-
-<script src="../data/calendar2026-v2.js"></script>
-<script src="../js/campeonatos.js"></script>
+<script src="campeonatos.js"></script>
 </body>
 </html>
