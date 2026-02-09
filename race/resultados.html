@@ -1,114 +1,91 @@
-// js/resultados.js
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
-
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-  const raceResults = document.getElementById("race-results");
-  const backToTop = document.getElementById("back-to-top");
-
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-  /* =========================
-     HERO – corrida ativa
-  ========================= */
-  function getActiveRace() {
-    const now = new Date();
-    const nextRace = calendar2026.find(r => new Date(r.sessions.race) > now);
-    return nextRace || calendar2026[0];
-  }
-
-  const activeRace = getActiveRace();
-  heroImage.src = activeRace.heroImage || activeRace.cardImage;
-  heroTitle.textContent = `Resultados: ${activeRace.name}`;
-
-  /* =========================
-     FUNÇÃO PARA CRIAR CARDS DINÂMICOS
-  ========================= */
-  function createRaceCard(race) {
-    const card = document.createElement("div");
-    card.className = "race-card";
-    card.dataset.id = race.id;
-
-    const isFav = favorites.includes(race.id);
-    if (isFav) card.classList.add("favorite");
-
-    card.innerHTML = `
-      <img class="race-image" src="${race.diagram || race.cardImage}" alt="Diagrama da pista – ${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-        <button class="fav-btn ${isFav ? "active" : ""}" data-id="${race.id}">🏁</button>
-      </div>
-      <div class="race-details hidden">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> ${race.results2026?.pole || "–"}</p>
-        <p><strong>Pódio:</strong> ${race.results2026?.podium || "–"}</p>
-        <p><strong>Volta mais rápida:</strong> ${race.results2026?.fastestLap || "–"}</p>
-        <p><strong>Meteorologia:</strong> ${race.results2026?.weather || "–"}</p>
-      </div>
-    `;
-
-    // 📌 ABRIR/CHECAR DETALHES AO CLICAR NA IMAGEM
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-
-    img.addEventListener("click", () => {
-      if (details.classList.contains("hidden")) {
-        details.classList.remove("hidden");
-        details.style.opacity = 0;
-        setTimeout(() => { details.style.opacity = 1; }, 10);
-      } else {
-        details.style.opacity = 0;
-        setTimeout(() => { details.classList.add("hidden"); }, 200);
-      }
-    });
-
-    return card;
-  }
-
-  /* =========================
-     GERAR TODOS OS CARDS
-  ========================= */
-  raceResults.innerHTML = "";
-  calendar2026.forEach(race => {
-    const card = createRaceCard(race);
-    raceResults.appendChild(card);
-  });
-
-  /* =========================
-     FAVORITOS
-  ========================= */
-  raceResults.addEventListener("click", e => {
-    if (e.target.classList.contains("fav-btn")) {
-      const id = e.target.dataset.id;
-      const card = e.target.closest(".race-card");
-
-      if (favorites.includes(id)) {
-        favorites.splice(favorites.indexOf(id), 1);
-        e.target.classList.remove("active");
-        card.classList.remove("favorite");
-      } else {
-        favorites.push(id);
-        e.target.classList.add("active");
-        card.classList.add("favorite");
-      }
-
-      localStorage.setItem("favorites", JSON.stringify(favorites));
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Botão Voltar ao topo */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
     }
-  });
+    #back-to-top:hover {
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+    }
+    #back-to-top:active {
+      transform: scale(0.96);
+    }
+    #back-to-top.show {
+      display: block;
+    }
 
-  /* =========================
-     BACK TO TOP
-  ========================= */
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
-  });
+    /* Botão flutuante Campeonatos */
+    #btn-campeonatos {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      padding: 12px 20px;
+      border-radius: 16px;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      font-weight: 700;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    #btn-campeonatos:hover {
+      box-shadow: 0 0 12px rgba(255,0,0,0.8);
+    }
+    #btn-campeonatos:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body>
 
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="../index.html">Calendário</a>
+    <a href="../teams.html">Equipas</a>
+    <a href="../f1noticias.html">Notícias</a>
+    <a href="resultados.html" class="active">Resultados</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
+  <h2 id="hero-title">Grande Prémio Ativo</h2>
+</section>
+
+<!-- RESULTADOS -->
+<main>
+  <section id="race-results"></section>
+</main>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top">↑</button>
+
+<!-- BOTÃO CAMPEONATOS -->
+<button id="btn-campeonatos" onclick="location.href='campeonatos.html'">Campeonatos</button>
+
+<script src="../data/calendar2026-v2.js"></script>
+<script src="js/resultados.js"></script>
+</body>
+</html>
