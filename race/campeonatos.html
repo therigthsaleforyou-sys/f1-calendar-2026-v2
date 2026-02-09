@@ -1,88 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campeonatos F1 2026</title>
-<link rel="stylesheet" href="../css/style.css">
-<style>
-  .champ-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 10px 0;
-  }
+  <meta charset="UTF-8">
+  <title>Campeonatos F1 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Cards de tabelas */
+    .championship-card {
+      background: #111;
+      color: #fff;
+      padding: 16px;
+      margin: 16px auto;
+      border-radius: 14px;
+      max-width: 900px;
+      box-shadow: 0 0 12px rgba(255,0,0,0.5);
+    }
+    .championship-card h2 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 8px;
+    }
+    th {
+      background: #222;
+      font-weight: 700;
+    }
+    tr:nth-child(even) { background: #1a1a1a; }
 
-  .champ-card {
-    background: #111;
-    color: #fff;
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(255,0,0,0.5);
-    font-family: system-ui, sans-serif;
-  }
-
-  .champ-card strong {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 4px;
-  }
-
-  #back-to-top {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    display: none;
-    background: #000;
-    color: #fff;
-    border: 2px solid #ff0000;
-    border-radius: 14px;
-    padding: 10px 16px;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 999;
-    transition: box-shadow 0.2s ease, transform 0.1s ease;
-  }
-
-  #back-to-top:hover {
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
-  }
-
-  #back-to-top:active {
-    transform: scale(0.96);
-  }
-
-  #back-to-top.show {
-    display: block;
-  }
-</style>
+    /* Back to top */
+    #back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      display: none;
+      background: #000;
+      color: #fff;
+      border: 2px solid #ff0000;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow 0.2s ease, transform 0.1s ease;
+    }
+    #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
+    #back-to-top:active { transform: scale(0.96); }
+    #back-to-top.show { display: block; }
+  </style>
 </head>
 <body>
 
-<header>
-  <nav>
+<!-- ================= HEADER ================= -->
+<header class="main-header">
+  <nav class="nav">
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html">Resultados</a>
+    <a href="../race/resultados.html">Resultados</a>
   </nav>
 </header>
 
 <main>
 
-  <section id="drivers-champ">
+  <!-- CARD CAMPEONATO DE PILOTOS -->
+  <section class="championship-card">
     <h2>Campeonato de Pilotos 2026</h2>
-    <div id="drivers-table" class="champ-card-wrapper">
-      <!-- Cards preenchidos pelo JS -->
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Piloto</th>
+          <th>Equipa</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="pilots-standings">
+        <!-- JS preenche -->
+      </tbody>
+    </table>
   </section>
 
-  <section id="constructors-champ">
+  <!-- CARD CAMPEONATO DE CONSTRUTORES -->
+  <section class="championship-card">
     <h2>Campeonato de Construtores 2026</h2>
-    <div id="constructors-table" class="champ-card-wrapper">
-      <!-- Cards preenchidos pelo JS -->
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Equipa</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="constructors-standings">
+        <!-- JS preenche -->
+      </tbody>
+    </table>
   </section>
 
 </main>
@@ -91,8 +113,10 @@
   F1 2026
 </footer>
 
+<!-- BOTÃO VOLTAR AO TOPO -->
 <button id="back-to-top">Voltar ao topo</button>
 
-<script src="js/campeonatos.js"></script>
+<script src="../data/calendar2026-v2.js"></script>
+<script src="../js/campeonatos.js"></script>
 </body>
 </html>
