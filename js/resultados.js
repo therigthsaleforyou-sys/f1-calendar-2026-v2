@@ -1,4 +1,3 @@
-// js/resultados.js
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -11,18 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const backToTop = document.getElementById("back-to-top");
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  /* ================= HERO – corrida ativa ================= */
+  // Corrida ativa
   function getActiveRace() {
     const now = new Date();
     const nextRace = calendar2026.find(r => new Date(r.sessions.race) > now);
     return nextRace || calendar2026[0];
   }
-
   const activeRace = getActiveRace();
   heroImage.src = activeRace.heroImage || activeRace.cardImage;
   heroTitle.textContent = `Resultados: ${activeRace.name}`;
 
-  /* ================= FUNÇÃO PARA CRIAR CARDS ================= */
+  // Função para criar card
   function createRaceCard(race) {
     const card = document.createElement("div");
     card.className = "race-card";
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isFav) card.classList.add("favorite");
 
     card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="Diagrama da pista – ${race.name}">
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
         <button class="fav-btn ${isFav ? "active" : ""}" data-id="${race.id}">🏁</button>
@@ -46,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // Abrir/Fechar detalhes ao clicar na imagem
+    // Abrir detalhes ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
 
@@ -64,14 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return card;
   }
 
-  /* ================= GERAR TODOS OS CARDS ================= */
+  // Gerar cards
   raceResults.innerHTML = "";
   calendar2026.forEach(race => {
     const card = createRaceCard(race);
     raceResults.appendChild(card);
   });
 
-  /* ================= FAVORITOS ================= */
+  // Favoritos
   raceResults.addEventListener("click", e => {
     if (e.target.classList.contains("fav-btn")) {
       const id = e.target.dataset.id;
@@ -91,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ================= BACK TO TOP ================= */
+  // Back to top
   window.addEventListener("scroll", () => {
     if (window.scrollY > 400) backToTop.classList.add("show");
     else backToTop.classList.remove("show");
