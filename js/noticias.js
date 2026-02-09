@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
 
-  // Vídeos específicos
+  // URLs dos vídeos (Dailymotion embed)
   const videos = {
     novidades: "https://www.dailymotion.com/embed/video/x9ykhj0",
-    australia: "https://geo.dailymotion.com/player.html?video=x9gc1rq",
+    australia: "https://www.dailymotion.com/embed/video/x9gc1rq",
     placeholder: "https://www.dailymotion.com/embed/video/x1e9phv" // vídeo genérico F1
   };
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }))
   ];
 
-  // Gerar cards
+  // Gerar cards dinamicamente
   cardsData.forEach(cardData => {
     const card = document.createElement("div");
     card.className = "race-card";
@@ -47,14 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="race-details hidden">
         <p>${cardData.details.replace(/\n/g, "<br>")}</p>
         <div class="video-wrapper">
-          <iframe src="${cardData.video}" frameborder="0" allowfullscreen style="width:100%; height:200px;"></iframe>
+          <iframe data-src="${cardData.video}" frameborder="0" allowfullscreen style="width:100%; height:200px;"></iframe>
         </div>
       </div>
     `;
 
     raceCards.appendChild(card);
 
-    // Abrir/Fechar com efeito suave e iniciar vídeo
+    // Abrir/Fechar card com efeito suave e iniciar/parar vídeo
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     const iframe = details.querySelector("iframe");
@@ -62,19 +62,17 @@ document.addEventListener("DOMContentLoaded", () => {
     img.addEventListener("click", () => {
       const open = !details.classList.contains("hidden");
       if (open) {
-        details.style.maxHeight = details.scrollHeight + "px"; // fixa antes do fechar
-        setTimeout(() => {
-          details.style.maxHeight = "0";
-        }, 10);
+        // fechar card
+        details.style.maxHeight = details.scrollHeight + "px"; 
+        setTimeout(() => details.style.maxHeight = "0", 10);
         setTimeout(() => details.classList.add("hidden"), 400);
-        // parar vídeo ao fechar
-        iframe.src = iframe.src;
+        iframe.src = ""; // parar vídeo
       } else {
+        // abrir card
         details.classList.remove("hidden");
         details.style.maxHeight = "0";
-        setTimeout(() => {
-          details.style.maxHeight = details.scrollHeight + "px";
-        }, 10);
+        setTimeout(() => details.style.maxHeight = details.scrollHeight + "px", 10);
+        iframe.src = iframe.dataset.src; // carregar vídeo
       }
     });
   });
