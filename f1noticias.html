@@ -4,58 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 Notícias 2026</title>
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
+  <!-- CABEÇALHO -->
   <header>
-    <nav class="nav-main">
-      <a href="index.html">Calendário</a>
-      <a href="f1noticias.html" class="active">Notícias</a>
+    <h1>F1 Notícias 2026</h1>
+    <nav>
+      <a href="index.html">Homepage</a>
+      <a href="f1noticias.html">Notícias</a>
       <a href="teams.html">Equipas</a>
       <a href="resultados.html">Resultados</a>
     </nav>
   </header>
 
-  <!-- ================= HERO ================= -->
+  <!-- HERO -->
   <section id="hero">
     <img id="hero-image" src="" alt="Hero Corrida">
     <h2 id="hero-title"></h2>
   </section>
 
-  <!-- ================= CARDS ================= -->
-  <section class="cards-wrapper">
+  <!-- CARDS DAS CORRIDAS -->
+  <section id="race-cards-wrapper">
     <div id="race-cards">
 
-      <!-- ===== CARD NOVIDADES ===== -->
-      <div class="race-card" data-id="novidades">
-        <img class="race-image" src="assets/heroes/novidades.jpg" alt="Novidades F1">
-
+      <!-- CARD NOVO: Novidades -->
+      <div class="race-card" data-id="novidades" data-title="Novidades F1 2026" data-hero="assets/heroes/novidades.jpg" data-race="2026-01-01T00:00:00Z">
+        <img class="race-image" src="assets/races/novidades.jpg" alt="Novidades F1">
         <div class="race-header">
-          <h3>Novidades F1</h3>
+          <h3>Novidades F1 2026</h3>
         </div>
-
         <div class="race-details hidden">
-          <p>
-            Acompanhe aqui as últimas notícias, vídeos e destaques
-            da última corrida de Fórmula 1.
-          </p>
+          <p>Fique por dentro de todas as novidades da temporada de 2026!</p>
         </div>
       </div>
 
-      <!-- Os restantes race-card são gerados dinamicamente pelo noticias.js -->
+      <!-- OS CARDS DAS CORRIDAS SERÃO ADICIONADOS PELO JS (calendar2026) -->
 
     </div>
   </section>
 
-  <!-- ================= BACK TO TOP ================= -->
+  <!-- BACK TO TOP -->
   <button id="back-to-top">↑</button>
 
-  <!-- ================= SCRIPTS ================= -->
+  <!-- SCRIPTS -->
   <script src="data/calendar2026-v2.js?v=3"></script>
   <script src="js/noticias.js?v=2"></script>
-
 </body>
 </html>
