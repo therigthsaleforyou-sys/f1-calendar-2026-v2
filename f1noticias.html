@@ -21,25 +21,24 @@
   <!-- HERO -->
   <section id="hero">
     <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida">
-    <h2 id="hero-title"></h2>
-  </section>
-
-  <!-- CARDS NOVIDADES -->
-  <section class="cards-wrapper">
-    <div class="race-card" data-id="novidades">
-      <img class="race-image" src="assets/heroes/novidades.jpg" alt="Novidades">
-      <div class="race-header">
-        <h3>Novidades da Temporada 2026</h3>
-      </div>
-      <div class="race-details hidden">
-        <p>Confira todas as novidades e atualizações sobre a F1 2026!</p>
-      </div>
-    </div>
+    <h2 id="hero-title">Grande Prémio da Austrália</h2>
+    <p id="hero-countdown" class="countdown" style="display:none;"></p>
   </section>
 
   <!-- CARDS DAS CORRIDAS -->
-  <section class="cards-wrapper">
-    <div id="race-cards"></div>
+  <section id="race-cards-wrapper" class="cards-wrapper">
+    <div id="race-cards">
+      <!-- Card Novidades -->
+      <div class="race-card">
+        <img class="race-image" src="assets/novidades.jpg" alt="Novidades F1">
+        <div class="race-header">
+          <h3>Novidades F1</h3>
+        </div>
+        <div class="race-details hidden">
+          <p>Confira as últimas notícias da Fórmula 1, vídeos e atualizações da temporada 2026.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- BACK TO TOP -->
@@ -48,5 +47,6 @@
   <!-- SCRIPTS -->
   <script src="data/calendar2026-v2.js?v=3"></script>
   <script src="js/noticias.js?v=2"></script>
+
 </body>
 </html>
