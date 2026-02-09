@@ -2,11 +2,39 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Resultados F1 2026</title>
+  <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* Botão voltar ao topo */
+    /* Cards das tabelas */
+    .champ-card {
+      border: 2px solid #ff0000;
+      border-radius: 16px;
+      background: #111;
+      color: #fff;
+      padding: 16px;
+      margin: 16px auto;
+      max-width: 800px;
+      box-shadow: 0 0 8px rgba(255,0,0,0.3);
+    }
+    .champ-card h3 {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #444;
+    }
+    th {
+      background-color: #222;
+    }
+
+    /* Back to top */
     #back-to-top {
       position: fixed;
       bottom: 80px;
@@ -26,109 +54,57 @@
     #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
     #back-to-top:active { transform: scale(0.96); }
     #back-to-top.show { display: block; }
-
-    /* Botão flutuante Campeonatos */
-    #btn-campeonatos {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #000;
-      color: #fff;
-      border: 2px solid #ff0000;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      z-index: 999;
-      text-align: center;
-      transition: box-shadow 0.2s ease, transform 0.1s ease;
-      text-decoration: none;
-    }
-    #btn-campeonatos:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
-    #btn-campeonatos:active { transform: scale(0.96); }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="main-header">
-  <nav class="nav">
+<header>
+  <nav>
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html" class="active">Resultados</a>
+    <a href="resultados.html">Resultados</a>
+    <a href="campeonatos.html" class="active">Campeonatos</a>
   </nav>
 </header>
 
 <main>
-  <!-- HERO -->
-  <section id="hero">
-    <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
-    <h2 id="hero-title">Grande Prémio da Austrália</h2>
+  <section id="pilotos" class="champ-card">
+    <h3>Campeonato de Pilotos 2026</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Piloto</th>
+          <th>Equipe</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="pilotos-body">
+        <!-- Conteúdo gerado pelo JS -->
+      </tbody>
+    </table>
   </section>
 
-  <!-- BLOCO DE CORRIDAS -->
-  <section id="race-results">
-
-    <!-- ROUND 1 – Austrália -->
-    <div class="race-card" data-id="australia">
-      <img src="../assets/diagramas/australia2d.jpg" alt="Diagrama da pista – Austrália">
-      <div class="race-header">
-        <h3>Grande Prémio da Austrália – 2026</h3>
-        <button class="fav-btn" data-id="australia">🏁</button>
-      </div>
-      <div class="race-details">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
-
-    <!-- ROUND 2 – China -->
-    <div class="race-card" data-id="china">
-      <img src="../assets/diagramas/china2d.jpg" alt="Diagrama da pista – China">
-      <div class="race-header">
-        <h3>Grande Prémio da China – 2026</h3>
-        <button class="fav-btn" data-id="china">🏁</button>
-      </div>
-      <div class="race-details">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
-
-    <!-- ROUND 3 – Japão -->
-    <div class="race-card" data-id="japan">
-      <img src="../assets/diagramas/japan2d.jpg" alt="Diagrama da pista – Japão">
-      <div class="race-header">
-        <h3>Grande Prémio do Japão – 2026</h3>
-        <button class="fav-btn" data-id="japan">🏁</button>
-      </div>
-      <div class="race-details">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
-
-    <!-- OUTRAS CORRIDAS ... continuar como já existente -->
-
+  <section id="construtores" class="champ-card">
+    <h3>Campeonato de Construtores 2026</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+          <th>Equipe</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody id="construtores-body">
+        <!-- Conteúdo gerado pelo JS -->
+      </tbody>
+    </table>
   </section>
 </main>
 
-<!-- BOTÃO FLUTUANTE – CAMPEONATOS -->
-<a id="btn-campeonatos" href="campeonatos.html">Campeonatos</a>
-
-<!-- BACK TO TOP -->
 <button id="back-to-top">↑</button>
 
-<script src="js/resultados.js"></script>
+<script src="campeonatos.js"></script>
 </body>
 </html>
