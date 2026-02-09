@@ -5,10 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campeonatos F1 2026</title>
 <link rel="stylesheet" href="../css/style.css">
+<style>
+  .champ-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .champ-card {
+    background: #111;
+    color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(255,0,0,0.5);
+    font-family: system-ui, sans-serif;
+  }
+
+  .champ-card strong {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+  }
+
+  #back-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    display: none;
+    background: #000;
+    color: #fff;
+    border: 2px solid #ff0000;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 999;
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+  }
+
+  #back-to-top:hover {
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
+  }
+
+  #back-to-top:active {
+    transform: scale(0.96);
+  }
+
+  #back-to-top.show {
+    display: block;
+  }
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <nav>
     <a href="../index.html">Calendário</a>
@@ -23,14 +74,14 @@
   <section id="drivers-champ">
     <h2>Campeonato de Pilotos 2026</h2>
     <div id="drivers-table" class="champ-card-wrapper">
-      <!-- Linhas serão preenchidas pelo JS -->
+      <!-- Cards preenchidos pelo JS -->
     </div>
   </section>
 
   <section id="constructors-champ">
     <h2>Campeonato de Construtores 2026</h2>
     <div id="constructors-table" class="champ-card-wrapper">
-      <!-- Linhas serão preenchidas pelo JS -->
+      <!-- Cards preenchidos pelo JS -->
     </div>
   </section>
 
