@@ -6,93 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
-<header>
-  <nav>
-    <a href="../index.html">Calendário</a>
-    <a href="../teams.html">Equipas</a>
-    <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html" class="active">Resultados</a>
-  </nav>
-</header>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <nav>
+      <a href="../index.html">Calendário</a>
+      <a href="../teams.html">Equipas</a>
+      <a href="../f1noticias.html">Notícias</a>
+      <a href="resultados.html" class="active">Resultados</a>
+    </nav>
+  </header>
 
-<main>
-
-  <!-- ================= HERO ================= -->
+  <!-- HERO -->
   <section id="hero">
     <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
-    <h2 id="hero-title">Resultados F1 2026</h2>
+    <h2 id="hero-title">Resultados: Grande Prémio da Austrália</h2>
   </section>
 
-  <!-- ================= RESULTADOS ================= -->
-  <section id="race-results">
+  <!-- CONTAINER DINÂMICO DE CORRIDAS -->
+  <main>
+    <section id="race-results">
+      <!-- Cards serão gerados pelo resultados.js -->
+    </section>
+  </main>
 
-    <!-- AUSTRÁLIA -->
-    <div class="race-card" data-id="australia">
-      <img class="race-image" src="../assets/diagramas/australia2d.jpg" alt="Austrália">
-      <div class="race-header">
-        <h3>Grande Prémio da Austrália – 2026</h3>
-        <button class="fav-btn" data-id="australia">🏁</button>
-      </div>
-      <div class="race-details hidden">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
+  <!-- BACK TO TOP -->
+  <button id="back-to-top">↑</button>
 
-    <!-- CHINA -->
-    <div class="race-card" data-id="china">
-      <img class="race-image" src="../assets/diagramas/china2d.jpg" alt="China">
-      <div class="race-header">
-        <h3>Grande Prémio da China – 2026</h3>
-        <button class="fav-btn" data-id="china">🏁</button>
-      </div>
-      <div class="race-details hidden">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
+  <footer style="text-align:center;padding:20px;opacity:.6">
+    F1 2026
+  </footer>
 
-    <!-- JAPÃO -->
-    <div class="race-card" data-id="japan">
-      <img class="race-image" src="../assets/diagramas/japan2d.jpg" alt="Japão">
-      <div class="race-header">
-        <h3>Grande Prémio do Japão – 2026</h3>
-        <button class="fav-btn" data-id="japan">🏁</button>
-      </div>
-      <div class="race-details hidden">
-        <h4>Resultados 2026</h4>
-        <p><strong>Pole:</strong> –</p>
-        <p><strong>Pódio:</strong> –</p>
-        <p><strong>Volta mais rápida:</strong> –</p>
-        <p><strong>Meteorologia:</strong> –</p>
-      </div>
-    </div>
-
-    <!-- (repete o mesmo padrão até à corrida 24) -->
-
-  </section>
-
-</main>
-
-<footer style="text-align:center;padding:20px;opacity:.6">
-  F1 2026
-</footer>
-
-<!-- BOTÃO VOLTAR AO TOPO (ÚNICO!) -->
-<button id="back-to-top">↑</button>
-
-<!-- SCRIPTS -->
-<script src="js/resultados.js"></script>
-
+  <!-- SCRIPTS -->
+  <script src="../data/calendar2026-v2.js?v=3"></script>
+  <script src="../js/resultados.js?v=2"></script>
 </body>
 </html>
