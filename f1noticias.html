@@ -9,14 +9,13 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO -->
-  <header class="site-header">
-    <h1>F1 Calendar 2026</h1>
-    <nav>
+  <!-- CABEÇALHO (SEM TÍTULO, ORDEM CORRETA) -->
+  <header class="main-header">
+    <nav class="nav">
       <a href="index.html">Calendário</a>
-      <a href="f1noticias.html" class="active">Notícias</a>
       <a href="teams.html">Equipas</a>
-      <a href="resultados.html">Resultados</a>
+      <a href="f1noticias.html" class="active">Notícias</a>
+      <a href="race/resultados.html">Resultados</a>
     </nav>
   </header>
 
@@ -26,7 +25,7 @@
     <h2 id="hero-title">Grande Prémio da Austrália</h2>
   </section>
 
-  <!-- NOTÍCIAS / CORRIDAS -->
+  <!-- CARDS -->
   <section id="race-cards-wrapper">
     <div id="race-cards">
 
@@ -41,9 +40,7 @@
         </div>
       </div>
 
-      <!-- EXEMPLO DE CARD DE CORRIDA -->
-      <!-- replica este padrão para os restantes GPs -->
-
+      <!-- EXEMPLO DE CORRIDA -->
       <div class="race-card"
            data-id="australia"
            data-title="Grande Prémio da Austrália"
