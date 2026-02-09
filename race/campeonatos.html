@@ -6,34 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* Cards de tabelas */
+    /* Cards idênticos aos da homepage */
     .championship-card {
       background: #111;
-      color: #fff;
-      padding: 16px;
-      margin: 16px auto;
+      border: 2px solid #ff0000;
       border-radius: 14px;
-      max-width: 900px;
-      box-shadow: 0 0 12px rgba(255,0,0,0.5);
+      max-width: 420px;
+      margin: 16px auto;
+      padding: 16px;
+      box-shadow: 0 0 12px rgba(255,0,0,0.4);
     }
+
     .championship-card h2 {
       text-align: center;
       margin-bottom: 12px;
+      font-size: 1.2rem;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: center;
       font-size: 0.95rem;
     }
+
     th, td {
       border: 1px solid #444;
-      padding: 8px;
+      padding: 6px;
     }
+
     th {
       background: #222;
       font-weight: 700;
     }
+
     tr:nth-child(even) { background: #1a1a1a; }
 
     /* Back to top */
@@ -53,6 +59,7 @@
       z-index: 999;
       transition: box-shadow 0.2s ease, transform 0.1s ease;
     }
+
     #back-to-top:hover { box-shadow: 0 0 12px rgba(255,0,0,0.8); }
     #back-to-top:active { transform: scale(0.96); }
     #back-to-top.show { display: block; }
