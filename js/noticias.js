@@ -1,94 +1,61 @@
-// js/noticias.js
-document.addEventListener("DOMContentLoaded", () => {
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Notícias 2026</title>
 
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-  const raceCardsContainer = document.getElementById("race-cards");
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-  const backToTop = document.getElementById("back-to-top");
+  <!-- ================= HEADER ================= -->
+  <header>
+    <nav class="nav-main">
+      <a href="index.html">Calendário</a>
+      <a href="f1noticias.html" class="active">Notícias</a>
+      <a href="teams.html">Equipas</a>
+      <a href="resultados.html">Resultados</a>
+    </nav>
+  </header>
 
-  const now = new Date();
+  <!-- ================= HERO ================= -->
+  <section id="hero">
+    <img id="hero-image" src="" alt="Hero Corrida">
+    <h2 id="hero-title"></h2>
+  </section>
 
-  // ================= HERO – próxima corrida =================
-  let nextRace = calendar2026.find(r => new Date(r.sessions.race) > now) || calendar2026[0];
+  <!-- ================= CARDS ================= -->
+  <section class="cards-wrapper">
+    <div id="race-cards">
 
-  heroImage.src = nextRace.heroImage;
-  heroTitle.textContent = nextRace.name;
+      <!-- ===== CARD NOVIDADES ===== -->
+      <div class="race-card" data-id="novidades">
+        <img class="race-image" src="assets/heroes/novidades.jpg" alt="Novidades F1">
 
-  // Hero clicável: scroll para o card
-  heroImage.addEventListener("click", () => {
-    const card = document.querySelector(`.race-card[data-id="${nextRace.id}"]`);
-    if(card){
-      card.scrollIntoView({ behavior: "smooth", block: "start" });
-      const details = card.querySelector(".race-details");
-      if(details){
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
-    }
-  });
+        <div class="race-header">
+          <h3>Novidades F1</h3>
+        </div>
 
-  // ================= CARDS DAS CORRIDAS =================
-  raceCardsContainer.innerHTML = "";
-
-  calendar2026.forEach(race => {
-    const card = document.createElement("div");
-    card.className = "race-card";
-    card.dataset.id = race.id;
-
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details hidden">
-        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-        <div class="race-link-wrapper">
-          <a class="race-link-btn" href="race/${race.id}.html">
-            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
-          </a>
+        <div class="race-details hidden">
+          <p>
+            Acompanhe aqui as últimas notícias, vídeos e destaques
+            da última corrida de Fórmula 1.
+          </p>
         </div>
       </div>
-    `;
 
-    raceCardsContainer.appendChild(card);
+      <!-- Os restantes race-card são gerados dinamicamente pelo noticias.js -->
 
-    // Dropdown click
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
+    </div>
+  </section>
 
-    if(img && details){
-      img.style.cursor = "pointer";
-      details.style.maxHeight = "0";
+  <!-- ================= BACK TO TOP ================= -->
+  <button id="back-to-top">↑</button>
 
-      img.addEventListener("click", () => {
-        const open = !details.classList.contains("hidden");
-        if(open){
-          details.style.maxHeight = "0";
-          setTimeout(()=>details.classList.add("hidden"), 400);
-        } else {
-          details.classList.remove("hidden");
-          details.style.maxHeight = details.scrollHeight + "px";
-        }
-      });
-    }
-  });
+  <!-- ================= SCRIPTS ================= -->
+  <script src="data/calendar2026-v2.js?v=3"></script>
+  <script src="js/noticias.js?v=2"></script>
 
-  // ================= BACK TO TOP =================
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
-  });
-
-});
+</body>
+</html>
