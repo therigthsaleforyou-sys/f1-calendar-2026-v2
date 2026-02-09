@@ -1,6 +1,5 @@
 // js/main.js
-// Homepage – versão estável com hero dinâmico + fichas clicáveis + efeito cards igual a notícias
-
+// Homepage – versão estável com hero dinâmico + fichas clicáveis
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -16,19 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
   /* =========================
-     HERO – próxima corrida
+     HERO – primeira corrida fixa Austrália
   ========================= */
+  const now = new Date();
+  let nextRace = calendar2026.find(r => new Date(r.sessions.race) > now);
 
-  // Hero começa sempre com Austrália
-  heroImage.src = "assets/heroes/australia_v2.jpg";
-  heroTitle.textContent = "Grande Prémio da Austrália";
-
-  function getNextRace() {
-    const now = new Date();
-    return calendar2026.find(r => new Date(r.sessions.race) > now);
+  // Hero inicial Austrália
+  const firstRace = calendar2026.find(r => r.id === "australia");
+  if(firstRace){
+    heroImage.src = firstRace.heroImage || firstRace.cardImage;
+    heroTitle.textContent = firstRace.name;
   }
 
-  function startCountdown(dateISO, race) {
+  function startCountdown(dateISO) {
     function update() {
       const now = new Date();
       const target = new Date(dateISO);
@@ -36,9 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (diff <= 0) {
         heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
-        // Quando o countdown chega a zero, atualiza o hero para a corrida ativa
-        heroImage.src = race.heroImage ? race.heroImage : race.cardImage;
-        heroTitle.textContent = race.name;
+
+        // Mudar hero para o card da corrida ativa
+        if(nextRace){
+          heroImage.src = nextRace.heroImage || nextRace.cardImage;
+          heroTitle.textContent = nextRace.name;
+        }
         return;
       }
 
@@ -54,13 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(update, 1000);
   }
 
-  const nextRace = getNextRace();
-  if (nextRace) startCountdown(nextRace.sessions.race, nextRace);
+  if(nextRace){
+    startCountdown(nextRace.sessions.race);
+  }
 
   /* =========================
      FICHAS DAS CORRIDAS
   ========================= */
-
   raceCards.innerHTML = "";
 
   calendar2026.forEach(race => {
@@ -68,23 +70,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const card = document.createElement("div");
     card.className = "race-card";
+    card.dataset.id = race.id;
     if (isFavorite) card.classList.add("favorite");
 
     card.innerHTML = `
       <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-
       <div class="race-header">
         <h3>${race.name}</h3>
         <button class="fav-btn ${isFavorite ? "active" : ""}" data-id="${race.id}">🏁</button>
       </div>
-
       <div class="race-details hidden">
         <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
         <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
         <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
         <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
         <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-
         <div class="race-link-wrapper">
           <a class="race-link-btn" href="race/${race.id}.html">
             Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
@@ -95,20 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     raceCards.appendChild(card);
 
-    // 📸 Efeito de abrir/fechar igual ao f1noticias
+    // 📸 Cards – abrir/fechar suave
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
+    if(details.classList.contains("hidden")) details.style.maxHeight = "0";
 
     img.addEventListener("click", () => {
       const isOpen = !details.classList.contains("hidden");
-
-      // Fecha todos os cards primeiro
-      document.querySelectorAll(".race-details").forEach(d => {
-        d.style.maxHeight = "0";
-        d.classList.add("hidden");
-      });
-
-      if (!isOpen) {
+      if(isOpen){
+        details.style.maxHeight = "0";
+        setTimeout(() => details.classList.add("hidden"), 300);
+      } else {
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
@@ -118,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      FAVORITOS
   ========================= */
-
   raceCards.addEventListener("click", e => {
     if (e.target.classList.contains("fav-btn")) {
       const id = e.target.dataset.id;
@@ -139,9 +135,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================
+     HERO CLICK – vai para corrida ativa
+  ========================= */
+  heroImage.addEventListener("click", () => {
+    if(!nextRace) return;
+    const card = document.querySelector(`.race-card[data-id="${nextRace.id}"]`);
+    if(card){
+      card.scrollIntoView({behavior: "smooth", block: "start"});
+      const details = card.querySelector(".race-details");
+      if(details){
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
+    }
+  });
+
+  /* =========================
      BACK TO TOP
   ========================= */
-
   window.addEventListener("scroll", () => {
     backToTop.classList.toggle("show", window.scrollY > 400);
   });
