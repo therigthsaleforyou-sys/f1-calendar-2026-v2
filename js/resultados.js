@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroTitle = document.getElementById("hero-title");
   const raceResults = document.getElementById("race-results");
   const backToTop = document.getElementById("back-to-top");
-
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  /* =========================
-     HERO – corrida ativa
-  ========================= */
+  /* ================= HERO – corrida ativa ================= */
   function getActiveRace() {
     const now = new Date();
     const nextRace = calendar2026.find(r => new Date(r.sessions.race) > now);
@@ -25,20 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
   heroImage.src = activeRace.heroImage || activeRace.cardImage;
   heroTitle.textContent = `Resultados: ${activeRace.name}`;
 
-  /* =========================
-     FUNÇÃO PARA CRIAR CARDS DINÂMICOS
-  ========================= */
+  /* ================= FUNÇÃO PARA CRIAR CARDS ================= */
   function createRaceCard(race) {
     const card = document.createElement("div");
     card.className = "race-card";
     card.dataset.id = race.id;
 
-    // Marcar favorito se já estiver salvo
     const isFav = favorites.includes(race.id);
     if (isFav) card.classList.add("favorite");
 
     card.innerHTML = `
-      <img src="${race.diagram || race.cardImage}" alt="Diagrama da pista – ${race.name}">
+      <img class="race-image" src="${race.cardImage}" alt="Diagrama da pista – ${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
         <button class="fav-btn ${isFav ? "active" : ""}" data-id="${race.id}">🏁</button>
@@ -52,35 +46,32 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-    // Abrir/fechar detalhes suavemente
-    const header = card.querySelector(".race-header");
+    // Abrir/Fechar detalhes ao clicar na imagem
+    const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
-    header.addEventListener("click", () => {
+
+    img.addEventListener("click", () => {
       if (details.classList.contains("hidden")) {
         details.classList.remove("hidden");
         details.style.opacity = 0;
-        setTimeout(() => { details.style.opacity = 1; }, 10);
+        setTimeout(() => details.style.opacity = 1, 10);
       } else {
         details.style.opacity = 0;
-        setTimeout(() => { details.classList.add("hidden"); }, 200);
+        setTimeout(() => details.classList.add("hidden"), 200);
       }
     });
 
     return card;
   }
 
-  /* =========================
-     GERAR TODOS OS CARDS
-  ========================= */
-  raceResults.innerHTML = ""; // limpar qualquer conteúdo
+  /* ================= GERAR TODOS OS CARDS ================= */
+  raceResults.innerHTML = "";
   calendar2026.forEach(race => {
     const card = createRaceCard(race);
     raceResults.appendChild(card);
   });
 
-  /* =========================
-     FAVORITOS
-  ========================= */
+  /* ================= FAVORITOS ================= */
   raceResults.addEventListener("click", e => {
     if (e.target.classList.contains("fav-btn")) {
       const id = e.target.dataset.id;
@@ -100,9 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* =========================
-     BACK TO TOP
-  ========================= */
+  /* ================= BACK TO TOP ================= */
   window.addEventListener("scroll", () => {
     if (window.scrollY > 400) backToTop.classList.add("show");
     else backToTop.classList.remove("show");
