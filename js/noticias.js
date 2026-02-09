@@ -1,89 +1,113 @@
+// js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const raceCards = document.querySelector("#race-cards");
+  const cards = Array.from(document.querySelectorAll(".race-card"));
+  const hero = document.getElementById("hero");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const backToTop = document.getElementById("back-to-top");
 
-  // ADICIONA OS CARDS DO CALENDAR2026
-  if (window.calendar2026) {
-    calendar2026.forEach(race => {
-      const card = document.createElement("div");
-      card.className = "race-card";
-      card.dataset.id = race.id;
-      card.dataset.title = race.name;
-      card.dataset.hero = race.heroImage;
-      card.dataset.race = race.sessions.race;
+  const now = new Date();
 
-      card.innerHTML = `
-        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-        <div class="race-header">
-          <h3>${race.name}</h3>
-        </div>
-        <div class="race-details hidden">
-          <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-          <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-          <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-          <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-          <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-        </div>
-      `;
+  let activeCard = cards[0];
+  let activeIndex = 0;
 
-      raceCards.appendChild(card);
+  /* =========================
+     DETETAR CORRIDA ATIVA
+  ========================= */
+  cards.forEach((card, index) => {
+    const raceDate = card.dataset.race;
+    if (!raceDate) return;
+
+    const raceEnd = new Date(raceDate + "T23:59:59");
+
+    if (raceEnd <= now) {
+      activeCard = card;
+      activeIndex = index;
+    }
+  });
+
+  /* =========================
+     HERO – IMAGEM E TÍTULO
+  ========================= */
+  if (activeCard && heroImage) {
+    const heroImg = activeCard.dataset.hero;
+    if (heroImg) heroImage.src = heroImg;
+  }
+
+  if (heroTitle && activeCard) {
+    const raceDate = activeCard.dataset.race;
+    const raceEnd = new Date(raceDate + "T23:59:59");
+    const fullTitle = activeCard.dataset.title;
+
+    if (now < raceEnd) {
+      heroTitle.textContent = fullTitle;
+    } else {
+      heroTitle.textContent = `Acompanhe o pós ${fullTitle}`;
+    }
+  }
+
+  /* =========================
+     HERO CLICÁVEL
+  ========================= */
+  if (hero && activeCard) {
+    hero.style.cursor = "pointer";
+    hero.addEventListener("click", () => {
+      activeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      const details = activeCard.querySelector(".race-details");
+      if(details) {
+        details.classList.remove("hidden");
+        details.style.maxHeight = details.scrollHeight + "px";
+      }
     });
   }
 
-  const cards = Array.from(document.querySelectorAll(".race-card"));
-
-  // DROPDOWN DAS FICHAS
+  /* =========================
+     DROPBOX DOS CARDS (TRANSIÇÃO SUAVE)
+  ========================= */
   cards.forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
+
     if (!img || !details) return;
 
+    details.classList.add("hidden"); // fechado ao carregar
+    details.style.maxHeight = "0";
     img.style.cursor = "pointer";
-    if(details.classList.contains("hidden")) details.style.maxHeight = "0";
 
     img.addEventListener("click", () => {
-      const open = !details.classList.contains("hidden");
-      if(open){
+      const isOpen = !details.classList.contains("hidden");
+
+      if (isOpen) {
+        // FECHAR
+        details.style.maxHeight = details.scrollHeight + "px"; // garante altura atual
+        details.offsetHeight; // força reflow para a transição
         details.style.maxHeight = "0";
-        setTimeout(()=>details.classList.add("hidden"),400);
+
+        details.addEventListener('transitionend', function handler() {
+          details.classList.add("hidden");
+          details.removeEventListener('transitionend', handler);
+        });
+
       } else {
+        // ABRIR
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
     });
   });
 
-  // HERO AUTOMÁTICO
-  let activeRace = cards[0];
-  const now = new Date();
+  /* =========================
+     BACK TO TOP
+  ========================= */
+  if (backToTop) {
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 400);
+    });
 
-  cards.forEach(card => {
-    const raceDate = new Date(card.dataset.race);
-    if(now >= raceDate) activeRace = card;
-  });
-
-  heroImage.src = activeRace.dataset.hero;
-  heroTitle.textContent = activeRace.dataset.title;
-
-  // HERO CLICK
-  heroImage.addEventListener("click", () => {
-    const details = activeRace.querySelector(".race-details");
-    activeRace.scrollIntoView({behavior:"smooth", block:"start"});
-    if(details){
-      details.classList.remove("hidden");
-      details.style.maxHeight = details.scrollHeight + "px";
-    }
-  });
-
-  // BACK TO TOP
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
-  });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 
 });
