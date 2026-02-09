@@ -1,145 +1,154 @@
 // js/noticias.js
 document.addEventListener("DOMContentLoaded", () => {
 
-  const cardsContainer = document.getElementById("race-cards");
-  const cards = Array.from(document.querySelectorAll(".race-card"));
+  const raceCards = document.getElementById("race-cards");
+  const backToTop = document.getElementById("back-to-top");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  const heroCountdown = document.getElementById("hero-countdown");
-  const backToTop = document.getElementById("back-to-top");
 
   const now = new Date();
-  let activeCard = cards[0]; // Novidades
-  let activeIndex = 0;
 
   // =========================
-  // DETETAR CORRIDA ATIVA
+  // CARD NOVIDADES
   // =========================
-  cards.forEach((card, index) => {
-    const raceDate = card.dataset.race;
-    if (!raceDate) return;
+  const novidadesCard = document.createElement("div");
+  novidadesCard.className = "race-card";
 
-    const raceEnd = new Date(raceDate + "T23:59:59");
+  novidadesCard.innerHTML = `
+    <img class="race-image" src="assets/news/novidades.jpg" alt="Novidades F1">
+    <div class="race-header">
+      <h3>Novidades F1 2026</h3>
+    </div>
+    <div class="race-details hidden">
+      <p>Fique por dentro das últimas notícias e vídeos da temporada 2026 da F1!</p>
+      <div class="video-wrapper hidden">
+        <iframe 
+          data-src="https://www.dailymotion.com/embed/video/7N8e8hA-rmY"
+          width="100%" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  `;
+  raceCards.appendChild(novidadesCard);
 
-    if (raceEnd >= now) {
-      activeCard = card;
-      activeIndex = index;
+  // =========================
+  // CARDS DAS CORRIDAS
+  // =========================
+  calendar2026.forEach(race => {
+    const card = document.createElement("div");
+    card.className = "race-card";
+    card.dataset.id = race.id;
+
+    let videoHTML = "";
+    if(race.id === "australia") {
+      videoHTML = `
+        <div class="video-wrapper hidden">
+          <iframe 
+            data-src="https://www.dailymotion.com/embed/video/x9gc1rq"
+            width="100%" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+          </iframe>
+        </div>
+      `;
     }
+
+    card.innerHTML = `
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+      <div class="race-header">
+        <h3>${race.name}</h3>
+        <button class="fav-btn" data-id="${race.id}">🏁</button>
+      </div>
+      <div class="race-details hidden">
+        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
+        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
+        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
+        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
+        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
+
+        ${videoHTML}
+
+        <div class="race-link-wrapper">
+          <a class="race-link-btn" href="race/${race.id}.html">
+            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
+          </a>
+        </div>
+      </div>
+    `;
+
+    raceCards.appendChild(card);
   });
 
   // =========================
-  // ADICIONAR VIDEOS
+  // ABRIR / FECHAR CARDS + VIDEO
   // =========================
-  // Card Novidades
-  const novidadesCard = cardsContainer.querySelector(".race-card:first-child");
-  if(novidadesCard){
-    const iframe = document.createElement("iframe");
-    iframe.width = "100%";
-    iframe.height = "315";
-    iframe.frameBorder = "0";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    iframe.allowFullscreen = true;
-    iframe.dataset.src = "https://www.youtube.com/embed/7N8e8hA-rmY";
-    novidadesCard.querySelector(".race-details").prepend(iframe);
-  }
-
-  // Outros cards (do calendar2026)
-  if(window.calendar2026 && Array.isArray(window.calendar2026)){
-    calendar2026.forEach(race => {
-      const card = document.createElement("div");
-      card.className = "race-card";
-      card.dataset.id = race.id;
-      card.dataset.title = race.name;
-      card.dataset.race = race.sessions.race;
-
-      card.innerHTML = `
-        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-        <div class="race-header">
-          <h3>${race.name}</h3>
-        </div>
-        <div class="race-details hidden">
-          <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-          <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-          <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-          <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-          <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-          <div class="race-link-wrapper">
-            <a class="race-link-btn" href="race/${race.id}.html">
-              Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
-            </a>
-          </div>
-        </div>
-      `;
-
-      // Adicionar vídeo só para Austrália
-      if(race.id === "australia"){
-        const iframe = document.createElement("iframe");
-        iframe.width = "100%";
-        iframe.height = "315";
-        iframe.frameBorder = "0";
-        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        iframe.dataset.src = "https://www.youtube.com/embed/md9-jG4RzXs";
-        card.querySelector(".race-details").prepend(iframe);
-      }
-
-      cardsContainer.appendChild(card);
-      cards.push(card);
-    });
-  }
-
-  // =========================
-  // HERO
-  // =========================
-  if(activeCard && heroImage && heroTitle){
-    heroImage.src = activeCard.dataset.hero || "assets/heroes/australia_v2.jpg";
-    heroTitle.textContent = activeCard.dataset.title || activeCard.querySelector("h3").textContent;
-  }
-
-  // =========================
-  // CARDS – DROPBOX
-  // =========================
-  cards.forEach(card => {
+  raceCards.querySelectorAll(".race-card").forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
-    const iframe = details.querySelector("iframe");
-
-    if(!img || !details) return;
-
-    details.classList.add("hidden");
-    details.style.maxHeight = "0";
-    img.style.cursor = "pointer";
+    const videoWrapper = card.querySelector(".video-wrapper");
+    const iframe = card.querySelector("iframe");
 
     img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
+      const open = !details.classList.contains("hidden");
 
-      if(isOpen){
-        // Fechar com animação suave
+      if(open){
+        // fechar card e parar vídeo
+        if(iframe) iframe.src = "";
         details.style.maxHeight = "0";
-        setTimeout(()=>{
+        setTimeout(() => {
           details.classList.add("hidden");
-          // Pausar vídeo
-          if(iframe) iframe.src = iframe.dataset.src;
-        },400);
+          if(videoWrapper) videoWrapper.classList.add("hidden");
+        }, 400);
       } else {
+        // abrir card e carregar vídeo
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
-        // Ativar autoplay do vídeo
-        if(iframe) iframe.src = iframe.dataset.src + "?autoplay=1";
+        if(videoWrapper){
+          videoWrapper.classList.remove("hidden");
+          if(iframe && iframe.dataset.src) iframe.src = iframe.dataset.src;
+        }
       }
     });
+  });
+
+  // =========================
+  // HERO – Corrida ativa
+  // =========================
+  const upcomingRace = calendar2026.find(r => new Date(r.sessions.race) > now) || calendar2026[0];
+  if(upcomingRace){
+    heroImage.src = upcomingRace.heroImage || upcomingRace.cardImage;
+    heroTitle.textContent = upcomingRace.name;
+  }
+
+  // =========================
+  // FAVORITOS
+  // =========================
+  raceCards.addEventListener("click", e => {
+    if(e.target.classList.contains("fav-btn")){
+      const id = e.target.dataset.id;
+      const card = e.target.closest(".race-card");
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+      if(favorites.includes(id)){
+        favorites.splice(favorites.indexOf(id),1);
+        e.target.classList.remove("active");
+        card.classList.remove("favorite");
+      } else {
+        favorites.push(id);
+        e.target.classList.add("active");
+        card.classList.add("favorite");
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
   });
 
   // =========================
   // BACK TO TOP
   // =========================
-  if(backToTop){
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top:0, behavior:"smooth" });
-    });
-  }
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 400);
+  });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
 
 });
