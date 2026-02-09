@@ -1,5 +1,6 @@
 // js/main.js
-// Homepage – versão estável com hero dinâmico + fichas clicáveis
+// Homepage – versão estável com hero dinâmico + fichas clicáveis + transições suaves
+
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -15,32 +16,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
   /* =========================
-     HERO – primeira corrida fixa Austrália
+     HERO – corrida ativa com Austrália fixa no início
   ========================= */
-  const now = new Date();
-  let nextRace = calendar2026.find(r => new Date(r.sessions.race) > now);
 
-  // Hero inicial Austrália
-  const firstRace = calendar2026.find(r => r.id === "australia");
-  if(firstRace){
-    heroImage.src = firstRace.heroImage || firstRace.cardImage;
-    heroTitle.textContent = firstRace.name;
+  let activeRace = calendar2026[0]; // primeira corrida = Austrália
+
+  function getActiveRace() {
+    const now = new Date();
+    for (let race of calendar2026) {
+      if (new Date(race.sessions.race) > now) return race;
+    }
+    return calendar2026[calendar2026.length - 1]; // última corrida caso todas passem
   }
 
-  function startCountdown(dateISO) {
+  function startCountdown(race) {
     function update() {
       const now = new Date();
-      const target = new Date(dateISO);
+      const target = new Date(race.sessions.race);
       const diff = target - now;
 
       if (diff <= 0) {
         heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
-
-        // Mudar hero para o card da corrida ativa
-        if(nextRace){
-          heroImage.src = nextRace.heroImage || nextRace.cardImage;
-          heroTitle.textContent = nextRace.name;
-        }
+        // Atualizar hero para próxima corrida
+        activeRace = getActiveRace();
+        heroImage.src = activeRace.heroImage || activeRace.cardImage;
+        heroTitle.textContent = activeRace.name;
         return;
       }
 
@@ -56,13 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(update, 1000);
   }
 
-  if(nextRace){
-    startCountdown(nextRace.sessions.race);
-  }
+  heroImage.src = activeRace.heroImage || activeRace.cardImage;
+  heroTitle.textContent = activeRace.name;
+  startCountdown(activeRace);
 
   /* =========================
      FICHAS DAS CORRIDAS
   ========================= */
+
   raceCards.innerHTML = "";
 
   calendar2026.forEach(race => {
@@ -70,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const card = document.createElement("div");
     card.className = "race-card";
-    card.dataset.id = race.id;
     if (isFavorite) card.classList.add("favorite");
 
     card.innerHTML = `
@@ -95,26 +95,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     raceCards.appendChild(card);
 
-    // 📸 Cards – abrir/fechar suave
+    // Drop-down suave ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
-    if(details.classList.contains("hidden")) details.style.maxHeight = "0";
+    if (img && details) {
+      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+      img.style.cursor = "pointer";
 
-    img.addEventListener("click", () => {
-      const isOpen = !details.classList.contains("hidden");
-      if(isOpen){
-        details.style.maxHeight = "0";
-        setTimeout(() => details.classList.add("hidden"), 300);
-      } else {
-        details.classList.remove("hidden");
-        details.style.maxHeight = details.scrollHeight + "px";
-      }
-    });
+      img.addEventListener("click", () => {
+        const open = !details.classList.contains("hidden");
+        if (open) {
+          details.style.maxHeight = "0";
+          setTimeout(() => details.classList.add("hidden"), 300);
+        } else {
+          details.classList.remove("hidden");
+          details.style.maxHeight = details.scrollHeight + "px";
+        }
+      });
+    }
   });
 
   /* =========================
      FAVORITOS
   ========================= */
+
   raceCards.addEventListener("click", e => {
     if (e.target.classList.contains("fav-btn")) {
       const id = e.target.dataset.id;
@@ -135,15 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================
-     HERO CLICK – vai para corrida ativa
+     HERO CLICÁVEL → rolar até card ativo
   ========================= */
   heroImage.addEventListener("click", () => {
-    if(!nextRace) return;
-    const card = document.querySelector(`.race-card[data-id="${nextRace.id}"]`);
-    if(card){
-      card.scrollIntoView({behavior: "smooth", block: "start"});
+    const card = Array.from(raceCards.children).find(c => c.querySelector(".race-header h3").textContent === activeRace.name);
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
       const details = card.querySelector(".race-details");
-      if(details){
+      if (details) {
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
       }
