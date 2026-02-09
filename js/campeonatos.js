@@ -1,38 +1,38 @@
-// js/campeonatos.js
 document.addEventListener("DOMContentLoaded", () => {
-
-  const tabelaPilotos = document.getElementById("tabela-pilotos").querySelector("tbody");
-  const tabelaConstrutores = document.getElementById("tabela-construtores").querySelector("tbody");
-  const backToTop = document.getElementById("back-to-top");
-
-  // Exemplo de dados iniciais (substituir por dados reais do calendário)
+  // Dados simulados (podes substituir pelos reais do calendar2026)
   const pilotos = [
-    { name: "Piloto 1", pontos: 50 },
-    { name: "Piloto 2", pontos: 45 },
-    { name: "Piloto 3", pontos: 40 },
+    { pos: 1, name: "Max Verstappen", team: "Red Bull", points: 45 },
+    { pos: 2, name: "Lewis Hamilton", team: "Mercedes", points: 38 },
+    { pos: 3, name: "Charles Leclerc", team: "Ferrari", points: 33 },
+    { pos: 4, name: "Sergio Pérez", team: "Red Bull", points: 28 },
+    { pos: 5, name: "George Russell", team: "Mercedes", points: 24 }
   ];
 
   const construtores = [
-    { name: "Equipe A", pontos: 95 },
-    { name: "Equipe B", pontos: 85 },
-    { name: "Equipe C", pontos: 70 },
+    { pos: 1, team: "Red Bull", points: 73 },
+    { pos: 2, team: "Mercedes", points: 62 },
+    { pos: 3, team: "Ferrari", points: 50 },
+    { pos: 4, team: "McLaren", points: 22 },
+    { pos: 5, team: "Alpine", points: 18 }
   ];
 
-  // Preencher tabela de pilotos
-  pilotos.forEach((p, i) => {
+  const pilotosBody = document.getElementById("pilotos-body");
+  const construtoresBody = document.getElementById("construtores-body");
+
+  pilotos.forEach(p => {
     const row = document.createElement("tr");
-    row.innerHTML = `<td>${i+1}</td><td>${p.name}</td><td>${p.pontos}</td>`;
-    tabelaPilotos.appendChild(row);
+    row.innerHTML = `<td>${p.pos}</td><td>${p.name}</td><td>${p.team}</td><td>${p.points}</td>`;
+    pilotosBody.appendChild(row);
   });
 
-  // Preencher tabela de construtores
-  construtores.forEach((c, i) => {
+  construtores.forEach(c => {
     const row = document.createElement("tr");
-    row.innerHTML = `<td>${i+1}</td><td>${c.name}</td><td>${c.pontos}</td>`;
-    tabelaConstrutores.appendChild(row);
+    row.innerHTML = `<td>${c.pos}</td><td>${c.team}</td><td>${c.points}</td>`;
+    construtoresBody.appendChild(row);
   });
 
-  // BACK TO TOP
+  // Back-to-top
+  const backToTop = document.getElementById("back-to-top");
   window.addEventListener("scroll", () => {
     if (window.scrollY > 400) backToTop.classList.add("show");
     else backToTop.classList.remove("show");
@@ -41,5 +41,4 @@ document.addEventListener("DOMContentLoaded", () => {
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
-}); 
+});
