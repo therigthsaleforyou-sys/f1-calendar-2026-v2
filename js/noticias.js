@@ -1,154 +1,242 @@
-// js/noticias.js
+// js/noticias.js – Versão completa GP’s 2026 + Novidades
 document.addEventListener("DOMContentLoaded", () => {
-
-  const raceCards = document.getElementById("race-cards");
-  const backToTop = document.getElementById("back-to-top");
+  const raceCardsContainer = document.getElementById("race-cards");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
+  const heroCountdown = document.getElementById("hero-countdown");
+  const backToTop = document.getElementById("back-to-top");
 
-  const now = new Date();
+  /* =========================
+     Array de GP’s + Novidades
+  ========================= */
+  const races = [
+    {
+      id: "novidades",
+      title: "Novidades F1 2026",
+      image: "assets/news/novidades.jpg",
+      details: "Fique por dentro das últimas notícias e vídeos da temporada 2026 da F1!",
+      video: "https://www.dailymotion.com/embed/video/x9ykhj0"
+    },
+    {
+      id: "australia",
+      title: "Grande Prémio da Austrália",
+      image: "assets/heroes/australia_v2.jpg",
+      details: "Highlights da corrida da Austrália 2025.",
+      video: "https://geo.dailymotion.com/player.html?video=x9gc1rq"
+    },
+    {
+      id: "china",
+      title: "Grande Prémio da China",
+      image: "assets/heroes/china_v2.jpg",
+      details: "Detalhes do GP da China 2026.",
+      video: "" // Placeholder, nenhum vídeo disponível
+    },
+    {
+      id: "bahrein",
+      title: "Grande Prémio do Bahrein",
+      image: "assets/heroes/bahrein_v2.jpg",
+      details: "Detalhes do GP do Bahrein 2026.",
+      video: ""
+    },
+    {
+      id: "japao",
+      title: "Grande Prémio do Japão",
+      image: "assets/heroes/japao_v2.jpg",
+      details: "Detalhes do GP do Japão 2026.",
+      video: ""
+    },
+    {
+      id: "spanha",
+      title: "Grande Prémio da Espanha",
+      image: "assets/heroes/spanha_v2.jpg",
+      details: "Detalhes do GP da Espanha 2026.",
+      video: ""
+    },
+    {
+      id: "monaco",
+      title: "Grande Prémio de Mónaco",
+      image: "assets/heroes/monaco_v2.jpg",
+      details: "Detalhes do GP de Mónaco 2026.",
+      video: ""
+    },
+    {
+      id: "azerbaijao",
+      title: "Grande Prémio do Azerbaijão",
+      image: "assets/heroes/azerbaijao_v2.jpg",
+      details: "Detalhes do GP do Azerbaijão 2026.",
+      video: ""
+    },
+    {
+      id: "canada",
+      title: "Grande Prémio do Canadá",
+      image: "assets/heroes/canada_v2.jpg",
+      details: "Detalhes do GP do Canadá 2026.",
+      video: ""
+    },
+    {
+      id: "franca",
+      title: "Grande Prémio da França",
+      image: "assets/heroes/franca_v2.jpg",
+      details: "Detalhes do GP da França 2026.",
+      video: ""
+    },
+    {
+      id: "austria",
+      title: "Grande Prémio da Áustria",
+      image: "assets/heroes/austria_v2.jpg",
+      details: "Detalhes do GP da Áustria 2026.",
+      video: ""
+    },
+    {
+      id: "inglaterra",
+      title: "Grande Prémio da Inglaterra",
+      image: "assets/heroes/inglaterra_v2.jpg",
+      details: "Detalhes do GP da Inglaterra 2026.",
+      video: ""
+    },
+    {
+      id: "hungria",
+      title: "Grande Prémio da Hungria",
+      image: "assets/heroes/hungria_v2.jpg",
+      details: "Detalhes do GP da Hungria 2026.",
+      video: ""
+    },
+    {
+      id: "belgica",
+      title: "Grande Prémio da Bélgica",
+      image: "assets/heroes/belgica_v2.jpg",
+      details: "Detalhes do GP da Bélgica 2026.",
+      video: ""
+    },
+    {
+      id: "holanda",
+      title: "Grande Prémio da Holanda",
+      image: "assets/heroes/holanda_v2.jpg",
+      details: "Detalhes do GP da Holanda 2026.",
+      video: ""
+    },
+    {
+      id: "italia",
+      title: "Grande Prémio da Itália",
+      image: "assets/heroes/italia_v2.jpg",
+      details: "Detalhes do GP da Itália 2026.",
+      video: ""
+    },
+    {
+      id: "singapura",
+      title: "Grande Prémio de Singapura",
+      image: "assets/heroes/singapura_v2.jpg",
+      details: "Detalhes do GP de Singapura 2026.",
+      video: ""
+    },
+    {
+      id: "qatar",
+      title: "Grande Prémio do Qatar",
+      image: "assets/heroes/qatar_v2.jpg",
+      details: "Detalhes do GP do Qatar 2026.",
+      video: ""
+    },
+    {
+      id: "estadosunidos",
+      title: "Grande Prémio dos EUA",
+      image: "assets/heroes/estadosunidos_v2.jpg",
+      details: "Detalhes do GP dos EUA 2026.",
+      video: ""
+    },
+    {
+      id: "mexico",
+      title: "Grande Prémio do México",
+      image: "assets/heroes/mexico_v2.jpg",
+      details: "Detalhes do GP do México 2026.",
+      video: ""
+    },
+    {
+      id: "brasil",
+      title: "Grande Prémio do Brasil",
+      image: "assets/heroes/brasil_v2.jpg",
+      details: "Detalhes do GP do Brasil 2026.",
+      video: ""
+    },
+    {
+      id: "arabiasaudita",
+      title: "Grande Prémio da Arábia Saudita",
+      image: "assets/heroes/arabiasaudita_v2.jpg",
+      details: "Detalhes do GP da Arábia Saudita 2026.",
+      video: ""
+    },
+    {
+      id: "abuja",
+      title: "Grande Prémio de Abu Dhabi",
+      image: "assets/heroes/abuja_v2.jpg",
+      details: "Detalhes do GP de Abu Dhabi 2026.",
+      video: ""
+    }
+  ];
 
-  // =========================
-  // CARD NOVIDADES
-  // =========================
-  const novidadesCard = document.createElement("div");
-  novidadesCard.className = "race-card";
+  /* =========================
+     HERO – Austrália fixo
+  ========================= */
+  heroImage.src = "assets/heroes/australia_v2.jpg";
+  heroTitle.textContent = "Grande Prémio da Austrália";
 
-  novidadesCard.innerHTML = `
-    <img class="race-image" src="assets/news/novidades.jpg" alt="Novidades F1">
-    <div class="race-header">
-      <h3>Novidades F1 2026</h3>
-    </div>
-    <div class="race-details hidden">
-      <p>Fique por dentro das últimas notícias e vídeos da temporada 2026 da F1!</p>
-      <div class="video-wrapper hidden">
-        <iframe 
-          data-src="https://www.dailymotion.com/embed/video/7N8e8hA-rmY"
-          width="100%" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  `;
-  raceCards.appendChild(novidadesCard);
-
-  // =========================
-  // CARDS DAS CORRIDAS
-  // =========================
-  calendar2026.forEach(race => {
+  /* =========================
+     Gerar todos os cards
+  ========================= */
+  races.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
     card.dataset.id = race.id;
 
-    let videoHTML = "";
-    if(race.id === "australia") {
-      videoHTML = `
-        <div class="video-wrapper hidden">
-          <iframe 
-            data-src="https://www.dailymotion.com/embed/video/x9gc1rq"
-            width="100%" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-          </iframe>
-        </div>
-      `;
-    }
-
     card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+      <img class="race-image" src="${race.image}" alt="${race.title}">
       <div class="race-header">
-        <h3>${race.name}</h3>
-        <button class="fav-btn" data-id="${race.id}">🏁</button>
+        <h3>${race.title}</h3>
       </div>
       <div class="race-details hidden">
-        <p><strong>FP1:</strong> ${race.sessions.fp1}</p>
-        <p><strong>FP2:</strong> ${race.sessions.fp2}</p>
-        <p><strong>FP3:</strong> ${race.sessions.fp3}</p>
-        <p><strong>Qualificação:</strong> ${race.sessions.qualifying}</p>
-        <p><strong>Corrida:</strong> ${race.sessions.race}</p>
-
-        ${videoHTML}
-
-        <div class="race-link-wrapper">
-          <a class="race-link-btn" href="race/${race.id}.html">
-            Conheça o GP F1 da ${race.name.replace("Grande Prémio da ", "")}
-          </a>
-        </div>
+        <p>${race.details}</p>
+        ${race.video ? `<div class="video-wrapper"></div>` : ""}
       </div>
     `;
 
-    raceCards.appendChild(card);
-  });
+    raceCardsContainer.appendChild(card);
 
-  // =========================
-  // ABRIR / FECHAR CARDS + VIDEO
-  // =========================
-  raceCards.querySelectorAll(".race-card").forEach(card => {
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     const videoWrapper = card.querySelector(".video-wrapper");
-    const iframe = card.querySelector("iframe");
 
+    // Inicializa altura para animação suave
+    if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+
+    img.style.cursor = "pointer";
     img.addEventListener("click", () => {
-      const open = !details.classList.contains("hidden");
+      const isOpen = !details.classList.contains("hidden");
 
-      if(open){
-        // fechar card e parar vídeo
-        if(iframe) iframe.src = "";
+      if (isOpen) {
+        // Fechar com animação
         details.style.maxHeight = "0";
         setTimeout(() => {
           details.classList.add("hidden");
-          if(videoWrapper) videoWrapper.classList.add("hidden");
+          if (videoWrapper) videoWrapper.innerHTML = "";
         }, 400);
       } else {
-        // abrir card e carregar vídeo
+        // Abrir com animação
         details.classList.remove("hidden");
         details.style.maxHeight = details.scrollHeight + "px";
-        if(videoWrapper){
-          videoWrapper.classList.remove("hidden");
-          if(iframe && iframe.dataset.src) iframe.src = iframe.dataset.src;
+
+        if (videoWrapper && race.video) {
+          videoWrapper.innerHTML = `<iframe src="${race.video}" frameborder="0" allowfullscreen style="width:100%;height:300px;border-radius:14px;"></iframe>`;
         }
       }
     });
   });
 
-  // =========================
-  // HERO – Corrida ativa
-  // =========================
-  const upcomingRace = calendar2026.find(r => new Date(r.sessions.race) > now) || calendar2026[0];
-  if(upcomingRace){
-    heroImage.src = upcomingRace.heroImage || upcomingRace.cardImage;
-    heroTitle.textContent = upcomingRace.name;
-  }
-
-  // =========================
-  // FAVORITOS
-  // =========================
-  raceCards.addEventListener("click", e => {
-    if(e.target.classList.contains("fav-btn")){
-      const id = e.target.dataset.id;
-      const card = e.target.closest(".race-card");
-      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-      if(favorites.includes(id)){
-        favorites.splice(favorites.indexOf(id),1);
-        e.target.classList.remove("active");
-        card.classList.remove("favorite");
-      } else {
-        favorites.push(id);
-        e.target.classList.add("active");
-        card.classList.add("favorite");
-      }
-
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    }
-  });
-
-  // =========================
-  // BACK TO TOP
-  // =========================
+  /* =========================
+     BACK TO TOP
+  ========================= */
   window.addEventListener("scroll", () => {
     backToTop.classList.toggle("show", window.scrollY > 400);
   });
   backToTop.addEventListener("click", () => {
-    window.scrollTo({ top:0, behavior:"smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
 });
