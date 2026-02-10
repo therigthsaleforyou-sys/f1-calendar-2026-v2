@@ -1,36 +1,58 @@
-/* Limitar largura como na homepage */
-.cards-wrapper {
-  padding: 12px;
-  max-width: 900px;
-  margin: 0 auto;
+/* HERO */
+#hero {
+  margin:16px;
+  padding:12px;
+  border:2px solid #fff;
+  border-radius:16px;
+  text-align:center;
 }
 
-/* Countdown sempre visível */
-.result-countdown {
-  color: #ff0000;
-  font-weight: bold;
-  margin: 6px 0 8px;
-}
-
-/* Texto de espera */
-.awaiting {
-  opacity: 0.7;
-  font-style: italic;
-}
-
-/* Dropbox */
-.result-details {
-  margin-top: 10px;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.3s ease;
-}
-
-.result-details.active {
-  max-height: 500px;
-}
-
-/* Hero clicável */
 #hero img {
-  cursor: pointer;
+  width:100%;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+/* CARDS — largura IGUAL à homepage */
+.cards-wrapper {
+  padding:12px;
+}
+
+.cards-wrapper .race-card {
+  width:100%;
+}
+
+/* COUNTDOWN */
+.result-countdown {
+  color:#ff0000;
+  font-weight:700;
+  margin:6px 0;
+}
+
+/* FAVORITO */
+.fav-btn {
+  background:none;
+  border:none;
+  font-size:1.3rem;
+  cursor:pointer;
+  color:#666;
+}
+
+.fav-btn.active {
+  color:#ffd700;
+}
+
+/* BOTÃO CAMPEONATOS FLUTUANTE */
+.floating-championship {
+  position:fixed;
+  bottom:80px;
+  left:20px;
+  background:#000;
+  color:#fff;
+  border:2px solid #ff0000;
+  border-radius:14px;
+  padding:10px 16px;
+  font-weight:700;
+  text-decoration:none;
+  z-index:999;
 }
