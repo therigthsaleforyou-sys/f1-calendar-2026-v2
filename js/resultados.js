@@ -6,75 +6,129 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
+  const heroCountdown = document.getElementById("hero-countdown");
   const raceResults = document.getElementById("race-results");
   const backToTop = document.getElementById("back-to-top");
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
-  // Hero da corrida ativa
-  const activeRace = calendar2026[0];
-  heroImage.src = activeRace.heroImage || activeRace.cardImage;
-  heroTitle.textContent = `Resultados: ${activeRace.name}`;
+  /* =========================
+     HERO – corrida ativa (Austrália no início)
+  ========================= */
+  let activeRace = calendar2026[0];
 
-  // Função para criar cards
-  function createRaceCard(race) {
-    const card = document.createElement("div");
-    card.className = "race-card";
-    card.dataset.id = race.id;
-
-    if (favorites.includes(race.id)) card.classList.add("favorite");
-
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="Diagrama da pista – ${race.name}">
-      <div class="race-header">
-        <h3>${race.name} – 2026</h3>
-        <button class="fav-btn" data-id="${race.id}">🏁</button>
-      </div>
-      <div class="race-details hidden">
-        <h4>Resultados 2026</h4>
-        ${race.results2026.race.map(r => `
-          <p><strong>${r.position}º:</strong> ${r.driver} – ${r.team} – ${r.points} pts</p>
-        `).join('')}
-      </div>
-    `;
-
-    // Detalhes ao clicar na imagem
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-    img.addEventListener("click", () => {
-      details.classList.toggle("hidden");
-    });
-
-    return card;
+  function getActiveRace() {
+    const now = new Date();
+    for (let race of calendar2026) {
+      if (new Date(race.sessions.race) > now) return race;
+    }
+    return calendar2026[calendar2026.length - 1];
   }
 
-  // Gerar cards
-  raceResults.innerHTML = "";
-  calendar2026.forEach(race => {
-    raceResults.appendChild(createRaceCard(race));
-  });
+  function startCountdown(race) {
+    function update() {
+      const now = new Date();
+      const target = new Date(race.sessions.race);
+      const diff = target - now;
 
-  // Favoritos
-  raceResults.addEventListener("click", e => {
-    if (e.target.classList.contains("fav-btn")) {
-      const id = e.target.dataset.id;
-      const card = e.target.closest(".race-card");
-      if (favorites.includes(id)) {
-        favorites.splice(favorites.indexOf(id), 1);
-        e.target.classList.remove("active");
-        card.classList.remove("favorite");
-      } else {
-        favorites.push(id);
-        e.target.classList.add("active");
-        card.classList.add("favorite");
+      if (diff <= 0) {
+        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        activeRace = getActiveRace();
+        heroImage.src = activeRace.heroImage || activeRace.cardImage;
+        heroTitle.textContent = activeRace.name;
+        return;
       }
-      localStorage.setItem("favorites", JSON.stringify(favorites));
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  heroImage.src = activeRace.heroImage || activeRace.cardImage;
+  heroTitle.textContent = activeRace.name;
+  startCountdown(activeRace);
+
+  /* =========================
+     CARDS DOS RESULTADOS
+  ========================= */
+  raceResults.innerHTML = "";
+
+  calendar2026.forEach(race => {
+    const raceDate = new Date(race.sessions.race);
+    const now = new Date();
+
+    const card = document.createElement("div");
+    card.className = "race-card";
+
+    if (now < raceDate) {
+      // Corrida ainda não aconteceu
+      card.innerHTML = `
+        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+        <div class="race-header">
+          <h3>${race.name}</h3>
+        </div>
+        <div class="race-details">
+          <p>Aguardar a realização da corrida</p>
+        </div>
+      `;
+    } else {
+      // Corrida concluída – mostrar resultados (Austrália apenas por enquanto)
+      if (race.id !== "australia_v2") return; // só Austrália inicialmente
+
+      const results = race.results || {}; // assumindo estrutura {pole, top10, fastestLap, weather}
+
+      const top10 = results.top10 || [];
+      let top10HTML = "";
+      top10.forEach((driver, idx) => {
+        top10HTML += `<p>${idx+1}. ${driver}</p>`;
+      });
+
+      card.innerHTML = `
+        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+        <div class="race-header">
+          <h3>${race.name}</h3>
+        </div>
+        <div class="race-details">
+          <p><strong>Meteorologia:</strong> ${results.weather || "—"}</p>
+          <p><strong>Pole Position:</strong> ${results.pole || "—"}</p>
+          <p><strong>Resultados P1-P10:</strong></p>
+          ${top10HTML || "<p>—</p>"}
+          <p><strong>Melhor Volta:</strong> ${results.fastestLap || "—"}</p>
+        </div>
+      `;
+    }
+
+    raceResults.appendChild(card);
+
+    // Drop-down suave
+    const img = card.querySelector(".race-image");
+    const details = card.querySelector(".race-details");
+    if (img && details) {
+      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+      img.style.cursor = "pointer";
+
+      img.addEventListener("click", () => {
+        const open = !details.classList.contains("hidden");
+        if (open) {
+          details.style.maxHeight = "0";
+          setTimeout(() => details.classList.add("hidden"), 300);
+        } else {
+          details.classList.remove("hidden");
+          details.style.maxHeight = details.scrollHeight + "px";
+        }
+      });
     }
   });
 
-  // Back to top
+  /* =========================
+     BACK TO TOP
+  ========================= */
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
 
   backToTop.addEventListener("click", () => {
