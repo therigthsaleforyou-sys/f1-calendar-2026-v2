@@ -97,6 +97,7 @@ function render() {
       ${active ? "" : `<p class="waiting">Aguardar a realização da corrida</p>`}
     `;
 
+    // Botão favorito
     card.querySelector(".fav-btn")
       .addEventListener("click", e => toggleFavorite(race.id, e.target));
 
@@ -106,11 +107,30 @@ function render() {
   updateHero();
 }
 
-// -------- UPDATE COUNTDOWNS --------
+// -------- UPDATE COUNTDOWNS E DROPBOX --------
 function updateCountdowns() {
-  document.querySelectorAll(".result-countdown").forEach(el => {
-    const race = calendar2026.find(r => r.id === el.dataset.id);
-    el.textContent = formatCountdown(race.sessions.race);
+  const activeRace = getActiveRace();
+
+  document.querySelectorAll(".race-card").forEach(card => {
+    const race = calendar2026.find(r => r.id === card.id);
+
+    // Atualiza countdown
+    const countdownEl = card.querySelector(".result-countdown");
+    countdownEl.textContent = formatCountdown(race.sessions.race);
+
+    // Atualiza dropdown / detalhes
+    const details = card.querySelector(".race-details");
+    const waitingText = card.querySelector(".waiting");
+
+    if(new Date(race.sessions.race).getTime() <= now()){
+      // Corrida ativa → mostra Dropbox
+      details.classList.remove("hidden");
+      if(waitingText) waitingText.style.display = "none";
+    } else {
+      // Corrida futura → esconde Dropbox
+      details.classList.add("hidden");
+      if(waitingText) waitingText.style.display = "block";
+    }
   });
 
   updateHero();
@@ -127,4 +147,4 @@ backToTop.onclick = () =>
 // -------- INICIALIZAÇÃO --------
 render();
 updateCountdowns();
-setInterval(updateCountdowns, 1000); // atualiza cada segundo para countdowns precisos
+setInterval(updateCountdowns, 1000); // atualiza countdowns e Dropbox
