@@ -7,6 +7,9 @@
 
   <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="../css/style.css">
+
+  <!-- CSS ESPECÍFICO RESULTADOS -->
+  <link rel="stylesheet" href="../css/resultados.css">
 </head>
 <body>
 
@@ -24,29 +27,29 @@
 
   <!-- ================= HERO ================= -->
   <section id="hero">
-    <img id="hero-image" src="../assets/races/australia.jpg" alt="">
-    <h2 id="hero-title"></h2>
-    <!-- countdown EXISTE mas invisível -->
-    <div id="hero-countdown" class="countdown" style="display:none"></div>
+    <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
+    <h2 id="hero-title">Grande Prémio da Austrália</h2>
   </section>
 
   <!-- ================= RESULTADOS ================= -->
   <section id="race-results"></section>
 
-  <!-- BOTÃO CAMPEONATOS -->
-  <div class="race-link-wrapper">
-    <a href="campeonatos.html" class="race-link-btn">🏆 Campeonatos</a>
-  </div>
-
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer style="text-align:center;padding:20px;opacity:.6">
   F1 2026
 </footer>
 
+<!-- ================= BOTÕES FLUTUANTES ================= -->
+
+<!-- Campeonatos – ESQUERDA -->
+<a href="campeonatos.html" id="btn-campeonatos">🏆 Campeonatos</a>
+
+<!-- Voltar ao topo – DIREITA -->
 <button id="back-to-top">Voltar ao topo</button>
 
-<!-- ================= JS (ORDEM CRÍTICA) ================= -->
+<!-- ================= JS ================= -->
 <script src="../data/calendar2026-v2.js"></script>
 <script src="../js/resultados.js"></script>
 
