@@ -1,85 +1,88 @@
-/* HERO */
-#hero-container {
-  position: relative;
-  text-align: center;
-  margin: 20px 0;
-  cursor: pointer;
-}
-#hero-container img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 12px;
-  display: block;
-}
-#hero-title {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  text-shadow: 0 0 8px #000;
-  font-size: 2rem;
-  font-weight: bold;
+const cardsContainer = document.getElementById('cards-container');
+const heroImg = document.getElementById('hero-img');
+const heroTitle = document.getElementById('hero-title');
+
+// Função para determinar corrida ativa
+function getActiveRace() {
+  const now = new Date();
+  return window.calendar2026.find(race => new Date(race.sessions.race) > now);
 }
 
-/* CARDS */
-#cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px;
-}
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  margin: 15px;
-  width: 300px; /* penúltimo deploy */
-  background: #1e1e1e;
-  color: #fff;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-.card h3 {
-  margin: 10px;
-}
-.card .countdown {
-  margin: 0 10px 10px 10px;
-  font-size: 1rem;
-  color: #ff0;
-}
-.card .status {
-  margin: 0 10px 10px 10px;
-  font-size: 0.9rem;
-  color: #aaa;
+// Atualiza hero
+function updateHero() {
+  const active = getActiveRace();
+  if (active) {
+    heroImg.src = `../assets/heroes/${active.id}.jpg`;
+    heroTitle.textContent = active.name;
+    heroImg.onclick = () => window.location.href = `${active.id}.html`;
+  }
 }
 
-/* BOTÕES FLUTUANTES */
-#floating-buttons {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
+// Cria cards
+function createCards() {
+  cardsContainer.innerHTML = '';
+  const now = new Date();
+  window.calendar2026.forEach(race => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const img = document.createElement('img');
+    img.src = `../assets/races/${race.id}.jpg`;
+    card.appendChild(img);
+
+    const title = document.createElement('h3');
+    title.textContent = race.name;
+    card.appendChild(title);
+
+    const countdown = document.createElement('div');
+    countdown.className = 'countdown';
+    card.appendChild(countdown);
+
+    const status = document.createElement('div');
+    status.className = 'status';
+    card.appendChild(status);
+
+    // Botão favorito
+    const fav = document.createElement('div');
+    fav.className = 'favorite';
+    fav.textContent = '🏁';
+    fav.style.position = 'absolute';
+    fav.style.top = '10px';
+    fav.style.right = '10px';
+    card.appendChild(fav);
+
+    cardsContainer.appendChild(card);
+
+    // Countdown
+    function updateCountdown() {
+      const raceTime = new Date(race.sessions.race);
+      const diff = raceTime - new Date();
+      if (diff <= 0) {
+        countdown.style.display = 'none';
+        status.textContent = 'Corrida ativa! Mostrando dados...';
+        clearInterval(interval);
+      } else {
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff / (1000*60*60)) % 24);
+        const m = Math.floor((diff / (1000*60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        countdown.textContent = `${d}d ${h}h ${m}m ${s}s`;
+        status.textContent = 'Aguardar a realização da corrida';
+      }
+    }
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  });
 }
-#floating-buttons button {
-  padding: 12px 20px; /* manter mesmo tamanho */
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #fff;
-}
-#back-to-top {
-  background-color: #f39c12; /* laranja */
-}
-#campeonatos {
-  background-color: #27ae60; /* verde */
-}
+
+updateHero();
+createCards();
+
+// Botão voltar ao topo
+const backBtn = document.getElementById('back-to-top');
+backBtn.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+// Botão campeonatos
+document.getElementById('campeonatos').onclick = () => {
+  window.location.href = 'campeonatos.html';
+};
