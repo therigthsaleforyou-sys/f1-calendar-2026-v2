@@ -1,26 +1,25 @@
-/* ===============================
-   RESULTADOS – AJUSTES ESPECÍFICOS
-   =============================== */
+/* =================================
+   RESULTADOS – LAYOUT CONTROLADO
+   ================================= */
 
-/* Wrapper igual ao da homepage */
+/* Wrapper dos cards (igual homepage) */
 #race-results {
   padding: 12px;
   max-width: 720px;
   margin: 0 auto;
 }
 
-/* Garantir que os cards não esticam */
 #race-results .race-card {
   width: 100%;
 }
 
-/* ===============================
-   BOTÕES FLUTUANTES
-   =============================== */
+/* =================================
+   BOTÃO CAMPEONATOS – FLUTUANTE
+   ================================= */
 
 #btn-campeonatos {
   position: fixed;
-  bottom: 80px;
+  bottom: 80px;        /* mesma linha do back-to-top */
   left: 20px;
   background: #000;
   color: #fff;
@@ -29,14 +28,14 @@
   padding: 10px 16px;
   font-weight: 700;
   font-size: 16px;
-  cursor: pointer;
-  z-index: 999;
   text-decoration: none;
+  cursor: pointer;
+  z-index: 1000;
   transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
 #btn-campeonatos:hover {
-  box-shadow: 0 0 12px rgba(255,0,0,0.8);
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8);
 }
 
 #btn-campeonatos:active {
