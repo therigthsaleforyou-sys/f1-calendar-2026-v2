@@ -1,4 +1,4 @@
-/* Container hero */
+/* HERO */
 #hero-container {
   position: relative;
   text-align: center;
@@ -10,6 +10,7 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: 12px;
+  display: block;
 }
 #hero-title {
   position: absolute;
@@ -17,83 +18,68 @@
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
-  text-shadow: 0 0 6px #000;
+  text-shadow: 0 0 8px #000;
   font-size: 2rem;
   font-weight: bold;
 }
 
-/* Cards */
-.card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  margin: 20px auto;
-  max-width: 360px;
-  background: #f7f7f7;
-  overflow: hidden;
-  position: relative;
-  transition: transform 0.2s;
-}
-.card img {
-  width: 100%;
-  object-fit: cover;
-  height: 180px;
-}
-.card h3 {
-  margin: 10px;
-  font-size: 1.3rem;
-}
-.card .countdown {
-  margin: 0 10px 10px;
-  font-weight: bold;
-  color: #d33;
-  font-size: 1.1rem;
-}
-.card .status {
-  margin: 0 10px 10px;
-  font-size: 1rem;
-  color: #555;
-}
-.card .favorites {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-.card .dropbox {
-  margin: 10px;
-  padding: 8px;
-  background: #eee;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  display: none;
-}
-
-/* Hover efeito */
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* Botões flutuantes */
-#back-to-top, #campeonatos {
-  position: fixed;
-  bottom: 20px;
-  padding: 10px 16px;
-  font-weight: 700;
-  border-radius: 14px;
-  border: 2px solid #ff0000;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
-}
-#back-to-top { right: 90px; }
-#campeonatos { right: 20px; }
-
-/* Main container */
+/* CARDS */
 #cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  margin: 15px;
+  width: 300px; /* penúltimo deploy */
+  background: #1e1e1e;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.card h3 {
+  margin: 10px;
+}
+.card .countdown {
+  margin: 0 10px 10px 10px;
+  font-size: 1rem;
+  color: #ff0;
+}
+.card .status {
+  margin: 0 10px 10px 10px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* BOTÕES FLUTUANTES */
+#floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+#floating-buttons button {
+  padding: 12px 20px; /* manter mesmo tamanho */
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+}
+#back-to-top {
+  background-color: #f39c12; /* laranja */
+}
+#campeonatos {
+  background-color: #27ae60; /* verde */
 }
