@@ -1,12 +1,13 @@
 const container = document.getElementById("race-results");
 const heroImg = document.getElementById("hero-image");
 const heroTitle = document.getElementById("hero-title");
+const backToTop = document.getElementById("back-to-top");
 
 const now = () => new Date().getTime();
 
 function getActiveRace() {
   return [...calendar2026]
-    .sort((a,b) => new Date(a.sessions.race) - new Date(b.sessions.race))
+    .sort((a, b) => new Date(a.sessions.race) - new Date(b.sessions.race))
     .find(r => new Date(r.sessions.race).getTime() <= now());
 }
 
@@ -27,7 +28,10 @@ function isFavorite(id) {
 
 function toggleFavorite(id, btn) {
   let favs = JSON.parse(localStorage.getItem("favResults") || "[]");
-  favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
+  favs = favs.includes(id)
+    ? favs.filter(f => f !== id)
+    : [...favs, id];
+
   localStorage.setItem("favResults", JSON.stringify(favs));
   btn.classList.toggle("active", favs.includes(id));
 }
@@ -40,6 +44,9 @@ function render() {
     heroTitle.textContent = activeRace.name;
     heroImg.onclick = () =>
       window.location.href = `${activeRace.id}.html`;
+  } else {
+    heroImg.onclick = () =>
+      window.location.href = "australia.html";
   }
 
   calendar2026.forEach(race => {
@@ -83,6 +90,13 @@ function updateCountdowns() {
     el.textContent = formatCountdown(race.sessions.race);
   });
 }
+
+window.addEventListener("scroll", () => {
+  backToTop.classList.toggle("show", window.scrollY > 300);
+});
+
+backToTop.onclick = () =>
+  window.scrollTo({ top: 0, behavior: "smooth" });
 
 render();
 updateCountdowns();
