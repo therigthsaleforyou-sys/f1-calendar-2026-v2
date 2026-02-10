@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <title>Resultados F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/style.css"> <!-- Global -->
-  <link rel="stylesheet" href="../css/resultados.css"> <!-- Específico -->
+  <link rel="stylesheet" href="../css/resultados.css">
 </head>
 <body>
 
@@ -23,8 +22,9 @@
 
   <!-- HERO -->
   <section id="hero">
-    <img id="hero-image" src="../assets/races/australia.jpg" alt="Grande Prémio Ativo">
+    <img id="hero-image" src="../assets/heroes/australia_v2.jpg" alt="Grande Prémio Ativo">
     <h2 id="hero-title">Grande Prémio da Austrália</h2>
+    <div id="hero-countdown" class="countdown"></div>
   </section>
 
   <!-- CARDS DAS CORRIDAS -->
@@ -43,69 +43,7 @@
 
 <!-- FICHEIROS JS -->
 <script src="../js/calendar2026-v2.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("race-results");
-
-  function createCountdown(raceTime) {
-    const countdownEl = document.createElement("div");
-    countdownEl.className = "countdown";
-
-    function update() {
-      const now = new Date();
-      const diff = new Date(raceTime) - now;
-      if (diff <= 0) {
-        countdownEl.textContent = "Corrida em andamento ou concluída!";
-        return;
-      }
-      const d = Math.floor(diff / (1000*60*60*24));
-      const h = Math.floor((diff / (1000*60*60)) % 24);
-      const m = Math.floor((diff / (1000*60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
-    }
-
-    update();
-    setInterval(update, 1000);
-    return countdownEl;
-  }
-
-  calendar2026.forEach(race => {
-    const card = document.createElement("div");
-    card.className = "race-card";
-
-    const header = document.createElement("div");
-    header.className = "race-header";
-    const h3 = document.createElement("h3");
-    h3.textContent = race.name;
-    const favBtn = document.createElement("button");
-    favBtn.className = "fav-btn";
-    favBtn.innerHTML = "★";
-    favBtn.addEventListener("click", () => favBtn.classList.toggle("active"));
-    header.append(h3, favBtn);
-
-    const img = document.createElement("img");
-    img.src = `../${race.cardImage}`;
-    img.alt = race.name;
-    img.addEventListener("click", () => {
-      window.location.href = `${race.id}.html`;
-    });
-
-    const countdown = createCountdown(race.sessions.race);
-
-    card.append(header, img, countdown);
-    container.appendChild(card);
-  });
-
-  // Back to top
-  const btn = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    if(window.scrollY > 200) btn.classList.add("show");
-    else btn.classList.remove("show");
-  });
-  btn.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
-});
-</script>
+<script src="../js/resultados.js"></script>
 
 </body>
 </html>
