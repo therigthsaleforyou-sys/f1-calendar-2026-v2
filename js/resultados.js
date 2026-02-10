@@ -1,72 +1,99 @@
 // resultados.js
-const raceResultsContainer = document.getElementById("race-results");
+// Certifica-te que calendar2026.js já foi carregado antes
 
-// Função para formatar tempo restante
-function getCountdown(raceDate) {
+const container = document.getElementById('race-results');
+
+if (!container) {
+  console.error('Container #race-results não encontrado!');
+}
+
+// Função para criar o countdown
+function createCountdown(raceDate) {
+  const countdownEl = document.createElement('div');
+  countdownEl.className = 'countdown';
+
+  function updateCountdown() {
     const now = new Date();
-    const race = new Date(raceDate);
-    const diff = race - now;
+    const diff = new Date(raceDate) - now;
 
-    if (diff <= 0) return "Corrida já aconteceu";
+    if (diff <= 0) {
+      countdownEl.textContent = '🚩 Corrida ativa ou concluída';
+      clearInterval(interval);
+      return;
+    }
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((diff / (1000 * 60)) % 60);
     const seconds = Math.floor((diff / 1000) % 60);
 
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    countdownEl.textContent = `🏁 Em: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  const interval = setInterval(updateCountdown, 1000);
+
+  return countdownEl;
 }
 
-// Função para criar cards
-function createRaceCard(race) {
-    const card = document.createElement("div");
-    card.className = "race-card";
-
-    // Imagem e título
-    const header = document.createElement("div");
-    header.className = "race-header";
-    header.innerHTML = `<h3>${race.name}</h3>
-                        <button class="fav-btn">★</button>`;
-    card.appendChild(header);
-
-    const img = document.createElement("img");
-    img.src = `../${race.cardImage}`;
-    img.alt = race.name;
-    card.appendChild(img);
-
-    // Countdown
-    const countdownEl = document.createElement("div");
-    countdownEl.className = "countdown";
-    countdownEl.textContent = getCountdown(race.sessions.race);
-    card.appendChild(countdownEl);
-
-    // Atualizar countdown a cada segundo
-    setInterval(() => {
-        countdownEl.textContent = getCountdown(race.sessions.race);
-    }, 1000);
-
-    // Ficha de corrida expansível
-    const details = document.createElement("div");
-    details.className = "race-details hidden";
-    details.innerHTML = `
-        <p>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</p>
-        <p>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</p>
-        <p>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</p>
-        <p>Qualifying: ${new Date(race.sessions.qualifying).toLocaleString()}</p>
-        <p>Race: ${new Date(race.sessions.race).toLocaleString()}</p>
-    `;
-    card.appendChild(details);
-
-    // Toggle detalhes
-    header.addEventListener("click", () => {
-        details.classList.toggle("hidden");
-    });
-
-    return card;
-}
-
-// Renderizar todos os races
+// Criar todos os cards
 calendar2026.forEach(race => {
-    const card = createRaceCard(race);
-    raceResultsContainer.appendChild(card);
+  const card = document.createElement('div');
+  card.className = 'race-card';
+
+  // Imagem da corrida
+  const img = document.createElement('img');
+  img.src = `../${race.cardImage}`;
+  img.alt = race.name;
+  card.appendChild(img);
+
+  // Cabeçalho da corrida
+  const header = document.createElement('div');
+  header.className = 'race-header';
+
+  const title = document.createElement('h3');
+  title.textContent = race.name;
+  header.appendChild(title);
+
+  // Botão favorito (pode ativar/desativar)
+  const favBtn = document.createElement('button');
+  favBtn.className = 'fav-btn';
+  favBtn.innerHTML = '★';
+  favBtn.addEventListener('click', () => {
+    favBtn.classList.toggle('active');
+    card.classList.toggle('favorite');
+  });
+  header.appendChild(favBtn);
+
+  card.appendChild(header);
+
+  // Countdown até a corrida
+  const countdown = createCountdown(race.sessions.race);
+  card.appendChild(countdown);
+
+  // Dropbox detalhes (sessões)
+  const details = document.createElement('div');
+  details.className = 'race-details hidden';
+
+  const sessions = race.sessions;
+  details.innerHTML = `
+    <strong>FP1:</strong> ${new Date(sessions.fp1).toLocaleString()}<br>
+    <strong>FP2:</strong> ${new Date(sessions.fp2).toLocaleString()}<br>
+    <strong>FP3:</strong> ${new Date(sessions.fp3).toLocaleString()}<br>
+    <strong>Qualifying:</strong> ${new Date(sessions.qualifying).toLocaleString()}<br>
+    <strong>Corrida:</strong> ${new Date(sessions.race).toLocaleString()}
+  `;
+  card.appendChild(details);
+
+  // Toggle do dropbox ao clicar na imagem ou título
+  img.addEventListener('click', () => {
+    details.classList.toggle('hidden');
+    if (!details.classList.contains('hidden')) {
+      details.style.maxHeight = details.scrollHeight + 'px';
+    } else {
+      details.style.maxHeight = '0';
+    }
+  });
+
+  container.appendChild(card);
 });
