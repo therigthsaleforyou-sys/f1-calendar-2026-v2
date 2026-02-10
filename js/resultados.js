@@ -1,98 +1,89 @@
+const container = document.getElementById("race-results");
 const heroImg = document.getElementById("hero-image");
 const heroTitle = document.getElementById("hero-title");
-const container = document.getElementById("race-results");
 
-// ===============================
-// UTIL
-// ===============================
-function timeRemaining(dateUTC) {
-  return new Date(dateUTC).getTime() - Date.now();
-}
+const now = () => new Date().getTime();
 
-function formatCountdown(ms) {
-  if (ms <= 0) return "CORRIDA ATIVA";
-  const s = Math.floor(ms / 1000);
-  const d = Math.floor(s / 86400);
-  const h = Math.floor((s % 86400) / 3600);
-  const m = Math.floor((s % 3600) / 60);
-  const sec = s % 60;
-  return `${d}d ${h}h ${m}m ${sec}s`;
-}
-
-// ===============================
-// CORRIDA ATIVA (REGRA OFICIAL)
-// ===============================
 function getActiveRace() {
-  const sorted = [...calendar2026].sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
-  );
-
-  return sorted.find(r => timeRemaining(r.date) <= 0) || sorted[0];
+  return [...calendar2026]
+    .sort((a,b) => new Date(a.sessions.race) - new Date(b.sessions.race))
+    .find(r => new Date(r.sessions.race).getTime() <= now());
 }
 
-// ===============================
-// HERO
-// ===============================
-function renderHero(activeRace) {
-  heroImg.src = activeRace.image;
-  heroTitle.textContent = activeRace.name;
-  heroImg.onclick = () => window.location.href = activeRace.page;
+function formatCountdown(target) {
+  const diff = new Date(target).getTime() - now();
+  if (diff <= 0) return "Corrida iniciada";
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+
+  return `${d}d ${h}h ${m}m`;
 }
 
-// ===============================
-// CARDS
-// ===============================
-function renderCards(activeRace) {
-  container.innerHTML = "";
+function isFavorite(id) {
+  return JSON.parse(localStorage.getItem("favResults") || "[]").includes(id);
+}
+
+function toggleFavorite(id, btn) {
+  let favs = JSON.parse(localStorage.getItem("favResults") || "[]");
+  favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
+  localStorage.setItem("favResults", JSON.stringify(favs));
+  btn.classList.toggle("active", favs.includes(id));
+}
+
+function render() {
+  const activeRace = getActiveRace();
+
+  if (activeRace) {
+    heroImg.src = "../" + activeRace.heroImage;
+    heroTitle.textContent = activeRace.name;
+    heroImg.onclick = () =>
+      window.location.href = `${activeRace.id}.html`;
+  }
 
   calendar2026.forEach(race => {
-    const remaining = timeRemaining(race.date);
-    const isActive = race === activeRace;
+    if (document.getElementById(race.id)) return;
 
     const card = document.createElement("div");
     card.className = "race-card";
+    card.id = race.id;
+
+    const active = activeRace && race.id === activeRace.id;
 
     card.innerHTML = `
-      <img src="${race.image}">
+      <img src="../${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
-        <button class="fav-btn">⭐</button>
+        <button class="fav-btn ${isFavorite(race.id) ? "active" : ""}">🏁</button>
       </div>
 
-      <div class="result-countdown">
-        ${formatCountdown(remaining)}
-      </div>
+      <div class="result-countdown" data-id="${race.id}"></div>
 
-      <p class="awaiting ${isActive ? "hidden" : ""}">
-        Aguardar a realização da corrida
-      </p>
-
-      <div class="result-details ${isActive ? "active" : ""}">
+      <div class="race-details ${active ? "" : "hidden"}">
         <p><strong>Meteorologia:</strong> —</p>
-        <p><strong>Pole position:</strong> —</p>
+        <p><strong>Pole Position:</strong> —</p>
         <p><strong>Top 10:</strong> —</p>
-        <p><strong>Melhor volta:</strong> —</p>
+        <p><strong>Melhor Volta:</strong> —</p>
       </div>
+
+      ${active ? "" : `<p class="waiting">Aguardar a realização da corrida</p>`}
     `;
 
-    if (isActive) {
-      card.querySelector(".race-header").onclick = () => {
-        card.querySelector(".result-details").classList.toggle("active");
-      };
-    }
+    card.querySelector(".fav-btn")
+      .addEventListener("click", e => toggleFavorite(race.id, e.target));
 
     container.appendChild(card);
   });
 }
 
-// ===============================
-// LOOP
-// ===============================
-function update() {
-  const activeRace = getActiveRace();
-  renderHero(activeRace);
-  renderCards(activeRace);
+function updateCountdowns() {
+  document.querySelectorAll(".result-countdown").forEach(el => {
+    const race = calendar2026.find(r => r.id === el.dataset.id);
+    el.textContent = formatCountdown(race.sessions.race);
+  });
 }
 
-update();
-setInterval(update, 1000);
+render();
+updateCountdowns();
+setInterval(updateCountdowns, 60000);
