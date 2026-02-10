@@ -75,7 +75,7 @@ function render() {
     }
 
     card.innerHTML = `
-      <img src="../${race.cardImage}" alt="${race.name}">
+      <img class="race-image" src="../${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
         <button class="fav-btn ${isFavorite(race.id) ? "active" : ""}">🏁</button>
@@ -84,7 +84,7 @@ function render() {
       <div class="result-countdown" data-id="${race.id}"></div>
 
       <!-- Dropbox sempre presente -->
-      <div class="race-details">
+      <div class="race-details hidden">
         <p><strong>Meteorologia:</strong> —</p>
         <p><strong>Pole Position:</strong> —</p>
         <p><strong>Top 10:</strong> —</p>
@@ -96,10 +96,10 @@ function render() {
     card.querySelector(".fav-btn")
       .addEventListener("click", e => toggleFavorite(race.id, e.target));
 
-    // Permite abrir/fechar Dropbox ao clicar na header do card
+    // Dropbox abre/fecha ao clicar na imagem
     const details = card.querySelector(".race-details");
-    const header = card.querySelector(".race-header");
-    header.addEventListener("click", () => {
+    const image = card.querySelector(".race-image");
+    image.addEventListener("click", () => {
       details.classList.toggle("hidden");
     });
 
