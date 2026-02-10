@@ -1,3 +1,6 @@
+// js/resultados.js
+// Página Resultados – F1 2026
+
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -6,113 +9,90 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  const heroCountdown = document.getElementById("hero-countdown");
   const raceResults = document.getElementById("race-results");
   const backToTop = document.getElementById("back-to-top");
 
   /* =========================
-     HERO – corrida ativa (Austrália no início)
+     HERO – corrida ativa ou última terminada
   ========================= */
-  let activeRace = calendar2026[0];
 
-  function getActiveRace() {
-    const now = new Date();
-    for (let race of calendar2026) {
-      if (new Date(race.sessions.race) > now) return race;
-    }
-    return calendar2026[calendar2026.length - 1];
+  const now = new Date();
+  let lastFinished = calendar2026[0];
+
+  for (let race of calendar2026) {
+    if (new Date(race.sessions.race) <= now) lastFinished = race;
+    else break;
   }
 
-  function startCountdown(race) {
-    function update() {
-      const now = new Date();
-      const target = new Date(race.sessions.race);
-      const diff = target - now;
-
-      if (diff <= 0) {
-        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
-        activeRace = getActiveRace();
-        heroImage.src = activeRace.heroImage || activeRace.cardImage;
-        heroTitle.textContent = activeRace.name;
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      heroCountdown.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
-    }
-
-    update();
-    setInterval(update, 1000);
-  }
-
-  heroImage.src = activeRace.heroImage || activeRace.cardImage;
-  heroTitle.textContent = activeRace.name;
-  startCountdown(activeRace);
+  heroImage.src = lastFinished.heroImage || lastFinished.cardImage;
+  heroTitle.textContent = lastFinished.name;
 
   /* =========================
-     CARDS DOS RESULTADOS
+     CARDS DE RESULTADOS
   ========================= */
+
   raceResults.innerHTML = "";
 
   calendar2026.forEach(race => {
     const raceDate = new Date(race.sessions.race);
-    const now = new Date();
+    const isPast = raceDate <= now;
+
+    let cardContent = "";
+
+    if (isPast) {
+      // ================= RESULTADOS FICTÍCIOS PARA TESTE =================
+      // Apenas Austrália inicialmente
+      let results = {};
+      if (race.id === "australia") {
+        results = {
+          weather: "Ensolarado",
+          pole: "Max Verstappen",
+          top10: [
+            "Max Verstappen", "Lewis Hamilton", "Charles Leclerc", "Sergio Perez",
+            "George Russell", "Carlos Sainz", "Lando Norris", "Fernando Alonso",
+            "Esteban Ocon", "Pierre Gasly"
+          ],
+          fastestLap: "Lewis Hamilton"
+        };
+      }
+
+      cardContent = `
+        <p><strong>Meteorização:</strong> ${results.weather || "-"}</p>
+        <p><strong>Pole Position:</strong> ${results.pole || "-"}</p>
+        <ol>
+          ${results.top10 ? results.top10.map(name => `<li>${name}</li>`).join("") : ""}
+        </ol>
+        <p><strong>Melhor volta:</strong> ${results.fastestLap || "-"}</p>
+      `;
+    } else {
+      cardContent = `<p style="font-weight:bold;color:#ff0000;">Aguardar a realização da corrida</p>`;
+    }
 
     const card = document.createElement("div");
     card.className = "race-card";
-
-    if (now < raceDate) {
-      // Corrida ainda não aconteceu
-      card.innerHTML = `
-        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-        <div class="race-header">
-          <h3>${race.name}</h3>
-        </div>
-        <div class="race-details">
-          <p>Aguardar a realização da corrida</p>
-        </div>
-      `;
-    } else {
-      // Corrida concluída – mostrar resultados (Austrália apenas por enquanto)
-      if (race.id !== "australia_v2") return; // só Austrália inicialmente
-
-      const results = race.results || {}; // assumindo estrutura {pole, top10, fastestLap, weather}
-
-      const top10 = results.top10 || [];
-      let top10HTML = "";
-      top10.forEach((driver, idx) => {
-        top10HTML += `<p>${idx+1}. ${driver}</p>`;
-      });
-
-      card.innerHTML = `
-        <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-        <div class="race-header">
-          <h3>${race.name}</h3>
-        </div>
-        <div class="race-details">
-          <p><strong>Meteorologia:</strong> ${results.weather || "—"}</p>
-          <p><strong>Pole Position:</strong> ${results.pole || "—"}</p>
-          <p><strong>Resultados P1-P10:</strong></p>
-          ${top10HTML || "<p>—</p>"}
-          <p><strong>Melhor Volta:</strong> ${results.fastestLap || "—"}</p>
-        </div>
-      `;
-    }
+    card.innerHTML = `
+      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
+      <div class="race-header">
+        <h3>${race.name}</h3>
+      </div>
+      <div class="race-details">
+        ${cardContent}
+      </div>
+    `;
 
     raceResults.appendChild(card);
 
-    // Drop-down suave
+    // Drop-down suave ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     if (img && details) {
-      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+      if (!isPast) details.style.maxHeight = "none"; // sempre aberto para futuras
+      else details.style.maxHeight = "0";
+
       img.style.cursor = "pointer";
 
       img.addEventListener("click", () => {
-        const open = !details.classList.contains("hidden");
+        const open = details.style.maxHeight !== "0" && details.style.maxHeight !== "";
         if (open) {
           details.style.maxHeight = "0";
           setTimeout(() => details.classList.add("hidden"), 300);
