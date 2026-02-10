@@ -1,70 +1,99 @@
-/* HERO */
-#hero {
-  margin:16px;
-  padding:12px;
-  border:2px solid #fff;
-  border-radius:16px;
-  text-align:center;
+/* Container hero */
+#hero-container {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+  cursor: pointer;
+}
+#hero-container img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+#hero-title {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  text-shadow: 0 0 6px #000;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-#hero img {
-  width:100%;
-  border-radius:14px;
-  cursor:pointer;
+/* Cards */
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 360px;
+  background: #f7f7f7;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s;
+}
+.card img {
+  width: 100%;
+  object-fit: cover;
+  height: 180px;
+}
+.card h3 {
+  margin: 10px;
+  font-size: 1.3rem;
+}
+.card .countdown {
+  margin: 0 10px 10px;
+  font-weight: bold;
+  color: #d33;
+  font-size: 1.1rem;
+}
+.card .status {
+  margin: 0 10px 10px;
+  font-size: 1rem;
+  color: #555;
+}
+.card .favorites {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.card .dropbox {
+  margin: 10px;
+  padding: 8px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: none;
 }
 
-/* CARDS */
-.cards-wrapper {
-  padding:12px;
+/* Hover efeito */
+.card:hover {
+  transform: translateY(-5px);
 }
 
-.cards-wrapper .race-card {
-  width:100%;
+/* Botões flutuantes */
+#back-to-top, #campeonatos {
+  position: fixed;
+  bottom: 20px;
+  padding: 10px 16px;
+  font-weight: 700;
+  border-radius: 14px;
+  border: 2px solid #ff0000;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
 }
+#back-to-top { right: 90px; }
+#campeonatos { right: 20px; }
 
-/* COUNTDOWN */
-.result-countdown {
-  color:#ff0000;
-  font-weight:700;
-  margin:6px 0;
-}
-
-/* FAVORITOS */
-.fav-btn {
-  background:none;
-  border:none;
-  font-size:1.3rem;
-  cursor:pointer;
-  color:#666;
-}
-
-.fav-btn.active {
-  color:#ffd700;
-}
-
-/* BOTÃO CAMPEONATOS */
-.floating-championship {
-  position:fixed;
-  bottom:20px;
-  left:20px;
-  background:#000;
-  color:#fff;
-  border:2px solid #ff0000;
-  border-radius:14px;
-  padding:10px 16px;
-  font-weight:700;
-  text-decoration:none;
-  z-index:999;
-}
-
-/* BACK TO TOP (repõe comportamento normal) */
-#back-to-top {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  display:none;
-}
-
-#back-to-top.show {
-  display:block;
+/* Main container */
+#cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
