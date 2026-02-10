@@ -27,7 +27,7 @@
   </section>
 
   <!-- CARDS DAS CORRIDAS -->
-  <div id="race-results" class="cards-wrapper"></div>
+  <div id="race-cards" class="cards-wrapper"></div>
 
   <!-- BOTÃO FLUTUANTE CAMPEONATOS -->
   <div class="race-link-wrapper">
@@ -40,10 +40,9 @@
 
 <button id="back-to-top">Voltar ao topo</button>
 
-<!-- FICHEIROS JS -->
 <script src="js/calendar2026-v2.js"></script>
 <script>
-const container = document.getElementById("race-results");
+const container = document.getElementById("race-cards");
 
 function getCountdown(date) {
     const now = new Date();
@@ -59,35 +58,29 @@ function getCountdown(date) {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
-// Criação de cards para todas as corridas
 calendar2026.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
 
-    // Header com nome e botão favorito
     const header = document.createElement("div");
     header.className = "race-header";
     header.innerHTML = `<h3>${race.name}</h3><button class="fav-btn">★</button>`;
     card.appendChild(header);
 
-    // Imagem do GP
     const img = document.createElement("img");
     img.src = `../${race.cardImage}`;
     img.alt = race.name;
     card.appendChild(img);
 
-    // Countdown
     const countdownEl = document.createElement("div");
     countdownEl.className = "countdown";
     countdownEl.textContent = getCountdown(race.sessions.race);
     card.appendChild(countdownEl);
 
-    // Atualiza o countdown a cada segundo
     setInterval(() => {
         countdownEl.textContent = getCountdown(race.sessions.race);
     }, 1000);
 
-    // Detalhes da corrida (dropbox)
     const details = document.createElement("div");
     details.className = "race-details hidden";
     details.innerHTML = `
@@ -99,7 +92,6 @@ calendar2026.forEach(race => {
     `;
     card.appendChild(details);
 
-    // Toggle detalhes ao clicar no header
     header.addEventListener("click", () => {
         details.classList.toggle("hidden");
     });
