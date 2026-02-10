@@ -1,6 +1,4 @@
-// js/resultados.js
-// Página de Resultados – versão inicial com hero + cards de corridas
-
+// js/resultados.js – versão funcional com cards visíveis
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -37,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
                      <div class="race-header">
                        <h3>${race.name}</h3>
                      </div>
-                     <div class="race-details hidden">`;
+                     <div class="race-details ${isPast ? "" : "hidden"}">`;
 
     if (isPast) {
-      // Corrida terminada → resultados simulados (Austrália inicialmente)
+      // Corrida terminada → Austrália já com resultados
       if (race.id === "australia") {
         innerHTML += `
           <p><strong>Meteorologia:</strong> Ensolarado, 25°C</p>
@@ -70,16 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     innerHTML += `</div>`;
     card.innerHTML = innerHTML;
-
     raceResultsContainer.appendChild(card);
 
-    // Dropdown suave ao clicar na imagem
-    const img = card.querySelector(".race-image");
-    const details = card.querySelector(".race-details");
-    if (img && details) {
-      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
+    // Dropdown suave ao clicar na imagem (apenas cards futuros)
+    if (!isPast) {
+      const img = card.querySelector(".race-image");
+      const details = card.querySelector(".race-details");
       img.style.cursor = "pointer";
-
       img.addEventListener("click", () => {
         const open = !details.classList.contains("hidden");
         if (open) {
