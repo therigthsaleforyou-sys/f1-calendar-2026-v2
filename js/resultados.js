@@ -1,5 +1,5 @@
 // js/resultados.js
-// Página Resultados – F1 2026
+// Página de Resultados – versão inicial com hero + cards de corridas
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
@@ -7,92 +7,81 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const raceResultsContainer = document.getElementById("race-results");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
-  const raceResults = document.getElementById("race-results");
   const backToTop = document.getElementById("back-to-top");
 
-  /* =========================
-     HERO – corrida ativa ou última terminada
-  ========================= */
-
   const now = new Date();
-  let lastFinished = calendar2026[0];
 
+  // Determinar última corrida terminada
+  let lastFinishedRace = calendar2026[0];
   for (let race of calendar2026) {
-    if (new Date(race.sessions.race) <= now) lastFinished = race;
-    else break;
+    if (new Date(race.sessions.race) <= now) lastFinishedRace = race;
   }
 
-  heroImage.src = lastFinished.heroImage || lastFinished.cardImage;
-  heroTitle.textContent = lastFinished.name;
+  // Hero = última corrida terminada
+  heroImage.src = lastFinishedRace.heroImage || lastFinishedRace.cardImage;
+  heroTitle.textContent = lastFinishedRace.name;
 
-  /* =========================
-     CARDS DE RESULTADOS
-  ========================= */
-
-  raceResults.innerHTML = "";
-
-  calendar2026.forEach(race => {
+  // Função para criar card de resultados
+  function createRaceCard(race) {
     const raceDate = new Date(race.sessions.race);
     const isPast = raceDate <= now;
 
-    let cardContent = "";
-
-    if (isPast) {
-      // ================= RESULTADOS FICTÍCIOS PARA TESTE =================
-      // Apenas Austrália inicialmente
-      let results = {};
-      if (race.id === "australia") {
-        results = {
-          weather: "Ensolarado",
-          pole: "Max Verstappen",
-          top10: [
-            "Max Verstappen", "Lewis Hamilton", "Charles Leclerc", "Sergio Perez",
-            "George Russell", "Carlos Sainz", "Lando Norris", "Fernando Alonso",
-            "Esteban Ocon", "Pierre Gasly"
-          ],
-          fastestLap: "Lewis Hamilton"
-        };
-      }
-
-      cardContent = `
-        <p><strong>Meteorização:</strong> ${results.weather || "-"}</p>
-        <p><strong>Pole Position:</strong> ${results.pole || "-"}</p>
-        <ol>
-          ${results.top10 ? results.top10.map(name => `<li>${name}</li>`).join("") : ""}
-        </ol>
-        <p><strong>Melhor volta:</strong> ${results.fastestLap || "-"}</p>
-      `;
-    } else {
-      cardContent = `<p style="font-weight:bold;color:#ff0000;">Aguardar a realização da corrida</p>`;
-    }
-
     const card = document.createElement("div");
     card.className = "race-card";
-    card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <div class="race-header">
-        <h3>${race.name}</h3>
-      </div>
-      <div class="race-details">
-        ${cardContent}
-      </div>
-    `;
 
-    raceResults.appendChild(card);
+    // Conteúdo do card
+    let innerHTML = `<img class="race-image" src="${race.cardImage}" alt="${race.name}">
+                     <div class="race-header">
+                       <h3>${race.name}</h3>
+                     </div>
+                     <div class="race-details hidden">`;
 
-    // Drop-down suave ao clicar na imagem
+    if (isPast) {
+      // Corrida terminada → resultados simulados (Austrália inicialmente)
+      if (race.id === "australia") {
+        innerHTML += `
+          <p><strong>Meteorologia:</strong> Ensolarado, 25°C</p>
+          <p><strong>Pole Position:</strong> Max Verstappen (Red Bull)</p>
+          <p><strong>Resultados Corrida:</strong></p>
+          <ol>
+            <li>Max Verstappen (Red Bull)</li>
+            <li>Lewis Hamilton (Mercedes)</li>
+            <li>Charles Leclerc (Ferrari)</li>
+            <li>Sergio Pérez (Red Bull)</li>
+            <li>Carlos Sainz (Ferrari)</li>
+            <li>Lando Norris (McLaren)</li>
+            <li>George Russell (Mercedes)</li>
+            <li>Fernando Alonso (Aston Martin)</li>
+            <li>Esteban Ocon (Alpine)</li>
+            <li>Pierre Gasly (Alpine)</li>
+          </ol>
+          <p><strong>Melhor Volta:</strong> Max Verstappen – 1:19.452</p>
+        `;
+      } else {
+        innerHTML += `<p>Resultados ainda não inseridos</p>`;
+      }
+    } else {
+      // Corrida futura → mensagem
+      innerHTML += `<p>🏁 Aguardar a realização da corrida</p>`;
+    }
+
+    innerHTML += `</div>`;
+    card.innerHTML = innerHTML;
+
+    raceResultsContainer.appendChild(card);
+
+    // Dropdown suave ao clicar na imagem
     const img = card.querySelector(".race-image");
     const details = card.querySelector(".race-details");
     if (img && details) {
-      if (!isPast) details.style.maxHeight = "none"; // sempre aberto para futuras
-      else details.style.maxHeight = "0";
-
+      if (details.classList.contains("hidden")) details.style.maxHeight = "0";
       img.style.cursor = "pointer";
 
       img.addEventListener("click", () => {
-        const open = details.style.maxHeight !== "0" && details.style.maxHeight !== "";
+        const open = !details.classList.contains("hidden");
         if (open) {
           details.style.maxHeight = "0";
           setTimeout(() => details.classList.add("hidden"), 300);
@@ -102,7 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }
-  });
+  }
+
+  // Criar todos os cards
+  calendar2026.forEach(createRaceCard);
 
   /* =========================
      BACK TO TOP
