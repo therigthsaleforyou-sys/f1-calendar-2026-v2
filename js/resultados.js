@@ -5,12 +5,29 @@ const backToTop = document.getElementById("back-to-top");
 
 const now = () => new Date().getTime();
 
+// -------- HERO DINÂMICO --------
 function getActiveRace() {
-  return [...calendar2026]
+  // Retorna a primeira corrida que ainda não começou
+  return calendar2026
     .sort((a, b) => new Date(a.sessions.race) - new Date(b.sessions.race))
-    .find(r => new Date(r.sessions.race).getTime() <= now());
+    .find(r => new Date(r.sessions.race).getTime() > now()) || calendar2026[calendar2026.length-1];
 }
 
+function updateHero() {
+  const activeRace = getActiveRace();
+
+  heroImg.src = "../" + activeRace.heroImage;
+  heroTitle.textContent = activeRace.name;
+
+  heroImg.onclick = () => {
+    const card = document.getElementById(activeRace.id);
+    if(card){
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+}
+
+// -------- COUNTDOWN --------
 function formatCountdown(target) {
   const diff = new Date(target).getTime() - now();
   if (diff <= 0) return "Corrida iniciada";
@@ -18,10 +35,12 @@ function formatCountdown(target) {
   const d = Math.floor(diff / 86400000);
   const h = Math.floor((diff % 86400000) / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
 
-  return `${d}d ${h}h ${m}m`;
+  return `${d}d ${h}h ${m}m ${s}s`;
 }
 
+// -------- FAVORITOS --------
 function isFavorite(id) {
   return JSON.parse(localStorage.getItem("favResults") || "[]").includes(id);
 }
@@ -36,18 +55,9 @@ function toggleFavorite(id, btn) {
   btn.classList.toggle("active", favs.includes(id));
 }
 
+// -------- RENDER CARDS --------
 function render() {
   const activeRace = getActiveRace();
-
-  if (activeRace) {
-    heroImg.src = "../" + activeRace.heroImage;
-    heroTitle.textContent = activeRace.name;
-    heroImg.onclick = () =>
-      window.location.href = `${activeRace.id}.html`;
-  } else {
-    heroImg.onclick = () =>
-      window.location.href = "australia.html";
-  }
 
   calendar2026.forEach(race => {
     if (document.getElementById(race.id)) return;
@@ -82,15 +92,21 @@ function render() {
 
     container.appendChild(card);
   });
+
+  updateHero();
 }
 
+// -------- UPDATE COUNTDOWNS --------
 function updateCountdowns() {
   document.querySelectorAll(".result-countdown").forEach(el => {
     const race = calendar2026.find(r => r.id === el.dataset.id);
     el.textContent = formatCountdown(race.sessions.race);
   });
+
+  updateHero();
 }
 
+// -------- BOTÃO VOLTAR AO TOPO --------
 window.addEventListener("scroll", () => {
   backToTop.classList.toggle("show", window.scrollY > 300);
 });
@@ -98,6 +114,7 @@ window.addEventListener("scroll", () => {
 backToTop.onclick = () =>
   window.scrollTo({ top: 0, behavior: "smooth" });
 
+// -------- INICIALIZAÇÃO --------
 render();
 updateCountdowns();
-setInterval(updateCountdowns, 60000);
+setInterval(updateCountdowns, 1000); // atualiza cada segundo para countdowns precisos
