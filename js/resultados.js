@@ -1,88 +1,103 @@
-const cardsContainer = document.getElementById('cards-container');
-const heroImg = document.getElementById('hero-img');
-const heroTitle = document.getElementById('hero-title');
+const container = document.getElementById("race-results");
+const heroImg = document.getElementById("hero-image");
+const heroTitle = document.getElementById("hero-title");
+const backToTop = document.getElementById("back-to-top");
 
-// Função para determinar corrida ativa
+const now = () => new Date().getTime();
+
 function getActiveRace() {
-  const now = new Date();
-  return window.calendar2026.find(race => new Date(race.sessions.race) > now);
+  return [...calendar2026]
+    .sort((a, b) => new Date(a.sessions.race) - new Date(b.sessions.race))
+    .find(r => new Date(r.sessions.race).getTime() <= now());
 }
 
-// Atualiza hero
-function updateHero() {
-  const active = getActiveRace();
-  if (active) {
-    heroImg.src = `../assets/heroes/${active.id}.jpg`;
-    heroTitle.textContent = active.name;
-    heroImg.onclick = () => window.location.href = `${active.id}.html`;
+function formatCountdown(target) {
+  const diff = new Date(target).getTime() - now();
+  if (diff <= 0) return "Corrida iniciada";
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+
+  return `${d}d ${h}h ${m}m`;
+}
+
+function isFavorite(id) {
+  return JSON.parse(localStorage.getItem("favResults") || "[]").includes(id);
+}
+
+function toggleFavorite(id, btn) {
+  let favs = JSON.parse(localStorage.getItem("favResults") || "[]");
+  favs = favs.includes(id)
+    ? favs.filter(f => f !== id)
+    : [...favs, id];
+
+  localStorage.setItem("favResults", JSON.stringify(favs));
+  btn.classList.toggle("active", favs.includes(id));
+}
+
+function render() {
+  const activeRace = getActiveRace();
+
+  if (activeRace) {
+    heroImg.src = "../" + activeRace.heroImage;
+    heroTitle.textContent = activeRace.name;
+    heroImg.onclick = () =>
+      window.location.href = `${activeRace.id}.html`;
+  } else {
+    heroImg.onclick = () =>
+      window.location.href = "australia.html";
   }
-}
 
-// Cria cards
-function createCards() {
-  cardsContainer.innerHTML = '';
-  const now = new Date();
-  window.calendar2026.forEach(race => {
-    const card = document.createElement('div');
-    card.className = 'card';
+  calendar2026.forEach(race => {
+    if (document.getElementById(race.id)) return;
 
-    const img = document.createElement('img');
-    img.src = `../assets/races/${race.id}.jpg`;
-    card.appendChild(img);
+    const card = document.createElement("div");
+    card.className = "race-card";
+    card.id = race.id;
 
-    const title = document.createElement('h3');
-    title.textContent = race.name;
-    card.appendChild(title);
+    const active = activeRace && race.id === activeRace.id;
 
-    const countdown = document.createElement('div');
-    countdown.className = 'countdown';
-    card.appendChild(countdown);
+    card.innerHTML = `
+      <img src="../${race.cardImage}" alt="${race.name}">
+      <div class="race-header">
+        <h3>${race.name}</h3>
+        <button class="fav-btn ${isFavorite(race.id) ? "active" : ""}">🏁</button>
+      </div>
 
-    const status = document.createElement('div');
-    status.className = 'status';
-    card.appendChild(status);
+      <div class="result-countdown" data-id="${race.id}"></div>
 
-    // Botão favorito
-    const fav = document.createElement('div');
-    fav.className = 'favorite';
-    fav.textContent = '🏁';
-    fav.style.position = 'absolute';
-    fav.style.top = '10px';
-    fav.style.right = '10px';
-    card.appendChild(fav);
+      <div class="race-details ${active ? "" : "hidden"}">
+        <p><strong>Meteorologia:</strong> —</p>
+        <p><strong>Pole Position:</strong> —</p>
+        <p><strong>Top 10:</strong> —</p>
+        <p><strong>Melhor Volta:</strong> —</p>
+      </div>
 
-    cardsContainer.appendChild(card);
+      ${active ? "" : `<p class="waiting">Aguardar a realização da corrida</p>`}
+    `;
 
-    // Countdown
-    function updateCountdown() {
-      const raceTime = new Date(race.sessions.race);
-      const diff = raceTime - new Date();
-      if (diff <= 0) {
-        countdown.style.display = 'none';
-        status.textContent = 'Corrida ativa! Mostrando dados...';
-        clearInterval(interval);
-      } else {
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff / (1000*60*60)) % 24);
-        const m = Math.floor((diff / (1000*60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-        countdown.textContent = `${d}d ${h}h ${m}m ${s}s`;
-        status.textContent = 'Aguardar a realização da corrida';
-      }
-    }
-    const interval = setInterval(updateCountdown, 1000);
-    updateCountdown();
+    card.querySelector(".fav-btn")
+      .addEventListener("click", e => toggleFavorite(race.id, e.target));
+
+    container.appendChild(card);
   });
 }
 
-updateHero();
-createCards();
+function updateCountdowns() {
+  document.querySelectorAll(".result-countdown").forEach(el => {
+    const race = calendar2026.find(r => r.id === el.dataset.id);
+    el.textContent = formatCountdown(race.sessions.race);
+  });
+}
 
-// Botão voltar ao topo
-const backBtn = document.getElementById('back-to-top');
-backBtn.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+window.addEventListener("scroll", () => {
+  backToTop.classList.toggle("show", window.scrollY > 300);
+});
 
-// Botão campeonatos
-document.getElementById('campeonatos').onclick = () => {
-  window.location.href = 'campeonatos.html';
-};
+backToTop.onclick = () =>
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+render();
+updateCountdowns();
+setInterval(updateCountdowns, 60000);
