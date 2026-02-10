@@ -1,74 +1,72 @@
-// Garantir que o DOM está pronto
-document.addEventListener("DOMContentLoaded", () => {
-  const raceResults = document.getElementById("race-results");
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-  const heroCountdown = document.getElementById("hero-countdown");
+// js/resultados.js
+// Página Resultados – cards iguais à index, com lógica própria
 
-  // Função para formatar tempo
-  function formatCountdown(ms) {
-    const totalSeconds = Math.floor(ms / 1000);
-    const days = Math.floor(totalSeconds / (3600*24));
-    const hours = Math.floor((totalSeconds % (3600*24))/3600);
-    const minutes = Math.floor((totalSeconds % 3600)/60);
-    const seconds = totalSeconds % 60;
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
+    console.error("calendar2026 não carregado");
+    return;
   }
 
-  // Criar cards
+  const container = document.getElementById("race-results");
+  const heroTitle = document.getElementById("hero-title");
+  const heroImage = document.getElementById("hero-image");
+  const backToTop = document.getElementById("back-to-top");
+
+  const now = new Date();
+
+  function getActiveRace() {
+    for (let race of calendar2026) {
+      if (new Date(race.sessions.race) > now) return race;
+    }
+    return calendar2026[calendar2026.length - 1];
+  }
+
+  const activeRace = getActiveRace();
+  heroTitle.textContent = activeRace.name;
+  heroImage.src = "../" + activeRace.cardImage;
+
+  container.innerHTML = "";
+
   calendar2026.forEach(race => {
+    const raceDate = new Date(race.sessions.race);
+    const finished = raceDate < now;
+
     const card = document.createElement("div");
-    card.classList.add("race-card");
+    card.className = "race-card";
 
     card.innerHTML = `
+      <img src="../${race.cardImage}" alt="${race.name}">
       <div class="race-header">
         <h3>${race.name}</h3>
       </div>
-      <img src="../${race.cardImage}" alt="${race.name}">
-      <div class="countdown" id="countdown-${race.id}"></div>
+
+      <div class="race-details">
+        ${
+          finished
+            ? `
+              <p><strong>Meteorologia:</strong> —</p>
+              <p><strong>Pole Position:</strong> —</p>
+              <p><strong>Resultados:</strong></p>
+              <ol>
+                <li>—</li><li>—</li><li>—</li><li>—</li><li>—</li>
+                <li>—</li><li>—</li><li>—</li><li>—</li><li>—</li>
+              </ol>
+              <p><strong>Melhor volta:</strong> —</p>
+            `
+            : `<p style="opacity:.7">⏳ Aguardar a realização da corrida</p>`
+        }
+      </div>
     `;
 
-    raceResults.appendChild(card);
+    container.appendChild(card);
   });
 
-  // Atualizar countdowns
-  function updateCountdowns() {
-    const now = new Date().getTime();
-
-    let activeRace = calendar2026[0];
-
-    calendar2026.forEach(race => {
-      const raceTime = new Date(race.sessions.race).getTime();
-      const countdownEl = document.getElementById(`countdown-${race.id}`);
-      const diff = raceTime - now;
-
-      if(diff > 0) {
-        countdownEl.textContent = `Corrida em: ${formatCountdown(diff)}`;
-      } else {
-        countdownEl.textContent = "Corrida terminada";
-      }
-
-      // Encontrar a corrida mais próxima ainda não corrida
-      if(diff > 0 && raceTime < new Date(activeRace.sessions.race).getTime()) {
-        activeRace = race;
-      }
-    });
-
-    // Atualizar hero
-    heroImage.src = `../${activeRace.heroImage}`;
-    heroTitle.textContent = activeRace.name;
-    const heroDiff = new Date(activeRace.sessions.race).getTime() - now;
-    heroCountdown.textContent = heroDiff > 0 ? `Corrida em: ${formatCountdown(heroDiff)}` : "Corrida terminada";
-  }
-
-  updateCountdowns();
-  setInterval(updateCountdowns, 1000);
-
-  // Back to top
-  const backBtn = document.getElementById("back-to-top");
+  /* BACK TO TOP */
   window.addEventListener("scroll", () => {
-    if(window.scrollY > 300) backBtn.classList.add("show");
-    else backBtn.classList.remove("show");
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
-  backBtn.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
