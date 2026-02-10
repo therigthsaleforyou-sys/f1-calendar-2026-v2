@@ -1,0 +1,75 @@
+/* ============================
+   Resultados F1 2026
+   Apenas para resultados.html
+   ============================ */
+
+#race-results {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.race-card {
+  border: 2px solid #ff0000;
+  border-radius: 16px;
+  padding: 12px;
+  background: #111;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.race-card.favorite {
+  border-color: gold;
+  box-shadow: 0 0 12px rgba(255,215,0,0.7);
+}
+
+.race-card img {
+  width: 100%;
+  border-radius: 14px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.race-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.race-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.fav-btn.active {
+  color: #ffd700;
+}
+
+.race-details {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.hidden {
+  display: none;
+  max-height: 0 !important;
+}
+
+.countdown {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 6px;
+  text-align: center;
+}
