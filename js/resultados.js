@@ -1,72 +1,98 @@
-// js/resultados.js
-// Página Resultados – cards iguais à index, com lógica própria
+const heroImg = document.getElementById("hero-image");
+const heroTitle = document.getElementById("hero-title");
+const container = document.getElementById("race-results");
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
+// ===============================
+// UTIL
+// ===============================
+function timeRemaining(dateUTC) {
+  return new Date(dateUTC).getTime() - Date.now();
+}
 
-  const container = document.getElementById("race-results");
-  const heroTitle = document.getElementById("hero-title");
-  const heroImage = document.getElementById("hero-image");
-  const backToTop = document.getElementById("back-to-top");
+function formatCountdown(ms) {
+  if (ms <= 0) return "CORRIDA ATIVA";
+  const s = Math.floor(ms / 1000);
+  const d = Math.floor(s / 86400);
+  const h = Math.floor((s % 86400) / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return `${d}d ${h}h ${m}m ${sec}s`;
+}
 
-  const now = new Date();
+// ===============================
+// CORRIDA ATIVA (REGRA OFICIAL)
+// ===============================
+function getActiveRace() {
+  const sorted = [...calendar2026].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
 
-  function getActiveRace() {
-    for (let race of calendar2026) {
-      if (new Date(race.sessions.race) > now) return race;
-    }
-    return calendar2026[calendar2026.length - 1];
-  }
+  return sorted.find(r => timeRemaining(r.date) <= 0) || sorted[0];
+}
 
-  const activeRace = getActiveRace();
+// ===============================
+// HERO
+// ===============================
+function renderHero(activeRace) {
+  heroImg.src = activeRace.image;
   heroTitle.textContent = activeRace.name;
-  heroImage.src = "../" + activeRace.cardImage;
+  heroImg.onclick = () => window.location.href = activeRace.page;
+}
 
+// ===============================
+// CARDS
+// ===============================
+function renderCards(activeRace) {
   container.innerHTML = "";
 
   calendar2026.forEach(race => {
-    const raceDate = new Date(race.sessions.race);
-    const finished = raceDate < now;
+    const remaining = timeRemaining(race.date);
+    const isActive = race === activeRace;
 
     const card = document.createElement("div");
     card.className = "race-card";
 
     card.innerHTML = `
-      <img src="../${race.cardImage}" alt="${race.name}">
+      <img src="${race.image}">
       <div class="race-header">
         <h3>${race.name}</h3>
+        <button class="fav-btn">⭐</button>
       </div>
 
-      <div class="race-details">
-        ${
-          finished
-            ? `
-              <p><strong>Meteorologia:</strong> —</p>
-              <p><strong>Pole Position:</strong> —</p>
-              <p><strong>Resultados:</strong></p>
-              <ol>
-                <li>—</li><li>—</li><li>—</li><li>—</li><li>—</li>
-                <li>—</li><li>—</li><li>—</li><li>—</li><li>—</li>
-              </ol>
-              <p><strong>Melhor volta:</strong> —</p>
-            `
-            : `<p style="opacity:.7">⏳ Aguardar a realização da corrida</p>`
-        }
+      <div class="result-countdown">
+        ${formatCountdown(remaining)}
+      </div>
+
+      <p class="awaiting ${isActive ? "hidden" : ""}">
+        Aguardar a realização da corrida
+      </p>
+
+      <div class="result-details ${isActive ? "active" : ""}">
+        <p><strong>Meteorologia:</strong> —</p>
+        <p><strong>Pole position:</strong> —</p>
+        <p><strong>Top 10:</strong> —</p>
+        <p><strong>Melhor volta:</strong> —</p>
       </div>
     `;
 
+    if (isActive) {
+      card.querySelector(".race-header").onclick = () => {
+        card.querySelector(".result-details").classList.toggle("active");
+      };
+    }
+
     container.appendChild(card);
   });
+}
 
-  /* BACK TO TOP */
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
+// ===============================
+// LOOP
+// ===============================
+function update() {
+  const activeRace = getActiveRace();
+  renderHero(activeRace);
+  renderCards(activeRace);
+}
 
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
+update();
+setInterval(update, 1000);
