@@ -47,9 +47,15 @@ function isFavorite(id) {
 
 function toggleFavorite(id, btn) {
   let favs = JSON.parse(localStorage.getItem("favResults") || "[]");
-  favs = favs.includes(id)
-    ? favs.filter(f => f !== id)
-    : [...favs, id];
+  const card = document.getElementById(id);
+
+  if(favs.includes(id)){
+    favs = favs.filter(f => f !== id);
+    card.classList.remove("favorite");
+  } else {
+    favs.push(id);
+    card.classList.add("favorite");
+  }
 
   localStorage.setItem("favResults", JSON.stringify(favs));
   btn.classList.toggle("active", favs.includes(id));
@@ -65,6 +71,10 @@ function render() {
     const card = document.createElement("div");
     card.className = "race-card";
     card.id = race.id;
+
+    if(isFavorite(race.id)){
+      card.classList.add("favorite");
+    }
 
     const active = activeRace && race.id === activeRace.id;
 
