@@ -1,104 +1,72 @@
-// js/resultados.js – versão funcional com cards visíveis
-document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
+// resultados.js
+const raceResultsContainer = document.getElementById("race-results");
 
-  const raceResultsContainer = document.getElementById("race-results");
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-  const backToTop = document.getElementById("back-to-top");
+// Função para formatar tempo restante
+function getCountdown(raceDate) {
+    const now = new Date();
+    const race = new Date(raceDate);
+    const diff = race - now;
 
-  const now = new Date();
+    if (diff <= 0) return "Corrida já aconteceu";
 
-  // Determinar última corrida terminada
-  let lastFinishedRace = calendar2026[0];
-  for (let race of calendar2026) {
-    if (new Date(race.sessions.race) <= now) lastFinishedRace = race;
-  }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-  // Hero = última corrida terminada
-  heroImage.src = lastFinishedRace.heroImage || lastFinishedRace.cardImage;
-  heroTitle.textContent = lastFinishedRace.name;
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
 
-  // Função para criar card de resultados
-  function createRaceCard(race) {
-    const raceDate = new Date(race.sessions.race);
-    const isPast = raceDate <= now;
-
+// Função para criar cards
+function createRaceCard(race) {
     const card = document.createElement("div");
     card.className = "race-card";
 
-    // Conteúdo do card
-    let innerHTML = `<img class="race-image" src="${race.cardImage}" alt="${race.name}">
-                     <div class="race-header">
-                       <h3>${race.name}</h3>
-                     </div>
-                     <div class="race-details ${isPast ? "" : "hidden"}">`;
+    // Imagem e título
+    const header = document.createElement("div");
+    header.className = "race-header";
+    header.innerHTML = `<h3>${race.name}</h3>
+                        <button class="fav-btn">★</button>`;
+    card.appendChild(header);
 
-    if (isPast) {
-      // Corrida terminada → Austrália já com resultados
-      if (race.id === "australia") {
-        innerHTML += `
-          <p><strong>Meteorologia:</strong> Ensolarado, 25°C</p>
-          <p><strong>Pole Position:</strong> Max Verstappen (Red Bull)</p>
-          <p><strong>Resultados Corrida:</strong></p>
-          <ol>
-            <li>Max Verstappen (Red Bull)</li>
-            <li>Lewis Hamilton (Mercedes)</li>
-            <li>Charles Leclerc (Ferrari)</li>
-            <li>Sergio Pérez (Red Bull)</li>
-            <li>Carlos Sainz (Ferrari)</li>
-            <li>Lando Norris (McLaren)</li>
-            <li>George Russell (Mercedes)</li>
-            <li>Fernando Alonso (Aston Martin)</li>
-            <li>Esteban Ocon (Alpine)</li>
-            <li>Pierre Gasly (Alpine)</li>
-          </ol>
-          <p><strong>Melhor Volta:</strong> Max Verstappen – 1:19.452</p>
-        `;
-      } else {
-        innerHTML += `<p>Resultados ainda não inseridos</p>`;
-      }
-    } else {
-      // Corrida futura → mensagem
-      innerHTML += `<p>🏁 Aguardar a realização da corrida</p>`;
-    }
+    const img = document.createElement("img");
+    img.src = `../${race.cardImage}`;
+    img.alt = race.name;
+    card.appendChild(img);
 
-    innerHTML += `</div>`;
-    card.innerHTML = innerHTML;
+    // Countdown
+    const countdownEl = document.createElement("div");
+    countdownEl.className = "countdown";
+    countdownEl.textContent = getCountdown(race.sessions.race);
+    card.appendChild(countdownEl);
+
+    // Atualizar countdown a cada segundo
+    setInterval(() => {
+        countdownEl.textContent = getCountdown(race.sessions.race);
+    }, 1000);
+
+    // Ficha de corrida expansível
+    const details = document.createElement("div");
+    details.className = "race-details hidden";
+    details.innerHTML = `
+        <p>FP1: ${new Date(race.sessions.fp1).toLocaleString()}</p>
+        <p>FP2: ${new Date(race.sessions.fp2).toLocaleString()}</p>
+        <p>FP3: ${new Date(race.sessions.fp3).toLocaleString()}</p>
+        <p>Qualifying: ${new Date(race.sessions.qualifying).toLocaleString()}</p>
+        <p>Race: ${new Date(race.sessions.race).toLocaleString()}</p>
+    `;
+    card.appendChild(details);
+
+    // Toggle detalhes
+    header.addEventListener("click", () => {
+        details.classList.toggle("hidden");
+    });
+
+    return card;
+}
+
+// Renderizar todos os races
+calendar2026.forEach(race => {
+    const card = createRaceCard(race);
     raceResultsContainer.appendChild(card);
-
-    // Dropdown suave ao clicar na imagem (apenas cards futuros)
-    if (!isPast) {
-      const img = card.querySelector(".race-image");
-      const details = card.querySelector(".race-details");
-      img.style.cursor = "pointer";
-      img.addEventListener("click", () => {
-        const open = !details.classList.contains("hidden");
-        if (open) {
-          details.style.maxHeight = "0";
-          setTimeout(() => details.classList.add("hidden"), 300);
-        } else {
-          details.classList.remove("hidden");
-          details.style.maxHeight = details.scrollHeight + "px";
-        }
-      });
-    }
-  }
-
-  // Criar todos os cards
-  calendar2026.forEach(createRaceCard);
-
-  /* =========================
-     BACK TO TOP
-  ========================= */
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
 });
