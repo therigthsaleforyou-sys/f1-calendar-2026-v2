@@ -20,13 +20,11 @@
 
 .cards-wrapper .race-card {
   width:100%;
-}
-
-/* COUNTDOWN */
-.result-countdown {
-  color:#ff0000;
-  font-weight:700;
-  margin:6px 0;
+  margin-bottom:16px;
+  border:2px solid #fff;
+  border-radius:14px;
+  padding:8px;
+  transition: all 0.3s ease;
 }
 
 /* FAVORITOS */
@@ -40,6 +38,46 @@
 
 .fav-btn.active {
   color:#ffd700;
+}
+
+.race-card.favorite {
+  border-color: #ffd700;
+  box-shadow: 0 0 10px #000;
+}
+
+/* COUNTDOWN */
+.result-countdown {
+  color:#ff0000;
+  font-weight:700;
+  margin:6px 0;
+}
+
+/* DROPBOX / RACE DETAILS */
+.race-details {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 8px;
+  background: #111;
+  color: #fff;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.race-details p {
+  margin: 4px 0;
+}
+
+.race-details.hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.race-details:not(.hidden) {
+  max-height: 200px; /* altura suficiente para mostrar todo */
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 /* BOTÃO CAMPEONATOS */
@@ -57,7 +95,7 @@
   z-index:999;
 }
 
-/* BACK TO TOP (repõe comportamento normal) */
+/* BACK TO TOP */
 #back-to-top {
   position:fixed;
   bottom:20px;
