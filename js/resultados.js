@@ -7,7 +7,6 @@ const now = () => new Date().getTime();
 
 // -------- HERO DINÂMICO --------
 function getActiveRace() {
-  // Retorna a primeira corrida que ainda não começou
   return calendar2026
     .sort((a, b) => new Date(a.sessions.race) - new Date(b.sessions.race))
     .find(r => new Date(r.sessions.race).getTime() > now()) || calendar2026[calendar2026.length-1];
@@ -15,7 +14,6 @@ function getActiveRace() {
 
 function updateHero() {
   const activeRace = getActiveRace();
-
   heroImg.src = "../" + activeRace.heroImage;
   heroTitle.textContent = activeRace.name;
 
@@ -76,8 +74,6 @@ function render() {
       card.classList.add("favorite");
     }
 
-    const active = activeRace && race.id === activeRace.id;
-
     card.innerHTML = `
       <img src="../${race.cardImage}" alt="${race.name}">
       <div class="race-header">
@@ -87,19 +83,25 @@ function render() {
 
       <div class="result-countdown" data-id="${race.id}"></div>
 
-      <div class="race-details ${active ? "" : "hidden"}">
+      <!-- Dropbox sempre presente -->
+      <div class="race-details">
         <p><strong>Meteorologia:</strong> —</p>
         <p><strong>Pole Position:</strong> —</p>
         <p><strong>Top 10:</strong> —</p>
         <p><strong>Melhor Volta:</strong> —</p>
       </div>
-
-      ${active ? "" : `<p class="waiting">Aguardar a realização da corrida</p>`}
     `;
 
     // Botão favorito
     card.querySelector(".fav-btn")
       .addEventListener("click", e => toggleFavorite(race.id, e.target));
+
+    // Permite abrir/fechar Dropbox ao clicar na header do card
+    const details = card.querySelector(".race-details");
+    const header = card.querySelector(".race-header");
+    header.addEventListener("click", () => {
+      details.classList.toggle("hidden");
+    });
 
     container.appendChild(card);
   });
@@ -107,30 +109,12 @@ function render() {
   updateHero();
 }
 
-// -------- UPDATE COUNTDOWNS E DROPBOX --------
+// -------- UPDATE COUNTDOWNS --------
 function updateCountdowns() {
-  const activeRace = getActiveRace();
-
   document.querySelectorAll(".race-card").forEach(card => {
     const race = calendar2026.find(r => r.id === card.id);
-
-    // Atualiza countdown
     const countdownEl = card.querySelector(".result-countdown");
     countdownEl.textContent = formatCountdown(race.sessions.race);
-
-    // Atualiza dropdown / detalhes
-    const details = card.querySelector(".race-details");
-    const waitingText = card.querySelector(".waiting");
-
-    if(new Date(race.sessions.race).getTime() <= now()){
-      // Corrida ativa → mostra Dropbox
-      details.classList.remove("hidden");
-      if(waitingText) waitingText.style.display = "none";
-    } else {
-      // Corrida futura → esconde Dropbox
-      details.classList.add("hidden");
-      if(waitingText) waitingText.style.display = "block";
-    }
   });
 
   updateHero();
@@ -147,4 +131,4 @@ backToTop.onclick = () =>
 // -------- INICIALIZAÇÃO --------
 render();
 updateCountdowns();
-setInterval(updateCountdowns, 1000); // atualiza countdowns e Dropbox
+setInterval(updateCountdowns, 1000);
