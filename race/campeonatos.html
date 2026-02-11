@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/campeonatos.css">
 </head>
@@ -15,16 +14,19 @@
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html" style="color:#fff">Resultados</a>
+    <a href="resultados.html" style="color:#fff;">Resultados</a>
   </nav>
 </header>
 
 <main>
   <section id="championships">
 
+    <!-- TÍTULO DA PÁGINA -->
+    <h2 class="championship-title">🏎️ Campeonato de Fórmula1 2026 🏎️</h2>
+
     <!-- Campeonato de Pilotos -->
     <div class="race-card" id="drivers-champ">
-      <img src="../assets/heroes/tabela1.jpg" class="dropbox-toggle" alt="Abrir / Fechar">
+      <img src="../assets/heroes/tabela1.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Pilotos – 2026</h3>
       <table>
         <thead>
@@ -40,7 +42,7 @@
 
     <!-- Campeonato de Construtores -->
     <div class="race-card" id="constructors-champ">
-      <img src="../assets/heroes/tabela2.jpg" class="dropbox-toggle" alt="Abrir / Fechar">
+      <img src="../assets/heroes/tabela2.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Construtores – 2026</h3>
       <table>
         <thead>
@@ -57,16 +59,29 @@
   </section>
 </main>
 
-<!-- BOTÃO VOLTAR AO TOPO -->
+<!-- Botão Voltar ao Topo -->
 <button id="backToTop">Voltar ao topo</button>
 
-<footer class="site-footer">
+<footer style="text-align:center;padding:20px;opacity:.6">
   F1 2026
 </footer>
 
-<!-- ORDEM CANÓNICA DOS SCRIPTS -->
-<script src="../js/calendar2026-v2.js"></script>
 <script src="../js/campeonatos.js"></script>
+<script>
+// FUNÇÃO BOTÃO VOLTAR AO TOPO
+const backToTop = document.getElementById("backToTop");
 
+window.addEventListener("scroll", () => {
+  if(window.scrollY > 200) {
+    backToTop.style.display = "block";
+  } else {
+    backToTop.style.display = "none";
+  }
+});
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+</script>
 </body>
 </html>
