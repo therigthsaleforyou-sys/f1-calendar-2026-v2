@@ -4,61 +4,68 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Estilos globais e específicos -->
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/campeonatos.css">
+  <link rel="stylesheet" href="campeonatos.css">
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ================= HEADER (IGUAL AO RESULTADOS) ================= -->
 <header class="main-header">
   <nav class="nav">
     <a href="../index.html">Calendário</a>
+    <a href="resultados.html">Resultados</a>
+    <a href="campeonatos.html" class="active">Campeonatos</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html">Resultados</a>
   </nav>
 </header>
 
-<main>
-  <section id="championships">
+<main class="cards-wrapper">
 
-    <!-- Campeonato de Pilotos -->
-    <div class="race-card" id="drivers-champ">
-      <h3>Campeonato de Pilotos – 2026</h3>
-      <div class="dropbox">
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Piloto</th>
-              <th>Pontos</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
+  <!-- ================= PILOTOS ================= -->
+  <div class="race-card championship-card" id="drivers-champ">
+    <img
+      src="../assets/heroes/tabela1.jpg"
+      class="table-toggle"
+      alt="Tabela Pilotos"
+    >
 
-    <!-- Campeonato de Construtores -->
-    <div class="race-card" id="constructors-champ">
-      <h3>Campeonato de Construtores – 2026</h3>
-      <div class="dropbox">
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Equipa</th>
-              <th>Pontos</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
+    <h3>Campeonato de Pilotos – 2026</h3>
 
-  </section>
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Piloto</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- ================= CONSTRUTORES ================= -->
+  <div class="race-card championship-card" id="constructors-champ">
+    <img
+      src="../assets/heroes/tabela2.jpg"
+      class="table-toggle"
+      alt="Tabela Construtores"
+    >
+
+    <h3>Campeonato de Construtores – 2026</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Equipa</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
 </main>
 
 <footer style="text-align:center;padding:20px;opacity:.6">
