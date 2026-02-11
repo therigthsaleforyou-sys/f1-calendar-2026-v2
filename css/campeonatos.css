@@ -1,49 +1,75 @@
-/* Cards estilo resultados */
-.cards-wrapper {
-  padding: 12px;
-}
-
-.cards-wrapper .race-card {
+/* ==================== CARDS ==================== */
+.race-card {
   width: 100%;
-  margin-bottom: 16px;
+  max-width: 400px; /* igual aos cards de resultados.html */
+  margin: 16px auto;
+  padding: 12px;
   border: 2px solid #ff0000;
   border-radius: 16px;
-  box-shadow: 0 0 8px #000;
-  padding: 12px;
-  background: #1a1a1a; /* Igual ao fundo dos cards do site */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  background-color: #111; /* fundo escuro igual ao resto do site */
   color: #fff;
   position: relative;
 }
 
-/* Imagem dropdown */
+/* ==================== IMAGEM DROPDOWN ==================== */
 .race-card img.dropdown-toggle {
-  width: 100%;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
   cursor: pointer;
-  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 2px solid #fff;
 }
 
-/* Tabelas */
-table.dropdown {
+/* ==================== TITULO ==================== */
+.race-card h3 {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+/* ==================== TABELAS ==================== */
+.champ-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 8px;
-  display: none; /* Escondida inicialmente */
+  display: none; /* começam fechadas */
 }
 
-table.dropdown th, table.dropdown td {
-  padding: 6px;
-  text-align: left;
-  border-bottom: 1px solid #444;
+.champ-table th, .champ-table td {
+  border: 1px solid #fff;
+  padding: 6px 8px;
+  text-align: center;
   color: #fff;
+  font-size: 0.9rem;
 }
 
-table.dropdown th {
+.champ-table th {
   background-color: #222;
+  font-weight: 700;
 }
 
-/* Header ativo */
-.nav a.active {
-  color: #ff0000;
-  font-weight: 700;
+/* ==================== TABLE ROW HIGHLIGHT ==================== */
+.champ-table tr:nth-child(even) {
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 500px) {
+  .race-card {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  .champ-table th, .champ-table td {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+  }
+
+  .race-card img.dropdown-toggle {
+    width: 36px;
+    height: 36px;
+  }
 }
