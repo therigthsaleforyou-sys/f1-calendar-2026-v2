@@ -1,4 +1,4 @@
-// ================= DADOS MÍNIMOS (EXEMPLO) =================
+// ================= DADOS DE TESTE COMPLETOS =================
 const calendar2026 = [
   {
     id: "australia",
@@ -10,7 +10,22 @@ const calendar2026 = [
         { driver: "Oscar Piastri", team: "McLaren", points: 12 },
         { driver: "Lewis Hamilton", team: "Ferrari", points: 10 },
         { driver: "Fernando Alonso", team: "Aston Martin", points: 8 },
-        { driver: "George Russell", team: "Mercedes", points: 6 }
+        { driver: "George Russell", team: "Mercedes", points: 6 },
+        { driver: "Carlos Sainz Jr.", team: "Williams", points: 4 },
+        { driver: "Sergio Pérez", team: "Cadillac F1 Team", points: 2 },
+        { driver: "Alexander Albon", team: "Williams", points: 1 },
+        { driver: "Pierre Gasly", team: "Alpine", points: 0 },
+        { driver: "Esteban Ocon", team: "Haas", points: 0 },
+        { driver: "Lance Stroll", team: "Aston Martin", points: 0 },
+        { driver: "Valtteri Bottas", team: "Cadillac F1 Team", points: 0 },
+        { driver: "Nico Hülkenberg", team: "Audi F1 Team", points: 0 },
+        { driver: "Gabriel Bortoleto", team: "Audi F1 Team", points: 0 },
+        { driver: "Oliver Bearman", team: "Haas", points: 0 },
+        { driver: "Franco Colapinto", team: "Alpine", points: 0 },
+        { driver: "Liam Lawson", team: "Racing Bulls", points: 0 },
+        { driver: "Arvid Lindblad", team: "Racing Bulls", points: 0 },
+        { driver: "Kimi Antonelli", team: "Mercedes", points: 0 },
+        { driver: "Isack Hadjar", team: "Red Bull Racing", points: 0 }
       ]
     }
   }
@@ -27,9 +42,10 @@ calendar2026.forEach(race => {
   });
 });
 
-const driverStandings = Object.values(drivers).sort((a, b) => b.points - a.points);
-const tbodyDrivers = document.querySelector("#drivers-champ tbody");
+const driverStandings = Object.values(drivers)
+  .sort((a, b) => b.points - a.points);
 
+const tbodyDrivers = document.querySelector("#drivers-champ tbody");
 driverStandings.forEach((d, i) => {
   const tr = document.createElement("tr");
   tr.innerHTML = `
@@ -51,9 +67,10 @@ calendar2026.forEach(race => {
   });
 });
 
-const constructorStandings = Object.values(constructors).sort((a, b) => b.points - a.points);
-const tbodyConstructors = document.querySelector("#constructors-champ tbody");
+const constructorStandings = Object.values(constructors)
+  .sort((a, b) => b.points - a.points);
 
+const tbodyConstructors = document.querySelector("#constructors-champ tbody");
 constructorStandings.forEach((c, i) => {
   const tr = document.createElement("tr");
   tr.innerHTML = `
