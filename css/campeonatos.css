@@ -1,39 +1,40 @@
+/* CARDS */
 .race-card {
-  width: 100%;           /* mesma largura dos cards de resultados */
-  max-width: 480px;      /* limita largura para desktop */
+  width: 100%;
+  max-width: 480px;
   margin: 16px auto;
   padding: 12px;
-  border: 2px solid #ff0000;  /* vermelho com sombra */
+  border: 2px solid #ff0000;
   border-radius: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   background: #fff;
 }
 
-.race-card img.dropbox-toggle {
-  width: 48px;   /* padrão do site */
-  height: 48px;
+/* IMAGEM DROPBOX */
+.card-toggle {
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   display: block;
   margin-bottom: 8px;
 }
 
+/* TABELAS */
 .race-card table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 8px;
 }
 
-.race-card table th,
-.race-card table td {
-  border: 1px solid #ccc;
+.race-card th, .race-card td {
   padding: 6px 8px;
-  text-align: center;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.race-card table th {
+.race-card th {
   background-color: #f0f0f0;
 }
 
-.race-card table tbody tr:nth-child(even) {
-  background-color: #fafafa;
+.hidden-rows {
+  display: none;
 }
