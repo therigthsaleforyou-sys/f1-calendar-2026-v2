@@ -1,80 +1,62 @@
-/* Área principal */
-#championships {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 0 12px;
-}
+// ================= DADOS CANÓNICOS =================
+const teamsData = [
+  { name: "McLaren", drivers: ["Lando Norris", "Oscar Piastri"] },
+  { name: "Mercedes", drivers: ["George Russell", "Kimi Antonelli"] },
+  { name: "Red Bull Racing", drivers: ["Max Verstappen", "Isack Hadjar"] },
+  { name: "Ferrari", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
+  { name: "Aston Martin", drivers: ["Fernando Alonso", "Lance Stroll"] },
+  { name: "Williams", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
+  { name: "Audi F1 Team", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
+  { name: "Alpine", drivers: ["Pierre Gasly", "Franco Colapinto"] },
+  { name: "Haas", drivers: ["Esteban Ocon", "Oliver Bearman"] },
+  { name: "Racing Bulls", drivers: ["Liam Lawson", "Arvid Lindblad"] },
+  { name: "Cadillac F1 Team", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
+];
 
-/* Cards */
-.race-card {
-  width: 100%;
-  margin-bottom: 40px;
-  border: 2px solid #ff0000;
-  border-radius: 16px;
-  box-shadow: 0 0 8px #000;
-  padding: 16px;
-  background: #1a1a1a;
-  color: #fff;
-}
+// ================= PILOTOS =================
+const driversTbody = document.querySelector("#drivers-champ tbody");
 
-/* Imagem Dropbox */
-.race-card img.dropbox-toggle {
-  width: 100%;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
+let driverList = [];
+teamsData.forEach(team => {
+  team.drivers.forEach(driver => driverList.push(driver));
+});
 
-/* Tabelas */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+driverList.sort((a, b) => a.localeCompare(b));
 
-thead {
-  background: #222;
-}
+driverList.forEach((driver, index) => {
+  const tr = document.createElement("tr");
+  if (index >= 5) tr.classList.add("hidden");
+  tr.innerHTML = `<td>${index + 1}</td><td>${driver}</td><td>0</td>`;
+  driversTbody.appendChild(tr);
+});
 
-th, td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid #444;
-}
+// ================= CONSTRUTORES =================
+const constructorsTbody = document.querySelector("#constructors-champ tbody");
 
-/* Linhas escondidas */
-tbody tr.hidden {
-  display: none;
-}
+teamsData.forEach((team, index) => {
+  const tr = document.createElement("tr");
+  if (index >= 5) tr.classList.add("hidden");
+  tr.innerHTML = `<td>${index + 1}</td><td>${team.name}</td><td>0</td>`;
+  constructorsTbody.appendChild(tr);
+});
 
-/* =========================
-   BOTÃO VOLTAR AO TOPO
-   FORMATAÇÃO CANÓNICA
-   ACIMA DO DISCLAIMER
-========================= */
+// ================= DROPBOX =================
+document.querySelectorAll(".dropbox-toggle").forEach(img => {
+  img.addEventListener("click", () => {
+    const tbody = img.parentElement.querySelector("tbody");
+    tbody.querySelectorAll("tr").forEach((tr, index) => {
+      if (index >= 5) tr.classList.toggle("hidden");
+    });
+  });
+});
 
-#backToTop {
-  position: fixed;
-  right: 20px;
-  bottom: 90px; /* acima do footer */
+// ================= BOTÃO VOLTAR AO TOPO =================
+const backToTop = document.getElementById("backToTop");
 
-  background: #000;
-  color: #fff;
+window.addEventListener("scroll", () => {
+  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+});
 
-  border: 2px solid #ff0000;
-  border-radius: 30px;
-
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  display: none;
-  z-index: 999;
-}
-
-#backToTop:hover {
-  background: #ff0000;
-  color: #000;
-}
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
