@@ -1,7 +1,5 @@
-// ========================== campeonatos.js ==========================
-
-// Pilotos e Construtores conforme definição obrigatória
-const teamsData = [
+// ================= DADOS DAS EQUIPAS =================
+const teamsList = [
   { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
   { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
   { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
@@ -15,87 +13,61 @@ const teamsData = [
   { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
 ];
 
-// ========================== Helper Functions ==========================
-function createCard(title) {
-  const card = document.createElement("div");
-  card.className = "race-card";
-  card.style.border = "2px solid #ff0000";
-  card.style.boxShadow = "0 0 8px #000";
-  card.style.marginBottom = "16px";
-  card.style.borderRadius = "12px";
-  card.style.padding = "12px";
-  card.style.cursor = "pointer";
-
-  const h3 = document.createElement("h3");
-  h3.textContent = title;
-  card.appendChild(h3);
-
-  const dropbox = document.createElement("div");
-  dropbox.className = "dropbox";
-  dropbox.style.maxHeight = "none"; // abrimos toda a dropbox
-  dropbox.style.overflow = "hidden";
-  dropbox.style.transition = "max-height 0.4s ease";
-
-  card.appendChild(dropbox);
-
-  // Toggle DropBox clicando no card
-  card.addEventListener("click", () => {
-    if (dropbox.style.maxHeight && dropbox.style.maxHeight !== "0px") {
-      dropbox.style.maxHeight = "0px";
-    } else {
-      dropbox.style.maxHeight = dropbox.scrollHeight + "px";
+// ================= DADOS DE RESULTADOS =================
+// Apenas Austrália como exemplo
+const calendar2026 = [
+  {
+    id: "australia",
+    name: "Grande Prémio da Austrália",
+    results2026: {
+      race: [
+        { driver: "Max Verstappen", team: "Red Bull Racing", position: 1, points: 25 },
+        { driver: "Lando Norris", team: "McLaren", position: 2, points: 18 },
+        { driver: "Charles Leclerc", team: "Ferrari", position: 3, points: 15 },
+        { driver: "George Russell", team: "Mercedes", position: 4, points: 12 },
+        { driver: "Lewis Hamilton", team: "Ferrari", position: 5, points: 10 },
+        { driver: "Fernando Alonso", team: "Aston Martin", position: 6, points: 8 }
+      ]
     }
-  });
+  }
+];
 
-  return { card, dropbox };
-}
+// ================= PILOTOS =================
+const finishedRaces = calendar2026.filter(r => r.results2026?.race?.length);
 
-// ========================== Render Pilotos ==========================
-const driversCard = createCard("Campeonato de Pilotos – 2026");
-document.querySelector("#championships").appendChild(driversCard.card);
-
-teamsData.forEach(team => {
-  team.drivers.forEach(driver => {
-    const driverDiv = document.createElement("div");
-    driverDiv.style.padding = "4px 0";
-    driverDiv.textContent = driver;
-    driversCard.dropbox.appendChild(driverDiv);
+const drivers = {};
+finishedRaces.forEach(race => {
+  race.results2026.race.forEach(r => {
+    if (!drivers[r.driver]) {
+      drivers[r.driver] = { name: r.driver, points: 0 };
+    }
+    drivers[r.driver].points += r.points;
   });
 });
 
-// ========================== Render Construtores ==========================
-const constructorsCard = createCard("Campeonato de Construtores – 2026");
-document.querySelector("#championships").appendChild(constructorsCard.card);
+const driverStandings = Object.values(drivers).sort((a,b) => b.points - a.points);
 
-teamsData.forEach(team => {
-  const constructorDiv = document.createElement("div");
-  constructorDiv.style.display = "flex";
-  constructorDiv.style.alignItems = "center";
-  constructorDiv.style.padding = "4px 0";
-
-  const logo = document.createElement("img");
-  logo.src = team.logo;
-  logo.alt = team.name;
-  logo.style.width = "40px";
-  logo.style.height = "auto";
-  logo.style.marginRight = "8px";
-
-  const name = document.createElement("span");
-  name.textContent = team.name;
-
-  constructorDiv.appendChild(logo);
-  constructorDiv.appendChild(name);
-  constructorsCard.dropbox.appendChild(constructorDiv);
+const tbodyDrivers = document.querySelector("#drivers-champ tbody");
+driverStandings.forEach((d, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${i+1}</td><td>${d.name}</td><td>${finishedRaces.length ? d.points : "—"}</td>`;
+  tbodyDrivers.appendChild(tr);
 });
 
-// ========================== CSS Suave ==========================
-const style = document.createElement("style");
-style.textContent = `
-  .race-card:hover {
-    box-shadow: 0 0 12px #000;
-  }
-  .dropbox > div:nth-child(n+6) {
-    display: none; /* apenas top 5 visível por default */
-  }
-`;
-document.head.appendChild(style);
+// ================= CONSTRUTORES =================
+const constructors = {};
+finishedRaces.forEach(race => {
+  race.results2026.race.forEach(r => {
+    if (!constructors[r.team]) constructors[r.team] = { name: r.team, points: 0 };
+    constructors[r.team].points += r.points;
+  });
+});
+
+const constructorStandings = Object.values(constructors).sort((a,b) => b.points - a.points);
+
+const tbodyConstructors = document.querySelector("#constructors-champ tbody");
+constructorStandings.forEach((c, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${i+1}</td><td>${c.name}</td><td>${finishedRaces.length ? c.points : "—"}</td>`;
+  tbodyConstructors.appendChild(tr);
+});
