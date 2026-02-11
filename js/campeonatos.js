@@ -1,65 +1,73 @@
-// ================= Dados canónicos =================
-const teamsData = [
-  { name: "McLaren", drivers: ["Lando Norris", "Oscar Piastri"] },
-  { name: "Mercedes", drivers: ["George Russell", "Kimi Antonelli"] },
-  { name: "Red Bull Racing", drivers: ["Max Verstappen", "Isack Hadjar"] },
-  { name: "Ferrari", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
-  { name: "Aston Martin", drivers: ["Fernando Alonso", "Lance Stroll"] },
-  { name: "Williams", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
-  { name: "Audi F1 Team", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-  { name: "Alpine", drivers: ["Pierre Gasly", "Franco Colapinto"] },
-  { name: "Haas", drivers: ["Esteban Ocon", "Oliver Bearman"] },
-  { name: "Racing Bulls", drivers: ["Liam Lawson", "Arvid Lindblad"] },
-  { name: "Cadillac F1 Team", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
-];
+document.addEventListener("DOMContentLoaded", () => {
 
-// ================= Pilotos =================
-const driversTbody = document.querySelector("#drivers-champ tbody");
+  /* =========================
+     DADOS INICIAIS (ZERO)
+  ========================== */
 
-teamsData.forEach(team => {
-  team.drivers.forEach(driver => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>0</td><td>${driver}</td><td>0</td>`;
-    driversTbody.appendChild(tr);
-  });
-});
+  const drivers = [
+    "Verstappen","Hamilton","Leclerc","Norris","Piastri","Russell",
+    "Sainz","Alonso","Perez","Stroll","Ocon","Gasly",
+    "Albon","Sargeant","Tsunoda","Ricciardo",
+    "Bottas","Zhou","Magnussen","Hulkenberg",
+    "Bearman","Antonelli"
+  ];
 
-// Ordem alfabética
-Array.from(driversTbody.children)
-  .sort((a, b) => a.cells[1].textContent.localeCompare(b.cells[1].textContent))
-  .forEach(tr => driversTbody.appendChild(tr));
+  const constructors = [
+    "Red Bull","Mercedes","Ferrari","McLaren","Aston Martin",
+    "Alpine","Williams","RB","Kick Sauber",
+    "Haas","Andretti"
+  ];
 
-// ================= Construtores =================
-const constructorsTbody = document.querySelector("#constructors-champ tbody");
+  /* =========================
+     POPULAR TABELAS
+  ========================== */
 
-teamsData.forEach(team => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `<td>0</td><td>${team.name}</td><td>0</td>`;
-  constructorsTbody.appendChild(tr);
-});
+  function fillTable(containerId, data, label) {
+    const tbody = document.querySelector(`#${containerId} tbody`);
+    tbody.innerHTML = "";
 
-// ================= Função Dropbox =================
-function applyDropbox(cardId) {
-  const card = document.getElementById(cardId);
-  const img = card.querySelector(".dropbox-toggle");
-  const rows = Array.from(card.querySelectorAll("tbody tr"));
+    data.forEach((name, index) => {
+      const tr = document.createElement("tr");
+      if (index >= 5) tr.classList.add("hidden");
 
-  let expanded = false;
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${name}</td>
+        <td>0</td>
+      `;
 
-  function updateRows() {
-    rows.forEach((row, index) => {
-      row.style.display = expanded || index < 5 ? "" : "none";
+      tbody.appendChild(tr);
     });
   }
 
-  updateRows(); // estado inicial
+  fillTable("drivers-champ", drivers);
+  fillTable("constructors-champ", constructors);
 
-  img.addEventListener("click", () => {
-    expanded = !expanded;
-    updateRows();
+  /* =========================
+     DROPBOX (CLIQUE NA IMAGEM)
+  ========================== */
+
+  document.querySelectorAll(".dropbox-toggle").forEach(img => {
+    img.addEventListener("click", () => {
+      const card = img.closest(".race-card");
+      card.querySelectorAll("tbody tr").forEach((row, i) => {
+        if (i >= 5) row.classList.toggle("hidden");
+      });
+    });
   });
-}
 
-// ================= Aplicar =================
-applyDropbox("drivers-champ");
-applyDropbox("constructors-champ");
+  /* =========================
+     BOTÃO VOLTAR AO TOPO
+  ========================== */
+
+  const btn = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", () => {
+    btn.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+});
