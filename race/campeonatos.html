@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/campeonatos.css">
 </head>
@@ -14,7 +15,7 @@
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html" class="active">Resultados</a>
+    <a href="resultados.html" style="color:#fff">Resultados</a>
   </nav>
 </header>
 
@@ -25,7 +26,7 @@
     <div class="race-card" id="drivers-champ">
       <img src="../assets/heroes/tabela1.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Pilotos – 2026</h3>
-      <table class="dropdown">
+      <table>
         <thead>
           <tr>
             <th>Pos</th>
@@ -41,7 +42,7 @@
     <div class="race-card" id="constructors-champ">
       <img src="../assets/heroes/tabela2.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Construtores – 2026</h3>
-      <table class="dropdown">
+      <table>
         <thead>
           <tr>
             <th>Pos</th>
@@ -56,13 +57,15 @@
   </section>
 </main>
 
+<button id="backToTop">Topo</button>
+
 <footer style="text-align:center;padding:20px;opacity:.6">
   F1 2026
 </footer>
 
-<!-- Botão Voltar ao Topo -->
-<button id="back-to-top">Voltar ao Topo</button>
+<!-- ORDEM CORRETA -->
+<script src="../js/calendar2026-v2.js"></script>
+<script src="../js/campeonatos.js"></script>
 
-<script src="campeonatos.js"></script>
 </body>
 </html>
