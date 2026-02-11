@@ -1,6 +1,5 @@
-/* ===================== Campeonatos.css ===================== */
+/* ===================== CAMPEONATOS ===================== */
 
-/* CONTAINER */
 #championships {
   display: flex;
   flex-direction: column;
@@ -9,37 +8,36 @@
   padding: 16px;
 }
 
-/* CARDS — IGUAIS A RESULTADOS */
+/* CARD IGUAL A RESULTADOS */
 .race-card {
   width: 100%;
-  max-width: 720px;          /* <<< largura igual aos cards de resultados */
-  border: 2px solid #ff0000; /* rebordo vermelho */
-  box-shadow: 0 0 8px #000;  /* sombra negra */
-  border-radius: 12px;
+  max-width: 720px;
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 8px #000;
+  border-radius: 14px;
   padding: 12px;
-  transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 /* DROPBOX */
 .dropbox {
-  margin-top: 8px;
   overflow: hidden;
-  transition: max-height 0.4s ease;
+  max-height: 260px; /* Top 5 visível */
+  transition: max-height 0.45s ease;
 }
 
-/* TOP 5 VISÍVEL, RESTO ESCONDIDO */
-.dropbox tbody tr:nth-child(n+6) {
-  display: none;
+/* DROPBOX ABERTO */
+.race-card.open .dropbox {
+  max-height: 1200px;
 }
 
 /* TABELAS */
-.dropbox table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.dropbox th,
-.dropbox td {
+th, td {
   padding: 6px 8px;
   border-bottom: 1px solid #ccc;
   text-align: left;
