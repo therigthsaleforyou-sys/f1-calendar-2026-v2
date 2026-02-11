@@ -1,44 +1,61 @@
-/* ===================== CAMPEONATOS ===================== */
-
-#championships {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-}
-
-/* CARD IGUAL A RESULTADOS */
-.race-card {
-  width: 100%;
-  max-width: 720px;
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 8px #000;
-  border-radius: 14px;
+/* Wrapper igual a resultados */
+.cards-wrapper {
   padding: 12px;
+}
+
+/* Card base */
+.championship-card {
+  margin-bottom: 20px;
+}
+
+/* Imagem clicável */
+.table-toggle {
+  width: 100%;
+  border-radius: 14px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-/* DROPBOX */
-.dropbox {
-  overflow: hidden;
-  max-height: 260px; /* Top 5 visível */
-  transition: max-height 0.45s ease;
-}
-
-/* DROPBOX ABERTO */
-.race-card.open .dropbox {
-  max-height: 1200px;
-}
-
-/* TABELAS */
-table {
+/* Tabela */
+.championship-card table {
   width: 100%;
   border-collapse: collapse;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
 }
 
-th, td {
-  padding: 6px 8px;
-  border-bottom: 1px solid #ccc;
+/* Dropbox fechado */
+.championship-card.closed table {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Dropbox aberto */
+.championship-card.open table {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* Cabeçalho tabela */
+.championship-card th {
   text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #333;
+}
+
+/* Linhas */
+.championship-card td {
+  padding: 8px;
+  border-bottom: 1px solid #222;
+}
+
+/* Top 5 sempre visível */
+.championship-card tbody tr:nth-child(n+6) {
+  display: none;
+}
+
+/* Quando aberto mostra tudo */
+.championship-card.open tbody tr {
+  display: table-row;
 }
