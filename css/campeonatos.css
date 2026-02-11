@@ -1,40 +1,49 @@
-/* CARDS */
-.race-card {
-  width: 100%;
-  max-width: 480px;
-  margin: 16px auto;
+/* Cards estilo resultados */
+.cards-wrapper {
   padding: 12px;
-  border: 2px solid #ff0000;
-  border-radius: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  background: #fff;
 }
 
-/* IMAGEM DROPBOX */
-.card-toggle {
-  width: 40px;
-  height: 40px;
+.cards-wrapper .race-card {
+  width: 100%;
+  margin-bottom: 16px;
+  border: 2px solid #ff0000;
+  border-radius: 16px;
+  box-shadow: 0 0 8px #000;
+  padding: 12px;
+  background: #1a1a1a; /* Igual ao fundo dos cards do site */
+  color: #fff;
+  position: relative;
+}
+
+/* Imagem dropdown */
+.race-card img.dropdown-toggle {
+  width: 100%;
+  border-radius: 12px;
   cursor: pointer;
-  display: block;
   margin-bottom: 8px;
 }
 
-/* TABELAS */
-.race-card table {
+/* Tabelas */
+table.dropdown {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 8px;
+  display: none; /* Escondida inicialmente */
 }
 
-.race-card th, .race-card td {
-  padding: 6px 8px;
+table.dropdown th, table.dropdown td {
+  padding: 6px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #444;
+  color: #fff;
 }
 
-.race-card th {
-  background-color: #f0f0f0;
+table.dropdown th {
+  background-color: #222;
 }
 
-.hidden-rows {
-  display: none;
+/* Header ativo */
+.nav a.active {
+  color: #ff0000;
+  font-weight: 700;
 }
