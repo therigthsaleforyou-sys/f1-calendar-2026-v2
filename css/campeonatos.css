@@ -1,1 +1,42 @@
 
+/* ===================== Campeonatos.css ===================== */
+
+/* CARDS */
+.race-card {
+  border: 2px solid #ff0000;   /* rebordo vermelho */
+  box-shadow: 0 0 8px #000;    /* sombra negra */
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.race-card:hover {
+  box-shadow: 0 0 12px #000;   /* hover com sombra mais forte */
+}
+
+/* DROPBOX */
+.dropbox {
+  max-height: none;           /* altura controlada pelo JS */
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 8px;
+}
+
+/* Top 5 visível, restante escondido */
+.dropbox > div:nth-child(n+6) {
+  display: none;
+}
+
+/* TABELAS dentro de dropbox, se houver */
+.dropbox table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dropbox th, .dropbox td {
+  text-align: left;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ccc;
+}
