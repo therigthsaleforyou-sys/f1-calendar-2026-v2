@@ -24,7 +24,7 @@ teamsData.forEach(team => {
   });
 });
 
-// Ordenar pilotos alfabeticamente (opcional)
+// Ordenar pilotos alfabeticamente
 Array.from(tbodyDrivers.children)
   .sort((a,b) => a.cells[1].textContent.localeCompare(b.cells[1].textContent))
   .forEach(tr => tbodyDrivers.appendChild(tr));
@@ -46,16 +46,16 @@ Array.from(tbodyConstructors.children)
 
 // ================= Dropbox toggle =================
 document.querySelectorAll(".dropbox-toggle").forEach(img => {
-  const tbody = img.nextElementSibling.nextElementSibling; // table tbody
-  const rows = Array.from(tbody.children);
+  const table = img.nextElementSibling.nextElementSibling; // table
+  const rows = Array.from(table.querySelectorAll("tbody tr"));
 
-  // Inicialmente: mostrar apenas os primeiros 5
+  // Inicialmente: mostrar apenas os 5 primeiros
   rows.forEach((tr, index) => {
     tr.style.display = index < 5 ? "table-row" : "none";
   });
 
   img.addEventListener("click", () => {
-    const isHidden = rows[5].style.display === "none";
+    const isHidden = rows[5].style.display === "none"; // verifica 6ª linha
     rows.forEach((tr, index) => {
       if(index >= 5) tr.style.display = isHidden ? "table-row" : "none";
     });
