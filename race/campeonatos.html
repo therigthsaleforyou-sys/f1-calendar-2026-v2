@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/campeonatos.css">
 </head>
@@ -21,13 +20,13 @@
 </header>
 
 <main>
-  <section id="championships" class="cards-wrapper">
+  <section id="championships">
 
     <!-- Campeonato de Pilotos -->
     <div class="race-card" id="drivers-champ">
-      <img src="../assets/heroes/tabela1.jpg" class="dropdown-toggle" alt="Abrir/Fechar tabela pilotos">
+      <img src="../assets/heroes/tabela1.jpg" alt="Abrir/Fechar Pilotos" class="dropdown-toggle" data-target="drivers-table">
       <h3>Campeonato de Pilotos – 2026</h3>
-      <table class="dropdown">
+      <table class="champ-table" id="drivers-table">
         <thead>
           <tr>
             <th>Pos</th>
@@ -41,9 +40,9 @@
 
     <!-- Campeonato de Construtores -->
     <div class="race-card" id="constructors-champ">
-      <img src="../assets/heroes/tabela2.jpg" class="dropdown-toggle" alt="Abrir/Fechar tabela construtores">
+      <img src="../assets/heroes/tabela2.jpg" alt="Abrir/Fechar Construtores" class="dropdown-toggle" data-target="constructors-table">
       <h3>Campeonato de Construtores – 2026</h3>
-      <table class="dropdown">
+      <table class="champ-table" id="constructors-table">
         <thead>
           <tr>
             <th>Pos</th>
@@ -62,6 +61,61 @@
   F1 2026
 </footer>
 
-<script src="../data/campeonatos.js"></script>
+<script src="../data/teams2026.js"></script>
+<script>
+  // ==================== TABELAS DROPDOWN ====================
+  document.querySelectorAll(".dropdown-toggle").forEach(img => {
+    img.addEventListener("click", () => {
+      const targetId = img.dataset.target;
+      const table = document.getElementById(targetId);
+      const isVisible = table.style.display === "table";
+      table.style.display = isVisible ? "none" : "table";
+      img.src = isVisible
+        ? `../assets/heroes/${targetId === "drivers-table" ? "tabela1.jpg" : "tabela2.jpg"}`
+        : `../assets/heroes/${targetId === "drivers-table" ? "tabela1.jpg" : "tabela2.jpg"}`;
+    });
+  });
+
+  // ==================== PREENCHER PILOTOS ====================
+  const pilotsList = [
+    "Lando Norris","Oscar Piastri","George Russell","Kimi Antonelli",
+    "Max Verstappen","Isack Hadjar","Charles Leclerc","Lewis Hamilton",
+    "Fernando Alonso","Lance Stroll","Alexander Albon","Carlos Sainz Jr.",
+    "Nico Hülkenberg","Gabriel Bortoleto","Pierre Gasly","Franco Colapinto",
+    "Esteban Ocon","Oliver Bearman","Liam Lawson","Arvid Lindblad",
+    "Sergio Pérez","Valtteri Bottas"
+  ];
+
+  const tbodyDrivers = document.querySelector("#drivers-table tbody");
+  pilotsList.forEach((p, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${i+1}</td><td>${p}</td><td>0</td>`;
+    tbodyDrivers.appendChild(tr);
+  });
+
+  // ==================== PREENCHER CONSTRUTORES ====================
+  const constructorsList = [
+    "McLaren","Mercedes","Red Bull Racing","Ferrari","Aston Martin","Williams",
+    "Audi F1 Team","Alpine","Haas","Racing Bulls","Cadillac F1 Team"
+  ];
+
+  const tbodyConstructors = document.querySelector("#constructors-table tbody");
+  constructorsList.forEach((c, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${i+1}</td><td>${c}</td><td>0</td>`;
+    tbodyConstructors.appendChild(tr);
+  });
+
+  // ==================== ORDENAR AUTOMATICAMENTE ====================
+  function sortTableByPoints(tbody) {
+    Array.from(tbody.querySelectorAll("tr"))
+      .sort((a,b) => parseInt(b.children[2].textContent) - parseInt(a.children[2].textContent))
+      .forEach(tr => tbody.appendChild(tr));
+  }
+
+  sortTableByPoints(tbodyDrivers);
+  sortTableByPoints(tbodyConstructors);
+</script>
+
 </body>
 </html>
