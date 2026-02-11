@@ -1,4 +1,4 @@
-// Pilotos e Construtores (ordem canónica)
+// ================= Dados canónicos =================
 const teamsData = [
   { name: "McLaren", drivers: ["Lando Norris", "Oscar Piastri"] },
   { name: "Mercedes", drivers: ["George Russell", "Kimi Antonelli"] },
@@ -14,57 +14,52 @@ const teamsData = [
 ];
 
 // ================= Pilotos =================
-const tbodyDrivers = document.querySelector("#drivers-champ tbody");
+const driversTbody = document.querySelector("#drivers-champ tbody");
 
 teamsData.forEach(team => {
   team.drivers.forEach(driver => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>0</td><td>${driver}</td><td>0</td>`;
-    tbodyDrivers.appendChild(tr);
+    driversTbody.appendChild(tr);
   });
 });
 
-// Ordenar pilotos alfabeticamente
-Array.from(tbodyDrivers.children)
-  .sort((a,b) => a.cells[1].textContent.localeCompare(b.cells[1].textContent))
-  .forEach(tr => tbodyDrivers.appendChild(tr));
+// Ordem alfabética
+Array.from(driversTbody.children)
+  .sort((a, b) => a.cells[1].textContent.localeCompare(b.cells[1].textContent))
+  .forEach(tr => driversTbody.appendChild(tr));
 
 // ================= Construtores =================
-const tbodyConstructors = document.querySelector("#constructors-champ tbody");
+const constructorsTbody = document.querySelector("#constructors-champ tbody");
 
 teamsData.forEach(team => {
   const tr = document.createElement("tr");
   tr.innerHTML = `<td>0</td><td>${team.name}</td><td>0</td>`;
-  tbodyConstructors.appendChild(tr);
+  constructorsTbody.appendChild(tr);
 });
 
-// Ordenar construtores por ordem canónica
-Array.from(tbodyConstructors.children)
-  .sort((a,b) => teamsData.findIndex(t => t.name === a.cells[1].textContent)
-              - teamsData.findIndex(t => t.name === b.cells[1].textContent))
-  .forEach(tr => tbodyConstructors.appendChild(tr));
+// ================= Função Dropbox =================
+function applyDropbox(cardId) {
+  const card = document.getElementById(cardId);
+  const img = card.querySelector(".dropbox-toggle");
+  const rows = Array.from(card.querySelectorAll("tbody tr"));
 
-// ================= Dropbox toggle =================
-document.querySelectorAll(".dropbox-toggle").forEach(img => {
-  const table = img.nextElementSibling.nextElementSibling; // table
-  const rows = Array.from(table.querySelectorAll("tbody tr"));
+  let expanded = false;
 
-  // Inicialmente: mostrar apenas os 5 primeiros
-  rows.forEach((tr, index) => {
-    tr.style.display = index < 5 ? "table-row" : "none";
-  });
+  function updateRows() {
+    rows.forEach((row, index) => {
+      row.style.display = expanded || index < 5 ? "" : "none";
+    });
+  }
+
+  updateRows(); // estado inicial
 
   img.addEventListener("click", () => {
-    const isHidden = rows[5].style.display === "none"; // verifica 6ª linha
-    rows.forEach((tr, index) => {
-      if(index >= 5) tr.style.display = isHidden ? "table-row" : "none";
-    });
-    // Alterna imagem
-    img.src = isHidden ? "../assets/heroes/tabela2.jpg" : "../assets/heroes/tabela1.jpg";
+    expanded = !expanded;
+    updateRows();
   });
-});
+}
 
-// ================= Botão Voltar ao Topo =================
-document.getElementById("back-to-top").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+// ================= Aplicar =================
+applyDropbox("drivers-champ");
+applyDropbox("constructors-champ");
