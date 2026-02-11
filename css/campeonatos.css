@@ -1,41 +1,46 @@
 /* ===================== Campeonatos.css ===================== */
 
-/* CARDS */
-.race-card {
-  border: 2px solid #ff0000;   /* rebordo vermelho */
-  box-shadow: 0 0 8px #000;    /* sombra negra */
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 16px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
+/* CONTAINER */
+#championships {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
 }
 
-.race-card:hover {
-  box-shadow: 0 0 12px #000;   /* hover com sombra mais forte */
+/* CARDS — IGUAIS A RESULTADOS */
+.race-card {
+  width: 100%;
+  max-width: 720px;          /* <<< largura igual aos cards de resultados */
+  border: 2px solid #ff0000; /* rebordo vermelho */
+  box-shadow: 0 0 8px #000;  /* sombra negra */
+  border-radius: 12px;
+  padding: 12px;
+  transition: box-shadow 0.3s ease;
 }
 
 /* DROPBOX */
 .dropbox {
-  max-height: none;           
+  margin-top: 8px;
   overflow: hidden;
   transition: max-height 0.4s ease;
-  margin-top: 8px;
 }
 
-/* Top 5 visível, restante escondido */
-.dropbox > table > tbody > tr:nth-child(n+6) {
+/* TOP 5 VISÍVEL, RESTO ESCONDIDO */
+.dropbox tbody tr:nth-child(n+6) {
   display: none;
 }
 
-/* TABELAS dentro de dropbox */
+/* TABELAS */
 .dropbox table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.dropbox th, .dropbox td {
-  text-align: left;
-  padding: 4px 8px;
+.dropbox th,
+.dropbox td {
+  padding: 6px 8px;
   border-bottom: 1px solid #ccc;
+  text-align: left;
 }
