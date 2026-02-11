@@ -4,28 +4,30 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/campeonatos.css">
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="main-header">
   <nav class="nav">
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html">Resultados</a>
+    <a href="campeonatos.html" class="active">Resultados</a>
   </nav>
 </header>
 
 <main>
-  <section id="championships">
+  <section id="championships" class="cards-wrapper">
 
     <!-- Campeonato de Pilotos -->
     <div class="race-card" id="drivers-champ">
-      <img src="../assets/heroes/tabela1.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
+      <img src="../assets/heroes/tabela1.jpg" class="dropdown-toggle" alt="Abrir/Fechar tabela pilotos">
       <h3>Campeonato de Pilotos – 2026</h3>
-      <table>
+      <table class="dropdown">
         <thead>
           <tr>
             <th>Pos</th>
@@ -39,9 +41,9 @@
 
     <!-- Campeonato de Construtores -->
     <div class="race-card" id="constructors-champ">
-      <img src="../assets/heroes/tabela2.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
+      <img src="../assets/heroes/tabela2.jpg" class="dropdown-toggle" alt="Abrir/Fechar tabela construtores">
       <h3>Campeonato de Construtores – 2026</h3>
-      <table>
+      <table class="dropdown">
         <thead>
           <tr>
             <th>Pos</th>
@@ -60,6 +62,6 @@
   F1 2026
 </footer>
 
-<script src="campeonatos.js"></script>
+<script src="../data/campeonatos.js"></script>
 </body>
 </html>
