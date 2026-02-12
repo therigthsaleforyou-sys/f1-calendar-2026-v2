@@ -9,12 +9,89 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- CSS específico da página -->
   <link rel="stylesheet" href="css/teams.css">
+
+  <style>
+    /* ================= HEADER 2 LINHAS ================= */
+    .nav-top {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-bottom: 14px; /* espaço entre linhas */
+    }
+
+    .nav-bottom {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-top: 6px;
+      position: relative;
+    }
+
+    /* Botões da segunda linha igual tamanho da primeira */
+    .nav-bottom a {
+      flex: 1; /* igual à primeira linha */
+      text-align: center;
+      padding: 10px 0;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      background: #000;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+    }
+
+    .nav-bottom a:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    /* Dropdown Corridas */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      flex: 1; /* tamanho igual */
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0; /* abre para a esquerda */
+      top: 100%;
+      background-color: #000;
+      min-width: 220px;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      z-index: 1000;
+      padding: 6px 0;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 8px 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255,42,42,0.2);
+    }
+
+    .dropdown.show .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
   <!-- ================= HEADER ================= -->
   <header class="main-header">
-
     <!-- Linha de cima -->
     <nav class="nav nav-top">
       <a href="index.html">Calendário</a>
@@ -27,10 +104,8 @@
     <nav class="nav nav-bottom">
       <a href="race/campeonatos.html">Campeonatos</a>
       <div class="dropdown">
-        <a href="#" id="botao-corridas">Corridas ▾</a>
-        <div class="dropdown-content" id="lista-corridas">
-          <!-- JS vai preencher os 24 links -->
-        </div>
+        <a id="btn-corridas">Corridas ▼</a>
+        <div class="dropdown-content" id="corridas-list"></div>
       </div>
     </nav>
   </header>
@@ -51,10 +126,10 @@
   <!-- ================= JS ================= -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-
-      // ====== Teams Cards ======
       const teamsCards = document.getElementById("teams-cards");
+      const backToTop = document.getElementById("back-to-top");
 
+      // Dados das equipas
       const teams = [
         { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
         { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
@@ -69,6 +144,7 @@
         { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
       ];
 
+      // Criar cards
       teams.forEach(team => {
         const card = document.createElement("div");
         card.className = "team-card";
@@ -81,79 +157,67 @@
         teamsCards.appendChild(card);
       });
 
-      // ====== Back to top ======
-      const backToTop = document.getElementById("back-to-top");
+      // Back to top
       window.addEventListener("scroll", () => {
         if (window.scrollY > 400) backToTop.classList.add("show");
         else backToTop.classList.remove("show");
       });
+
       backToTop.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      // ====== Dropdown Corridas ======
+      // Dropdown Corridas
+      const btnCorridas = document.getElementById("btn-corridas");
+      const corridasList = document.getElementById("corridas-list");
+
+      // Dados das 24 corridas (ordem do calendar2026-v2.js)
       const corridas = [
-        "Austrália","Barhain","Arábia Saudita","Austria","Monaco","España",
-        "Canada","Inglaterra","Áustria","Hungria","Bélgica","Holanda",
-        "Itália","Singapura","Japão","Qatar","USA","México","Brasil",
-        "Las Vegas","Abu Dhabi","Miami","China","Alemanha"
+        { name: "Austrália", link: "race/australia.html" },
+        { name: "Bahrain", link: "race/bahrain.html" },
+        { name: "Arábia Saudita", link: "race/arabiasaudita.html" },
+        { name: "China", link: "race/china.html" },
+        { name: "Mónaco", link: "race/monaco.html" },
+        { name: "Espanha", link: "race/espanha.html" },
+        { name: "Canadá", link: "race/canada.html" },
+        { name: "Áustria", link: "race/austria.html" },
+        { name: "Grã-Bretanha", link: "race/gbr.html" },
+        { name: "Hungria", link: "race/hungria.html" },
+        { name: "Bélgica", link: "race/belgica.html" },
+        { name: "Países Baixos", link: "race/netherlands.html" },
+        { name: "Itália", link: "race/italia.html" },
+        { name: "Singapura", link: "race/singapura.html" },
+        { name: "Japão", link: "race/japao.html" },
+        { name: "Qatar", link: "race/qatar.html" },
+        { name: "Estados Unidos", link: "race/usa.html" },
+        { name: "México", link: "race/mexico.html" },
+        { name: "Brasil", link: "race/brasil.html" },
+        { name: "Abu Dhabi", link: "race/abudhabi.html" },
+        { name: "Miami", link: "race/miami.html" },
+        { name: "Las Vegas", link: "race/lasvegas.html" },
+        { name: "Portugal", link: "race/portugal.html" },
+        { name: "África do Sul", link: "race/africadosul.html" }
       ];
 
-      const listaCorridas = document.getElementById("lista-corridas");
-      corridas.forEach((nome, i) => {
-        const link = document.createElement("a");
-        link.href = `race/${nome.toLowerCase().replace(/ /g,"")}.html`;
-        link.textContent = nome;
-        listaCorridas.appendChild(link);
+      // Preencher dropdown
+      corridas.forEach(c => {
+        const a = document.createElement("a");
+        a.href = c.link;
+        a.textContent = c.name;
+        corridasList.appendChild(a);
       });
 
-      // Toggle dropdown
-      const botaoCorridas = document.getElementById("botao-corridas");
-      botaoCorridas.addEventListener("click", (e) => {
-        e.preventDefault();
-        listaCorridas.classList.toggle("show");
+      // Toggle dropdown ao clicar
+      btnCorridas.addEventListener("click", (e) => {
+        e.stopPropagation();
+        btnCorridas.parentElement.classList.toggle("show");
       });
 
+      // Fechar dropdown ao clicar fora
+      document.addEventListener("click", () => {
+        btnCorridas.parentElement.classList.remove("show");
+      });
     });
   </script>
-
-  <style>
-    /* ================= Dropdown Corridas ================= */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #000;
-      min-width: 200px;
-      border: 2px solid red;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-      z-index: 100;
-      flex-direction: column;
-    }
-    .dropdown-content.show {
-      display: flex;
-    }
-    .dropdown-content a {
-      color: #fff;
-      padding: 8px 12px;
-      text-decoration: none;
-      font-weight: 800;
-      border-bottom: 1px solid red;
-      transition: background 0.2s;
-    }
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-    .dropdown-content a:hover {
-      background: rgba(255,42,42,0.8);
-    }
-  </style>
-
 </body>
 </html>
