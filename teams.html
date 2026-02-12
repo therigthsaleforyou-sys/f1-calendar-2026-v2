@@ -9,6 +9,111 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- CSS específico da página -->
   <link rel="stylesheet" href="css/teams.css">
+
+  <style>
+    /* ================= HEADER 2 LINHAS ================= */
+    .nav-top {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-bottom: 14px;
+    }
+
+    .nav-top a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      background: #000;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+
+    .nav-top a:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    .nav-top a.active {
+      box-shadow: 0 0 8px 3px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    /* Linha de baixo */
+    .nav-bottom {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-top: 6px;
+    }
+
+    /* Botões iguais e dropdown tamanho igual */
+    .nav-bottom a,
+    .nav-bottom .dropdown > a {
+      flex: 2; /* CORRIGIDO: todos iguais */
+      text-align: center;
+      padding: 10px 0;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      background: #000;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+    }
+
+    .nav-bottom a:active,
+    .nav-bottom .dropdown > a:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    /* Dropdown Corridas */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0; /* abre para a esquerda */
+      top: 100%;
+      background-color: #000;
+      min-width: 220px;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      z-index: 1000;
+      padding: 6px 0;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 8px 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(255,42,42,0.2);
+    }
+
+    .dropdown.show .dropdown-content {
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
@@ -47,62 +152,22 @@
 
   <!-- ================= JS ================= -->
   <script src="data/calendar2026.js"></script>
+  <script src="js/teams.js"></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const teamsCards = document.getElementById("teams-cards");
-      const backToTop = document.getElementById("back-to-top");
-
-      // Dados das equipas
-      const teams = [
-        { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
-        { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
-        { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
-        { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
-        { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
-        { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
-        { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-        { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
-        { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
-        { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
-        { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
-      ];
-
-      // Criar cards
-      teams.forEach(team => {
-        const card = document.createElement("div");
-        card.className = "team-card";
-        card.innerHTML = `
-          <img src="${team.logo}" alt="${team.name}">
-          <h3>${team.name}</h3>
-          <p><strong>Pilotos:</strong></p>
-          ${team.drivers.map(d => `<p>${d}</p>`).join("")}
-        `;
-        teamsCards.appendChild(card);
-      });
-
-      // Back to top
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 400) backToTop.classList.add("show");
-        else backToTop.classList.remove("show");
-      });
-
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      // Dropdown Corridas
       const btnCorridas = document.getElementById("btn-corridas");
       const corridasList = document.getElementById("corridas-list");
 
-      if (window.calendar2026) {
-        // Preencher dropdown com nomes e links corretos
-        calendar2026.forEach(race => {
-          const a = document.createElement("a");
-          a.href = `race/${race.id}.html`;
-          a.textContent = race.name;
-          corridasList.appendChild(a);
-        });
-      }
+      if (!window.calendar2026) return;
+
+      // Preencher dropdown Corridas na ordem do calendar2026
+      calendar2026.forEach(race => {
+        const a = document.createElement("a");
+        a.href = `race/${race.id}.html`;
+        a.textContent = race.name; // nomes exatos
+        corridasList.appendChild(a);
+      });
 
       // Toggle dropdown ao clicar
       btnCorridas.addEventListener("click", (e) => {
