@@ -74,21 +74,23 @@ td:nth-child(3) {
   font-weight: 700;
 }
 
-/* BOTÃO VOLTAR AO TOPO */
+/* BACK TO TOP - Botão canónico */
 #back-to-top {
   position: fixed;
+  bottom: 30px;       /* ligeiramente acima do footer */
   right: 20px;
-  bottom: 80px;
-  padding: 10px 16px;
-  background: #000;
+  background-color: #1a1a1a;
   color: #fff;
+  font-weight: 700;
   border: 2px solid #ff0000;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 14px;
+  border-radius: 16px;
+  padding: 10px 16px;
   cursor: pointer;
   display: none;
+  box-shadow: 0 0 8px #000;
   z-index: 999;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
 }
 
 #back-to-top.show {
@@ -96,6 +98,6 @@ td:nth-child(3) {
 }
 
 #back-to-top:hover {
-  background: #ff0000;
-  color: #000;
+  background-color: #ff0000;
+  color: #fff;
 }
