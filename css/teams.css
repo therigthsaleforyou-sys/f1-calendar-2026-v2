@@ -8,16 +8,24 @@ header {
   padding: 10px;
 }
 
-.main-nav {
+.main-header {
+  display: flex;
+  flex-direction: column; /* empilha top + bottom */
+  align-items: center;
+  gap: 10px; /* espaço entre linhas */
+}
+
+/* linhas de navegação */
+.nav-top, .nav-bottom {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
 
+/* botões */
 .main-nav a {
   flex: 1;
   text-align: center;
-
   padding: 10px 0;
   text-decoration: none;
   font-weight: 800;
@@ -127,17 +135,7 @@ header {
 
 /* ================= HEADER 2 LINHAS (APENAS TEAMS) ================= */
 
-/* espaçamento real entre as linhas */
-.nav-top {
-  padding-bottom: 18px; /* aumenta o espaço entre as linhas */
-}
-
-/* segunda linha */
-.nav-bottom {
-  margin-top: 0;
-}
-
-/* botões da linha de baixo = mais largos */
+/* segunda linha = botões mais largos */
 .nav-bottom a {
   flex: 2;
 }
