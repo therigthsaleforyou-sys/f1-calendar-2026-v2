@@ -50,11 +50,15 @@ document.querySelectorAll(".dropbox-toggle").forEach(img => {
   });
 });
 
-// ================= BOTÃO VOLTAR AO TOPO =================
-const backToTop = document.getElementById("backToTop");
+// ===== BOTÃO VOLTAR AO TOPO =====
+const backToTop = document.getElementById("back-to-top");
 
 window.addEventListener("scroll", () => {
-  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+  if(window.scrollY > 100) {
+    backToTop.classList.add("show");
+  } else {
+    backToTop.classList.remove("show");
+  }
 });
 
 backToTop.addEventListener("click", () => {
