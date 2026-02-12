@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Equipas F1 2026</title>
 
+  <!-- CSS global -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- CSS específico da página -->
+  <link rel="stylesheet" href="css/teams.css">
 
   <style>
     /* TEAMS GRID */
@@ -14,6 +17,8 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
     }
 
     .team-card {
@@ -30,61 +35,86 @@
       box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
     }
 
-    /* LOGOS – FINAL */
     .team-card img {
-      width: 270px;          /* +50% novamente */
-      max-width: 100%;
+      width: 100%;
+      max-width: 220px;
+      margin: 0 auto 12px auto;
+      display: block;
       border-radius: 14px;
-      margin-bottom: 14px;
-
-      /* sem rebordos / fundos */
-      background: none;
-      padding: 0;
-      border: none;
-      box-shadow: none;
+      object-fit: contain;
     }
 
     .team-card h3 {
-      margin: 10px 0 6px;
+      margin: 6px 0 6px 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 0 2px 6px #000;
+      text-align: center;
     }
 
     .team-card p {
-      margin: 4px 0;
-      font-size: 0.95rem;
-      color: #ddd;
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #ccc;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ================= HEADER 2 LINHAS ================= */
+    .nav-top {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-bottom: 14px; /* espaço entre linhas */
+    }
+
+    .nav-bottom {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding-top: 6px; /* opcional, só para conforto visual */
+    }
+
+    .nav-bottom a {
+      flex: 2; /* botões mais largos */
     }
   </style>
 </head>
 <body>
 
+  <!-- ================= HEADER ================= -->
   <header class="main-header">
-  <nav class="nav nav-top">
-    <a href="index.html">Calendário</a>
-    <a href="teams.html" class="active">Equipas</a>
-    <a href="f1noticias.html">Notícias</a>
-    <a href="race/resultados.html">Resultados</a>
-  </nav>
+    <!-- Linha de cima -->
+    <nav class="nav nav-top">
+      <a href="index.html">Calendário</a>
+      <a href="teams.html" class="active">Equipas</a>
+      <a href="f1noticias.html">Notícias</a>
+      <a href="race/resultados.html">Resultados</a>
+    </nav>
 
-  <!-- NOVA LINHA DE BOTÕES -->
-  <nav class="nav nav-bottom">
-    <a href="#">Campeonato</a>
-    <a href="#">Estatísticas</a>
-  </nav>
-</header>
+    <!-- Linha de baixo -->
+    <nav class="nav nav-bottom">
+      <a href="#">Botão Extra 1</a>
+      <a href="#">Botão Extra 2</a>
+    </nav>
+  </header>
 
-  <!-- TEAMS -->
+  <!-- ================= TEAMS CARDS ================= -->
   <main>
     <section id="teams-cards"></section>
   </main>
 
-  <!-- BACK TO TOP (igual homepage) -->
+  <!-- ================= BACK TO TOP ================= -->
   <button id="back-to-top">Voltar ao topo</button>
 
-  <!-- FOOTER -->
+  <!-- ================= FOOTER ================= -->
   <footer style="text-align:center;padding:20px;opacity:.6">
     Calendário F1 – Projeto Independente
   </footer>
 
+  <!-- ================= JS ================= -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const teamsCards = document.getElementById("teams-cards");
@@ -116,7 +146,7 @@
         teamsCards.appendChild(card);
       });
 
-      /* Back to top – igual homepage */
+      /* Back to top */
       window.addEventListener("scroll", () => {
         if (window.scrollY > 400) backToTop.classList.add("show");
         else backToTop.classList.remove("show");
@@ -127,6 +157,5 @@
       });
     });
   </script>
-
 </body>
 </html>
