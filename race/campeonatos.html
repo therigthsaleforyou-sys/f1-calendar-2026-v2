@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>Campeonatos F1 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/campeonatos.css">
 </head>
+
 <body>
 
 <header class="main-header">
@@ -14,20 +16,24 @@
     <a href="../index.html">Calendário</a>
     <a href="../teams.html">Equipas</a>
     <a href="../f1noticias.html">Notícias</a>
-    <a href="resultados.html" style="color:#fff;">Resultados</a>
+    <a href="resultados.html">Resultados</a>
   </nav>
 </header>
 
 <main>
-  <section id="championships">
 
-    <!-- TÍTULO DA PÁGINA -->
-    <h2 class="championship-title">🏎️ Campeonato de Fórmula1 2026 🏎️</h2>
+  <!-- TÍTULO DA PÁGINA -->
+  <h1 class="championship-title">
+    🏎️ Campeonato de Fórmula 1 2026 🏎️
+  </h1>
+
+  <section id="championships">
 
     <!-- Campeonato de Pilotos -->
     <div class="race-card" id="drivers-champ">
       <img src="../assets/heroes/tabela1.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Pilotos – 2026</h3>
+
       <table>
         <thead>
           <tr>
@@ -44,6 +50,7 @@
     <div class="race-card" id="constructors-champ">
       <img src="../assets/heroes/tabela2.jpg" class="dropbox-toggle" alt="Abrir/Fechar">
       <h3>Campeonato de Construtores – 2026</h3>
+
       <table>
         <thead>
           <tr>
@@ -57,31 +64,33 @@
     </div>
 
   </section>
+
 </main>
 
-<!-- Botão Voltar ao Topo -->
-<button id="backToTop">Voltar ao topo</button>
+<!-- BOTÃO VOLTAR AO TOPO -->
+<div id="back-to-top">Voltar ao topo</div>
 
-<footer style="text-align:center;padding:20px;opacity:.6">
+<footer class="footer-disclaimer">
   F1 2026
 </footer>
 
 <script src="../js/campeonatos.js"></script>
+
 <script>
-// FUNÇÃO BOTÃO VOLTAR AO TOPO
-const backToTop = document.getElementById("backToTop");
+  const backToTop = document.getElementById("back-to-top");
 
-window.addEventListener("scroll", () => {
-  if(window.scrollY > 200) {
-    backToTop.style.display = "block";
-  } else {
-    backToTop.style.display = "none";
-  }
-});
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
+  });
 
-backToTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 </script>
+
 </body>
 </html>
