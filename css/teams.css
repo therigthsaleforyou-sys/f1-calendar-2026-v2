@@ -124,3 +124,18 @@ header {
   text-align: center;
   line-height: 1.4;
 }
+/* ================= HEADER 2 LINHAS (APENAS TEAMS) ================= */
+
+.nav-top {
+  margin-bottom: 8px;
+}
+
+/* segunda linha */
+.nav-bottom {
+  margin-top: 0;
+}
+
+/* botões da linha de baixo = mais largos */
+.nav-bottom a {
+  flex: 2;
+}
