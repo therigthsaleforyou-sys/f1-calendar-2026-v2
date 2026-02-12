@@ -74,30 +74,14 @@ td:nth-child(3) {
   font-weight: 700;
 }
 
-/* BACK TO TOP - Botão canónico */
+/* BACK TO TOP */
 #back-to-top {
-  position: fixed;
-  bottom: 30px;       /* ligeiramente acima do footer */
-  right: 20px;
-  background-color: #1a1a1a;
-  color: #fff;
-  font-weight: 700;
-  border: 2px solid #ff0000;
-  border-radius: 16px;
-  padding: 10px 16px;
-  cursor: pointer;
-  display: none;
-  box-shadow: 0 0 8px #000;
-  z-index: 999;
-  font-family: 'Helvetica', sans-serif;
-  font-size: 14px;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  display:none;
 }
 
 #back-to-top.show {
-  display: block;
-}
-
-#back-to-top:hover {
-  background-color: #ff0000;
-  color: #fff;
+  display:block;
 }
