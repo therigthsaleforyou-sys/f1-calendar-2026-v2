@@ -16,7 +16,7 @@
       display: flex;
       justify-content: center;
       gap: 10px;
-      padding-bottom: 14px; /* espaço entre linhas */
+      padding-bottom: 14px;
     }
 
     .nav-bottom {
@@ -27,9 +27,9 @@
       position: relative;
     }
 
-    /* Botões da segunda linha igual tamanho da primeira */
-    .nav-bottom a {
-      flex: 1; /* igual à primeira linha */
+    /* Botões da segunda linha */
+    .nav-bottom a, .dropdown > a {
+      flex: 2; /* agora ambos têm o mesmo tamanho */
       text-align: center;
       padding: 10px 0;
       text-decoration: none;
@@ -44,7 +44,7 @@
       cursor: pointer;
     }
 
-    .nav-bottom a:active {
+    .nav-bottom a:active, .dropdown > a:active {
       transform: translateY(2px);
       box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
       border-color: #ff2a2a;
@@ -54,7 +54,6 @@
     .dropdown {
       position: relative;
       display: inline-block;
-      flex: 1; /* tamanho igual */
     }
 
     .dropdown-content {
@@ -124,100 +123,6 @@
   </footer>
 
   <!-- ================= JS ================= -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const teamsCards = document.getElementById("teams-cards");
-      const backToTop = document.getElementById("back-to-top");
-
-      // Dados das equipas
-      const teams = [
-        { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
-        { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
-        { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
-        { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
-        { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
-        { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
-        { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-        { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
-        { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
-        { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
-        { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
-      ];
-
-      // Criar cards
-      teams.forEach(team => {
-        const card = document.createElement("div");
-        card.className = "team-card";
-        card.innerHTML = `
-          <img src="${team.logo}" alt="${team.name}">
-          <h3>${team.name}</h3>
-          <p><strong>Pilotos:</strong></p>
-          ${team.drivers.map(d => `<p>${d}</p>`).join("")}
-        `;
-        teamsCards.appendChild(card);
-      });
-
-      // Back to top
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 400) backToTop.classList.add("show");
-        else backToTop.classList.remove("show");
-      });
-
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-
-      // Dropdown Corridas
-      const btnCorridas = document.getElementById("btn-corridas");
-      const corridasList = document.getElementById("corridas-list");
-
-      // Dados das 24 corridas (ordem do calendar2026-v2.js)
-      const corridas = [
-        { name: "Austrália", link: "race/australia.html" },
-        { name: "Bahrain", link: "race/bahrain.html" },
-        { name: "Arábia Saudita", link: "race/arabiasaudita.html" },
-        { name: "China", link: "race/china.html" },
-        { name: "Mónaco", link: "race/monaco.html" },
-        { name: "Espanha", link: "race/espanha.html" },
-        { name: "Canadá", link: "race/canada.html" },
-        { name: "Áustria", link: "race/austria.html" },
-        { name: "Grã-Bretanha", link: "race/gbr.html" },
-        { name: "Hungria", link: "race/hungria.html" },
-        { name: "Bélgica", link: "race/belgica.html" },
-        { name: "Países Baixos", link: "race/netherlands.html" },
-        { name: "Itália", link: "race/italia.html" },
-        { name: "Singapura", link: "race/singapura.html" },
-        { name: "Japão", link: "race/japao.html" },
-        { name: "Qatar", link: "race/qatar.html" },
-        { name: "Estados Unidos", link: "race/usa.html" },
-        { name: "México", link: "race/mexico.html" },
-        { name: "Brasil", link: "race/brasil.html" },
-        { name: "Abu Dhabi", link: "race/abudhabi.html" },
-        { name: "Miami", link: "race/miami.html" },
-        { name: "Las Vegas", link: "race/lasvegas.html" },
-        { name: "Portugal", link: "race/portugal.html" },
-        { name: "África do Sul", link: "race/africadosul.html" }
-      ];
-
-      // Preencher dropdown
-      corridas.forEach(c => {
-        const a = document.createElement("a");
-        a.href = c.link;
-        a.textContent = c.name;
-        corridasList.appendChild(a);
-      });
-
-      // Toggle dropdown ao clicar
-      btnCorridas.addEventListener("click", (e) => {
-        e.stopPropagation();
-        btnCorridas.parentElement.classList.toggle("show");
-      });
-
-      // Fechar dropdown ao clicar fora
-      document.addEventListener("click", () => {
-        btnCorridas.parentElement.classList.remove("show");
-      });
-    });
-  </script>
+  <script src="js/teams.js"></script>
 </body>
 </html>
