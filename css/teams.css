@@ -127,7 +127,7 @@ header {
 /* ================= HEADER 2 LINHAS (APENAS TEAMS) ================= */
 
 .nav-top {
-  margin-bottom: 8px;
+  margin-bottom: 14px; /* espaço visível entre linhas */
 }
 
 /* segunda linha */
