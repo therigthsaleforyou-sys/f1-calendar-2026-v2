@@ -9,84 +9,6 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- CSS específico da página -->
   <link rel="stylesheet" href="css/teams.css">
-
-  <style>
-    /* ================= HEADER 2 LINHAS ================= */
-    .nav-top {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding-bottom: 14px; /* espaço entre linhas */
-    }
-
-    .nav-bottom {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding-top: 6px;
-      position: relative;
-    }
-
-    /* Botões da segunda linha igual tamanho da primeira */
-    .nav-bottom a {
-      flex: 1; /* igual à primeira linha */
-      text-align: center;
-      padding: 10px 0;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.85rem;
-      color: #fff;
-      background: #000;
-      border: 2px solid red;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-      cursor: pointer;
-    }
-
-    .nav-bottom a:active {
-      transform: translateY(2px);
-      box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
-      border-color: #ff2a2a;
-    }
-
-    /* Dropdown Corridas */
-    .dropdown {
-      position: relative;
-      display: inline-block;
-      flex: 1; /* tamanho igual */
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      left: 0; /* abre para a esquerda */
-      top: 100%;
-      background-color: #000;
-      min-width: 220px;
-      border: 2px solid red;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-      z-index: 1000;
-      padding: 6px 0;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 8px 12px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .dropdown-content a:hover {
-      background-color: rgba(255,42,42,0.2);
-    }
-
-    .dropdown.show .dropdown-content {
-      display: block;
-    }
-  </style>
 </head>
 <body>
 
@@ -124,6 +46,7 @@
   </footer>
 
   <!-- ================= JS ================= -->
+  <script src="data/calendar2026.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const teamsCards = document.getElementById("teams-cards");
@@ -171,41 +94,15 @@
       const btnCorridas = document.getElementById("btn-corridas");
       const corridasList = document.getElementById("corridas-list");
 
-      // Dados das 24 corridas (ordem do calendar2026-v2.js)
-      const corridas = [
-        { name: "Austrália", link: "race/australia.html" },
-        { name: "Bahrain", link: "race/bahrain.html" },
-        { name: "Arábia Saudita", link: "race/arabiasaudita.html" },
-        { name: "China", link: "race/china.html" },
-        { name: "Mónaco", link: "race/monaco.html" },
-        { name: "Espanha", link: "race/espanha.html" },
-        { name: "Canadá", link: "race/canada.html" },
-        { name: "Áustria", link: "race/austria.html" },
-        { name: "Grã-Bretanha", link: "race/gbr.html" },
-        { name: "Hungria", link: "race/hungria.html" },
-        { name: "Bélgica", link: "race/belgica.html" },
-        { name: "Países Baixos", link: "race/netherlands.html" },
-        { name: "Itália", link: "race/italia.html" },
-        { name: "Singapura", link: "race/singapura.html" },
-        { name: "Japão", link: "race/japao.html" },
-        { name: "Qatar", link: "race/qatar.html" },
-        { name: "Estados Unidos", link: "race/usa.html" },
-        { name: "México", link: "race/mexico.html" },
-        { name: "Brasil", link: "race/brasil.html" },
-        { name: "Abu Dhabi", link: "race/abudhabi.html" },
-        { name: "Miami", link: "race/miami.html" },
-        { name: "Las Vegas", link: "race/lasvegas.html" },
-        { name: "Portugal", link: "race/portugal.html" },
-        { name: "África do Sul", link: "race/africadosul.html" }
-      ];
-
-      // Preencher dropdown
-      corridas.forEach(c => {
-        const a = document.createElement("a");
-        a.href = c.link;
-        a.textContent = c.name;
-        corridasList.appendChild(a);
-      });
+      if (window.calendar2026) {
+        // Preencher dropdown com nomes e links corretos
+        calendar2026.forEach(race => {
+          const a = document.createElement("a");
+          a.href = `race/${race.id}.html`;
+          a.textContent = race.name;
+          corridasList.appendChild(a);
+        });
+      }
 
       // Toggle dropdown ao clicar
       btnCorridas.addEventListener("click", (e) => {
