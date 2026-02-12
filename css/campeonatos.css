@@ -1,119 +1,101 @@
-/* =============================
-   LAYOUT GERAL
-============================= */
+/* Wrapper */
 #championships {
-  padding-top: 20px;
+  padding: 20px 12px;
 }
 
-/* =============================
-   TÍTULO DA PÁGINA
-============================= */
+/* TÍTULO */
 .championship-title {
-  max-width: 1200px;
-  margin: 30px auto 20px auto;
-  padding: 0 20px;
-
   text-align: center;
   color: #fff;
-  font-size: clamp(20px, 3vw, 32px);
-  font-weight: 700;
-
-  text-shadow: 0 2px 4px rgba(0,0,0,.9);
+  margin: 20px 0 30px;
+  font-size: clamp(20px, 5vw, 28px);
+  text-shadow: 0 0 6px #000;
 }
 
-/* =============================
-   CARDS
-============================= */
+/* Cards */
 .race-card {
-  width: calc(100% - 24px);
-  margin: 0 auto 16px auto;
-
+  width: 100%;
+  margin-bottom: 20px;
   border: 2px solid #ff0000;
   border-radius: 16px;
   box-shadow: 0 0 8px #000;
-
   padding: 12px;
   background: #1a1a1a;
   color: #fff;
 }
 
-/* =============================
-   IMAGENS DROPDOWN
-============================= */
-.dropbox-toggle {
+/* Imagem dropbox */
+.race-card img.dropbox-toggle {
   width: 100%;
-  height: auto;
-  object-fit: contain;
-
   border-radius: 12px;
   cursor: pointer;
+  margin-bottom: 10px;
   display: block;
-  margin-bottom: 8px;
 }
 
-/* =============================
-   TABELAS
-============================= */
+/* Tabelas */
 table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
+thead {
+  background: #222;
+}
+
 th, td {
-  padding: 6px;
+  padding: 8px;
   text-align: left;
   border-bottom: 1px solid #444;
   color: #fff;
 }
 
-/* colunas distribuídas */
-th:nth-child(1), td:nth-child(1) {
+/* Colunas dinâmicas */
+th:nth-child(1),
+td:nth-child(1) {
   width: 15%;
 }
 
-th:nth-child(2), td:nth-child(2) {
-  width: 55%;
+th:nth-child(2),
+td:nth-child(2) {
+  width: 60%;
 }
 
-th:nth-child(3), td:nth-child(3) {
-  width: 30%;
+th:nth-child(3),
+td:nth-child(3) {
+  width: 25%;
+  text-align: right;
 }
 
-thead th {
-  background-color: #222;
+/* Header ativo */
+.nav a.active {
+  color: #ff0000;
+  font-weight: 700;
 }
 
-/* =============================
-   BOTÃO VOLTAR AO TOPO
-============================= */
+/* BOTÃO VOLTAR AO TOPO */
 #back-to-top {
   position: fixed;
   right: 20px;
-  bottom: 20px;
-
-  display: none;
-  z-index: 9999;
-
-  padding: 10px 18px;
-  border-radius: 20px;
-
-  background: rgba(0,0,0,.7);
+  bottom: 80px;
+  padding: 10px 16px;
+  background: #000;
   color: #fff;
-  border: 1px solid #fff;
-
+  border: 2px solid #ff0000;
+  border-radius: 999px;
+  font-weight: 600;
   font-size: 14px;
   cursor: pointer;
+  display: none;
+  z-index: 999;
 }
 
 #back-to-top.show {
   display: block;
 }
 
-/* =============================
-   HEADER ATIVO
-============================= */
-.nav a.active {
-  color: #ff0000;
-  font-weight: 700;
+#back-to-top:hover {
+  background: #ff0000;
+  color: #000;
 }
