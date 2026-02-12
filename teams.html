@@ -1,231 +1,196 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equipas F1 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipas F1 2026</title>
 
-  <!-- CSS global -->
-  <link rel="stylesheet" href="css/style.css">
-  <!-- CSS específico da página -->
-  <link rel="stylesheet" href="css/teams.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/teams.css">
 
-  <style>
-    /* ================= HEADER 2 LINHAS + BOTOES EXTRA ================= */
+<style>
+  /* ================= HEADER 2 LINHAS ================= */
+  .nav-top, .nav-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
 
-    .nav-top, .nav-bottom {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
+  .nav-top {
+    padding-bottom: 14px;
+  }
 
-    .nav-top {
-      padding-bottom: 14px;
-    }
+  .nav-top a, .nav-bottom a, .nav-bottom .dropdown-btn {
+    flex: 1; /* tamanho igual a linha de cima */
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: #fff;
+    background: #000;
+    border: 2px solid red;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    cursor: pointer;
+    position: relative;
+  }
 
-    .nav-top a {
-      flex: 1;
-      text-align: center;
-      padding: 10px 0;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.85rem;
-      color: #fff;
-      background: #000;
-      border: 2px solid red;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-    }
+  .nav-top a:active, .nav-bottom a:active, .nav-bottom .dropdown-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 14px rgba(255,42,42,0.6),0 4px 10px rgba(0,0,0,0.6);
+    border-color: #ff2a2a;
+  }
 
-    .nav-top a:active {
-      transform: translateY(2px);
-      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 14px rgba(255,42,42,0.6),0 4px 10px rgba(0,0,0,0.6);
-      border-color: #ff2a2a;
-    }
+  .nav-top a.active {
+    border-color: #ff2a2a;
+    box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 16px rgba(255,42,42,0.7),0 8px 18px rgba(0,0,0,0.7);
+  }
 
-    .nav-top a.active {
-      border-color: #ff2a2a;
-      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 16px rgba(255,42,42,0.7),0 8px 18px rgba(0,0,0,0.7);
-    }
+  .nav-bottom {
+    padding-top: 6px;
+  }
 
-    .nav-bottom {
-      padding-top: 6px;
-    }
+  /* Dropdown Corridas */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000;
+    min-width: 180px;
+    border: 2px solid red;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+    z-index: 10;
+    flex-direction: column;
+  }
 
-    .nav-bottom a, .nav-bottom .dropdown-btn {
-      flex: 2;
-      text-align: center;
-      padding: 10px 0;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.85rem;
-      color: #fff;
-      background: #000;
-      border: 2px solid red;
-      border-radius: 14px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-      cursor: pointer;
-      position: relative;
-    }
+  .dropdown-content a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    border-bottom: 1px solid #ff2a2a;
+  }
 
-    .nav-bottom a:active, .nav-bottom .dropdown-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 14px rgba(255,42,42,0.6),0 4px 10px rgba(0,0,0,0.6);
-      border-color: #ff2a2a;
-    }
+  .dropdown-content a:last-child {
+    border-bottom: none;
+  }
 
-    /* Dropdown Corridas */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #000;
-      min-width: 180px;
-      border: 2px solid red;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-      z-index: 10;
-      flex-direction: column;
-    }
-
-    .dropdown-content a {
-      padding: 8px 12px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 600;
-      border-bottom: 1px solid #ff2a2a;
-    }
-
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
-
-    /* Mostrar dropdown */
-    .dropdown.open .dropdown-content {
-      display: flex;
-    }
-  </style>
+  .dropdown.open .dropdown-content {
+    display: flex;
+  }
+</style>
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="main-header">
-    <!-- Linha de cima -->
-    <nav class="nav nav-top">
-      <a href="index.html">Calendário</a>
-      <a href="teams.html" class="active">Equipas</a>
-      <a href="f1noticias.html">Notícias</a>
-      <a href="race/resultados.html">Resultados</a>
-    </nav>
+<header class="main-header">
+  <!-- Linha de cima -->
+  <nav class="nav nav-top">
+    <a href="index.html">Calendário</a>
+    <a href="teams.html" class="active">Equipas</a>
+    <a href="f1noticias.html">Notícias</a>
+    <a href="race/resultados.html">Resultados</a>
+  </nav>
 
-    <!-- Linha de baixo -->
-    <nav class="nav nav-bottom">
-      <a href="campeonatos.html">Campeonatos</a>
-      <div class="dropdown">
-        <div class="dropdown-btn">Corridas 🏁</div>
-        <div class="dropdown-content">
-          <a href="race/australia.html">Austrália</a>
-          <a href="race/bahrain.html">Bahrain</a>
-          <a href="race/saudiarabia.html">Arábia Saudita</a>
-          <a href="race/china.html">China</a>
-          <a href="race/azerbaijan.html">Azerbaijão</a>
-          <a href="race/monaco.html">Mónaco</a>
-          <a href="race/spain.html">Espanha</a>
-          <a href="race/canada.html">Canadá</a>
-          <a href="race/austria.html">Áustria</a>
-          <a href="race/uk.html">Reino Unido</a>
-          <a href="race/hungary.html">Hungria</a>
-          <a href="race/belgium.html">Bélgica</a>
-          <a href="race/netherlands.html">Holanda</a>
-          <a href="race/italy.html">Itália</a>
-          <a href="race/singapore.html">Singapura</a>
-          <a href="race/japan.html">Japão</a>
-          <a href="race/qatar.html">Qatar</a>
-          <a href="race/usa.html">EUA</a>
-          <a href="race/mexico.html">México</a>
-          <a href="race/brazil.html">Brasil</a>
-          <a href="race/lasvegas.html">Las Vegas</a>
-          <a href="race/abu-dhabi.html">Abu Dhabi</a>
-          <a href="race/singapore2.html">Singapura 2</a>
-          <a href="race/saudi2.html">Arábia 2</a>
-        </div>
+  <!-- Linha de baixo -->
+  <nav class="nav nav-bottom">
+    <a href="race/campeonatos.html">Campeonatos</a>
+    <div class="dropdown">
+      <div class="dropdown-btn">Corridas 🏁</div>
+      <div class="dropdown-content">
+        <a href="race/australia.html">Austrália</a>
+        <a href="race/bahrain.html">Bahrain</a>
+        <a href="race/saudiarabia.html">Arábia Saudita</a>
+        <a href="race/china.html">China</a>
+        <a href="race/azerbaijan.html">Azerbaijão</a>
+        <a href="race/monaco.html">Mónaco</a>
+        <a href="race/spain.html">Espanha</a>
+        <a href="race/canada.html">Canadá</a>
+        <a href="race/austria.html">Áustria</a>
+        <a href="race/uk.html">Reino Unido</a>
+        <a href="race/hungary.html">Hungria</a>
+        <a href="race/belgium.html">Bélgica</a>
+        <a href="race/netherlands.html">Holanda</a>
+        <a href="race/italy.html">Itália</a>
+        <a href="race/singapore.html">Singapura</a>
+        <a href="race/japan.html">Japão</a>
+        <a href="race/qatar.html">Qatar</a>
+        <a href="race/usa.html">EUA</a>
+        <a href="race/mexico.html">México</a>
+        <a href="race/brazil.html">Brasil</a>
+        <a href="race/lasvegas.html">Las Vegas</a>
+        <a href="race/abu-dhabi.html">Abu Dhabi</a>
+        <a href="race/singapore2.html">Singapura 2</a>
+        <a href="race/saudi2.html">Arábia 2</a>
       </div>
-    </nav>
-  </header>
+    </div>
+  </nav>
+</header>
 
-  <!-- ================= TEAMS CARDS ================= -->
-  <main>
-    <section id="teams-cards"></section>
-  </main>
+<main>
+  <section id="teams-cards"></section>
+</main>
 
-  <!-- ================= BACK TO TOP ================= -->
-  <button id="back-to-top">Voltar ao topo</button>
+<button id="back-to-top">Voltar ao topo</button>
 
-  <!-- ================= FOOTER ================= -->
-  <footer style="text-align:center;padding:20px;opacity:.6">
-    Calendário F1 – Projeto Independente
-  </footer>
+<footer style="text-align:center;padding:20px;opacity:.6">
+  Calendário F1 – Projeto Independente
+</footer>
 
-  <!-- ================= JS ================= -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const teamsCards = document.getElementById("teams-cards");
-      const backToTop = document.getElementById("back-to-top");
-      const dropdown = document.querySelector(".dropdown");
-      const dropdownBtn = dropdown.querySelector(".dropdown-btn");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const teamsCards = document.getElementById("teams-cards");
+  const backToTop = document.getElementById("back-to-top");
+  const dropdown = document.querySelector(".dropdown");
+  const dropdownBtn = dropdown.querySelector(".dropdown-btn");
 
-      // Equipes
-      const teams = [
-        { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
-        { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
-        { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
-        { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
-        { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
-        { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
-        { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-        { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
-        { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
-        { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
-        { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
-      ];
+  const teams = [
+    { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
+    { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
+    { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
+    { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
+    { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
+    { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
+    { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
+    { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
+    { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
+    { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
+    { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
+  ];
 
-      teams.forEach(team => {
-        const card = document.createElement("div");
-        card.className = "team-card";
-        card.innerHTML = `
-          <img src="${team.logo}" alt="${team.name}">
-          <h3>${team.name}</h3>
-          <p><strong>Pilotos:</strong></p>
-          ${team.drivers.map(d => `<p>${d}</p>`).join("")}
-        `;
-        teamsCards.appendChild(card);
-      });
+  teams.forEach(team => {
+    const card = document.createElement("div");
+    card.className = "team-card";
+    card.innerHTML = `
+      <img src="${team.logo}" alt="${team.name}">
+      <h3>${team.name}</h3>
+      <p><strong>Pilotos:</strong></p>
+      ${team.drivers.map(d => `<p>${d}</p>`).join("")}
+    `;
+    teamsCards.appendChild(card);
+  });
 
-      // Back to top
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 400) backToTop.classList.add("show");
-        else backToTop.classList.remove("show");
-      });
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
+  });
 
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-      // Dropdown mobile touch
-      dropdownBtn.addEventListener("click", () => {
-        dropdown.classList.toggle("open");
-      });
+  dropdownBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("open");
+  });
 
-      // Fecha dropdown se clicar fora
-      document.addEventListener("click", (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove("open");
-        }
-      });
-    });
-  </script>
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target)) dropdown.classList.remove("open");
+  });
+});
+</script>
+
 </body>
 </html>
