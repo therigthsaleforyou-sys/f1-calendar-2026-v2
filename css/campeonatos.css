@@ -1,96 +1,119 @@
 /* =========================
-   CARDS ESTILO RESULTADOS
-========================= */
-.cards-wrapper {
-  padding: 12px;
-}
-
-.cards-wrapper .race-card {
-  width: 100%;
-  margin-bottom: 16px;
-  border: 2px solid #ff0000;
-  border-radius: 16px;
-  box-shadow: 0 0 8px #000;
-  padding: 12px;
-  background: #1a1a1a; /* Igual ao fundo dos cards do site */
-  color: #fff;
-  position: relative;
-  margin-top: 20px; /* afasta do header */
-}
-
-/* Imagem dropdown */
-.race-card img.dropdown-toggle {
-  width: 100%;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-bottom: 8px;
-}
-
-/* Tabelas */
-table.dropdown {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
-  display: none; /* Escondida inicialmente */
-}
-
-table.dropdown th, table.dropdown td {
-  padding: 6px;
-  text-align: left;
-  border-bottom: 1px solid #444;
-  color: #fff;
-}
-
-table.dropdown th {
-  background-color: #222;
-}
-
-/* Header ativo / link resultados */
-.nav a.active {
-  color: #ff0000;
-  font-weight: 700;
-}
-
-/* =========================
    TÍTULO DA PÁGINA
 ========================= */
 .championship-title {
-  text-align: center;
-  font-size: 24px;
-  color: #ff0000; /* vermelho canónico */
+  max-width: 1200px;
+  margin: 30px auto 20px auto;
+  padding: 0 20px;
+
+  text-align: right;
+  color: #fff;
+  font-size: clamp(20px, 3vw, 32px);
   font-weight: 700;
-  margin-bottom: 20px;
+
+  text-shadow: 0 2px 4px rgba(0,0,0,.9);
 }
 
 /* =========================
-   BOTÃO VOLTAR AO TOPO
-   FORMATAÇÃO CANÓNICA
+   SEÇÃO CAMPEONATOS
 ========================= */
-#backToTop {
-  position: fixed;
-  right: 20px;
-  bottom: 90px; /* acima do footer / disclaimer */
-
-  background: #1a1a1a; /* mesmo fundo dos cards / header */
-  color: #ff0000;       /* cor do texto igual aos links do header */
-
-  border: 2px solid #ff0000;
-  border-radius: 30px;
-
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  display: none;
-  z-index: 999;
-  transition: all 0.3s ease;
+#championships {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
 }
 
-#backToTop:hover {
-  background: #ff0000;
-  color: #1a1a1a;
-  border-color: #ff0000;
+/* =========================
+   CARDS
+========================= */
+.race-card {
+  margin-top: 25px;
+  padding: 20px;
+  background: rgba(0,0,0,.35);
+  border-radius: 12px;
+}
+
+/* =========================
+   TÍTULOS DOS CARDS
+========================= */
+.race-card h3 {
+  margin: 15px 0;
+  color: #fff;
+  font-size: 18px;
+}
+
+/* =========================
+   TABELAS
+========================= */
+.race-card table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.race-card th,
+.race-card td {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Distribuição equilibrada */
+.race-card th:nth-child(1),
+.race-card td:nth-child(1) {
+  width: 15%;
+}
+
+.race-card th:nth-child(2),
+.race-card td:nth-child(2) {
+  width: 55%;
+  text-align: left;
+}
+
+.race-card th:nth-child(3),
+.race-card td:nth-child(3) {
+  width: 30%;
+}
+
+/* =========================
+   DROPBOX IMAGEM
+========================= */
+.dropbox-toggle {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* =========================
+   BACK TO TOP (CANÓNICO)
+========================= */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  display: none;
+
+  padding: 10px 18px;
+  border-radius: 20px;
+
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#back-to-top.show {
+  display: block;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer-disclaimer {
+  text-align: center;
+  padding: 20px;
+  opacity: .6;
 }
