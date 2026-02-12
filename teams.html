@@ -11,74 +11,101 @@
   <link rel="stylesheet" href="css/teams.css">
 
   <style>
-    /* TEAMS GRID */
-    #teams-cards {
-      padding: 12px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
+    /* ================= HEADER 2 LINHAS + BOTOES EXTRA ================= */
 
-    .team-card {
-      background: #111;
-      border: 2px solid #ff0000;
-      border-radius: 16px;
-      padding: 14px;
-      text-align: center;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .team-card:hover {
-      border-color: gold;
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-    }
-
-    .team-card img {
-      width: 100%;
-      max-width: 220px;
-      margin: 0 auto 12px auto;
-      display: block;
-      border-radius: 14px;
-      object-fit: contain;
-    }
-
-    .team-card h3 {
-      margin: 6px 0 6px 0;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #fff;
-      text-shadow: 0 2px 6px #000;
-      text-align: center;
-    }
-
-    .team-card p {
-      margin: 0;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #ccc;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    /* ================= HEADER 2 LINHAS ================= */
-    .nav-top {
+    .nav-top, .nav-bottom {
       display: flex;
       justify-content: center;
       gap: 10px;
-      padding-bottom: 14px; /* espaço entre linhas */
+    }
+
+    .nav-top {
+      padding-bottom: 14px;
+    }
+
+    .nav-top a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      background: #000;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+
+    .nav-top a:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 14px rgba(255,42,42,0.6),0 4px 10px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    .nav-top a.active {
+      border-color: #ff2a2a;
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 16px rgba(255,42,42,0.7),0 8px 18px rgba(0,0,0,0.7);
     }
 
     .nav-bottom {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding-top: 6px; /* opcional, só para conforto visual */
+      padding-top: 6px;
     }
 
-    .nav-bottom a {
-      flex: 2; /* botões mais largos */
+    .nav-bottom a, .nav-bottom .dropdown-btn {
+      flex: 2;
+      text-align: center;
+      padding: 10px 0;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #fff;
+      background: #000;
+      border: 2px solid red;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-bottom a:active, .nav-bottom .dropdown-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 2px rgba(255,42,42,0.9),0 0 14px rgba(255,42,42,0.6),0 4px 10px rgba(0,0,0,0.6);
+      border-color: #ff2a2a;
+    }
+
+    /* Dropdown Corridas */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #000;
+      min-width: 180px;
+      border: 2px solid red;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+      z-index: 10;
+      flex-direction: column;
+    }
+
+    .dropdown-content a {
+      padding: 8px 12px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      border-bottom: 1px solid #ff2a2a;
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    /* Mostrar dropdown */
+    .dropdown.open .dropdown-content {
+      display: flex;
     }
   </style>
 </head>
@@ -96,8 +123,36 @@
 
     <!-- Linha de baixo -->
     <nav class="nav nav-bottom">
-      <a href="#">Botão Extra 1</a>
-      <a href="#">Botão Extra 2</a>
+      <a href="campeonatos.html">Campeonatos</a>
+      <div class="dropdown">
+        <div class="dropdown-btn">Corridas 🏁</div>
+        <div class="dropdown-content">
+          <a href="race/australia.html">Austrália</a>
+          <a href="race/bahrain.html">Bahrain</a>
+          <a href="race/saudiarabia.html">Arábia Saudita</a>
+          <a href="race/china.html">China</a>
+          <a href="race/azerbaijan.html">Azerbaijão</a>
+          <a href="race/monaco.html">Mónaco</a>
+          <a href="race/spain.html">Espanha</a>
+          <a href="race/canada.html">Canadá</a>
+          <a href="race/austria.html">Áustria</a>
+          <a href="race/uk.html">Reino Unido</a>
+          <a href="race/hungary.html">Hungria</a>
+          <a href="race/belgium.html">Bélgica</a>
+          <a href="race/netherlands.html">Holanda</a>
+          <a href="race/italy.html">Itália</a>
+          <a href="race/singapore.html">Singapura</a>
+          <a href="race/japan.html">Japão</a>
+          <a href="race/qatar.html">Qatar</a>
+          <a href="race/usa.html">EUA</a>
+          <a href="race/mexico.html">México</a>
+          <a href="race/brazil.html">Brasil</a>
+          <a href="race/lasvegas.html">Las Vegas</a>
+          <a href="race/abu-dhabi.html">Abu Dhabi</a>
+          <a href="race/singapore2.html">Singapura 2</a>
+          <a href="race/saudi2.html">Arábia 2</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -119,7 +174,10 @@
     document.addEventListener("DOMContentLoaded", () => {
       const teamsCards = document.getElementById("teams-cards");
       const backToTop = document.getElementById("back-to-top");
+      const dropdown = document.querySelector(".dropdown");
+      const dropdownBtn = dropdown.querySelector(".dropdown-btn");
 
+      // Equipes
       const teams = [
         { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
         { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
@@ -146,7 +204,7 @@
         teamsCards.appendChild(card);
       });
 
-      /* Back to top */
+      // Back to top
       window.addEventListener("scroll", () => {
         if (window.scrollY > 400) backToTop.classList.add("show");
         else backToTop.classList.remove("show");
@@ -154,6 +212,18 @@
 
       backToTop.addEventListener("click", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Dropdown mobile touch
+      dropdownBtn.addEventListener("click", () => {
+        dropdown.classList.toggle("open");
+      });
+
+      // Fecha dropdown se clicar fora
+      document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove("open");
+        }
       });
     });
   </script>
