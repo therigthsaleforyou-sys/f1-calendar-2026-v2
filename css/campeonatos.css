@@ -1,12 +1,19 @@
-/* =========================
+/* =============================
+   LAYOUT GERAL
+============================= */
+#championships {
+  padding-top: 20px;
+}
+
+/* =============================
    TÍTULO DA PÁGINA
-========================= */
+============================= */
 .championship-title {
   max-width: 1200px;
   margin: 30px auto 20px auto;
   padding: 0 20px;
 
-  text-align: right;
+  text-align: center;
   color: #fff;
   font-size: clamp(20px, 3vw, 32px);
   font-weight: 700;
@@ -14,93 +21,87 @@
   text-shadow: 0 2px 4px rgba(0,0,0,.9);
 }
 
-/* =========================
-   SEÇÃO CAMPEONATOS
-========================= */
-#championships {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px 60px;
-}
-
-/* =========================
+/* =============================
    CARDS
-========================= */
+============================= */
 .race-card {
-  margin-top: 25px;
-  padding: 20px;
-  background: rgba(0,0,0,.35);
-  border-radius: 12px;
-}
+  width: calc(100% - 24px);
+  margin: 0 auto 16px auto;
 
-/* =========================
-   TÍTULOS DOS CARDS
-========================= */
-.race-card h3 {
-  margin: 15px 0;
+  border: 2px solid #ff0000;
+  border-radius: 16px;
+  box-shadow: 0 0 8px #000;
+
+  padding: 12px;
+  background: #1a1a1a;
   color: #fff;
-  font-size: 18px;
 }
 
-/* =========================
+/* =============================
+   IMAGENS DROPDOWN
+============================= */
+.dropbox-toggle {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+
+  border-radius: 12px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* =============================
    TABELAS
-========================= */
-.race-card table {
+============================= */
+table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-.race-card th,
-.race-card td {
-  padding: 10px;
-  text-align: center;
+th, td {
+  padding: 6px;
+  text-align: left;
+  border-bottom: 1px solid #444;
   color: #fff;
 }
 
-/* Distribuição equilibrada */
-.race-card th:nth-child(1),
-.race-card td:nth-child(1) {
+/* colunas distribuídas */
+th:nth-child(1), td:nth-child(1) {
   width: 15%;
 }
 
-.race-card th:nth-child(2),
-.race-card td:nth-child(2) {
+th:nth-child(2), td:nth-child(2) {
   width: 55%;
-  text-align: left;
 }
 
-.race-card th:nth-child(3),
-.race-card td:nth-child(3) {
+th:nth-child(3), td:nth-child(3) {
   width: 30%;
 }
 
-/* =========================
-   DROPBOX IMAGEM
-========================= */
-.dropbox-toggle {
-  width: 100%;
-  max-height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
+thead th {
+  background-color: #222;
 }
 
-/* =========================
-   BACK TO TOP (CANÓNICO)
-========================= */
+/* =============================
+   BOTÃO VOLTAR AO TOPO
+============================= */
 #back-to-top {
   position: fixed;
-  bottom: 20px;
   right: 20px;
+  bottom: 20px;
 
   display: none;
+  z-index: 9999;
 
   padding: 10px 18px;
   border-radius: 20px;
 
-  background: rgba(0,0,0,.6);
+  background: rgba(0,0,0,.7);
   color: #fff;
+  border: 1px solid #fff;
+
   font-size: 14px;
   cursor: pointer;
 }
@@ -109,11 +110,10 @@
   display: block;
 }
 
-/* =========================
-   FOOTER
-========================= */
-.footer-disclaimer {
-  text-align: center;
-  padding: 20px;
-  opacity: .6;
+/* =============================
+   HEADER ATIVO
+============================= */
+.nav a.active {
+  color: #ff0000;
+  font-weight: 700;
 }
