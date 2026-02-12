@@ -124,10 +124,12 @@ header {
   text-align: center;
   line-height: 1.4;
 }
+
 /* ================= HEADER 2 LINHAS (APENAS TEAMS) ================= */
 
+/* espaçamento real entre as linhas */
 .nav-top {
-  padding-bottom: 14px; /* espaço real e garantido */
+  padding-bottom: 18px; /* aumenta o espaço entre as linhas */
 }
 
 /* segunda linha */
