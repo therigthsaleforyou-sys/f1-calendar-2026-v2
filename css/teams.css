@@ -1,4 +1,50 @@
-/* ================= NAV BOTTOM ================= */
+/* css/teams.css */
+/* Página Equipas — estado estável */
+/* Mobile-first | visual F1 premium */
+
+/* ================= HEADER ================= */
+header {
+  padding: 10px;
+}
+
+/* ================= NAV HEADER — 2 LINHAS ================= */
+
+/* Linha de cima */
+.nav-top {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 14px; /* espaço entre linhas */
+}
+
+.nav-top a {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.nav-top a:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
+  border-color: #ff2a2a;
+}
+
+/* Glow discreto do botão ativo */
+.nav-top a.active {
+  box-shadow: 0 0 8px 2px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
+  border-color: #ff2a2a;
+}
+
+/* Linha de baixo */
 .nav-bottom {
   display: flex;
   justify-content: center;
@@ -6,8 +52,9 @@
   padding-top: 6px;
 }
 
+/* Botões da linha de baixo */
 .nav-bottom a, .nav-bottom #btn-corridas {
-  flex: 1; /* todos botões iguais */
+  flex: 1;
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
@@ -22,12 +69,6 @@
   cursor: pointer;
 }
 
-/* Botão ativo com glow discreto */
-.nav-bottom a.active, .nav-bottom #btn-corridas.active {
-  box-shadow: 0 0 8px 2px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
 /* Clique do botão */
 .nav-bottom a:active, .nav-bottom #btn-corridas:active {
   transform: translateY(2px);
@@ -35,10 +76,16 @@
   border-color: #ff2a2a;
 }
 
-/* Dropdown Corridas */
+/* Glow discreto do botão ativo */
+.nav-bottom a.active, .nav-bottom #btn-corridas.active {
+  box-shadow: 0 0 8px 2px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
+  border-color: #ff2a2a;
+}
+
+/* ================= DROPDOWN CORRIDAS ================= */
 .dropdown {
   position: relative;
-  flex: 1; /* botão igual aos outros */
+  flex: 1;
 }
 
 .dropdown-content {
@@ -71,4 +118,61 @@
 /* Mostrar dropdown */
 .dropdown.show .dropdown-content {
   display: block;
+}
+
+/* ================= TEAMS CARDS ================= */
+#teams-cards {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ================= TEAM CARD ================= */
+.team-card {
+  border: 2px solid red;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+  background: #000;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.team-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 8px 18px rgba(0,0,0,0.7);
+  border-color: #ff2a2a;
+}
+
+/* ================= LOGO ================= */
+.team-card img {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto 12px auto;
+  display: block;
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+/* ================= TEXTOS ================= */
+.team-card h3 {
+  margin: 6px 0 6px 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+  text-align: center;
+}
+
+.team-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ccc;
+  text-align: center;
+  line-height: 1.4;
 }
