@@ -5,16 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Equipas F1 2026</title>
 
-  <!-- CSS global -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- CSS específico da página -->
   <link rel="stylesheet" href="css/teams.css">
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
   <header class="main-header">
-    <!-- Linha de cima -->
     <nav class="nav nav-top">
       <a href="index.html">Calendário</a>
       <a href="teams.html" class="active">Equipas</a>
@@ -22,7 +18,6 @@
       <a href="race/resultados.html">Resultados</a>
     </nav>
 
-    <!-- Linha de baixo -->
     <nav class="nav nav-bottom">
       <a href="race/campeonatos.html">Campeonatos</a>
       <div class="dropdown">
@@ -32,20 +27,57 @@
     </nav>
   </header>
 
-  <!-- ================= TEAMS CARDS ================= -->
   <main>
-    <section id="teams-cards"></section>
+    <section id="teams-cards">
+      <!-- Cards populados via JS -->
+    </section>
   </main>
 
-  <!-- ================= BACK TO TOP ================= -->
   <button id="back-to-top">Voltar ao topo</button>
 
-  <!-- ================= FOOTER ================= -->
   <footer style="text-align:center;padding:20px;opacity:.6">
     Calendário F1 – Projeto Independente
   </footer>
 
-  <!-- ================= JS ================= -->
+  <script src="data/calendar2026-v2.js"></script>
   <script src="js/teams.js"></script>
+  <script>
+    // Popula os cards das equipas (mesmo formato antigo)
+    const teams = [
+      { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
+      { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
+      { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
+      { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
+      { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
+      { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
+      { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
+      { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
+      { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
+      { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
+      { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
+    ];
+
+    const teamsCards = document.getElementById("teams-cards");
+    teams.forEach(team => {
+      const card = document.createElement("div");
+      card.className = "team-card";
+      card.innerHTML = `
+        <img src="${team.logo}" alt="${team.name}">
+        <h3>${team.name}</h3>
+        <p><strong>Pilotos:</strong></p>
+        ${team.drivers.map(d => `<p>${d}</p>`).join("")}
+      `;
+      teamsCards.appendChild(card);
+    });
+
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) backToTop.classList.add("show");
+      else backToTop.classList.remove("show");
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </body>
 </html>
