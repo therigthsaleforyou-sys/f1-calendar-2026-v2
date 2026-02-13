@@ -8,33 +8,31 @@
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="main-header">
+<header>
+  <!-- LINHA DE CIMA -->
+  <nav class="nav-top">
+    <a href="../index.html" class="nav-btn">Calendário</a>
+    <a href="../teams.html" class="nav-btn">Equipas</a>
+    <a href="../f1noticias.html" class="nav-btn">Notícias</a>
+    <a href="../race/resultados.html" class="nav-btn">Resultados</a>
+  </nav>
 
-    <!-- Linha de cima -->
-    <nav class="nav-top">
-      <a href="../index.html" class="nav-btn">Calendário</a>
-      <a href="../teams.html" class="nav-btn">Equipas</a>
-      <a href="../f1noticias.html" class="nav-btn">Notícias</a>
-      <a href="resultados.html" class="nav-btn">Resultados</a>
-    </nav>
+  <!-- LINHA DE BAIXO -->
+  <nav class="nav-bottom">
+    <a href="../race/campeonatos.html" class="nav-btn wide">Campeonatos</a>
+    <a href="../race/corridas.html" class="nav-btn wide active">Corridas</a>
+  </nav>
+</header>
 
-    <!-- Linha de baixo -->
-    <nav class="nav-bottom">
-      <a href="campeonatos.html" class="nav-btn wide">Campeonatos</a>
-      <a href="corridas.html" class="nav-btn wide active">Corridas</a>
-    </nav>
+<main>
+  <div id="race-cards" class="cards-wrapper">
+    <!-- Cards das corridas gerados pelo JS -->
+  </div>
+</main>
 
-  </header>
+<button id="back-to-top">Topo ↑</button>
 
-  <!-- ================= MAIN ================= -->
-  <main>
-    <section id="race-cards" class="cards-grid"></section>
-    <button id="back-to-top">Voltar ao topo</button>
-  </main>
-
-  <!-- ================= JS ================= -->
-  <script src="../data/calendar2026-v2.js"></script>
-  <script src="../js/corridas.js"></script>
+<script src="../data/calendar2026-v2.js"></script>
+<script src="../js/corridas.js"></script>
 </body>
 </html>
