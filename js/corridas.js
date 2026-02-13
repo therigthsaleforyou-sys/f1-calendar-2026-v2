@@ -1,4 +1,3 @@
-// js/corridas.js
 document.addEventListener("DOMContentLoaded", () => {
   if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
     console.error("calendar2026 não carregado");
@@ -8,25 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const raceCards = document.getElementById("race-cards");
   const backToTop = document.getElementById("back-to-top");
 
+  // Criar cards das corridas
   raceCards.innerHTML = "";
-
   calendar2026.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
-
     card.innerHTML = `
-      <img class="race-image" src="${race.cardImage}" alt="${race.name}">
-      <h2 class="race-title">${race.name}</h2>
+      <a href="${race.id}.html">
+        <img src="../${race.cardImage}" alt="${race.name}">
+        <h3>${race.name}</h3>
+      </a>
     `;
-
-    // Clique na imagem ou título abre a página da corrida
-    card.querySelector(".race-image").addEventListener("click", () => {
-      window.location.href = `race/${race.id}.html`;
-    });
-    card.querySelector(".race-title").addEventListener("click", () => {
-      window.location.href = `race/${race.id}.html`;
-    });
-
     raceCards.appendChild(card);
   });
 
