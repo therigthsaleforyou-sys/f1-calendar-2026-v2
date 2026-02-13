@@ -4,53 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Corridas F1 2026</title>
-
-  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/corridas.css">
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="main-header">
-    <!-- Linha de cima -->
-    <nav class="nav nav-top">
-      <a href="../index.html">Calendário</a>
-      <a href="../teams.html">Equipas</a>
-      <a href="../f1noticias.html">Notícias</a>
-    </nav>
+<header class="main-header">
 
-    <!-- Linha de baixo -->
-    <nav class="nav nav-bottom">
-      <a href="campeonatos.html">Campeonatos</a>
-      <a class="active" href="corridas.html">Corridas</a>
-    </nav>
-  </header>
+  <!-- LINHA DE CIMA -->
+  <nav class="nav-top">
+    <a href="../index.html" class="nav-btn">Calendário</a>
+    <a href="../teams.html" class="nav-btn">Equipas</a>
+    <a href="../f1noticias.html" class="nav-btn">Notícias</a>
+    <a href="resultados.html" class="nav-btn">Resultados</a>
+  </nav>
 
-  <!-- ================= RACE CARDS ================= -->
-  <main>
-    <section id="race-cards"></section>
-  </main>
+  <!-- LINHA DE BAIXO -->
+  <nav class="nav-bottom">
+    <a href="campeonatos.html" class="nav-btn wide">Campeonatos</a>
+    <a href="corridas.html" class="nav-btn wide active">Corridas</a>
+  </nav>
 
-  <!-- ================= BACK TO TOP ================= -->
-  <button id="back-to-top" class="back-to-top">⬆ Voltar ao Topo</button>
+</header>
 
-  <!-- ================= FOOTER ================= -->
-  <footer style="text-align:center;padding:20px;opacity:.6">
-    Calendário F1 – Projeto Independente
-  </footer>
+<main class="content">
+  <section id="race-cards" class="cards-grid"></section>
+</main>
 
-  <!-- ================= JS ================= -->
-  <script src="../data/calendar2026-v2.js"></script>
-  <script src="../js/corridas.js"></script>
-  <script>
-    // Back to top
-    const backToTop = document.getElementById("back-to-top");
-    window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 400);
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  </script>
+<button id="back-to-top">Voltar ao topo</button>
+
+<script src="../data/calendar2026-v2.js"></script>
+<script src="../js/corridas.js"></script>
 </body>
 </html>
