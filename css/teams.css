@@ -14,7 +14,7 @@ header {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding-bottom: 14px; /* espaço garantido entre linhas */
+  padding-bottom: 14px;
 }
 
 .nav-top a {
@@ -22,23 +22,23 @@ header {
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 400; /* normal, glow destacado no ativo */
   font-size: 0.85rem;
   color: #fff;
   background: #000;
   border: 2px solid red;
   border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
 .nav-top a:active {
   transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255, 42, 42, 0.9), 0 0 14px rgba(255, 42, 42, 0.6), 0 4px 10px rgba(0,0,0,0.6);
+  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
   border-color: #ff2a2a;
 }
 
-/* CORREÇÃO: botão ativo com glow (em vez de bold no rebordo) */
+/* botão ativo glow */
 .nav-top a.active {
   box-shadow: 0 0 14px 4px rgba(255,42,42,0.8), 0 0 20px rgba(255,42,42,0.6), 0 6px 20px rgba(0,0,0,0.6);
   border-color: #ff2a2a;
@@ -49,11 +49,11 @@ header {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding-top: 6px; /* espaço acima da linha */
+  padding-top: 6px;
 }
 
 .nav-bottom a {
-  flex: 2; /* botões mais largos */
+  flex: 2; 
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
@@ -73,6 +73,25 @@ header {
   border-color: #ff2a2a;
 }
 
+/* Dropdown Corridas */
+.nav-bottom .dropdown > a {
+  flex: 2; 
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(255,42,42,0.2);
+}
+
 /* ================= TEAMS CARDS ================= */
 #teams-cards {
   max-width: 420px;
@@ -83,7 +102,6 @@ header {
   gap: 16px;
 }
 
-/* ================= TEAM CARD ================= */
 .team-card {
   border: 2px solid red;
   border-radius: 14px;
@@ -101,7 +119,6 @@ header {
   border-color: #ff2a2a;
 }
 
-/* ================= LOGO ================= */
 .team-card img {
   width: 100%;
   max-width: 220px;
@@ -111,7 +128,6 @@ header {
   object-fit: contain;
 }
 
-/* ================= TEXTOS ================= */
 .team-card h3 {
   margin: 6px 0 6px 0;
   font-size: 1.2rem;
