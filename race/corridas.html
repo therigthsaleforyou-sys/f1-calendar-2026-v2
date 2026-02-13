@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Corridas</title>
 
-  <!-- CSS correto -->
   <link rel="stylesheet" href="../css/corridas.css">
 </head>
 
@@ -13,7 +12,7 @@
 
 <header class="main-header">
 
-  <!-- LINHA DE CIMA (4 botões) -->
+  <!-- LINHA DE CIMA -->
   <nav class="nav-top">
     <a href="../index.html" class="nav-btn">Calendário</a>
     <a href="../teams.html" class="nav-btn">Equipas</a>
@@ -21,7 +20,7 @@
     <a href="resultados.html" class="nav-btn">Resultados</a>
   </nav>
 
-  <!-- LINHA DE BAIXO (2 botões) -->
+  <!-- LINHA DE BAIXO -->
   <nav class="nav-bottom">
     <a href="campeonatos.html" class="nav-btn wide">Campeonatos</a>
     <a href="corridas.html" class="nav-btn wide active">Corridas</a>
@@ -31,21 +30,14 @@
 
 <main class="content">
 
-  <section class="cards-grid">
-
-    <a href="australia.html" class="race-card">
-      <img src="../assets/races/australia.jpg" alt="Austrália">
-      <h2>Grande Prémio da Austrália</h2>
-    </a>
-
-    <a href="china.html" class="race-card">
-      <img src="../assets/races/china.jpg" alt="China">
-      <h2>Grande Prémio da China</h2>
-    </a>
-
+  <section id="corridas-grid" class="cards-grid">
+    <!-- cards gerados por JS -->
   </section>
 
 </main>
+
+<script src="../data/calendar2026-v2.js"></script>
+<script src="../js/corridas.js"></script>
 
 </body>
 </html>
