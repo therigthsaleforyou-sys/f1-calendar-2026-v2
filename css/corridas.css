@@ -1,11 +1,19 @@
-/* Página Corridas F1 2026 */
+/* css/corridas.css */
+/* Página Corridas — 2 cards por linha */
 
-/* ================= HEADER ================= */
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 header {
   padding: 10px;
 }
 
-/* ================= NAV ================= */
+/* ================= NAV HEADER ================= */
 .nav-top, .nav-bottom {
   display: flex;
   justify-content: center;
@@ -28,9 +36,55 @@ header {
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-.nav-top a.active, .nav-bottom a.active {
-  box-shadow: 0 0 14px 4px rgba(255,42,42,0.6), 0 0 20px rgba(255,42,42,0.4), 0 6px 20px rgba(0,0,0,0.5);
+.nav-bottom a.active {
+  box-shadow: 0 0 8px 2px rgba(255,42,42,0.7), 0 0 12px rgba(255,42,42,0.5), 0 4px 10px rgba(0,0,0,0.5);
   border-color: #ff2a2a;
+}
+
+/* ================= CARDS DAS CORRIDAS ================= */
+#race-cards {
+  max-width: 800px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0 12px;
+}
+
+.race-card {
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.race-card a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.race-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.race-card img:hover {
+  transform: scale(1.05);
+}
+
+.race-card h3 {
+  margin: 8px 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+  padding: 8px;
 }
 
 /* ================= BACK TO TOP ================= */
@@ -38,56 +92,19 @@ header {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 10px 14px;
-  font-weight: bold;
-  border-radius: 12px;
-  border: 2px solid red;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
   background: #000;
   color: #fff;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  display: none;
-}
-#back-to-top.show {
-  display: block;
-}
-
-/* ================= CARDS GRID ================= */
-#corridas-cards {
-  max-width: 960px;
-  margin: 20px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  padding: 12px;
-}
-
-/* ================= CARD ================= */
-.corrida-card {
-  background: #000;
   border: 2px solid red;
   border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
 }
 
-.corrida-card a {
-  text-decoration: none;
-  color: #fff;
+#back-to-top.show {
   display: block;
-  text-align: center;
-}
-
-.corrida-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.corrida-card h3 {
-  margin: 8px 0 12px 0;
-  font-size: 1.1rem;
-  font-weight: 800;
-  text-shadow: 0 2px 6px #000;
 }
