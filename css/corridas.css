@@ -1,19 +1,18 @@
-/* css/corridas.css */
+/* Página Corridas F1 2026 */
 
 /* ================= HEADER ================= */
 header {
   padding: 10px;
 }
 
-/* Linha de cima */
 .nav-top {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding-bottom: 12px;  /* ajustado para espaçamento melhor */
+  padding-bottom: 10px; /* espaçamento entre linhas */
 }
 
-.nav-top .nav-btn {
+.nav-top a {
   flex: 1;
   text-align: center;
   padding: 10px 0;
@@ -25,23 +24,23 @@ header {
   border: 2px solid red;
   border-radius: 14px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-.nav-top .nav-btn.active {
+.nav-top a.active,
+.nav-top a:active {
   box-shadow: 0 0 14px 4px rgba(255,42,42,0.8), 0 0 20px rgba(255,42,42,0.6), 0 6px 20px rgba(0,0,0,0.6);
   border-color: #ff2a2a;
 }
 
-/* Linha de baixo */
 .nav-bottom {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding-top: 8px;  /* ajustado */
+  padding-top: 10px;
 }
 
-.nav-bottom .nav-btn {
+.nav-bottom a {
   flex: 2;
   text-align: center;
   padding: 10px 0;
@@ -53,33 +52,34 @@ header {
   border: 2px solid red;
   border-radius: 14px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
-.nav-bottom .nav-btn.active {
+.nav-bottom a.active,
+.nav-bottom a:active {
   box-shadow: 0 0 14px 4px rgba(255,42,42,0.8), 0 0 20px rgba(255,42,42,0.6), 0 6px 20px rgba(0,0,0,0.6);
   border-color: #ff2a2a;
 }
 
 /* ================= CARDS GRID ================= */
 .cards-grid {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 12px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 14px;
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 0 10px;
 }
 
-/* ================= CARD ================= */
+/* ================= RACE CARD ================= */
 .race-card {
   border: 2px solid red;
   border-radius: 14px;
-  padding: 12px;
-  text-align: center;
+  overflow: hidden;
   background: #000;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+  text-align: center;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
 }
 
 .race-card:active {
@@ -88,36 +88,30 @@ header {
   border-color: #ff2a2a;
 }
 
-/* ================= IMAGEM E TITULO ================= */
 .race-card img {
   width: 100%;
-  max-width: 260px;
-  margin: 0 auto 10px auto;
   display: block;
-  border-radius: 14px;
-  cursor: pointer;
   object-fit: cover;
 }
 
-.race-card h2 {
+.race-card h3 {
+  margin: 6px 0 12px 0;
   font-size: 1rem;
   color: #fff;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
+  text-shadow: 0 2px 6px #000;
 }
 
 /* ================= BACK TO TOP ================= */
 #back-to-top {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
+  bottom: 18px;
+  right: 18px;
   padding: 10px 14px;
-  font-weight: 700;
-  border-radius: 12px;
-  border: 2px solid red;
+  font-weight: 800;
+  border-radius: 14px;
   background: #000;
   color: #fff;
+  border: 2px solid red;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
   cursor: pointer;
   display: none;
@@ -126,11 +120,4 @@ header {
 
 #back-to-top.show {
   display: block;
-}
-
-/* ================= RESPONSIVO ================= */
-@media (max-width: 600px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 cards mesmo em mobile */
-  }
 }
