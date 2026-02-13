@@ -1,87 +1,107 @@
-/* ===== RESET BÁSICO ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* ===== BASE ===== */
 body {
+  margin: 0;
   background: #000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ===== HEADER ===== */
 .main-header {
-  padding: 14px 12px 10px;
+  padding: 12px;
 }
 
-.nav-top,
-.nav-bottom {
+/* LINHA DE CIMA */
+.nav-top {
   display: flex;
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+  padding-bottom: 10px;
 }
 
-/* espaço entre linhas (AJUSTE FINO) */
-.nav-top {
-  margin-bottom: 14px;
-}
-
+/* LINHA DE BAIXO */
 .nav-bottom {
-  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 6px;
 }
 
+/* BOTÕES */
 .nav-btn {
   text-decoration: none;
   color: #fff;
-  padding: 14px 20px;
-  border-radius: 22px;
-  border: 2px solid red;
   background: #000;
-  font-weight: 600;
+  border: 2px solid red;
+  border-radius: 16px;
+  padding: 12px 18px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
   text-align: center;
-  min-width: 120px;
 }
 
 .nav-btn.wide {
-  min-width: 160px;
+  flex: 1;
+  max-width: 220px;
 }
 
+/* ATIVO (glow controlado) */
 .nav-btn.active {
-  box-shadow: 0 0 14px red;
+  box-shadow:
+    0 0 10px rgba(255,42,42,0.6),
+    0 0 18px rgba(255,42,42,0.4),
+    0 6px 18px rgba(0,0,0,0.7);
 }
 
 /* ===== CONTEÚDO ===== */
 .content {
-  padding: 16px;
+  padding: 12px;
 }
 
-/* ===== GRID DE CORRIDAS ===== */
+/* ===== GRID DAS CORRIDAS ===== */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* SEMPRE 2 lado a lado */
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+/* ===== CARD ===== */
 .race-card {
-  display: block;
-  text-decoration: none;
-  color: #fff;
   border: 2px solid red;
-  border-radius: 20px;
-  padding: 12px;
+  border-radius: 18px;
+  padding: 14px;
+  background: #000;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  cursor: pointer;
   text-align: center;
 }
 
-.race-card img {
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 12px;
+.race-card:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 10px rgba(255,42,42,0.7),
+    0 6px 18px rgba(0,0,0,0.8);
 }
 
+/* IMAGEM */
+.race-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+
+/* TÍTULO */
 .race-card h2 {
   font-size: 1rem;
+  font-weight: 800;
+  margin: 0;
   line-height: 1.3;
 }
