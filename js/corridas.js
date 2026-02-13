@@ -7,21 +7,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const raceCards = document.getElementById("race-cards");
   const backToTop = document.getElementById("back-to-top");
 
-  // Criar cards das corridas
   raceCards.innerHTML = "";
+
   calendar2026.forEach(race => {
     const card = document.createElement("div");
     card.className = "race-card";
+
     card.innerHTML = `
-      <a href="${race.id}.html">
-        <img src="../${race.cardImage}" alt="${race.name}">
-        <h3>${race.name}</h3>
-      </a>
+      <img src="../${race.cardImage}" alt="${race.name}">
+      <h2>${race.name}</h2>
     `;
+
+    card.addEventListener("click", () => {
+      window.location.href = `../race/${race.id}.html`;
+    });
+
     raceCards.appendChild(card);
   });
 
-  // Back to top
+  /* =========================
+     BACK TO TOP
+  ========================= */
   window.addEventListener("scroll", () => {
     backToTop.classList.toggle("show", window.scrollY > 400);
   });
