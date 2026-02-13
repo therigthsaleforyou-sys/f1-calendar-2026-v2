@@ -1,43 +1,35 @@
-// js/teams.js
-
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Cards das equipas
-  const teams = [
-    { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
-    { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
-    { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
-    { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
-    { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
-    { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
-    { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
-    { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
-    { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
-    { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
-    { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
-  ];
+  if (!window.teamsData || !Array.isArray(window.teamsData)) {
+    console.error("teamsData não carregado");
+    return;
+  }
 
-  const teamsCards = document.getElementById("teams-cards");
-  teams.forEach(team => {
+  const container = document.getElementById("teams-container");
+
+  teamsData.forEach(team => {
     const card = document.createElement("div");
-    card.className = "team-card";
+    card.className = "race-card"; // mantém a mesma classe que os outros cards
+
     card.innerHTML = `
-      <img src="${team.logo}" alt="${team.name}">
+      <img src="${team.image}" alt="${team.name}">
       <h3>${team.name}</h3>
-      <p><strong>Pilotos:</strong></p>
-      ${team.drivers.map(d => `<p>${d}</p>`).join("")}
+      <p>${team.drivers.join(" & ")}</p>
     `;
-    teamsCards.appendChild(card);
+
+    container.appendChild(card);
   });
 
-  // Back to top
+  /* =========================
+     BACK TO TOP
+  ========================= */
   const backToTop = document.getElementById("back-to-top");
+
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
+    backToTop.classList.toggle("show", window.scrollY > 400);
   });
+
   backToTop.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-
 });
