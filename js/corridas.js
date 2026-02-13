@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.className = "corrida-card";
 
     card.innerHTML = `
-      <a href="race/${race.id}.html">
+      <a href="${race.id}.html">
         <img src="${race.cardImage}" alt="${race.name}">
         <h3>${race.name}</h3>
       </a>
