@@ -64,7 +64,7 @@ header {
 /* ================= CARDS GRID ================= */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* mobile: 2 cards lado a lado */
   gap: 14px;
   max-width: 960px;
   margin: 20px auto;
@@ -120,4 +120,12 @@ header {
 
 #back-to-top.show {
   display: block;
+}
+
+/* ================= MEDIA QUERY PARA DESKTOP (opcional) ================= */
+/* Caso queira, acima de 768px, mantém 2 ou muda grid conforme necessidade */
+@media(min-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
