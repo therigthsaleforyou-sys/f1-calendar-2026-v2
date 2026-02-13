@@ -2,39 +2,42 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const btnCorridas = document.getElementById("btn-corridas");
-  const corridasList = document.getElementById("corridas-list");
+  // Cards das equipas
+  const teams = [
+    { name: "McLaren", logo: "assets/teams/mclaren.png", drivers: ["Lando Norris", "Oscar Piastri"] },
+    { name: "Mercedes", logo: "assets/teams/mercedes.png", drivers: ["George Russell", "Kimi Antonelli"] },
+    { name: "Red Bull Racing", logo: "assets/teams/redbull.png", drivers: ["Max Verstappen", "Isack Hadjar"] },
+    { name: "Ferrari", logo: "assets/teams/ferrari.png", drivers: ["Charles Leclerc", "Lewis Hamilton"] },
+    { name: "Aston Martin", logo: "assets/teams/astonmartin.png", drivers: ["Fernando Alonso", "Lance Stroll"] },
+    { name: "Williams", logo: "assets/teams/williams.png", drivers: ["Alexander Albon", "Carlos Sainz Jr."] },
+    { name: "Audi F1 Team", logo: "assets/teams/audi.png", drivers: ["Nico Hülkenberg", "Gabriel Bortoleto"] },
+    { name: "Alpine", logo: "assets/teams/alpine.png", drivers: ["Pierre Gasly", "Franco Colapinto"] },
+    { name: "Haas", logo: "assets/teams/haas.png", drivers: ["Esteban Ocon", "Oliver Bearman"] },
+    { name: "Racing Bulls", logo: "assets/teams/racing-bulls.png", drivers: ["Liam Lawson", "Arvid Lindblad"] },
+    { name: "Cadillac F1 Team", logo: "assets/teams/cadillac.png", drivers: ["Sergio Pérez", "Valtteri Bottas"] }
+  ];
 
-  if (!window.calendar2026) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
-
-  // Preencher dropdown com as corridas na ordem do calendário
-  calendar2026.forEach(race => {
-    const a = document.createElement("a");
-    a.href = `race/${race.id}.html`;
-    a.textContent = race.name;
-    corridasList.appendChild(a);
+  const teamsCards = document.getElementById("teams-cards");
+  teams.forEach(team => {
+    const card = document.createElement("div");
+    card.className = "team-card";
+    card.innerHTML = `
+      <img src="${team.logo}" alt="${team.name}">
+      <h3>${team.name}</h3>
+      <p><strong>Pilotos:</strong></p>
+      ${team.drivers.map(d => `<p>${d}</p>`).join("")}
+    `;
+    teamsCards.appendChild(card);
   });
 
-  // Toggle dropdown
-  btnCorridas.addEventListener("click", (e) => {
-    e.stopPropagation();
-    btnCorridas.parentElement.classList.toggle("show");
+  // Back to top
+  const backToTop = document.getElementById("back-to-top");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
   });
-
-  // Fechar dropdown ao clicar fora
-  document.addEventListener("click", () => {
-    btnCorridas.parentElement.classList.remove("show");
-  });
-
-  // Glow discreto ao clicar no botão
-  btnCorridas.addEventListener("mousedown", () => {
-    btnCorridas.classList.add("active");
-  });
-  btnCorridas.addEventListener("mouseup", () => {
-    btnCorridas.classList.remove("active");
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
 });
