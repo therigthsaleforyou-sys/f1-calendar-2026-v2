@@ -1,25 +1,29 @@
 // js/corridas.js
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
+
+  if (!window.calendar2026 || !Array.isArray(calendar2026)) {
     console.error("calendar2026 não carregado");
     return;
   }
 
-  const raceCards = document.getElementById("race-cards");
-
-  raceCards.innerHTML = "";
+  const grid = document.getElementById("corridas-grid");
 
   calendar2026.forEach(race => {
+
     const card = document.createElement("div");
     card.className = "race-card";
 
     card.innerHTML = `
-      <a href="${race.id}.html">
-        <img src="../${race.cardImage}" alt="${race.name}">
-        <h3>${race.name}</h3>
-      </a>
+      <img src="../${race.cardImage}" alt="${race.name}">
+      <h2>${race.name}</h2>
     `;
 
-    raceCards.appendChild(card);
+    card.addEventListener("click", () => {
+      window.location.href = `${race.id}.html`;
+    });
+
+    grid.appendChild(card);
   });
+
 });
