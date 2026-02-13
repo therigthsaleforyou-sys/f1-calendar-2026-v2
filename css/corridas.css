@@ -1,0 +1,93 @@
+/* Página Corridas F1 2026 */
+
+/* ================= HEADER ================= */
+header {
+  padding: 10px;
+}
+
+/* ================= NAV ================= */
+.nav-top, .nav-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-top a, .nav-bottom a {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.nav-top a.active, .nav-bottom a.active {
+  box-shadow: 0 0 14px 4px rgba(255,42,42,0.6), 0 0 20px rgba(255,42,42,0.4), 0 6px 20px rgba(0,0,0,0.5);
+  border-color: #ff2a2a;
+}
+
+/* ================= BACK TO TOP ================= */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 14px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 2px solid red;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  display: none;
+}
+#back-to-top.show {
+  display: block;
+}
+
+/* ================= CARDS GRID ================= */
+#corridas-cards {
+  max-width: 960px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 12px;
+}
+
+/* ================= CARD ================= */
+.corrida-card {
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.corrida-card a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+
+.corrida-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.corrida-card h3 {
+  margin: 8px 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-shadow: 0 2px 6px #000;
+}
