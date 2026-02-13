@@ -1,27 +1,20 @@
-/* Header */
+/* css/corridas.css */
+
+/* ================= HEADER ================= */
+header {
+  padding: 10px;
+}
+
+/* Linha de cima */
 .nav-top {
   display: flex;
   justify-content: center;
   gap: 10px;
-  flex-wrap: nowrap; /* manter 3 botões em linha */
+  padding-bottom: 12px;  /* ajustado para espaçamento melhor */
 }
 
-.nav-top a {
-  flex: 1 1 auto;
-}
-
-.nav-bottom {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: nowrap; /* manter 2 botões em linha */
-}
-
-.nav-bottom a {
-  flex: 1 1 45%;
-}
-
-.nav-top a, .nav-bottom a {
+.nav-top .nav-btn {
+  flex: 1;
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
@@ -32,76 +25,112 @@
   border: 2px solid red;
   border-radius: 14px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
 }
 
-.nav-bottom a.active {
-  box-shadow: 0 0 8px 2px rgba(255,42,42,0.7), 0 0 12px rgba(255,42,42,0.5), 0 4px 10px rgba(0,0,0,0.5);
+.nav-top .nav-btn.active {
+  box-shadow: 0 0 14px 4px rgba(255,42,42,0.8), 0 0 20px rgba(255,42,42,0.6), 0 6px 20px rgba(0,0,0,0.6);
   border-color: #ff2a2a;
 }
 
-/* Back to top */
-.back-to-top {
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  padding: 10px 14px;
-  font-weight: 700;
-  background: #000;
+/* Linha de baixo */
+.nav-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 8px;  /* ajustado */
+}
+
+.nav-bottom .nav-btn {
+  flex: 2;
+  text-align: center;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.85rem;
   color: #fff;
+  background: #000;
   border: 2px solid red;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.12s ease;
-  z-index: 1000;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
 }
 
-.back-to-top.show {
-  opacity: 1;
+.nav-bottom .nav-btn.active {
+  box-shadow: 0 0 14px 4px rgba(255,42,42,0.8), 0 0 20px rgba(255,42,42,0.6), 0 6px 20px rgba(0,0,0,0.6);
+  border-color: #ff2a2a;
 }
 
-.back-to-top:active {
-  transform: translateY(2px);
-}
-
-/* ================= CARDS ================= */
-#race-cards {
-  max-width: 480px;
+/* ================= CARDS GRID ================= */
+.cards-grid {
+  max-width: 900px;
   margin: 0 auto;
   padding: 12px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 16px;
 }
 
+/* ================= CARD ================= */
 .race-card {
-  background: #000;
   border: 2px solid red;
   border-radius: 14px;
-  overflow: hidden;
+  padding: 12px;
   text-align: center;
+  background: #000;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
 }
 
-.race-card a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
+.race-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 8px 18px rgba(0,0,0,0.7);
+  border-color: #ff2a2a;
 }
 
+/* ================= IMAGEM E TITULO ================= */
 .race-card img {
   width: 100%;
-  height: 140px;
+  max-width: 260px;
+  margin: 0 auto 10px auto;
+  display: block;
+  border-radius: 14px;
+  cursor: pointer;
   object-fit: cover;
+}
+
+.race-card h2 {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* ================= BACK TO TOP ================= */
+#back-to-top {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  padding: 10px 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 2px solid red;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+}
+
+#back-to-top.show {
   display: block;
 }
 
-.race-card h3 {
-  margin: 8px 0;
-  font-size: 1rem;
-  font-weight: 800;
-  text-shadow: 0 2px 6px #000;
+/* ================= RESPONSIVO ================= */
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards mesmo em mobile */
+  }
 }
