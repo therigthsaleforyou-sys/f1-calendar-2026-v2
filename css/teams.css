@@ -1,138 +1,25 @@
-/* css/teams.css */
-/* Página Equipas — estado estável */
-/* Mobile-first | visual F1 premium */
+/* Reset e box-sizing */
+* { box-sizing: border-box; margin:0; padding:0; -webkit-tap-highlight-color: transparent; }
+body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0b0b0b; color:#fff; line-height:1.5; }
 
-/* ================= HEADER ================= */
-header {
-  padding: 10px;
-}
+/* HEADER */
+header { padding:12px; background:#000; border-bottom:2px solid #ff0000; }
+nav { display:flex; gap:10px; }
+nav a { flex:1; text-align:center; text-decoration:none; color:#fff; padding:10px 0; border:2px solid #ff0000; border-radius:14px; font-weight:700; transition:box-shadow 0.2s ease, transform 0.1s ease; }
+nav a.wide { flex:2; }
+nav a:hover { box-shadow:0 0 12px rgba(255,0,0,0.8); }
+nav a:active { transform: scale(0.96); }
+nav a.active { box-shadow:0 0 16px rgba(255,0,0,1); }
 
-/* ================= NAV HEADER — 2 LINHAS ================= */
+/* CARDS */
+.cards-wrapper { padding:12px; display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; }
+.race-card { border:2px solid #ff0000; border-radius:16px; padding:12px; margin-bottom:20px; transition:border-color 0.2s ease, box-shadow 0.2s ease; background:#111; text-align:center; }
+.race-card img { width:100%; border-radius:14px; margin-bottom:8px; object-fit:contain; }
+.race-card h3 { margin:6px 0; font-size:1.2rem; font-weight:800; color:#fff; text-shadow:0 2px 6px #000; }
+.race-card p { margin:0; font-size:0.9rem; font-weight:600; color:#ccc; line-height:1.4; }
 
-/* Linha de cima */
-.nav-top {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding-bottom: 14px; /* espaço entre linhas */
-}
-
-.nav-top a {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #fff;
-  background: #000;
-  border: 2px solid red;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-}
-
-.nav-top a:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 4px 10px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-/* Glow discreto do botão ativo */
-.nav-top a.active {
-  box-shadow: 0 0 8px 2px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-/* Linha de baixo */
-.nav-bottom {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding-top: 6px;
-}
-
-/* Botões da linha de baixo */
-.nav-bottom a {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #fff;
-  background: #000;
-  border: 2px solid red;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-  cursor: pointer;
-}
-
-.nav-bottom a:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 10px rgba(255,42,42,0.5), 0 4px 10px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-.nav-bottom a.active {
-  box-shadow: 0 0 8px 2px rgba(255,42,42,0.6), 0 4px 12px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-/* ================= TEAMS CARDS ================= */
-#teams-cards {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 12px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-/* ================= TEAM CARD ================= */
-.team-card {
-  border: 2px solid red;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 16px;
-  text-align: center;
-  background: #000;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-}
-
-.team-card:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255,42,42,0.9), 0 0 14px rgba(255,42,42,0.6), 0 8px 18px rgba(0,0,0,0.7);
-  border-color: #ff2a2a;
-}
-
-/* ================= LOGO ================= */
-.team-card img {
-  width: 100%;
-  max-width: 220px;
-  margin: 0 auto 12px auto;
-  display: block;
-  border-radius: 14px;
-  object-fit: contain;
-}
-
-/* ================= TEXTOS ================= */
-.team-card h3 {
-  margin: 6px 0 6px 0;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 2px 6px #000;
-  text-align: center;
-}
-
-.team-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ccc;
-  text-align: center;
-  line-height: 1.4;
-}
+/* BACK TO TOP */
+#back-to-top { position:fixed; bottom:80px; right:20px; display:none; background:#000; color:#fff; border:2px solid #ff0000; border-radius:14px; padding:10px 16px; font-weight:700; font-size:16px; cursor:pointer; z-index:999; transition:box-shadow 0.2s ease, transform 0.1s ease; }
+#back-to-top:hover { box-shadow:0 0 12px rgba(255,0,0,0.8); }
+#back-to-top:active { transform: scale(0.96); }
+#back-to-top.show { display:block; }
