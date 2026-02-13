@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const raceCards = document.getElementById("race-cards");
-  const backToTop = document.getElementById("back-to-top");
 
   raceCards.innerHTML = "";
 
@@ -16,20 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     card.innerHTML = `
       <a href="${race.id}.html">
-        <img class="race-image" src="../${race.cardImage}" alt="${race.name}">
+        <img src="../${race.cardImage}" alt="${race.name}">
         <h3>${race.name}</h3>
       </a>
     `;
 
     raceCards.appendChild(card);
-  });
-
-  // Back to top
-  window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
