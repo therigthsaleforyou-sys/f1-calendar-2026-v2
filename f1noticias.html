@@ -4,28 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 Notícias 2026</title>
+
+  <!-- CSS base canónico -->
   <link rel="stylesheet" href="css/style.css">
+  <!-- CSS específico desta página -->
+  <link rel="stylesheet" href="css/noticias.css">
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <nav>
+  <!-- HEADER CANÓNICO (4 + 2) -->
+  <header class="main-header">
+
+    <!-- LINHA DE CIMA -->
+    <nav class="nav-top">
       <a href="index.html">Calendário</a>
       <a href="teams.html">Equipas</a>
       <a href="f1noticias.html" class="active">Notícias</a>
       <a href="race/resultados.html">Resultados</a>
     </nav>
+
+    <!-- LINHA DE BAIXO -->
+    <nav class="nav-bottom">
+      <a href="race/campeonatos.html" class="wide">Campeonatos</a>
+      <a href="race/corridas.html" class="wide">Corridas</a>
+    </nav>
+
   </header>
 
   <!-- HERO -->
   <section id="hero">
     <img id="hero-image" src="assets/heroes/australia_v2.jpg" alt="Hero Corrida">
     <h2 id="hero-title"></h2>
-    <div id="hero-countdown" style="display:none;"></div> <!-- Countdown invisível -->
+    <div id="hero-countdown" style="display:none;"></div>
   </section>
 
-  <!-- CARDS DAS CORRIDAS -->
+  <!-- CONTEÚDO / NOTÍCIAS -->
   <section id="race-cards-wrapper">
     <div id="race-cards"></div>
   </section>
