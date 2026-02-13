@@ -1,59 +1,27 @@
-/* ===============================
-   CORRIDAS — ESTADO ESTÁVEL FINAL
-   Mobile-first
-================================ */
-
-/* ================= HEADER ================= */
-
-/* Linha de cima — 3 botões */
+/* Header */
 .nav-top {
   display: flex;
   justify-content: center;
   gap: 10px;
-  flex-wrap: nowrap;
-
-  /* AJUSTE FINO DO ESPAÇO */
-  padding-bottom: 6px;
-  margin-bottom: 0;
+  flex-wrap: nowrap; /* manter 3 botões em linha */
 }
 
 .nav-top a {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #fff;
-  background: #000;
-  border: 2px solid red;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+  flex: 1 1 auto;
 }
 
-.nav-top a:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255,42,42,0.9),
-              0 0 14px rgba(255,42,42,0.6),
-              0 4px 10px rgba(0,0,0,0.6);
-  border-color: #ff2a2a;
-}
-
-/* Linha de baixo — 2 botões */
 .nav-bottom {
   display: flex;
   justify-content: center;
   gap: 10px;
-  flex-wrap: nowrap;
-
-  /* AJUSTE FINO DO ESPAÇO */
-  padding-top: 0;
-  margin-top: 0;
+  flex-wrap: nowrap; /* manter 2 botões em linha */
 }
 
 .nav-bottom a {
-  flex: 1;
+  flex: 1 1 45%;
+}
+
+.nav-top a, .nav-bottom a {
   text-align: center;
   padding: 10px 0;
   text-decoration: none;
@@ -68,68 +36,11 @@
 }
 
 .nav-bottom a.active {
-  box-shadow: 0 0 8px 2px rgba(255,42,42,0.7),
-              0 0 12px rgba(255,42,42,0.5),
-              0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 8px 2px rgba(255,42,42,0.7), 0 0 12px rgba(255,42,42,0.5), 0 4px 10px rgba(0,0,0,0.5);
   border-color: #ff2a2a;
 }
 
-.nav-bottom a:active {
-  transform: translateY(2px);
-}
-
-/* ================= RACE CARDS ================= */
-
-#race-cards {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 12px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.race-card {
-  background: #000;
-  border: 2px solid red;
-  border-radius: 14px;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
-}
-
-.race-card:active {
-  transform: translateY(2px);
-  box-shadow: 0 0 0 2px rgba(255,42,42,0.9),
-              0 0 14px rgba(255,42,42,0.6),
-              0 8px 18px rgba(0,0,0,0.7);
-  border-color: #ff2a2a;
-}
-
-.race-card a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-}
-
-.race-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  display: block;
-}
-
-.race-card h3 {
-  margin: 8px 6px;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 2px 6px #000;
-}
-
-/* ================= BACK TO TOP ================= */
-
+/* Back to top */
 .back-to-top {
   position: fixed;
   bottom: 12px;
@@ -153,4 +64,44 @@
 
 .back-to-top:active {
   transform: translateY(2px);
+}
+
+/* ================= CARDS ================= */
+#race-cards {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.race-card {
+  background: #000;
+  border: 2px solid red;
+  border-radius: 14px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.race-card a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+}
+
+.race-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.race-card h3 {
+  margin: 8px 0;
+  font-size: 1rem;
+  font-weight: 800;
+  text-shadow: 0 2px 6px #000;
 }
