@@ -83,7 +83,6 @@ function render() {
 
       <div class="result-countdown" data-id="${race.id}"></div>
 
-      <!-- Dropbox sempre presente -->
       <div class="race-details hidden">
         <p><strong>Meteorologia:</strong> —</p>
         <p><strong>Pole Position:</strong> —</p>
