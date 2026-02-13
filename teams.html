@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equipas</title>
+  <title>Equipas F1</title>
+
+  <!-- CSS base + específico -->
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/teams.css">
 </head>
 
@@ -13,29 +16,29 @@
 
   <!-- LINHA DE CIMA -->
   <nav class="nav-top">
-    <a href="index.html" class="nav-btn">Calendário</a>
-    <a href="teams.html" class="nav-btn active">Equipas</a>
-    <a href="f1noticias.html" class="nav-btn">Notícias</a>
-    <a href="race/resultados.html" class="nav-btn">Resultados</a>
+    <a href="index.html">Calendário</a>
+    <a href="teams.html" class="active">Equipas</a>
+    <a href="f1noticias.html">Notícias</a>
+    <a href="race/resultados.html">Resultados</a>
   </nav>
 
   <!-- LINHA DE BAIXO -->
   <nav class="nav-bottom">
-    <a href="race/campeonatos.html" class="nav-btn wide">Campeonatos</a>
-    <a href="race/corridas.html" class="nav-btn wide">Corridas</a>
+    <a href="race/campeonatos.html" class="wide">Campeonatos</a>
+    <a href="race/corridas.html" class="wide">Corridas</a>
   </nav>
 
 </header>
 
 <main class="content">
 
-  <section class="cards-wrapper" id="teams-container">
-    <!-- JS vai preencher os cards das equipas aqui -->
+  <section id="teams-container" class="teams-grid">
+    <!-- cards vêm do JS -->
   </section>
 
 </main>
 
-<button id="back-to-top">Topo</button>
+<button id="back-to-top">Voltar ao topo</button>
 
 <script src="js/teams.js"></script>
 </body>
