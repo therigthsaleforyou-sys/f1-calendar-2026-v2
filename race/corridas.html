@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Corridas F1 2026</title>
 
-  <!-- CSS global -->
   <link rel="stylesheet" href="../css/style.css">
-  <!-- CSS específico da página -->
   <link rel="stylesheet" href="../css/corridas.css">
 </head>
 <body>
@@ -19,7 +17,6 @@
       <a href="../index.html">Calendário</a>
       <a href="../teams.html">Equipas</a>
       <a href="../f1noticias.html">Notícias</a>
-      <a href="resultados.html">Resultados</a>
     </nav>
 
     <!-- Linha de baixo -->
@@ -34,6 +31,9 @@
     <section id="race-cards"></section>
   </main>
 
+  <!-- ================= BACK TO TOP ================= -->
+  <button id="back-to-top" class="back-to-top">⬆ Voltar ao Topo</button>
+
   <!-- ================= FOOTER ================= -->
   <footer style="text-align:center;padding:20px;opacity:.6">
     Calendário F1 – Projeto Independente
@@ -42,5 +42,15 @@
   <!-- ================= JS ================= -->
   <script src="../data/calendar2026-v2.js"></script>
   <script src="../js/corridas.js"></script>
+  <script>
+    // Back to top
+    const backToTop = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 400);
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </body>
 </html>
