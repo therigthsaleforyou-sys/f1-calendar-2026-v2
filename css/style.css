@@ -53,8 +53,7 @@ nav a.active {
 #hero { margin:16px; padding:12px; border:2px solid #fff; border-radius:16px; text-align:center; }
 #hero img { width:100%; border-radius:14px; display:block; cursor:pointer; }
 #hero h2 { margin:12px 0 6px; }
-#hero .countdown {
-  margin-top: 10px;
+#hero .countdown { margin-top: 10px;
   font-size: clamp(20px, 5vw, 34px);
   font-weight: 800;
   color: #ff0000;
