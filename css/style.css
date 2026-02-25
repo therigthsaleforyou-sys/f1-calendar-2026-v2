@@ -38,22 +38,23 @@ nav a.active {
   box-shadow:0 0 16px rgba(255,0,0,1); 
 }
 
-/* ===== AJUSTE FINO DO ESPAÇO ENTRE LINHAS DO HEADER ===== */
-.nav-top {
-  padding-bottom: 6px;   /* espaço inferior da primeira linha */
-  margin-bottom: 0;
-}
-
-.nav-bottom {
-  padding-top: 6px;      /* espaço superior da segunda linha */
-  margin-top: 0;
-}
+/* AJUSTE FINO HEADER */
+.nav-top { padding-bottom:6px; margin-bottom:0; }
+.nav-bottom { padding-top:6px; margin-top:0; }
 
 /* HERO */
 #hero { margin:16px; padding:12px; border:2px solid #fff; border-radius:16px; text-align:center; }
 #hero img { width:100%; border-radius:14px; display:block; cursor:pointer; }
 #hero h2 { margin:12px 0 6px; }
-#hero .countdown { color:#ff0000; font-weight:bold; font-size:1.2rem; margin-top:10px; }
+#hero #hero-countdown { 
+  display:block; 
+  font-weight:bold; 
+  font-size:clamp(28px,6vw,44px); 
+  color:#ff0000; 
+  text-align:center; 
+  margin-top:10px; 
+  text-shadow: 0 0 4px rgba(0,0,0,1),0 0 10px rgba(0,0,0,0.95),0 0 18px rgba(0,0,0,0.9);
+}
 
 /* RACE CARDS */
 #race-cards { padding:12px; }
@@ -64,6 +65,9 @@ nav a.active {
 .race-header h3 { margin:0; }
 .fav-btn { background:none; border:none; font-size:1.3rem; cursor:pointer; color:#888; }
 .fav-btn.active { color:#ffd700; }
+
+/* Countdown nos cards */
+.card-countdown { color:#ff0000; font-weight:bold; font-size:1.2rem; text-align:left; margin-bottom:8px; }
 
 /* DROPBOX SUAVE */
 .race-details { overflow:hidden; transition:max-height 0.3s ease; margin-top:10px; line-height:1.6; }
