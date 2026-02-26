@@ -1,28 +1,24 @@
 // js/pistas.js
+// Controlo exclusivo das páginas individuais das corridas (ex.: australia.html)
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.calendar2026 || !Array.isArray(window.calendar2026)) {
-    console.error("calendar2026 não carregado");
-    return;
-  }
-
-  const raceId = "australia";
-  const race = calendar2026.find(r => r.id === raceId);
-  if (!race) {
-    console.error("Corrida não encontrada no calendar2026:", raceId);
-    return;
-  }
-
-  // ================= HERO COUNTDOWN =================
   const heroCountdown = document.getElementById("hero-countdown");
+  const backToTop = document.getElementById("back-to-top");
+  const favBtn = document.querySelector(".fav-btn");
 
-  function startCountdown(dateISO) {
+  // ======== DADOS DA CORRIDA (Austrália 2026) ========
+  const raceId = "australia";
+  const raceDateISO = "2026-03-08T05:00:00Z"; // data/hora oficial da corrida
+
+  // ======== COUNTDOWN ========
+  function startCountdown() {
     function update() {
       const now = new Date();
-      const target = new Date(dateISO);
+      const target = new Date(raceDateISO);
       const diff = target - now;
 
       if (diff <= 0) {
-        heroCountdown.textContent = "🏁 Corrida terminada — ver resultados";
+        heroCountdown.textContent = "🏁 Corrida terminada – ver resultados";
         return;
       }
 
@@ -38,17 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(update, 1000);
   }
 
-  startCountdown(race.sessions.race);
+  startCountdown();
 
-  // ================= FAVORITOS =================
-  const favBtn = document.querySelector(".fav-btn");
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  // ======== FAVORITOS ========
+  let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
   if (favorites.includes(raceId)) favBtn.classList.add("active");
 
   favBtn.addEventListener("click", () => {
     if (favorites.includes(raceId)) {
-      favorites.splice(favorites.indexOf(raceId), 1);
+      favorites = favorites.filter(id => id !== raceId);
       favBtn.classList.remove("active");
     } else {
       favorites.push(raceId);
@@ -57,8 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   });
 
-  // ================= BACK TO TOP =================
-  const backToTop = document.getElementById("back-to-top");
+  // ======== BOTÃO VOLTAR AO TOPO ========
   window.addEventListener("scroll", () => {
     backToTop.classList.toggle("show", window.scrollY > 400);
   });
