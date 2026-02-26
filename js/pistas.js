@@ -5,23 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Identificador desta corrida
   const raceId = "australia";
-
-  // Buscar dados da corrida pelo ID
   const race = calendar2026.find(r => r.id === raceId);
   if (!race) {
     console.error("Corrida não encontrada no calendar2026:", raceId);
     return;
   }
 
-  // ================= HERO + COUNTDOWN =================
+  // ================= HERO COUNTDOWN =================
   const heroCountdown = document.getElementById("hero-countdown");
-  const heroImage = document.getElementById("hero-image");
-  const heroTitle = document.getElementById("hero-title");
-
-  heroImage.src = race.heroImage || race.cardImage;
-  heroTitle.textContent = race.name;
 
   function startCountdown(dateISO) {
     function update() {
