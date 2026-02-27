@@ -40,7 +40,6 @@
   <section id="race-cards">
     <div class="race-card">
       <img src="../assets/diagramas/japan2d.jpg" alt="Diagrama da pista – Japão">
-      
       <div class="race-header">
         <h3>Grande Prémio do Japão – 2026</h3>
         <button class="fav-btn" data-id="japan">🏁</button>
@@ -48,16 +47,14 @@
 
       <div class="race-details">
         <h4>Resultados 2025</h4>
-        <p><strong>Pole:</strong> Max Verstappen – 1:28.100</p>
-        <p><strong>Pódio:</strong> 1º Max Verstappen, 2º Lando Norris, 3º Charles Leclerc</p>
-        <p><strong>Volta mais rápida:</strong> Oscar Piastri – 1:30.400</p>
-        <p><strong>Meteorologia:</strong> Seco, 24°C</p>
+        <p><strong>Pole:</strong> Max Verstappen – 1:28.900</p>
+        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Max Verstappen, 3º Charles Leclerc</p>
+        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:31.200</p>
+        <p><strong>Meteorologia:</strong> Chuva, 18°C</p>
       </div>
 
-      <!-- BOTÃO RESULTADOS -->
-      <a href="resultados.html#japan" class="back-calendar-btn">
-        🏁 Ver Resultados
-      </a>
+      <!-- Botão para resultados -->
+      <a href="resultados.html#japan" class="back-calendar-btn">🏁 Ver Resultados</a>
     </div>
   </section>
 
@@ -71,63 +68,7 @@
 <button id="back-to-top">Voltar ao topo</button>
 
 <!-- SCRIPT DA PÁGINA -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* COUNTDOWN FIXO — JAPÃO 22-03-2026 */
-  const countdownEl = document.getElementById("hero-countdown");
-  const raceDate = new Date("2026-03-22T05:00:00Z");
-
-  function updateCountdown() {
-    const now = new Date();
-    const diff = raceDate - now;
-
-    if (diff <= 0) {
-      countdownEl.textContent = "🏁 Corrida terminada — ver resultados";
-      return;
-    }
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const m = Math.floor((diff / (1000 * 60)) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-
-    countdownEl.textContent = `🏁 ${d}d ${h}h ${m}m ${s}s 🏁`;
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  /* FAVORITOS */
-  const favBtn = document.querySelector(".fav-btn");
-  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-  if (favorites.includes("japan")) favBtn.classList.add("active");
-
-  favBtn.addEventListener("click", () => {
-    if (favorites.includes("japan")) {
-      favorites.splice(favorites.indexOf("japan"), 1);
-      favBtn.classList.remove("active");
-    } else {
-      favorites.push("japan");
-      favBtn.classList.add("active");
-    }
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  });
-
-  /* BACK TO TOP */
-  const backToTop = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 400) backToTop.classList.add("show");
-    else backToTop.classList.remove("show");
-  });
-
-  backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-});
-</script>
+<script src="../js/pistas.js"></script>
 
 </body>
 </html>
