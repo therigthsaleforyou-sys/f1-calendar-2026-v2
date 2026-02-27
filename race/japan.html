@@ -47,10 +47,10 @@
 
       <div class="race-details">
         <h4>Resultados 2025</h4>
-        <p><strong>Pole:</strong> Max Verstappen – 1:29.800</p>
-        <p><strong>Pódio:</strong> 1º Lewis Hamilton, 2º Sergio Pérez, 3º Charles Leclerc</p>
-        <p><strong>Volta mais rápida:</strong> Lando Norris – 1:32.500</p>
-        <p><strong>Meteorologia:</strong> Parcialmente nublado, 25°C</p>
+        <p><strong>Pole:</strong> Max Verstappen – 1:26.983</p>
+        <p><strong>Pódio:</strong> 1º Max Verstappen, 2º Lando Norris, 3º Oscar Piastri</p>
+        <p><strong>Volta mais rápida:</strong> Andrea Kimi Antonelli – 1:30.965</p>
+        <p><strong>Meteorologia:</strong> Quente com possibilidade de chuva leve</p>
       </div>
 
       <!-- Botão para resultados -->
@@ -68,13 +68,12 @@
 <button id="back-to-top">Voltar ao topo</button>
 
 <!-- SCRIPT DA PÁGINA -->
-<script src="../js/pistas.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const heroCountdown = document.getElementById("hero-countdown");
 
-  // Data/hora oficial da corrida Japão 2026
-  const raceDateISO = "2026-03-22T05:00:00Z";
+  // Data correta da corrida Japão 2026
+  const raceDateISO = "2026-03-29T06:00:00Z";
 
   function startCountdown(dateISO) {
     function update() {
@@ -121,7 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* BACK TO TOP */
   const backToTop = document.getElementById("back-to-top");
   window.addEventListener("scroll", () => {
-    backToTop.classList.toggle("show", window.scrollY > 400);
+    if (window.scrollY > 400) backToTop.classList.add("show");
+    else backToTop.classList.remove("show");
   });
 
   backToTop.addEventListener("click", () => {
